@@ -91,7 +91,7 @@ async function verifyPanelEof(binary) {
 async function residentSmoke() {
   const binary = await installedBinary();
   const result = await run(binary, ['--resident-smoke-test'], {timeout:60000,maxBuffer:1024*1024});
-  if (!result.stdout.includes('ASAAAN_RESIDENT_SMOKE_OK CP004 cycles=3')) throw Error('Resident cycle verification failed. '+result.stdout+result.stderr);
+  if (!result.stdout.includes('ASAAAN_RESIDENT_SMOKE_OK CP005 cycles=3')) throw Error('Resident cycle verification failed. '+result.stdout+result.stderr);
   const pids=[...result.stderr.matchAll(/ASAAAN_LIFECYCLE Started\((\d+)\)/g)].map(m=>Number(m[1]));
   if(pids.length!==3 || new Set(pids).size!==3) throw Error('Expected three distinct panel processes');
   for(const pid of pids) { try { process.kill(pid,0); } catch(e) {if(e.code==='ESRCH')continue;throw e;} throw Error('Panel process remains after dismissal: '+pid); }
@@ -103,7 +103,7 @@ async function residentSmoke() {
 
 async function applicationSmoke() {
   const binary=await installedBinary();
-  const scratch=await fs.mkdtemp(path.join(os.tmpdir(),'asaaan cp004-'));
+  const scratch=await fs.mkdtemp(path.join(os.tmpdir(),'asaaan cp005-'));
   try {
     const data=path.join(scratch,'data');const system=path.join(scratch,'system');const marker=path.join(scratch,'marker.json');const probe=path.join(scratch,'probe.mjs');
     await fs.mkdir(path.join(data,'applications'),{recursive:true});await fs.mkdir(system,{recursive:true});

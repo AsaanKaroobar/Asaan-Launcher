@@ -54,11 +54,14 @@ export async function confirmPanelPresented(sequence: number, focused: boolean):
   if (isTauri()) await invoke("panel_presented", {sequence, focused});
 }
 
-export interface ApplicationSearch { rows: SearchResult[]; total: number; generation: number; warning: string | null }
+export interface Personalization { favorites: string[]; queries: string[]; rememberSearches: boolean }
+export type PersonalizationChange = {kind:"favorite";id:string;enabled:boolean}|{kind:"clearQueries"}|{kind:"rememberSearches";enabled:boolean};
+export async function changePersonalization(operation:PersonalizationChange):Promise<Personalization>{return invoke("change_personalization",{operation});}
+export interface ApplicationSearch { rows: SearchResult[]; total: number; generation: number; warning: string | null; favorites?:string[];queries?:string[];rememberSearches?:boolean }
 export async function searchApplications(query: string, refresh = false): Promise<ApplicationSearch> {
   if (!isTauri()) throw new Error("Applications are available in the native desktop app.");
   return invoke("search_applications", {query, refresh});
 }
-export async function launchApplication(id: string): Promise<void> { return invoke("launch_application", {id}); }
+export async function launchApplication(id: string,query=""): Promise<{warning:string|null}|void> { return invoke("launch_application", {id,query}); }
 export async function applicationIcon(id: string): Promise<string | null> { return invoke("application_icon", {id}); }
 export async function reportApplicationLaunched(id: string): Promise<void> { return invoke("application_launch_ready", {id}); }

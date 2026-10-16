@@ -57,10 +57,50 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
         config.arguments.push("--shortcut-unavailable".into());
     }
     let (events_tx, events) = mpsc::channel();
-    let (control, worker) = process::start(config, move |event| {
-        eprintln!("ASAAAN_LIFECYCLE {event:?}");
-        let _ = events_tx.send(event);
-    });
+    let mut personalization = app
+        .path()
+        .app_data_dir()
+        .map_err(|e| e.to_string())
+        .and_then(|dir| asaaan_personalization::Store::open(dir.join("personalization.json")));
+    let (control, worker) = process::start_serviced(
+        config,
+        move |event| {
+            if !matches!(
+                &event,
+                Event::Packet(
+                    Packet::PersonalizationRequest { .. } | Packet::PersonalizationReply { .. }
+                )
+            ) {
+                eprintln!("ASAAAN_LIFECYCLE {event:?}");
+            }
+            let _ = events_tx.send(event);
+        },
+        move |packet| {
+            let Packet::PersonalizationRequest {
+                request_id,
+                operation,
+            } = packet
+            else {
+                return None;
+            };
+            let result = match &mut personalization {
+                Ok(store) => store.execute(operation, asaaan_personalization::now()),
+                Err(error) => Err(error.clone()),
+            };
+            Some(match result {
+                Ok(snapshot) => Packet::PersonalizationReply {
+                    request_id: *request_id,
+                    snapshot: Some(snapshot),
+                    error: None,
+                },
+                Err(error) => Packet::PersonalizationReply {
+                    request_id: *request_id,
+                    snapshot: None,
+                    error: Some(error),
+                },
+            })
+        },
+    );
     app.manage(Resident {
         control: control.clone(),
         worker: Mutex::new(Some(worker)),
@@ -114,7 +154,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP004 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP005 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }

@@ -47,4 +47,4 @@ Windows/macOS execution, Wayland packaged qualification, Finder display-name fid
 
 ## Delivery gates
 
-Package, install and run the validated Linux artifact locally for user review. Public publication and native macOS/Windows qualification remain independent pending gates. Performance upgrades are explicitly deferred by the user's instruction. Stop after CP004; CP005 is not started.
+Package, install and run the validated Linux artifact locally for user review. Public publication and native macOS/Windows qualification remain independent pending gates. Performance upgrades are explicitly deferred by the user's instruction. The user reviewed CP004 and explicitly authorized CP005 on 2026-10-16. Performance work remains deferred and public CP004 publication remains unverified. This record preserves the CP004 package evidence.

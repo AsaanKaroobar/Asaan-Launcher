@@ -30,7 +30,7 @@ jobs:
           cache: npm
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev librsvg2-dev libayatana-appindicator3-dev patchelf xvfb xauth
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev librsvg2-dev libayatana-appindicator3-dev patchelf xvfb xauth kwin-x11 x11-utils libxtst6 imagemagick python3
       - uses: dtolnay/rust-toolchain@1.95.0
         with:
           components: rustfmt, clippy
@@ -47,6 +47,7 @@ jobs:
           xvfb-run -a npm run smoke:local
           dbus-run-session -- xvfb-run -a npm run smoke:applications
           dbus-run-session -- xvfb-run -a npm run smoke:resident
+          npm run smoke:personalization
       - name: Upload checkpoint build artifacts (not a published release)
         uses: actions/upload-artifact@v4
         with:

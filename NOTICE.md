@@ -9,3 +9,5 @@ This project is distributed under AGPL-3.0. Retain original headers, licenses, n
 CP003 ports the lifecycle policy and finite-work lease ownership from Floe PanelLifetime.swift and PanelWork.swift. Original lifecycle sources and tests are preserved with provenance under tests/reference/lifecycle; original copyright is retained in the Rust policy/test files. Native process supervision and Tauri integration are implemented for this project.
 
 CP004 adapts Floe application bundle scan depth, duplicate identity/origin policy and scoped app-catalog tests. Unchanged original sources/tests and their hashes are in tests/reference/applications. Native GIO, bundle/open and Windows StartApps adapters use this project’s own application identities.
+
+Checkpoint 005 personalization and recall behavior is adapted from Floe Settings.swift, Model.swift, Model+Actions.swift and Model+Keys.swift, © 2026 René Jiménez, AGPL-3.0. Unchanged scoped reference files and test provenance are under tests/reference/personalization.

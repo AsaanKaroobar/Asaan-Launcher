@@ -46,6 +46,13 @@ elif sys.argv[1]=='ancestors':
   if children:x.XFree(children)
   w=parent
  print(ancestors)
+elif sys.argv[1]=='text':
+ for char in sys.argv[2]:
+  symbol='space' if char==' ' else char
+  key=x.XKeysymToKeycode(d,x.XStringToKeysym(symbol.encode()))
+  if not key:raise ValueError('Unsupported fixture character')
+  t.XTestFakeKeyEvent(d,key,1,0);t.XTestFakeKeyEvent(d,key,0,0);x.XSync(d,0);time.sleep(.035)
+ time.sleep(.15)
 elif sys.argv[1]=='state':
  x.XQueryKeymap.argtypes=[ctypes.c_void_p,ctypes.c_void_p];keys=ctypes.create_string_buffer(32);x.XQueryKeymap(d,keys);print([i for i in range(256) if keys.raw[i//8] & (1 << (i%8))])
 elif sys.argv[1]=='focus':

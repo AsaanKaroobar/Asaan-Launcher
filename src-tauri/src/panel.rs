@@ -15,8 +15,40 @@ pub struct Panel {
     output: mpsc::Sender<Packet>,
     visibility: Mutex<Visibility>,
     pub work: Work,
+    pending: Mutex<
+        std::collections::HashMap<
+            u64,
+            mpsc::Sender<Result<asaaan_personalization::Snapshot, String>>,
+        >,
+    >,
+    request_id: std::sync::atomic::AtomicU64,
 }
 impl Panel {
+    pub fn personalization(
+        &self,
+        operation: asaaan_personalization::Operation,
+    ) -> Result<asaaan_personalization::Snapshot, String> {
+        let request_id = self
+            .request_id
+            .fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+        let (tx, rx) = mpsc::channel();
+        self.pending.lock().unwrap().insert(request_id, tx);
+        self.send(Packet::PersonalizationRequest {
+            request_id,
+            operation,
+        });
+        let result = rx
+            .recv_timeout(Duration::from_secs(10))
+            .unwrap_or_else(|_| {
+                Err(
+                    "Resident personalization request timed out; reopen to check saved state"
+                        .into(),
+                )
+            });
+        self.pending.lock().unwrap().remove(&request_id);
+        result
+    }
+
     pub fn presented(&self, sequence: u64, focused: bool) -> Result<(), String> {
         let state = self.visibility.lock().unwrap();
         if state.sequence != sequence || !state.visible {
@@ -128,6 +160,8 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
             reported: false,
         }),
         work: Work::default(),
+        pending: Mutex::new(std::collections::HashMap::new()),
+        request_id: std::sync::atomic::AtomicU64::new(1),
     });
     std::thread::spawn(move || {
         let mut stdout = std::io::stdout().lock();
@@ -152,6 +186,26 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
                             target.exit(1);
                         }
                     });
+                }
+                Packet::PersonalizationReply {
+                    request_id,
+                    snapshot,
+                    error,
+                } => {
+                    if let Some(tx) = handle
+                        .state::<Panel>()
+                        .pending
+                        .lock()
+                        .unwrap()
+                        .remove(&request_id)
+                    {
+                        let result = match (snapshot, error) {
+                            (Some(state), None) => Ok(state),
+                            (_, Some(error)) => Err(error),
+                            _ => Err("Invalid resident personalization reply".into()),
+                        };
+                        let _ = tx.send(result);
+                    }
                 }
                 Packet::Shutdown => {
                     handle.exit(0);

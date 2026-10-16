@@ -20,11 +20,28 @@ pub enum Request {
 #[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Packet {
     Ready,
-    Request { request: Request, sequence: u64 },
-    Idle { sequence: u64 },
+    Request {
+        request: Request,
+        sequence: u64,
+    },
+    Idle {
+        sequence: u64,
+    },
     Shutdown,
-    Presented { sequence: u64, visible: bool },
+    Presented {
+        sequence: u64,
+        visible: bool,
+    },
     SearchVerified,
+    PersonalizationRequest {
+        request_id: u64,
+        operation: asaaan_personalization::Operation,
+    },
+    PersonalizationReply {
+        request_id: u64,
+        snapshot: Option<asaaan_personalization::Snapshot>,
+        error: Option<String>,
+    },
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Effect {

@@ -189,6 +189,14 @@ impl Store {
         }
     }
     pub fn search(&self, query: &str, force: bool) -> Result<SearchReply, String> {
+        self.search_with_context(query, force, asaaan_search::SearchContext::default())
+    }
+    pub fn search_with_context(
+        &self,
+        query: &str,
+        force: bool,
+        mut context: asaaan_search::SearchContext,
+    ) -> Result<SearchReply, String> {
         let stale = self
             .cache
             .lock()
@@ -248,10 +256,7 @@ impl Store {
                 keywords: a.keywords.clone(),
             })
             .collect();
-        let context = asaaan_search::SearchContext {
-            query: query.into(),
-            ..Default::default()
-        };
+        context.query = query.into();
         let rows = asaaan_search::merge(
             &[asaaan_search::Contribution {
                 ranked: items,

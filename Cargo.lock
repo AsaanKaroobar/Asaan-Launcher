@@ -61,10 +61,11 @@ dependencies = [
 
 [[package]]
 name = "asaaan-launcher"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "asaaan-apps",
  "asaaan-lifecycle",
+ "asaaan-personalization",
  "asaaan-search",
  "base64 0.22.1",
  "gdkx11",
@@ -83,8 +84,19 @@ dependencies = [
 name = "asaaan-lifecycle"
 version = "0.3.0"
 dependencies = [
+ "asaaan-personalization",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "asaaan-personalization"
+version = "0.5.0"
+dependencies = [
+ "asaaan-search",
+ "serde",
+ "serde_json",
+ "tempfile",
 ]
 
 [[package]]

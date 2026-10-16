@@ -316,3 +316,39 @@ fn theWorkerIsACatalogScanner() {
     let store = Store::new(Arc::new(|| Ok(vec![])));
     assert_eq!(store.search("", false).unwrap().generation, 1);
 }
+
+#[test]
+fn personalized_context_changes_the_real_catalog_order_without_losing_apps() {
+    let store = asaaan_apps::Store::new(std::sync::Arc::new(|| {
+        Ok(vec![
+            asaaan_apps::Application {
+                id: "app:a".into(),
+                name: "Alpha".into(),
+                location: "/a".into(),
+                identity: Some("a".into()),
+                origin: None,
+                keywords: vec![],
+                target: asaaan_apps::Target::Bundle("/a".into()),
+            },
+            asaaan_apps::Application {
+                id: "app:z".into(),
+                name: "Zulu".into(),
+                location: "/z".into(),
+                identity: Some("z".into()),
+                origin: None,
+                keywords: vec![],
+                target: asaaan_apps::Target::Bundle("/z".into()),
+            },
+        ])
+    }));
+    let context = asaaan_search::SearchContext {
+        favorites: vec!["app:z".into()],
+        frecency: std::collections::HashMap::from([("app:a".into(), 4.0)]),
+        ..Default::default()
+    };
+    let rows = store.search_with_context("", false, context).unwrap().rows;
+    assert_eq!(rows.len(), 2);
+    assert_eq!(rows[0].item.id, "app:z");
+    assert_eq!(rows[0].section.as_deref(), Some("Favorites"));
+    assert_eq!(rows[1].section.as_deref(), Some("Suggestions"));
+}

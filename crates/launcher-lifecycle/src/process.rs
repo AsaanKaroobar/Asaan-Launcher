@@ -55,7 +55,14 @@ struct Running {
 }
 pub fn start(
     config: Config,
+    observe: impl FnMut(Event) + Send + 'static,
+) -> (Controller, thread::JoinHandle<()>) {
+    start_serviced(config, observe, |_| None)
+}
+pub fn start_serviced(
+    config: Config,
     mut observe: impl FnMut(Event) + Send + 'static,
+    mut service: impl FnMut(&Packet) -> Option<Packet> + Send + 'static,
 ) -> (Controller, thread::JoinHandle<()>) {
     let (tx, rx) = mpsc::channel();
     let control = Controller(tx.clone());
@@ -72,6 +79,11 @@ pub fn start(
                         Packet::Idle { sequence } => lifetime.idle(*sequence),
                         _ => vec![],
                     };
+                    if let Some(reply) = service(&packet)
+                        && let Some(r) = &running
+                    {
+                        let _ = r.writer.send(reply);
+                    }
                     observe(Event::Packet(packet));
                     effects
                 }

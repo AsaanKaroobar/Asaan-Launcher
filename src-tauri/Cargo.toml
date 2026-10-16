@@ -1,6 +1,6 @@
 [package]
 name = "asaaan-launcher"
-version = "0.4.0"
+version = "0.5.0"
 description = "Asaaan Launcher cross-platform desktop application"
 edition = "2024"
 rust-version = "1.95"
@@ -19,6 +19,7 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
+asaaan-personalization = { path = "../crates/launcher-personalization" }
 asaaan-search = { path = "../crates/launcher-search" }
 tauri = { version = "2", features = ["tray-icon"] }
 serde = { version = "1", features = ["derive"] }

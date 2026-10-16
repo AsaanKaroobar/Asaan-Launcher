@@ -53,3 +53,13 @@ kbd { font:inherit; padding:1px 3px; color:#c4ccc0; }
 .result-icon img { width: 28px; height: 28px; object-fit: contain; }
 .refresh-apps { padding: 0; border: 0; background: transparent; color: #b5c8a6; font: inherit; cursor: pointer; }
 .launch-feedback { margin: 0; padding: 7px 22px; font-size: 12px; }
+
+.search-panel {display:flex;flex-direction:column;position:relative;}
+.search-field {flex:0 0 58px;} .catalog-notice {flex:0 0 28px;} .search-results {flex:1;} .search-help {flex:0 0 33px;}
+.catalog-tools {display:flex;gap:16px;} .favorite-marker {color:var(--accent);font-size:11px;}
+.favorite-action {font:inherit;margin:0 0 0 10px;padding:2px 6px;background:transparent;border-color:var(--line);}
+button:disabled {opacity:.45;cursor:default;}
+.history-popover {position:absolute;right:16px;top:86px;z-index:2;width:min(340px,calc(100% - 32px));max-height:calc(100% - 95px);overflow:auto;background:#222922;border:1px solid #4b5946;border-radius:8px;padding:14px;box-shadow:0 12px 32px #0008;font-size:12px;}
+.history-heading {display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;} .history-heading button {margin:0;background:transparent;border:0;font-size:20px;padding:0 5px;}
+.history-popover p {color:var(--muted);line-height:1.5;font-size:11px;} .history-popover label {display:flex;gap:7px;align-items:center;}
+.history-popover ul {list-style:none;padding:0;margin:10px 0;} .history-popover li button {width:100%;text-align:left;overflow-wrap:anywhere;background:transparent;border:0;margin:0;}

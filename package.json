@@ -1,7 +1,7 @@
 {
   "name": "asaaan-launcher",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "tauri": "tauri",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm run parity:check && npm run lifecycle:parity && npm run applications:parity && npm test",
+    "check": "npm run typecheck && npm run parity:check && npm run lifecycle:parity && npm run applications:parity && npm run personalization:parity && npm test",
     "native:check": "cargo fmt --all --check && cargo test --workspace --locked --release && cargo clippy --workspace --locked --release --all-targets -- -D warnings",
     "package:linux": "tauri build --bundles deb",
     "install:local": "node scripts/local-deploy.mjs install",
@@ -24,7 +24,9 @@
     "test:resident:x11": "node scripts/test-resident-x11.mjs",
     "smoke:applications": "node scripts/local-deploy.mjs application-smoke",
     "applications:parity": "node scripts/check-application-parity.mjs",
-    "test:resident:isolated": "node scripts/test-isolated-x11.mjs"
+    "test:resident:isolated": "node scripts/test-isolated-x11.mjs",
+    "personalization:parity": "node scripts/check-personalization-parity.mjs",
+    "smoke:personalization": "node scripts/test-isolated-x11.mjs --personalization-only"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",
@@ -51,5 +53,5 @@
     "node": ">=22.12.0 <23 || >=24.0.0"
   },
   "packageManager": "npm@10.9.2",
-  "checkpoint": "CP004"
+  "checkpoint": "CP005"
 }

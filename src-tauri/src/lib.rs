@@ -95,7 +95,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP004 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP005 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -135,7 +135,8 @@ pub fn run() {
             applications::search_applications,
             applications::launch_application,
             applications::application_icon,
-            applications::application_launch_ready
+            applications::application_launch_ready,
+            applications::change_personalization
         ])
         .setup(move |app| {
             if resident_mode {

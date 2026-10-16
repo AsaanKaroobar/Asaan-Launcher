@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/launcher-search", "crates/launcher-lifecycle", "crates/launcher-apps", "src-tauri"]
+members = ["crates/launcher-search", "crates/launcher-lifecycle", "crates/launcher-apps", "crates/launcher-personalization", "src-tauri"]
 resolver = "3"
 
 [profile.release]
