@@ -45,3 +45,7 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
 kbd { font:inherit; padding:1px 3px; color:#c4ccc0; }
 .search-message { margin:0; padding:36px 12px; text-align:center; color:var(--muted); font-size:13px; }
 @media (max-width:540px) { .catalog-notice,.search-help { padding-inline:16px; font-size:9px; } }
+
+.shortcut-hint { margin-left: auto; font-size: 11px; color: #a6ada8; }
+.hide-panel { margin-left: 12px; background: transparent; color: #a6ada8; border: 0; font-size: 23px; cursor: pointer; padding: 0 8px; }
+.hide-panel:hover { color: #fff; }

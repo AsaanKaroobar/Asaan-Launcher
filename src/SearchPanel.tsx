@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { reportSearchReady, searchReferenceCatalog, type SearchResult } from "./native";
+import { confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, type SearchResult } from "./native";
 
 type SearchState = { status: "loading" } | { status: "loaded"; query: string; rows: SearchResult[] } | { status: "error"; message: string };
 
@@ -8,6 +8,16 @@ export default function SearchPanel({ smokeTest = false }: { smokeTest?: boolean
   const [selection, setSelection] = useState(0);
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<SearchState>({ status: "loading" });
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
+    window.addEventListener("focus", focus);
+    void onPanelShown((sequence) => {
+      focus();
+      void confirmPanelPresented(sequence, document.activeElement === inputRef.current).catch((error: unknown) => { if (!disposed) setState({status: "error", message: String(error)}); });
+    }).then((stop) => { if (disposed) stop(); else unlisten = stop; }).catch((error: unknown) => { if (!disposed) setState({status: "error", message: String(error)}); });
+    return () => { disposed = true; window.removeEventListener("focus", focus); unlisten?.(); };
+  }, []);
   const listId = useId();
   const selected = useRef<HTMLLIElement>(null);
 
@@ -40,11 +50,11 @@ export default function SearchPanel({ smokeTest = false }: { smokeTest?: boolean
     <section className="search-panel" aria-label="Reference catalog search">
       <div className="search-field">
         <span aria-hidden="true" className="search-symbol">⌕</span>
-        <input autoFocus type="text" role="combobox" aria-label="Search reference catalog" aria-controls={listId} aria-expanded={rows.length > 0} aria-autocomplete="list" aria-activedescendant={rows.length ? listId + "-" + selection : undefined} value={query} placeholder="Search the reference catalog…" autoComplete="off" spellCheck={false}
+        <input ref={inputRef} autoFocus type="text" role="combobox" aria-label="Search reference catalog" aria-controls={listId} aria-expanded={rows.length > 0} aria-autocomplete="list" aria-activedescendant={rows.length ? listId + "-" + selection : undefined} value={query} placeholder="Search the reference catalog…" autoComplete="off" spellCheck={false}
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={(event) => {
             if (event.nativeEvent.isComposing) return;
-            if (event.key === "Escape") { event.preventDefault(); setQuery(""); return; }
+            if (event.key === "Escape") { event.preventDefault(); if (query) setQuery(""); else void hidePanel().catch((error: unknown) => setState({status: "error", message: error instanceof Error ? error.message : "Could not hide the launcher."})); return; }
             if (!rows.length) return;
             if (event.key === "ArrowDown") { event.preventDefault(); setSelection((s) => Math.min(rows.length - 1, s + 1)); }
             if (event.key === "ArrowUp") { event.preventDefault(); setSelection((s) => Math.max(0, s - 1)); }
@@ -66,7 +76,7 @@ export default function SearchPanel({ smokeTest = false }: { smokeTest?: boolean
           ))}
         </ul>
       </div>
-      <div className="search-help"><span>Try <kbd>cal</kbd>, <kbd>hn</kbd> or <kbd>vsc</kbd></span><span><kbd>↑</kbd> <kbd>↓</kbd> select <kbd>Esc</kbd> clear</span></div>
+      <div className="search-help"><span>Try <kbd>cal</kbd>, <kbd>hn</kbd> or <kbd>vsc</kbd></span><span><kbd>↑</kbd> <kbd>↓</kbd> select <kbd>Esc</kbd> clear / hide</span></div>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import SearchPanel from "./SearchPanel";
 import { useEffect, useState } from "react";
-import { loadAppInfo, reportFrontendReady, type AppInfo } from "./native";
+import { hidePanel, loadAppInfo, reportFrontendReady, type AppInfo } from "./native";
 import "./App.css";
 
 type Connection =
@@ -42,6 +42,7 @@ export default function App() {
       <header className="topbar">
         <span className="wordmark">asaaan<span aria-hidden="true">.</span></span>
         <span className="product-type">Launcher</span>
+        {connection.state === "connected" && <><span className="shortcut-hint">{connection.info.shortcut ?? "Ctrl+Alt+Space"}</span><button className="hide-panel" aria-label="Hide launcher" onClick={() => { void hidePanel().catch((error: unknown) => setConnection({ state: "error", message: String(error) })); }}>×</button></>}
       </header>
       {connection.state === "connected" ? <><h1 id="app-title" className="sr-only">Asaaan Launcher</h1><SearchPanel smokeTest={connection.info.smokeTest} /></> : <section className="welcome">
         <span className="app-mark" aria-hidden="true">a</span>

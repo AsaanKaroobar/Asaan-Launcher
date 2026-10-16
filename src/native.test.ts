@@ -1,7 +1,9 @@
+import { listen, type UnlistenFn } from "@tauri-apps/api/event";
 import { beforeEach, expect, it, vi } from "vitest";
 import { invoke, isTauri } from "@tauri-apps/api/core";
-import { loadAppInfo } from "./native";
+import { onPanelShown, reportFrontendReady, loadAppInfo } from "./native";
 vi.mock("@tauri-apps/api/core", () => ({ invoke: vi.fn(), isTauri: vi.fn() }));
+vi.mock("@tauri-apps/api/event", () => ({ listen: vi.fn() }));
 beforeEach(() => vi.resetAllMocks());
 it("does not invoke native commands from a browser preview", async () => {
   vi.mocked(isTauri).mockReturnValue(false);
@@ -12,4 +14,11 @@ it("rejects an incompatible native identity instead of showing ready", async () 
   vi.mocked(isTauri).mockReturnValue(true);
   vi.mocked(invoke).mockResolvedValue({ name: "Another application", version: "0.1.0", platform: "linux", architecture: "x86_64" });
   await expect(loadAppInfo()).rejects.toThrow("invalid identity");
+});
+
+it("waits for native presentation subscription before announcing frontend readiness", async () => {
+ vi.mocked(isTauri).mockReturnValue(true);vi.mocked(invoke).mockResolvedValue(undefined);
+ let finish!:(stop:UnlistenFn)=>void;vi.mocked(listen).mockReturnValue(new Promise(resolve=>{finish=resolve;}));
+ const subscription=onPanelShown(()=>{});const ready=reportFrontendReady();expect(invoke).not.toHaveBeenCalled();
+ finish(()=>{});await subscription;await ready;expect(invoke).toHaveBeenCalledExactlyOnceWith("frontend_ready");
 });

@@ -1,6 +1,6 @@
 # CP002: Shared search core
 
-**Local implementation, tests, package and native deployment passed. Awaiting user review/publication before CP003.**
+**Local implementation, tests, package and native deployment passed. User reviewed locally and explicitly authorized CP003; public publication remains unverified.**
 
 Branch: checkpoint-2. Product version: 0.2.0. Reference: Floe 5b26e9d7a0240243251d7421bee5b90da5f52b9b. New commit author and committer: Dani-Bhai, 62589953+Dani-Bhai@users.noreply.github.com. Existing published history is not rewritten.
 
@@ -59,4 +59,4 @@ Staged package: .artifacts/checkpoint-002/asaaan-launcher_0.2.0_amd64.deb with S
 
 ## Next gate
 
-Review the local CP002 build. Publish the validated checkpoint only when ready, then explicitly start CP003. Application discovery, real launch actions, hotkeys, resident supervision, extensions and other features were not started in CP002.
+The user reviewed the local CP002 build and explicitly started CP003. That authorizes the transition without inventing a CP002 public release. Publication remains unverified. Application discovery, real launch actions, hotkeys, resident supervision, extensions and other features were not started in CP002.

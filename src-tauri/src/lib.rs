@@ -1,4 +1,7 @@
+mod panel;
+mod resident;
 use serde::Serialize;
+use tauri::Manager;
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -8,6 +11,7 @@ struct AppInfo {
     platform: &'static str,
     architecture: &'static str,
     smoke_test: bool,
+    shortcut: &'static str,
 }
 
 #[tauri::command]
@@ -18,6 +22,11 @@ fn get_app_info() -> AppInfo {
         platform: std::env::consts::OS,
         architecture: std::env::consts::ARCH,
         smoke_test: smoke_test_requested(),
+        shortcut: if std::env::args().any(|a| a == "--shortcut-unavailable") {
+            "Shortcut unavailable · use the tray"
+        } else {
+            "Ctrl+Alt+Space"
+        },
     }
 }
 
@@ -27,10 +36,35 @@ fn smoke_test_requested() -> bool {
 
 // CP002 smoke completion waits for the search view, not only the identity reply.
 #[tauri::command]
-fn frontend_ready() {}
+fn frontend_ready(app: tauri::AppHandle) {
+    if let Some(panel) = app.try_state::<panel::Panel>() {
+        panel.send(asaaan_lifecycle::Packet::Ready);
+    }
+}
+#[tauri::command]
+fn panel_presented(app: tauri::AppHandle, sequence: u64, focused: bool) -> Result<(), String> {
+    if let Some(panel) = app.try_state::<panel::Panel>() {
+        panel.presented(sequence, focused)
+    } else {
+        Ok(())
+    }
+}
+#[tauri::command]
+fn hide_panel(app: tauri::AppHandle) -> Result<(), String> {
+    if let Some(panel) = app.try_state::<panel::Panel>() {
+        panel.hide(&app)
+    } else {
+        app.get_webview_window("main")
+            .ok_or("Window unavailable")?
+            .hide()
+            .map_err(|e| e.to_string())
+    }
+}
 
 #[tauri::command]
-fn search_reference_catalog(query: String) -> Vec<asaaan_search::ResultRow> {
+fn search_reference_catalog(app: tauri::AppHandle, query: String) -> Vec<asaaan_search::ResultRow> {
+    let panel = app.try_state::<panel::Panel>();
+    let _lease = panel.as_ref().map(|p| p.work.begin());
     asaaan_search::reference_catalog::search_reference(&query)
 }
 
@@ -50,33 +84,102 @@ fn search_ready(
                 "The installed frontend did not render the expected cal search results".into(),
             );
         }
-        println!("ASAAAN_NATIVE_SMOKE_OK CP002 query=cal results=Calendar,Calculator");
-        app.exit(0);
+        if let Some(panel) = app.try_state::<panel::Panel>() {
+            panel.send(asaaan_lifecycle::Packet::SearchVerified);
+        } else {
+            println!("ASAAAN_NATIVE_SMOKE_OK CP003 query=cal results=Calendar,Calculator");
+            app.exit(0);
+        }
     }
     Ok(())
 }
 
 pub fn run() {
-    tauri::Builder::default()
+    let managed = std::env::args().any(|a| a == "--panel");
+    let resident_smoke = std::env::args().any(|a| a == "--resident-smoke-test");
+    let resident_mode = !managed && !smoke_test_requested();
+    let mut builder = tauri::Builder::default();
+    if resident_mode && !resident_smoke {
+        builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, _| {
+            if args.iter().any(|a| a == "--quit") {
+                app.exit(0);
+            } else if let Some(resident) = app.try_state::<resident::Resident>() {
+                resident
+                    .control
+                    .request(if args.iter().any(|a| a == "--hide") {
+                        asaaan_lifecycle::Request::Hide
+                    } else {
+                        asaaan_lifecycle::Request::Show
+                    });
+            }
+        }));
+    }
+    let application = builder
         .invoke_handler(tauri::generate_handler![
             get_app_info,
             frontend_ready,
             search_reference_catalog,
-            search_ready
+            search_ready,
+            hide_panel,
+            panel_presented
         ])
-        .setup(|app| {
-            if smoke_test_requested() {
-                let handle = app.handle().clone();
-                std::thread::spawn(move || {
-                    std::thread::sleep(std::time::Duration::from_secs(20));
-                    eprintln!("Native smoke test timed out waiting for the frontend");
-                    handle.exit(1);
-                });
+        .setup(move |app| {
+            if resident_mode {
+                if std::env::args().any(|a| a == "--quit") {
+                    app.handle().exit(0);
+                    return Ok(());
+                }
+                resident::setup(app, resident_smoke)?;
+            } else {
+                tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::default())
+                    .title("Asaaan Launcher")
+                    .inner_size(750.0, 474.0)
+                    .min_inner_size(480.0, 420.0)
+                    .center()
+                    .visible(!managed)
+                    .always_on_top(managed)
+                    .build()?;
+                if managed {
+                    panel::setup(app)?;
+                }
+                if smoke_test_requested() {
+                    let handle = app.handle().clone();
+                    std::thread::spawn(move || {
+                        std::thread::sleep(std::time::Duration::from_secs(20));
+                        eprintln!("Native smoke test timed out");
+                        handle.exit(1);
+                    });
+                }
             }
             Ok(())
         })
-        .run(tauri::generate_context!())
+        .on_window_event(|window, event| {
+            if let Some(panel) = window.app_handle().try_state::<panel::Panel>() {
+                match event {
+                    tauri::WindowEvent::CloseRequested { api, .. } => {
+                        api.prevent_close();
+                        let _ = panel.hide(window.app_handle());
+                    }
+                    tauri::WindowEvent::Focused(false) => {
+                        panel.focus_lost(window.app_handle());
+                    }
+                    _ => {}
+                }
+            }
+        })
+        .build(tauri::generate_context!())
         .expect("Asaaan Launcher could not start");
+    application.run(move |app, event| match event {
+        tauri::RunEvent::ExitRequested {
+            api, code: None, ..
+        } if resident_mode => api.prevent_exit(),
+        tauri::RunEvent::Exit => {
+            if let Some(resident) = app.try_state::<resident::Resident>() {
+                resident.stop();
+            }
+        }
+        _ => {}
+    });
 }
 
 #[cfg(test)]
@@ -90,6 +193,6 @@ mod tests {
         assert_eq!(value["version"], env!("CARGO_PKG_VERSION"));
         assert_eq!(value["platform"], std::env::consts::OS);
         assert_eq!(value["architecture"], std::env::consts::ARCH);
-        assert_eq!(value.as_object().unwrap().len(), 5);
+        assert_eq!(value.as_object().unwrap().len(), 6);
     }
 }

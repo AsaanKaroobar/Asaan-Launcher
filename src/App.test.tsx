@@ -2,11 +2,11 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { loadAppInfo, reportFrontendReady, searchReferenceCatalog, reportSearchReady } from "./native";
+import { onPanelShown, hidePanel, loadAppInfo, reportFrontendReady, searchReferenceCatalog, reportSearchReady } from "./native";
 
-vi.mock("./native", () => ({ loadAppInfo: vi.fn(), reportFrontendReady: vi.fn(), searchReferenceCatalog: vi.fn().mockResolvedValue([]), reportSearchReady: vi.fn().mockResolvedValue(undefined) }));
+vi.mock("./native", () => ({ confirmPanelPresented: vi.fn().mockResolvedValue(undefined), onPanelShown: vi.fn().mockResolvedValue(() => {}), hidePanel: vi.fn().mockResolvedValue(undefined), loadAppInfo: vi.fn(), reportFrontendReady: vi.fn(), searchReferenceCatalog: vi.fn().mockResolvedValue([]), reportSearchReady: vi.fn().mockResolvedValue(undefined) }));
 const info = { name: "Asaaan Launcher", version: "0.1.0", platform: "linux", architecture: "x86_64" };
-beforeEach(() => { vi.resetAllMocks(); vi.mocked(reportFrontendReady).mockResolvedValue(); vi.mocked(searchReferenceCatalog).mockResolvedValue([]); vi.mocked(reportSearchReady).mockResolvedValue(); });
+beforeEach(() => { vi.resetAllMocks(); vi.mocked(onPanelShown).mockResolvedValue(() => {}); vi.mocked(hidePanel).mockResolvedValue(); vi.mocked(reportFrontendReady).mockResolvedValue(); vi.mocked(searchReferenceCatalog).mockResolvedValue([]); vi.mocked(reportSearchReady).mockResolvedValue(); });
 
 describe("checkpoint 001 native connection", () => {
   it("waits for the native reply before displaying readiness and confirms a mounted frontend", async () => {
@@ -54,4 +54,14 @@ describe("checkpoint 001 native connection", () => {
     expect(await screen.findByText("Connection closed")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("Connection unavailable");
   });
+});
+
+it("shows the native shortcut status and hides from the header control", async () => {
+ vi.mocked(loadAppInfo).mockResolvedValue({...info,shortcut:"Shortcut unavailable · use the tray"});render(<App />);
+ expect(await screen.findByText("Shortcut unavailable · use the tray")).toBeInTheDocument();
+ await userEvent.click(screen.getByRole("button",{name:"Hide launcher"}));expect(hidePanel).toHaveBeenCalledOnce();
+});
+it("reports a failed native hide instead of silently dismissing", async () => {
+ vi.mocked(loadAppInfo).mockResolvedValue(info);vi.mocked(hidePanel).mockRejectedValue(new Error("Panel unavailable"));render(<App />);
+ await userEvent.click(await screen.findByRole("button",{name:"Hide launcher"}));expect(await screen.findByText(/Panel unavailable/)).toBeInTheDocument();
 });

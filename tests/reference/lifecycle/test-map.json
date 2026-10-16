@@ -1,0 +1,158 @@
+[
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "queuesRequestsUntilReady",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "queuesRequestsUntilReady",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "staleIdleCannotCloseAReopenedPanel",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "staleIdleCannotCloseAReopenedPanel",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "openingDuringExitStartsANewProcessOnlyAfterExit",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "openingDuringExitStartsANewProcessOnlyAfterExit",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "crashDoesNotReplayAnAlreadyDeliveredCommand",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "crashDoesNotReplayAnAlreadyDeliveredCommand",
+    "note": "Opaque BuiltIn request stands in for a command; dispatch/actions are deferred."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "repeatedCrashesBeforeReadinessStopAfterThreeAttempts",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "repeatedCrashesBeforeReadinessStopAfterThreeAttempts",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "reachingReadinessResetsTheStartupFailureBudget",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "reachingReadinessResetsTheStartupFailureBudget",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "aTimeoutKeepsQueuedWorkUntilTheReplacementIsReady",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "aTimeoutKeepsQueuedWorkUntilTheReplacementIsReady",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "timeoutsAndCrashesShareABoundedStartupBudget",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "timeoutsAndCrashesShareABoundedStartupBudget",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "threeHangingChildrenDoNotStartAFourth",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "threeHangingChildrenDoNotStartAFourth",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelLifetimeTests.swift",
+    "function": "hidingAnAbsentPanelDoesNotLaunchIt",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "hidingAnAbsentPanelDoesNotLaunchIt",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelProcessTests.swift",
+    "function": "repeatedPreReadyCrashesStopSpawning",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/process.rs",
+    "targetFunction": "repeatedPreReadyCrashesStopSpawning",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelProcessTests.swift",
+    "function": "launchErrorsStopAfterThreeAttemptsAndAllowANewRequest",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/process.rs",
+    "targetFunction": "launchErrorsStopAfterThreeAttemptsAndAllowANewRequest",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelProcessTests.swift",
+    "function": "aRequestSurvivesALaunchError",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/process.rs",
+    "targetFunction": "aRequestSurvivesALaunchError",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelProcessTests.swift",
+    "function": "repeatedReadinessTimeoutsStopSpawningEvenWhenSigtermIsIgnored",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/process.rs",
+    "targetFunction": "repeatedReadinessTimeoutsStopSpawningEvenWhenGracefulShutdownIsIgnored",
+    "note": "Rust supervisor uses Child::kill (hard termination) after watchdog; fixture deliberately never reads shutdown."
+  },
+  {
+    "source": "PanelProcessTests.swift",
+    "function": "aRequestSurvivesTheFirstChildsReadinessTimeout",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/process.rs",
+    "targetFunction": "aRequestSurvivesTheFirstChildsReadinessTimeout",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelOwnershipTests.swift",
+    "function": "workLeaseEndsWhenItsOwnerFinishes",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "workLeaseEndsWhenItsOwnerFinishes",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelOwnershipTests.swift",
+    "function": "asyncWorkHoldsALeaseBeforeTheTaskStarts",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/lifetime.rs",
+    "targetFunction": "asyncWorkHoldsALeaseBeforeTheTaskStarts",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  },
+  {
+    "source": "PanelOwnershipTests.swift",
+    "function": "foregroundClipboardMutationsDoNotWriteASecondHistory",
+    "status": "deferred",
+    "reason": "Clipboard implementation is a later checkpoint."
+  },
+  {
+    "source": "PanelOwnershipTests.swift",
+    "function": "residentHotkeysForwardInsteadOfBuildingForegroundState",
+    "status": "deferred",
+    "reason": "Specialized emoji/menu-bar hotkeys and LauncherModel are later checkpoints; CP003 packaged checks instead assert one windowless resident and one disposable foreground."
+  },
+  {
+    "source": "PanelOwnershipTests.swift",
+    "function": "privatePipePreservesRequestOrdering",
+    "status": "ported",
+    "target": "crates/launcher-lifecycle/tests/process.rs",
+    "targetFunction": "privatePipePreservesRequestOrderingAndReopensAfterIdle",
+    "note": "Equivalent Rust behavior; typed Rust JSON protocol rather than Swift Codable bytes."
+  }
+]

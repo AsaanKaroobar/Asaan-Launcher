@@ -1,10 +1,10 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, expect, it, vi } from "vitest";
 import SearchPanel from "./SearchPanel";
-import { reportSearchReady, searchReferenceCatalog, type SearchResult } from "./native";
-vi.mock("./native", () => ({ searchReferenceCatalog: vi.fn(), reportSearchReady: vi.fn() }));
+import { confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, type SearchResult } from "./native";
+vi.mock("./native", () => ({ confirmPanelPresented: vi.fn().mockResolvedValue(undefined), onPanelShown: vi.fn(), hidePanel: vi.fn().mockResolvedValue(undefined), searchReferenceCatalog: vi.fn(), reportSearchReady: vi.fn() }));
 const row = (title: string): SearchResult => ({ item: { id: title, title, kind: "application", keywords: [] }, section: null });
-beforeEach(() => { vi.resetAllMocks(); vi.mocked(reportSearchReady).mockResolvedValue(); });
+beforeEach(() => { vi.resetAllMocks(); vi.mocked(confirmPanelPresented).mockResolvedValue(); vi.mocked(hidePanel).mockResolvedValue(); vi.mocked(onPanelShown).mockResolvedValue(() => {}); vi.mocked(reportSearchReady).mockResolvedValue(); });
 
 it("renders native results in their returned order and bounds arrow selection", async () => {
   vi.mocked(searchReferenceCatalog).mockResolvedValue([row("Calendar"), row("Calculator")]);
@@ -58,4 +58,22 @@ it("only acknowledges the completed cal search during the installed smoke test",
 it("ignores pending results when the search screen is removed", async () => {
   let finish!: (rows:SearchResult[])=>void;vi.mocked(searchReferenceCatalog).mockReturnValue(new Promise(resolve=>{finish=resolve;}));
   const view=render(<SearchPanel />);view.unmount();await act(async()=>finish([row("Notes")]));expect(reportSearchReady).not.toHaveBeenCalled();
+});
+
+it("clears text before hiding and preserves IME composition", async () => {
+  vi.mocked(searchReferenceCatalog).mockResolvedValue([]); render(<SearchPanel />);
+  const input=screen.getByRole("combobox"); fireEvent.change(input,{target:{value:"cal"}});
+  fireEvent.keyDown(input,{key:"Escape"}); expect(input).toHaveValue(""); expect(hidePanel).not.toHaveBeenCalled();
+  fireEvent.keyDown(input,{key:"Escape",isComposing:true}); expect(hidePanel).not.toHaveBeenCalled();
+  fireEvent.keyDown(input,{key:"Escape"}); await waitFor(()=>expect(hidePanel).toHaveBeenCalledOnce());
+});
+it("returns keyboard focus to search when the panel is shown again", async () => {
+  vi.mocked(searchReferenceCatalog).mockResolvedValue([]); render(<SearchPanel />); await screen.findByText('No matches for “”');
+  screen.getByRole("combobox").blur(); fireEvent(window,new Event("focus")); expect(screen.getByRole("combobox")).toHaveFocus();
+});
+
+it("focuses the search on native panel presentation and removes its subscription", async () => {
+ const stop=vi.fn();let focus!:(sequence:number)=>void;vi.mocked(onPanelShown).mockImplementation(async (callback)=>{focus=callback;return stop;});
+ vi.mocked(searchReferenceCatalog).mockResolvedValue([]);const view=render(<SearchPanel />);await waitFor(()=>expect(onPanelShown).toHaveBeenCalled());
+ const input=screen.getByRole("combobox");input.blur();act(()=>focus(42));expect(input).toHaveFocus();expect(confirmPanelPresented).toHaveBeenCalledWith(42,true);view.unmount();expect(stop).toHaveBeenCalledOnce();
 });

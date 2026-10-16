@@ -68,6 +68,38 @@ async function smoke() {
   await fs.writeFile(path.join(root, '.artifacts/native-smoke.json'), JSON.stringify(evidence, null, 2) + '\n');
 }
 
+async function verifyPanelEof(binary) {
+  await new Promise((resolve,reject)=>{
+    const child=spawn(binary,['--panel'],{stdio:['pipe','pipe','pipe']});let buffer='';let shown=false;let diagnostic='';
+    const timer=setTimeout(()=>{child.kill();reject(Error('Native panel did not exit after private pipe EOF. '+diagnostic));},20000);
+    child.stderr.on('data',d=>diagnostic+=d);
+    child.on('error',error=>{clearTimeout(timer);reject(error);});
+    child.stdin.on('error',error=>{child.kill();clearTimeout(timer);reject(error);});
+    child.stdout.on('data',d=>{
+      buffer+=d;if(buffer.length>4*1024*1024){child.kill();reject(Error('Oversized native panel packet'));return;}
+      let newline;while((newline=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,newline);buffer=buffer.slice(newline+1);let packet;
+        try{packet=JSON.parse(line);}catch(error){child.kill();reject(error);return;}
+        if(packet.type==='ready')child.stdin.write(JSON.stringify({type:'request',request:'show',sequence:1})+'\n');
+        if(packet.type==='presented'&&packet.visible===true){shown=true;child.stdin.end();}
+      }
+    });
+    child.on('exit',code=>{clearTimeout(timer);if(code===0&&shown)resolve();else reject(Error('Native EOF test failed: '+code+' '+diagnostic));});
+  });
+}
+
+async function residentSmoke() {
+  const binary = await installedBinary();
+  const result = await run(binary, ['--resident-smoke-test'], {timeout:60000,maxBuffer:1024*1024});
+  if (!result.stdout.includes('ASAAAN_RESIDENT_SMOKE_OK CP003 cycles=3')) throw Error('Resident cycle verification failed. '+result.stdout+result.stderr);
+  const pids=[...result.stderr.matchAll(/ASAAAN_LIFECYCLE Started\((\d+)\)/g)].map(m=>Number(m[1]));
+  if(pids.length!==3 || new Set(pids).size!==3) throw Error('Expected three distinct panel processes');
+  for(const pid of pids) { try { process.kill(pid,0); } catch(e) {if(e.code==='ESRCH')continue;throw e;} throw Error('Panel process remains after dismissal: '+pid); }
+  await verifyPanelEof(binary);
+  console.log(result.stdout.trim()+' nativePanelEof=passed');
+  console.error(result.stderr.trim());
+  await fs.writeFile(path.join(root,'.artifacts/resident-smoke.json'),JSON.stringify({checkpoint:pkg.checkpoint,result:'passed',cycles:3,pids,allReaped:true,nativePanelEof:true,at:new Date().toISOString(),installation:JSON.parse(await fs.readFile(path.join(current,'installation.json'),'utf8'))},null,2)+'\n');
+}
+
 async function start() {
   const binary = await installedBinary();
   const child = spawn(binary, [], { stdio: 'inherit' });
@@ -79,8 +111,9 @@ try {
   if (process.platform !== 'linux') throw new Error('This local deployment script currently supports Linux Debian packages only.');
   if (command === 'install') await install();
   else if (command === 'smoke') await smoke();
+  else if (command === 'resident-smoke') await residentSmoke();
   else if (command === 'run') await start();
-  else throw new Error('Usage: node scripts/local-deploy.mjs install|smoke|run');
+  else throw new Error('Usage: node scripts/local-deploy.mjs install|smoke|resident-smoke|run');
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

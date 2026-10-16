@@ -45,6 +45,7 @@ jobs:
         run: |
           npm run install:local
           xvfb-run -a npm run smoke:local
+          dbus-run-session -- xvfb-run -a npm run smoke:resident
       - name: Upload checkpoint build artifacts (not a published release)
         uses: actions/upload-artifact@v4
         with:
