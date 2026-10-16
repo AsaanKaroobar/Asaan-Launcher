@@ -1,0 +1,45 @@
+{
+  "name": "asaaan-launcher",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test",
+    "native:check": "cargo fmt --manifest-path src-tauri/Cargo.toml --check && cargo test --locked --release --manifest-path src-tauri/Cargo.toml && cargo clippy --locked --release --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings",
+    "package:linux": "tauri build --bundles deb",
+    "install:local": "node scripts/local-deploy.mjs install",
+    "smoke:local": "node scripts/local-deploy.mjs smoke",
+    "start:local": "node scripts/local-deploy.mjs run"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "2.12.4",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.12.3",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "jsdom": "29.1.1",
+    "typescript": "6.0.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  },
+  "license": "AGPL-3.0-only",
+  "description": "Asaaan Launcher cross-platform desktop application",
+  "engines": {
+    "node": ">=22.12.0 <23 || >=24.0.0"
+  },
+  "packageManager": "npm@10.9.2"
+}

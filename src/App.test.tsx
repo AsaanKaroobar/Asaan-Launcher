@@ -1,0 +1,57 @@
+import { act, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import App from "./App";
+import { loadAppInfo, reportFrontendReady } from "./native";
+
+vi.mock("./native", () => ({ loadAppInfo: vi.fn(), reportFrontendReady: vi.fn() }));
+const info = { name: "Asaaan Launcher", version: "0.1.0", platform: "linux", architecture: "x86_64" };
+beforeEach(() => { vi.resetAllMocks(); vi.mocked(reportFrontendReady).mockResolvedValue(); });
+
+describe("checkpoint 001 native connection", () => {
+  it("waits for the native reply before displaying readiness and confirms a mounted frontend", async () => {
+    let resolve!: (value: typeof info) => void;
+    vi.mocked(loadAppInfo).mockReturnValue(new Promise((done) => { resolve = done; }));
+    render(<App />);
+    expect(screen.getByRole("heading", { name: "Asaaan Launcher" })).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("Connecting to your desktop");
+    expect(reportFrontendReady).not.toHaveBeenCalled();
+    await act(async () => resolve(info));
+    expect(screen.getByRole("status")).toHaveTextContent("Native connection ready");
+    expect(screen.getByRole("status")).toHaveTextContent("Linux");
+    await waitFor(() => expect(reportFrontendReady).toHaveBeenCalledOnce());
+  });
+
+  it("labels a browser preview without claiming native success", async () => {
+    vi.mocked(loadAppInfo).mockResolvedValue(null);
+    render(<App />);
+    expect(await screen.findByText("Browser preview")).toBeInTheDocument();
+    expect(reportFrontendReady).not.toHaveBeenCalled();
+  });
+
+  it("shows connection errors and reconnects using the retry action", async () => {
+    vi.mocked(loadAppInfo).mockRejectedValueOnce(new Error("Native process unavailable")).mockResolvedValueOnce(info);
+    render(<App />);
+    expect(await screen.findByText("Native process unavailable")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Try again" }));
+    expect(await screen.findByText("Native connection ready")).toBeInTheDocument();
+    expect(loadAppInfo).toHaveBeenCalledTimes(2);
+  });
+
+  it("ignores a late response after the view unmounts", async () => {
+    let resolve!: (value: typeof info) => void;
+    vi.mocked(loadAppInfo).mockReturnValue(new Promise((done) => { resolve = done; }));
+    const view = render(<App />);
+    view.unmount();
+    await act(async () => resolve(info));
+    expect(reportFrontendReady).not.toHaveBeenCalled();
+  });
+
+  it("reports a failed native readiness acknowledgement", async () => {
+    vi.mocked(loadAppInfo).mockResolvedValue(info);
+    vi.mocked(reportFrontendReady).mockRejectedValue(new Error("Connection closed"));
+    render(<App />);
+    expect(await screen.findByText("Connection closed")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("Connection unavailable");
+  });
+});
