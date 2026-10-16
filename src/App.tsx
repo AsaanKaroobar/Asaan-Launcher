@@ -44,7 +44,7 @@ export default function App() {
         <span className="product-type">Launcher</span>
         {connection.state === "connected" && <><span className="shortcut-hint">{connection.info.shortcut ?? "Ctrl+Alt+Space"}</span><button className="hide-panel" aria-label="Hide launcher" onClick={() => { void hidePanel().catch((error: unknown) => setConnection({ state: "error", message: String(error) })); }}>×</button></>}
       </header>
-      {connection.state === "connected" ? <><h1 id="app-title" className="sr-only">Asaaan Launcher</h1><SearchPanel smokeTest={connection.info.smokeTest} /></> : <section className="welcome">
+      {connection.state === "connected" ? <><h1 id="app-title" className="sr-only">Asaaan Launcher</h1><SearchPanel smokeTest={connection.info.smokeTest} applicationSmoke={connection.info.applicationSmoke} /></> : <section className="welcome">
         <span className="app-mark" aria-hidden="true">a</span>
         <h1 id="app-title">Asaaan Launcher</h1>
         <p className="intro">A little less friction.<br />A little more flow.</p>

@@ -48,17 +48,35 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
-name = "asaaan-launcher"
-version = "0.3.0"
+name = "asaaan-apps"
+version = "0.4.0"
 dependencies = [
+ "asaaan-search",
+ "base64 0.22.1",
+ "gio",
+ "plist",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "asaaan-launcher"
+version = "0.4.0"
+dependencies = [
+ "asaaan-apps",
  "asaaan-lifecycle",
  "asaaan-search",
+ "base64 0.22.1",
+ "gdkx11",
+ "gio",
+ "gtk",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-global-shortcut",
  "tauri-plugin-single-instance",
+ "x11rb",
 ]
 
 [[package]]

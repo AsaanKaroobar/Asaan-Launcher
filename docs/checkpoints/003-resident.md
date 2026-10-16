@@ -1,6 +1,6 @@
 # CP003: Resident lifecycle and disposable launcher panel
 
-Status: implemented, tested, packaged, installed and run locally on Linux X11. Ready for local user review. Performance feasibility and public/cross-platform release gates remain open. Branch: checkpoint-3. Product version: 0.3.0.
+Status: implemented, tested, packaged, installed and run locally on Linux X11. User reviewed locally and authorized CP004. Performance upgrades were explicitly deferred until the complete software is ready; recorded measurements remain unchanged. Public/cross-platform release gates remain open. Branch: checkpoint-3. Product version: 0.3.0.
 
 The user explicitly approved CP003 after reviewing CP002 locally. This authorizes the transition; no public CP002 release is claimed. All new commits use Dani-Bhai for author and committer.
 
@@ -76,3 +76,7 @@ Linux RSS and PSS are recorded separately from the reference's macOS physical-fo
 ## Next gate
 
 Review the installed CP003 build and remaining feasibility gaps. Public publication remains pending. Do not start CP004 in this task.
+
+## User decision after local review
+
+The user explicitly requested CP004 and deferred performance upgrades until the complete software is ready. This supersedes the earlier architecture/performance hold for the transition. Preserve the measured memory and startup gaps for the later performance checkpoint.

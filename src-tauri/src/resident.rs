@@ -33,7 +33,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             tauri_plugin_global_shortcut::Builder::new()
                 .with_handler(move |app, key, event| {
                     if key == &shortcut
-                        && event.state() == ShortcutState::Pressed
+                        && event.state() == ShortcutState::Released
                         && let Some(resident) = app.try_state::<Resident>()
                     {
                         resident.control.request(Request::Toggle);
@@ -114,7 +114,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP003 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP004 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }

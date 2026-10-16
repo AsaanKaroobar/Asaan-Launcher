@@ -16,7 +16,26 @@ t.XTestFakeKeyEvent.argtypes=[ctypes.c_void_p,ctypes.c_uint,ctypes.c_int,ctypes.
 d=x.XOpenDisplay(None)
 if not d:raise RuntimeError('X11 display unavailable')
 if sys.argv[1]=='fixture':
- w=x.XCreateSimpleWindow(d,x.XDefaultRootWindow(d),10,10,240,80,0,0,0x303535);x.XStoreName(d,w,b'Asaaan focus test fixture');x.XMapWindow(d,w);x.XFlush(d);time.sleep(.3);x.XSetInputFocus(d,w,1,0);x.XFlush(d);print(w,flush=True)
+ w=x.XCreateSimpleWindow(d,x.XDefaultRootWindow(d),10,10,240,80,0,0,0x303535);x.XStoreName(d,w,b'Asaaan focus test fixture');x.XMapWindow(d,w);x.XSync(d,0);time.sleep(.3)
+ # Activate through the window manager, so its previous-window history agrees with X input focus.
+ class Data(ctypes.Union):_fields_=[('b',ctypes.c_char*20),('s',ctypes.c_short*10),('l',ctypes.c_long*5)]
+ class Client(ctypes.Structure):_fields_=[('type',ctypes.c_int),('serial',ctypes.c_ulong),('send_event',ctypes.c_int),('display',ctypes.c_void_p),('window',ctypes.c_ulong),('message_type',ctypes.c_ulong),('format',ctypes.c_int),('data',Data)]
+ class Event(ctypes.Union):_fields_=[('client',Client),('pad',ctypes.c_long*24)]
+ x.XInternAtom.argtypes=[ctypes.c_void_p,ctypes.c_char_p,ctypes.c_int];x.XInternAtom.restype=ctypes.c_ulong
+ x.XSendEvent.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.c_int,ctypes.c_long,ctypes.POINTER(Event)]
+ x.XGetWindowProperty.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.c_ulong,ctypes.c_long,ctypes.c_long,ctypes.c_int,ctypes.c_ulong,ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.c_int),ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.POINTER(ctypes.c_ubyte))];x.XFree.argtypes=[ctypes.c_void_p]
+ atom=x.XInternAtom(d,b'_NET_ACTIVE_WINDOW',0);root=x.XDefaultRootWindow(d);event=Event();event.client.type=33;event.client.display=d;event.client.window=w;event.client.message_type=atom;event.client.format=32;event.client.data.l[0]=2
+ x.XSendEvent(d,root,0,(1<<20)|(1<<19),ctypes.byref(event));x.XSync(d,0)
+ deadline=time.monotonic()+5
+ while True:
+  kind=ctypes.c_ulong();fmt=ctypes.c_int();count=ctypes.c_ulong();remaining=ctypes.c_ulong();value=ctypes.POINTER(ctypes.c_ubyte)()
+  x.XGetWindowProperty(d,root,atom,0,1,0,33,ctypes.byref(kind),ctypes.byref(fmt),ctypes.byref(count),ctypes.byref(remaining),ctypes.byref(value))
+  active=ctypes.cast(value,ctypes.POINTER(ctypes.c_ulong))[0] if value and count.value else 0
+  if value:x.XFree(value)
+  if active==w:break
+  if time.monotonic()>deadline:raise RuntimeError('Window manager did not activate focus fixture')
+  time.sleep(.025)
+ print(w,flush=True)
  while True:time.sleep(1)
 elif sys.argv[1]=='ancestors':
  x.XQueryTree.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.POINTER(ctypes.c_ulong)),ctypes.POINTER(ctypes.c_uint)];x.XFree.argtypes=[ctypes.c_void_p]

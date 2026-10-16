@@ -31,6 +31,16 @@ impl Panel {
         });
         Ok(())
     }
+    pub fn focus_gained(&self, app: &tauri::AppHandle) {
+        let state = self.visibility.lock().unwrap();
+        if state.visible
+            && let Some(window) = app.get_webview_window("main")
+        {
+            let webview: &tauri::Webview = window.as_ref();
+            let _ = webview.set_focus();
+            let _ = window.emit("panel-shown", state.sequence);
+        }
+    }
     pub fn focus_lost(&self, app: &tauri::AppHandle) {
         let state = self.visibility.lock().unwrap();
         if !state.visible {
@@ -99,6 +109,9 @@ impl Panel {
         window.center().map_err(|e| e.to_string())?;
         window.show().map_err(|e| e.to_string())?;
         window.set_focus().map_err(|e| e.to_string())?;
+        crate::activation::activate(&window).map_err(|e| e.to_string())?;
+        let webview: &tauri::Webview = window.as_ref();
+        webview.set_focus().map_err(|e| e.to_string())?;
         self.visibility.lock().unwrap().visible = true;
         let _ = window.emit("panel-shown", sequence);
         Ok(())

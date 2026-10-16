@@ -1,3 +1,5 @@
+mod activation;
+mod applications;
 mod panel;
 mod resident;
 use serde::Serialize;
@@ -12,6 +14,7 @@ struct AppInfo {
     architecture: &'static str,
     smoke_test: bool,
     shortcut: &'static str,
+    application_smoke: bool,
 }
 
 #[tauri::command]
@@ -22,12 +25,17 @@ fn get_app_info() -> AppInfo {
         platform: std::env::consts::OS,
         architecture: std::env::consts::ARCH,
         smoke_test: smoke_test_requested(),
+        application_smoke: application_smoke_requested(),
         shortcut: if std::env::args().any(|a| a == "--shortcut-unavailable") {
             "Shortcut unavailable · use the tray"
         } else {
             "Ctrl+Alt+Space"
         },
     }
+}
+
+fn application_smoke_requested() -> bool {
+    std::env::args().any(|arg| arg == "--application-smoke-test")
 }
 
 fn smoke_test_requested() -> bool {
@@ -87,7 +95,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP003 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP004 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -97,7 +105,7 @@ fn search_ready(
 pub fn run() {
     let managed = std::env::args().any(|a| a == "--panel");
     let resident_smoke = std::env::args().any(|a| a == "--resident-smoke-test");
-    let resident_mode = !managed && !smoke_test_requested();
+    let resident_mode = !managed && !smoke_test_requested() && !application_smoke_requested();
     let mut builder = tauri::Builder::default();
     if resident_mode && !resident_smoke {
         builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, _| {
@@ -115,13 +123,19 @@ pub fn run() {
         }));
     }
     let application = builder
+        .manage(std::sync::Arc::new(asaaan_apps::Store::default()))
+        .manage(applications::Launched::default())
         .invoke_handler(tauri::generate_handler![
             get_app_info,
             frontend_ready,
             search_reference_catalog,
             search_ready,
             hide_panel,
-            panel_presented
+            panel_presented,
+            applications::search_applications,
+            applications::launch_application,
+            applications::application_icon,
+            applications::application_launch_ready
         ])
         .setup(move |app| {
             if resident_mode {
@@ -142,7 +156,7 @@ pub fn run() {
                 if managed {
                     panel::setup(app)?;
                 }
-                if smoke_test_requested() {
+                if smoke_test_requested() || application_smoke_requested() {
                     let handle = app.handle().clone();
                     std::thread::spawn(move || {
                         std::thread::sleep(std::time::Duration::from_secs(20));
@@ -159,6 +173,9 @@ pub fn run() {
                     tauri::WindowEvent::CloseRequested { api, .. } => {
                         api.prevent_close();
                         let _ = panel.hide(window.app_handle());
+                    }
+                    tauri::WindowEvent::Focused(true) => {
+                        panel.focus_gained(window.app_handle());
                     }
                     tauri::WindowEvent::Focused(false) => {
                         panel.focus_lost(window.app_handle());
@@ -193,6 +210,6 @@ mod tests {
         assert_eq!(value["version"], env!("CARGO_PKG_VERSION"));
         assert_eq!(value["platform"], std::env::consts::OS);
         assert_eq!(value["architecture"], std::env::consts::ARCH);
-        assert_eq!(value.as_object().unwrap().len(), 6);
+        assert_eq!(value.as_object().unwrap().len(), 7);
     }
 }

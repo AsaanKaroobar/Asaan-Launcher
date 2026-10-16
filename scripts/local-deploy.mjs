@@ -1,3 +1,4 @@
+import os from 'node:os';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -90,7 +91,7 @@ async function verifyPanelEof(binary) {
 async function residentSmoke() {
   const binary = await installedBinary();
   const result = await run(binary, ['--resident-smoke-test'], {timeout:60000,maxBuffer:1024*1024});
-  if (!result.stdout.includes('ASAAAN_RESIDENT_SMOKE_OK CP003 cycles=3')) throw Error('Resident cycle verification failed. '+result.stdout+result.stderr);
+  if (!result.stdout.includes('ASAAAN_RESIDENT_SMOKE_OK CP004 cycles=3')) throw Error('Resident cycle verification failed. '+result.stdout+result.stderr);
   const pids=[...result.stderr.matchAll(/ASAAAN_LIFECYCLE Started\((\d+)\)/g)].map(m=>Number(m[1]));
   if(pids.length!==3 || new Set(pids).size!==3) throw Error('Expected three distinct panel processes');
   for(const pid of pids) { try { process.kill(pid,0); } catch(e) {if(e.code==='ESRCH')continue;throw e;} throw Error('Panel process remains after dismissal: '+pid); }
@@ -98,6 +99,26 @@ async function residentSmoke() {
   console.log(result.stdout.trim()+' nativePanelEof=passed');
   console.error(result.stderr.trim());
   await fs.writeFile(path.join(root,'.artifacts/resident-smoke.json'),JSON.stringify({checkpoint:pkg.checkpoint,result:'passed',cycles:3,pids,allReaped:true,nativePanelEof:true,at:new Date().toISOString(),installation:JSON.parse(await fs.readFile(path.join(current,'installation.json'),'utf8'))},null,2)+'\n');
+}
+
+async function applicationSmoke() {
+  const binary=await installedBinary();
+  const scratch=await fs.mkdtemp(path.join(os.tmpdir(),'asaaan cp004-'));
+  try {
+    const data=path.join(scratch,'data');const system=path.join(scratch,'system');const marker=path.join(scratch,'marker.json');const probe=path.join(scratch,'probe.mjs');
+    await fs.mkdir(path.join(data,'applications'),{recursive:true});await fs.mkdir(system,{recursive:true});
+    await fs.writeFile(probe,'import fs from "node:fs/promises"; console.log("Application output is isolated from panel IPC"); await fs.writeFile(process.argv[2],JSON.stringify(process.argv.slice(3)));\n');
+    const desktop=path.join(data,'applications/asaaan-checkpoint-probe.desktop');
+    const text='[Desktop Entry]\nType=Application\nName=Asaaan Checkpoint Probe\nExec="'+process.execPath+'" "'+probe+'" "'+marker+'" "literal ; safe" %c %% %k %U\n';
+    await fs.writeFile(desktop,text);
+    const result=await run(binary,['--application-smoke-test'],{timeout:30000,maxBuffer:1024*1024,env:{...process.env,XDG_DATA_HOME:data,XDG_DATA_DIRS:system,XDG_CONFIG_HOME:path.join(scratch,'config'),XDG_CURRENT_DESKTOP:'AsaaanTest',LC_ALL:'C.UTF-8',LANGUAGE:'en'}});
+    if(!result.stdout.includes('ASAAAN_APPLICATION_SMOKE_OK '+pkg.checkpoint))throw Error('Installed UI did not confirm a native application launch: '+result.stdout+result.stderr);
+    const deadline=Date.now()+5000;let recorded;
+    while(Date.now()<deadline){try{recorded=JSON.parse(await fs.readFile(marker,'utf8'));break;}catch(error){if(error.code!=='ENOENT')throw error;await new Promise(resolve=>setTimeout(resolve,25));}}
+    if(JSON.stringify(recorded)!==JSON.stringify(['literal ; safe','Asaaan Checkpoint Probe','%',desktop]))throw Error('Native desktop Exec expansion/launch probe failed: '+JSON.stringify(recorded));
+    const evidence={checkpoint:pkg.checkpoint,result:'passed',kind:'installed React selection to Rust catalog ID to native GIO launch; isolated desktop fixture',arguments:recorded,at:new Date().toISOString(),installation:JSON.parse(await fs.readFile(path.join(current,'installation.json'),'utf8'))};
+    await fs.writeFile(path.join(root,'.artifacts/application-smoke.json'),JSON.stringify(evidence,null,2)+'\n');console.log(result.stdout.trim());
+  } finally {await fs.rm(scratch,{recursive:true,force:true});}
 }
 
 async function start() {
@@ -112,8 +133,9 @@ try {
   if (command === 'install') await install();
   else if (command === 'smoke') await smoke();
   else if (command === 'resident-smoke') await residentSmoke();
+  else if (command === 'application-smoke') await applicationSmoke();
   else if (command === 'run') await start();
-  else throw new Error('Usage: node scripts/local-deploy.mjs install|smoke|resident-smoke|run');
+  else throw new Error('Usage: node scripts/local-deploy.mjs install|smoke|resident-smoke|application-smoke|run');
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;

@@ -7,6 +7,7 @@ export interface AppInfo {
   platform: string;
   architecture: string;
   smokeTest?: boolean;
+  applicationSmoke?: boolean;
   shortcut?: string;
 }
 
@@ -27,6 +28,7 @@ export async function reportFrontendReady(): Promise<void> {
 export interface SearchResult {
   item: { id: string; title: string; kind: "application" | "command"; keywords: string[] };
   section: string | null;
+  origin?: string | null;
 }
 
 export async function searchReferenceCatalog(query: string): Promise<SearchResult[]> {
@@ -51,3 +53,12 @@ export async function onPanelShown(focus: (sequence: number) => void): Promise<U
 export async function confirmPanelPresented(sequence: number, focused: boolean): Promise<void> {
   if (isTauri()) await invoke("panel_presented", {sequence, focused});
 }
+
+export interface ApplicationSearch { rows: SearchResult[]; total: number; generation: number; warning: string | null }
+export async function searchApplications(query: string, refresh = false): Promise<ApplicationSearch> {
+  if (!isTauri()) throw new Error("Applications are available in the native desktop app.");
+  return invoke("search_applications", {query, refresh});
+}
+export async function launchApplication(id: string): Promise<void> { return invoke("launch_application", {id}); }
+export async function applicationIcon(id: string): Promise<string | null> { return invoke("application_icon", {id}); }
+export async function reportApplicationLaunched(id: string): Promise<void> { return invoke("application_launch_ready", {id}); }

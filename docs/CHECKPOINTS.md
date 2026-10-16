@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP003, resident lifecycle and disposable panel.** User explicitly approved CP003 after reviewing CP002 locally; this supersedes the prior publication hold for this transition only. CP002 public publication is unverified. Implement resident process/tray, global shortcut, private ordered IPC, disposable panel and lifecycle/process equivalence tests. Discovery, actual launch actions and extensions remain later work.
+**Active: CP004, installed applications and launch.** User approved advancement after CP003 review and explicitly deferred performance upgrades until the complete software is ready. CP003 performance findings remain recorded without blocking this transition. No public release is invented. Implement discovery, duplicate handling, ranked search, native launch, refresh and equivalent tests. Extensions, favorites/usage persistence and other tools remain later work.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

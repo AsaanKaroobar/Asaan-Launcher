@@ -2,11 +2,11 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { onPanelShown, hidePanel, loadAppInfo, reportFrontendReady, searchReferenceCatalog, reportSearchReady } from "./native";
+import { searchApplications, onPanelShown, hidePanel, loadAppInfo, reportFrontendReady, searchReferenceCatalog, reportSearchReady } from "./native";
 
-vi.mock("./native", () => ({ confirmPanelPresented: vi.fn().mockResolvedValue(undefined), onPanelShown: vi.fn().mockResolvedValue(() => {}), hidePanel: vi.fn().mockResolvedValue(undefined), loadAppInfo: vi.fn(), reportFrontendReady: vi.fn(), searchReferenceCatalog: vi.fn().mockResolvedValue([]), reportSearchReady: vi.fn().mockResolvedValue(undefined) }));
+vi.mock("./native", () => ({ applicationIcon: vi.fn().mockResolvedValue(null), searchApplications: vi.fn().mockResolvedValue({rows:[],total:0,generation:1,warning:null}), launchApplication: vi.fn().mockResolvedValue(undefined), reportApplicationLaunched: vi.fn().mockResolvedValue(undefined), confirmPanelPresented: vi.fn().mockResolvedValue(undefined), onPanelShown: vi.fn().mockResolvedValue(() => {}), hidePanel: vi.fn().mockResolvedValue(undefined), loadAppInfo: vi.fn(), reportFrontendReady: vi.fn(), searchReferenceCatalog: vi.fn().mockResolvedValue([]), reportSearchReady: vi.fn().mockResolvedValue(undefined) }));
 const info = { name: "Asaaan Launcher", version: "0.1.0", platform: "linux", architecture: "x86_64" };
-beforeEach(() => { vi.resetAllMocks(); vi.mocked(onPanelShown).mockResolvedValue(() => {}); vi.mocked(hidePanel).mockResolvedValue(); vi.mocked(reportFrontendReady).mockResolvedValue(); vi.mocked(searchReferenceCatalog).mockResolvedValue([]); vi.mocked(reportSearchReady).mockResolvedValue(); });
+beforeEach(() => { vi.resetAllMocks(); vi.mocked(searchApplications).mockResolvedValue({rows:[],total:0,generation:1,warning:null}); vi.mocked(onPanelShown).mockResolvedValue(() => {}); vi.mocked(hidePanel).mockResolvedValue(); vi.mocked(reportFrontendReady).mockResolvedValue(); vi.mocked(searchReferenceCatalog).mockResolvedValue([]); vi.mocked(reportSearchReady).mockResolvedValue(); });
 
 describe("checkpoint 001 native connection", () => {
   it("waits for the native reply before displaying readiness and confirms a mounted frontend", async () => {
