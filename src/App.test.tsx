@@ -2,11 +2,11 @@ import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { loadAppInfo, reportFrontendReady } from "./native";
+import { loadAppInfo, reportFrontendReady, searchReferenceCatalog, reportSearchReady } from "./native";
 
-vi.mock("./native", () => ({ loadAppInfo: vi.fn(), reportFrontendReady: vi.fn() }));
+vi.mock("./native", () => ({ loadAppInfo: vi.fn(), reportFrontendReady: vi.fn(), searchReferenceCatalog: vi.fn().mockResolvedValue([]), reportSearchReady: vi.fn().mockResolvedValue(undefined) }));
 const info = { name: "Asaaan Launcher", version: "0.1.0", platform: "linux", architecture: "x86_64" };
-beforeEach(() => { vi.resetAllMocks(); vi.mocked(reportFrontendReady).mockResolvedValue(); });
+beforeEach(() => { vi.resetAllMocks(); vi.mocked(reportFrontendReady).mockResolvedValue(); vi.mocked(searchReferenceCatalog).mockResolvedValue([]); vi.mocked(reportSearchReady).mockResolvedValue(); });
 
 describe("checkpoint 001 native connection", () => {
   it("waits for the native reply before displaying readiness and confirms a mounted frontend", async () => {
@@ -34,7 +34,7 @@ describe("checkpoint 001 native connection", () => {
     render(<App />);
     expect(await screen.findByText("Native process unavailable")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Try again" }));
-    expect(await screen.findByText("Native connection ready")).toBeInTheDocument();
+    expect(await screen.findByText(/Native connection ready/)).toBeInTheDocument();
     expect(loadAppInfo).toHaveBeenCalledTimes(2);
   });
 

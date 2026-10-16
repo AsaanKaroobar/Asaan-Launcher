@@ -1,7 +1,7 @@
 {
   "name": "asaaan-launcher",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,12 +10,15 @@
     "tauri": "tauri",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm test",
-    "native:check": "cargo fmt --manifest-path src-tauri/Cargo.toml --check && cargo test --locked --release --manifest-path src-tauri/Cargo.toml && cargo clippy --locked --release --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings",
+    "check": "npm run typecheck && npm run parity:check && npm test",
+    "native:check": "cargo fmt --all --check && cargo test --workspace --locked --release && cargo clippy --workspace --locked --release --all-targets -- -D warnings",
     "package:linux": "tauri build --bundles deb",
     "install:local": "node scripts/local-deploy.mjs install",
     "smoke:local": "node scripts/local-deploy.mjs smoke",
-    "start:local": "node scripts/local-deploy.mjs run"
+    "start:local": "node scripts/local-deploy.mjs run",
+    "search:test": "cargo test -p asaaan-search --locked --release",
+    "parity:check": "node scripts/check-search-parity.mjs",
+    "parity:swift": "node scripts/generate-search-fixtures.mjs --check"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",
@@ -41,5 +44,6 @@
   "engines": {
     "node": ">=22.12.0 <23 || >=24.0.0"
   },
-  "packageManager": "npm@10.9.2"
+  "packageManager": "npm@10.9.2",
+  "checkpoint": "CP002"
 }

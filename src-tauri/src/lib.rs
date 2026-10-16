@@ -7,6 +7,7 @@ struct AppInfo {
     version: &'static str,
     platform: &'static str,
     architecture: &'static str,
+    smoke_test: bool,
 }
 
 #[tauri::command]
@@ -16,6 +17,7 @@ fn get_app_info() -> AppInfo {
         version: env!("CARGO_PKG_VERSION"),
         platform: std::env::consts::OS,
         architecture: std::env::consts::ARCH,
+        smoke_test: smoke_test_requested(),
     }
 }
 
@@ -23,19 +25,45 @@ fn smoke_test_requested() -> bool {
     std::env::args().any(|arg| arg == "--smoke-test")
 }
 
-// This command has no effect during ordinary use. It confirms that the installed
-// frontend mounted and received its native response, not merely that Rust started.
+// CP002 smoke completion waits for the search view, not only the identity reply.
 #[tauri::command]
-fn frontend_ready(app: tauri::AppHandle) {
+fn frontend_ready() {}
+
+#[tauri::command]
+fn search_reference_catalog(query: String) -> Vec<asaaan_search::ResultRow> {
+    asaaan_search::reference_catalog::search_reference(&query)
+}
+
+#[tauri::command]
+fn search_ready(
+    app: tauri::AppHandle,
+    query: String,
+    result_ids: Vec<String>,
+) -> Result<(), String> {
     if smoke_test_requested() {
-        println!("ASAAAN_NATIVE_SMOKE_OK");
+        let expected: Vec<_> = asaaan_search::reference_catalog::search_reference("cal")
+            .into_iter()
+            .map(|row| row.item.id)
+            .collect();
+        if query != "cal" || result_ids != expected || expected.len() != 2 {
+            return Err(
+                "The installed frontend did not render the expected cal search results".into(),
+            );
+        }
+        println!("ASAAAN_NATIVE_SMOKE_OK CP002 query=cal results=Calendar,Calculator");
         app.exit(0);
     }
+    Ok(())
 }
 
 pub fn run() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_app_info, frontend_ready])
+        .invoke_handler(tauri::generate_handler![
+            get_app_info,
+            frontend_ready,
+            search_reference_catalog,
+            search_ready
+        ])
         .setup(|app| {
             if smoke_test_requested() {
                 let handle = app.handle().clone();
@@ -62,6 +90,6 @@ mod tests {
         assert_eq!(value["version"], env!("CARGO_PKG_VERSION"));
         assert_eq!(value["platform"], std::env::consts::OS);
         assert_eq!(value["architecture"], std::env::consts::ARCH);
-        assert_eq!(value.as_object().unwrap().len(), 4);
+        assert_eq!(value.as_object().unwrap().len(), 5);
     }
 }

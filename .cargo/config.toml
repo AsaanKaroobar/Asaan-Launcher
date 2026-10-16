@@ -1,2 +1,3 @@
 [build]
 jobs = 4
+target-dir = "src-tauri/target"

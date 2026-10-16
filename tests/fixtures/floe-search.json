@@ -1,0 +1,8319 @@
+{
+  "referenceCommit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "compiler": "Swift version 6.2 (swift-6.2-RELEASE)\nTarget: x86_64-unknown-linux-gnu",
+  "scope": "Pure matcher and ranking bodies; domain/Algorithms/localization adapters only. Not a macOS UI or full app test.",
+  "matches": [
+    {
+      "candidate": "Safari",
+      "expected": {
+        "matched": [],
+        "score": 94
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Activity Monitor",
+      "expected": {
+        "matched": [],
+        "score": 84
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "expected": {
+        "matched": [],
+        "score": 82
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Google Chrome",
+      "expected": {
+        "matched": [],
+        "score": 87
+      },
+      "query": ""
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "expected": {
+        "matched": [],
+        "score": 83
+      },
+      "query": ""
+    },
+    {
+      "candidate": "System Settings",
+      "expected": {
+        "matched": [],
+        "score": 85
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Café Crème",
+      "expected": {
+        "matched": [],
+        "score": 90
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Über Notes",
+      "expected": {
+        "matched": [],
+        "score": 90
+      },
+      "query": ""
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "expected": {
+        "matched": [],
+        "score": 83
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [],
+        "score": 80
+      },
+      "query": ""
+    },
+    {
+      "candidate": "A-B-C",
+      "expected": {
+        "matched": [],
+        "score": 95
+      },
+      "query": ""
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "expected": {
+        "matched": [],
+        "score": 89
+      },
+      "query": ""
+    },
+    {
+      "candidate": "",
+      "expected": {
+        "matched": [],
+        "score": 100
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Privacy & Security",
+      "expected": {
+        "matched": [],
+        "score": 82
+      },
+      "query": ""
+    },
+    {
+      "candidate": "1Password 7",
+      "expected": {
+        "matched": [],
+        "score": 89
+      },
+      "query": ""
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "expected": {
+        "matched": [],
+        "score": 84
+      },
+      "query": ""
+    },
+    {
+      "candidate": "ÉCOLE",
+      "expected": {
+        "matched": [],
+        "score": 95
+      },
+      "query": ""
+    },
+    {
+      "candidate": "a\r\nb",
+      "expected": {
+        "matched": [],
+        "score": 97
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Safari",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 95
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "s"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "expected": {
+        "matched": [
+          7
+        ],
+        "score": 75
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "s"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "expected": {
+        "matched": [
+          5
+        ],
+        "score": 55
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "System Settings",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 86
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "s"
+    },
+    {
+      "candidate": "Über Notes",
+      "expected": {
+        "matched": [
+          9
+        ],
+        "score": 55
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "expected": {
+        "matched": [
+          12
+        ],
+        "score": 75
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 80
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "s"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "s"
+    },
+    {
+      "candidate": "",
+      "query": "s"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "expected": {
+        "matched": [
+          10
+        ],
+        "score": 75
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "1Password 7",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "s"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "s"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "s"
+    },
+    {
+      "candidate": "Safari",
+      "expected": {
+        "matched": [
+          0,
+          1,
+          2
+        ],
+        "score": 97
+      },
+      "query": "saf"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "saf"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "saf"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "saf"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "saf"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "saf"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "saf"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "saf"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "saf"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          0,
+          14,
+          24
+        ],
+        "score": 27
+      },
+      "query": "saf"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "saf"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "saf"
+    },
+    {
+      "candidate": "",
+      "query": "saf"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "saf"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "saf"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "saf"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "saf"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "saf"
+    },
+    {
+      "candidate": "Safari",
+      "expected": {
+        "matched": [
+          0,
+          1,
+          2
+        ],
+        "score": 97
+      },
+      "query": "SAF"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "SAF"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "SAF"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "SAF"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          0,
+          14,
+          24
+        ],
+        "score": 27
+      },
+      "query": "SAF"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "SAF"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "SAF"
+    },
+    {
+      "candidate": "",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "SAF"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "SAF"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "SAF"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "SAF"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "SAF"
+    },
+    {
+      "candidate": "Safari",
+      "query": "mon"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "expected": {
+        "matched": [
+          9,
+          10,
+          11
+        ],
+        "score": 75
+      },
+      "query": "mon"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "mon"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "mon"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "mon"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "mon"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "mon"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "mon"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "mon"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "mon"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "mon"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "mon"
+    },
+    {
+      "candidate": "",
+      "query": "mon"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "mon"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "mon"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "expected": {
+        "matched": [
+          7,
+          11,
+          14
+        ],
+        "score": 23
+      },
+      "query": "mon"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "mon"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "mon"
+    },
+    {
+      "candidate": "Safari",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "expected": {
+        "matched": [
+          0,
+          7,
+          14
+        ],
+        "score": 70
+      },
+      "query": "vsc"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "vsc"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "vsc"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "vsc"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "vsc"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "vsc"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "vsc"
+    },
+    {
+      "candidate": "",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "expected": {
+        "matched": [
+          3,
+          10,
+          12
+        ],
+        "score": 24
+      },
+      "query": "vsc"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "vsc"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "vsc"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "vsc"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "vsc"
+    },
+    {
+      "candidate": "Safari",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "expected": {
+        "matched": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "score": 55
+      },
+      "query": "tivi"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "tivi"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "tivi"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "tivi"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "tivi"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "tivi"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "tivi"
+    },
+    {
+      "candidate": "",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "tivi"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "tivi"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "tivi"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "tivi"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "tivi"
+    },
+    {
+      "candidate": "Safari",
+      "expected": {
+        "matched": [
+          0,
+          2,
+          4
+        ],
+        "score": 27
+      },
+      "query": "sfr"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "sfr"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "sfr"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "sfr"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          0,
+          8,
+          13
+        ],
+        "score": 70
+      },
+      "query": "sfr"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "sfr"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "sfr"
+    },
+    {
+      "candidate": "",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "sfr"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "sfr"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "sfr"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "sfr"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "sfr"
+    },
+    {
+      "candidate": "Safari",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Google Chrome",
+      "expected": {
+        "matched": [
+          0,
+          7,
+          8,
+          9
+        ],
+        "score": 50
+      },
+      "query": "gchr"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "gchr"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "gchr"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "gchr"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "gchr"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "gchr"
+    },
+    {
+      "candidate": "",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "gchr"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "gchr"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "gchr"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "gchr"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "gchr"
+    },
+    {
+      "candidate": "Safari",
+      "query": "cs"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "cs"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "cs"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "cs"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "expected": {
+        "matched": [
+          0,
+          5
+        ],
+        "score": 54
+      },
+      "query": "cs"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "cs"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "cs"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "cs"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "cs"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          4,
+          21
+        ],
+        "score": 30
+      },
+      "query": "cs"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "cs"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "cs"
+    },
+    {
+      "candidate": "",
+      "query": "cs"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "expected": {
+        "matched": [
+          5,
+          10
+        ],
+        "score": 30
+      },
+      "query": "cs"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "cs"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "cs"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "cs"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "cs"
+    },
+    {
+      "candidate": "Safari",
+      "query": "abc"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "abc"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "abc"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "abc"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "abc"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "abc"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "abc"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "abc"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "abc"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "abc"
+    },
+    {
+      "candidate": "A-B-C",
+      "expected": {
+        "matched": [
+          0,
+          2,
+          4
+        ],
+        "score": 70
+      },
+      "query": "abc"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "expected": {
+        "matched": [
+          7,
+          8,
+          10
+        ],
+        "score": 47
+      },
+      "query": "abc"
+    },
+    {
+      "candidate": "",
+      "query": "abc"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "abc"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "abc"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "abc"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "abc"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "abc"
+    },
+    {
+      "candidate": "Safari",
+      "query": "é"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "é"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "é"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "é"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "é"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "é"
+    },
+    {
+      "candidate": "Café Crème",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "é"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "é"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "é"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "é"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "é"
+    },
+    {
+      "candidate": "",
+      "query": "é"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "é"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "é"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "é"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 96
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "é"
+    },
+    {
+      "candidate": "Safari",
+      "query": "cré"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "cré"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "cré"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "cré"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "cré"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "cré"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "cré"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "cré"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "cré"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "cré"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "cré"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "cré"
+    },
+    {
+      "candidate": "",
+      "query": "cré"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "cré"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "cré"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "cré"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "cré"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "cré"
+    },
+    {
+      "candidate": "Safari",
+      "query": "uber"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "uber"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "uber"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "uber"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "uber"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "uber"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "uber"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "uber"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "uber"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "uber"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "uber"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "uber"
+    },
+    {
+      "candidate": "",
+      "query": "uber"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "uber"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "uber"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "uber"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "uber"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "uber"
+    },
+    {
+      "candidate": "Safari",
+      "query": "über"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "über"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "über"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "über"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "über"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "über"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "über"
+    },
+    {
+      "candidate": "Über Notes",
+      "expected": {
+        "matched": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 94
+      },
+      "query": "über"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "über"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "über"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "über"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "über"
+    },
+    {
+      "candidate": "",
+      "query": "über"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "über"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "über"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "über"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "über"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "über"
+    },
+    {
+      "candidate": "Safari",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "fbb"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "fbb"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "fbb"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "expected": {
+        "matched": [
+          0,
+          4,
+          8
+        ],
+        "score": 70
+      },
+      "query": "fbb"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "fbb"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "fbb"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "fbb"
+    },
+    {
+      "candidate": "",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "fbb"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "fbb"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "fbb"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "fbb"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "fbb"
+    },
+    {
+      "candidate": "Safari",
+      "query": "rank"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "rank"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "rank"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "rank"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "rank"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "rank"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "rank"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "rank"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "rank"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          13,
+          14,
+          15,
+          16
+        ],
+        "score": 75
+      },
+      "query": "rank"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "rank"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "rank"
+    },
+    {
+      "candidate": "",
+      "query": "rank"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "rank"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "rank"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "rank"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "rank"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "rank"
+    },
+    {
+      "candidate": "Safari",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "expected": {
+        "matched": [
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "score": 55
+      },
+      "query": "floe/r"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "floe/r"
+    },
+    {
+      "candidate": "Safari",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "expected": {
+        "matched": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "score": 55
+      },
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "bar-b"
+    },
+    {
+      "candidate": "Safari",
+      "query": "y m"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "expected": {
+        "matched": [
+          7,
+          8,
+          9
+        ],
+        "score": 55
+      },
+      "query": "y m"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "y m"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "y m"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "y m"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "y m"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "y m"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "y m"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "y m"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "y m"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "y m"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "y m"
+    },
+    {
+      "candidate": "",
+      "query": "y m"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "y m"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "y m"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "y m"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "y m"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "y m"
+    },
+    {
+      "candidate": "Safari",
+      "query": "1p"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "1p"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "1p"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "1p"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "1p"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "1p"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "1p"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "1p"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "1p"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "1p"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "1p"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "1p"
+    },
+    {
+      "candidate": "",
+      "query": "1p"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "1p"
+    },
+    {
+      "candidate": "1Password 7",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 91
+      },
+      "query": "1p"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "1p"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "1p"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "1p"
+    },
+    {
+      "candidate": "Safari",
+      "query": "7"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "7"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "7"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "7"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "7"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "7"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "7"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "7"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "7"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "7"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "7"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "7"
+    },
+    {
+      "candidate": "",
+      "query": "7"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "7"
+    },
+    {
+      "candidate": "1Password 7",
+      "expected": {
+        "matched": [
+          10
+        ],
+        "score": 75
+      },
+      "query": "7"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "7"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "7"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "7"
+    },
+    {
+      "candidate": "Safari",
+      "query": "pm"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "pm"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "pm"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "pm"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "pm"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "pm"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "pm"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "pm"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "pm"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "pm"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "pm"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "pm"
+    },
+    {
+      "candidate": "",
+      "query": "pm"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "pm"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "pm"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "expected": {
+        "matched": [
+          1,
+          7
+        ],
+        "score": 53
+      },
+      "query": "pm"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "pm"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "pm"
+    },
+    {
+      "candidate": "Safari",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "ecole"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "ecole"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "ecole"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "ecole"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "ecole"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "ecole"
+    },
+    {
+      "candidate": "",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "ecole"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "ecole"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "ecole"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "ecole"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "ecole"
+    },
+    {
+      "candidate": "Safari",
+      "query": "école"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "école"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "école"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "école"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "école"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "école"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "école"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "école"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "école"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "école"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "école"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "école"
+    },
+    {
+      "candidate": "",
+      "query": "école"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "école"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "école"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "école"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "expected": {
+        "matched": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "score": 100
+      },
+      "query": "école"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "école"
+    },
+    {
+      "candidate": "Safari",
+      "query": "ac"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 86
+      },
+      "query": "ac"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "expected": {
+        "matched": [
+          4,
+          14
+        ],
+        "score": 30
+      },
+      "query": "ac"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "ac"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "ac"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "ac"
+    },
+    {
+      "candidate": "Café Crème",
+      "expected": {
+        "matched": [
+          1,
+          5
+        ],
+        "score": 33
+      },
+      "query": "ac"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "ac"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "ac"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "ac"
+    },
+    {
+      "candidate": "A-B-C",
+      "expected": {
+        "matched": [
+          0,
+          4
+        ],
+        "score": 54
+      },
+      "query": "ac"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "expected": {
+        "matched": [
+          7,
+          10
+        ],
+        "score": 50
+      },
+      "query": "ac"
+    },
+    {
+      "candidate": "",
+      "query": "ac"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "expected": {
+        "matched": [
+          4,
+          5
+        ],
+        "score": 55
+      },
+      "query": "ac"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "ac"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "ac"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "ac"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "ac"
+    },
+    {
+      "candidate": "Safari",
+      "query": "b"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "b"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "b"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "b"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "b"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "b"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "b"
+    },
+    {
+      "candidate": "Über Notes",
+      "expected": {
+        "matched": [
+          1
+        ],
+        "score": 55
+      },
+      "query": "b"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "expected": {
+        "matched": [
+          4
+        ],
+        "score": 75
+      },
+      "query": "b"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "b"
+    },
+    {
+      "candidate": "A-B-C",
+      "expected": {
+        "matched": [
+          2
+        ],
+        "score": 75
+      },
+      "query": "b"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "b"
+    },
+    {
+      "candidate": "",
+      "query": "b"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "b"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "b"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "b"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "b"
+    },
+    {
+      "candidate": "a\r\nb",
+      "expected": {
+        "matched": [
+          2
+        ],
+        "score": 75
+      },
+      "query": "b"
+    },
+    {
+      "candidate": "Safari",
+      "query": "a b"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "a b"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "a b"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "a b"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "a b"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "a b"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "a b"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "a b"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "a b"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "a b"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "a b"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "expected": {
+        "matched": [
+          1,
+          6,
+          8
+        ],
+        "score": 13
+      },
+      "query": "a b"
+    },
+    {
+      "candidate": "",
+      "query": "a b"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "a b"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "a b"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "a b"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "a b"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "a b"
+    },
+    {
+      "candidate": "Safari",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "safarii"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "safarii"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "safarii"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "safarii"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "safarii"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "safarii"
+    },
+    {
+      "candidate": "",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "query": "safarii"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "safarii"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "safarii"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "safarii"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "safarii"
+    },
+    {
+      "candidate": "Safari",
+      "query": "&"
+    },
+    {
+      "candidate": "Activity Monitor",
+      "query": "&"
+    },
+    {
+      "candidate": "Visual Studio Code",
+      "query": "&"
+    },
+    {
+      "candidate": "Google Chrome",
+      "query": "&"
+    },
+    {
+      "candidate": "ColorSync Utility",
+      "query": "&"
+    },
+    {
+      "candidate": "System Settings",
+      "query": "&"
+    },
+    {
+      "candidate": "Café Crème",
+      "query": "&"
+    },
+    {
+      "candidate": "Über Notes",
+      "query": "&"
+    },
+    {
+      "candidate": "foo_bar-baz.swift",
+      "query": "&"
+    },
+    {
+      "candidate": "Sources/Floe/Ranking.swift",
+      "query": "&"
+    },
+    {
+      "candidate": "A-B-C",
+      "query": "&"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "query": "&"
+    },
+    {
+      "candidate": "",
+      "query": "&"
+    },
+    {
+      "candidate": "Privacy & Security",
+      "expected": {
+        "matched": [
+          8
+        ],
+        "score": 55
+      },
+      "query": "&"
+    },
+    {
+      "candidate": "1Password 7",
+      "query": "&"
+    },
+    {
+      "candidate": "iPhone Mirroring",
+      "query": "&"
+    },
+    {
+      "candidate": "ÉCOLE",
+      "query": "&"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "&"
+    },
+    {
+      "candidate": "xaxbxc ab-c",
+      "expected": {
+        "matched": [
+          7,
+          8,
+          10
+        ],
+        "score": 47
+      },
+      "query": "abc"
+    },
+    {
+      "candidate": "ColorSync",
+      "expected": {
+        "matched": [
+          1,
+          5
+        ],
+        "score": 33
+      },
+      "query": "os"
+    },
+    {
+      "candidate": "Colorsync",
+      "expected": {
+        "matched": [
+          1,
+          5
+        ],
+        "score": 13
+      },
+      "query": "os"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "expected": {
+        "matched": [
+          1,
+          5
+        ],
+        "score": 33
+      },
+      "query": "oé"
+    },
+    {
+      "candidate": "Crème brûlée",
+      "expected": {
+        "matched": [
+          0,
+          10
+        ],
+        "score": 34
+      },
+      "query": "cé"
+    },
+    {
+      "candidate": "Safari",
+      "expected": {
+        "matched": [
+          0,
+          1,
+          2
+        ],
+        "score": 97
+      },
+      "query": "saf"
+    },
+    {
+      "candidate": "Google Chrome",
+      "expected": {
+        "matched": [
+          0,
+          7,
+          8,
+          9
+        ],
+        "score": 50
+      },
+      "query": "gchr"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "a\r\nb",
+      "expected": {
+        "matched": [
+          2
+        ],
+        "score": 75
+      },
+      "query": "b"
+    },
+    {
+      "candidate": "a👩‍💻💻",
+      "expected": {
+        "matched": [
+          2
+        ],
+        "score": 55
+      },
+      "query": "💻"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "👩"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 94
+      },
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "🇵🇰 Notes",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 94
+      },
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "Straße",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 95
+      },
+      "query": "s"
+    },
+    {
+      "candidate": "Straße",
+      "query": "ss"
+    },
+    {
+      "candidate": "ΟΣ",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 100
+      },
+      "query": "οσ"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "ος"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "i"
+    },
+    {
+      "candidate": "İstanbul",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 93
+      },
+      "query": "i̇"
+    },
+    {
+      "candidate": "École",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 96
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "1️⃣ Notes",
+      "query": "1"
+    },
+    {
+      "candidate": "Café",
+      "query": "e"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "expected": {
+        "matched": [
+          0,
+          2
+        ],
+        "score": 70
+      },
+      "query": "ab"
+    },
+    {
+      "candidate": "a🇵🇰f",
+      "expected": {
+        "matched": [
+          0,
+          2
+        ],
+        "score": 70
+      },
+      "query": "af"
+    },
+    {
+      "candidate": "",
+      "expected": {
+        "matched": [],
+        "score": 100
+      },
+      "query": ""
+    },
+    {
+      "candidate": "a",
+      "expected": {
+        "matched": [],
+        "score": 99
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [],
+        "score": 96
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [],
+        "score": 96
+      },
+      "query": ""
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "expected": {
+        "matched": [],
+        "score": 93
+      },
+      "query": ""
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "expected": {
+        "matched": [],
+        "score": 97
+      },
+      "query": ""
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "expected": {
+        "matched": [],
+        "score": 97
+      },
+      "query": ""
+    },
+    {
+      "candidate": "ΟΣ",
+      "expected": {
+        "matched": [],
+        "score": 98
+      },
+      "query": ""
+    },
+    {
+      "candidate": "İstanbul",
+      "expected": {
+        "matched": [],
+        "score": 92
+      },
+      "query": ""
+    },
+    {
+      "candidate": "ColorÉcole",
+      "expected": {
+        "matched": [],
+        "score": 90
+      },
+      "query": ""
+    },
+    {
+      "candidate": "éx",
+      "expected": {
+        "matched": [],
+        "score": 98
+      },
+      "query": ""
+    },
+    {
+      "candidate": "Éx",
+      "expected": {
+        "matched": [],
+        "score": 98
+      },
+      "query": ""
+    },
+    {
+      "candidate": "a\r\nb",
+      "expected": {
+        "matched": [],
+        "score": 97
+      },
+      "query": ""
+    },
+    {
+      "candidate": "aéa",
+      "expected": {
+        "matched": [],
+        "score": 97
+      },
+      "query": ""
+    },
+    {
+      "candidate": "",
+      "query": "a"
+    },
+    {
+      "candidate": "a",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 100
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          1
+        ],
+        "score": 55
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          1
+        ],
+        "score": 55
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "a"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 98
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 98
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "a"
+    },
+    {
+      "candidate": "İstanbul",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "a"
+    },
+    {
+      "candidate": "éx",
+      "query": "a"
+    },
+    {
+      "candidate": "Éx",
+      "query": "a"
+    },
+    {
+      "candidate": "a\r\nb",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 98
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "aéa",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 98
+      },
+      "query": "a"
+    },
+    {
+      "candidate": "",
+      "query": "é"
+    },
+    {
+      "candidate": "a",
+      "query": "é"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "é"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "é"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "é"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "é"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "é"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "expected": {
+        "matched": [
+          5
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "éx",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 99
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "Éx",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 99
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "é"
+    },
+    {
+      "candidate": "aéa",
+      "expected": {
+        "matched": [
+          1
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "",
+      "query": "é"
+    },
+    {
+      "candidate": "a",
+      "query": "é"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          3
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "é"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "é"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "é"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "é"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "é"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "expected": {
+        "matched": [
+          5
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "éx",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 99
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "Éx",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 99
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "é"
+    },
+    {
+      "candidate": "aéa",
+      "expected": {
+        "matched": [
+          1
+        ],
+        "score": 55
+      },
+      "query": "é"
+    },
+    {
+      "candidate": "",
+      "query": "👩"
+    },
+    {
+      "candidate": "a",
+      "query": "👩"
+    },
+    {
+      "candidate": "Café",
+      "query": "👩"
+    },
+    {
+      "candidate": "Café",
+      "query": "👩"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "👩"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "👩"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "👩"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "👩"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "👩"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "👩"
+    },
+    {
+      "candidate": "éx",
+      "query": "👩"
+    },
+    {
+      "candidate": "Éx",
+      "query": "👩"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "👩"
+    },
+    {
+      "candidate": "aéa",
+      "query": "👩"
+    },
+    {
+      "candidate": "",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "a",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "Café",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "Café",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 94
+      },
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "éx",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "Éx",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "aéa",
+      "query": "👩‍💻"
+    },
+    {
+      "candidate": "",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "a",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "Café",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "Café",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "expected": {
+        "matched": [
+          1
+        ],
+        "score": 55
+      },
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "éx",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "Éx",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "aéa",
+      "query": "🇵🇰"
+    },
+    {
+      "candidate": "",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "a",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "Café",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "Café",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "ΟΣ",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 100
+      },
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "éx",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "Éx",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "aéa",
+      "query": "ΟΣ"
+    },
+    {
+      "candidate": "",
+      "query": "ος"
+    },
+    {
+      "candidate": "a",
+      "query": "ος"
+    },
+    {
+      "candidate": "Café",
+      "query": "ος"
+    },
+    {
+      "candidate": "Café",
+      "query": "ος"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "ος"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "ος"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "ος"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "ος"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "ος"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "ος"
+    },
+    {
+      "candidate": "éx",
+      "query": "ος"
+    },
+    {
+      "candidate": "Éx",
+      "query": "ος"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "ος"
+    },
+    {
+      "candidate": "aéa",
+      "query": "ος"
+    },
+    {
+      "candidate": "",
+      "query": "i"
+    },
+    {
+      "candidate": "a",
+      "query": "i"
+    },
+    {
+      "candidate": "Café",
+      "query": "i"
+    },
+    {
+      "candidate": "Café",
+      "query": "i"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "i"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "i"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "i"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "i"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "i"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "i"
+    },
+    {
+      "candidate": "éx",
+      "query": "i"
+    },
+    {
+      "candidate": "Éx",
+      "query": "i"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "i"
+    },
+    {
+      "candidate": "aéa",
+      "query": "i"
+    },
+    {
+      "candidate": "",
+      "query": "i̇"
+    },
+    {
+      "candidate": "a",
+      "query": "i̇"
+    },
+    {
+      "candidate": "Café",
+      "query": "i̇"
+    },
+    {
+      "candidate": "Café",
+      "query": "i̇"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "i̇"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "i̇"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "i̇"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "i̇"
+    },
+    {
+      "candidate": "İstanbul",
+      "expected": {
+        "matched": [
+          0
+        ],
+        "score": 93
+      },
+      "query": "i̇"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "i̇"
+    },
+    {
+      "candidate": "éx",
+      "query": "i̇"
+    },
+    {
+      "candidate": "Éx",
+      "query": "i̇"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "i̇"
+    },
+    {
+      "candidate": "aéa",
+      "query": "i̇"
+    },
+    {
+      "candidate": "",
+      "query": "éx"
+    },
+    {
+      "candidate": "a",
+      "query": "éx"
+    },
+    {
+      "candidate": "Café",
+      "query": "éx"
+    },
+    {
+      "candidate": "Café",
+      "query": "éx"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "éx"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "éx"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "éx"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "éx"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "éx"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "éx"
+    },
+    {
+      "candidate": "éx",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 100
+      },
+      "query": "éx"
+    },
+    {
+      "candidate": "Éx",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 100
+      },
+      "query": "éx"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "éx"
+    },
+    {
+      "candidate": "aéa",
+      "query": "éx"
+    },
+    {
+      "candidate": "",
+      "query": "ab"
+    },
+    {
+      "candidate": "a",
+      "query": "ab"
+    },
+    {
+      "candidate": "Café",
+      "query": "ab"
+    },
+    {
+      "candidate": "Café",
+      "query": "ab"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "ab"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "expected": {
+        "matched": [
+          0,
+          2
+        ],
+        "score": 70
+      },
+      "query": "ab"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "expected": {
+        "matched": [
+          0,
+          2
+        ],
+        "score": 70
+      },
+      "query": "ab"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "ab"
+    },
+    {
+      "candidate": "İstanbul",
+      "expected": {
+        "matched": [
+          3,
+          5
+        ],
+        "score": 11
+      },
+      "query": "ab"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "ab"
+    },
+    {
+      "candidate": "éx",
+      "query": "ab"
+    },
+    {
+      "candidate": "Éx",
+      "query": "ab"
+    },
+    {
+      "candidate": "a\r\nb",
+      "expected": {
+        "matched": [
+          0,
+          2
+        ],
+        "score": 70
+      },
+      "query": "ab"
+    },
+    {
+      "candidate": "aéa",
+      "query": "ab"
+    },
+    {
+      "candidate": "",
+      "query": "aé"
+    },
+    {
+      "candidate": "a",
+      "query": "aé"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          1,
+          3
+        ],
+        "score": 13
+      },
+      "query": "aé"
+    },
+    {
+      "candidate": "Café",
+      "expected": {
+        "matched": [
+          1,
+          3
+        ],
+        "score": 13
+      },
+      "query": "aé"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "aé"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "aé"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "aé"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "aé"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "aé"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "aé"
+    },
+    {
+      "candidate": "éx",
+      "query": "aé"
+    },
+    {
+      "candidate": "Éx",
+      "query": "aé"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "aé"
+    },
+    {
+      "candidate": "aéa",
+      "expected": {
+        "matched": [
+          0,
+          1
+        ],
+        "score": 99
+      },
+      "query": "aé"
+    },
+    {
+      "candidate": "",
+      "query": "éa"
+    },
+    {
+      "candidate": "a",
+      "query": "éa"
+    },
+    {
+      "candidate": "Café",
+      "query": "éa"
+    },
+    {
+      "candidate": "Café",
+      "query": "éa"
+    },
+    {
+      "candidate": "👩‍💻 Notes",
+      "query": "éa"
+    },
+    {
+      "candidate": "a🇵🇰b",
+      "query": "éa"
+    },
+    {
+      "candidate": "a👨‍👩‍👧‍👦b",
+      "query": "éa"
+    },
+    {
+      "candidate": "ΟΣ",
+      "query": "éa"
+    },
+    {
+      "candidate": "İstanbul",
+      "query": "éa"
+    },
+    {
+      "candidate": "ColorÉcole",
+      "query": "éa"
+    },
+    {
+      "candidate": "éx",
+      "query": "éa"
+    },
+    {
+      "candidate": "Éx",
+      "query": "éa"
+    },
+    {
+      "candidate": "a\r\nb",
+      "query": "éa"
+    },
+    {
+      "candidate": "aéa",
+      "expected": {
+        "matched": [
+          1,
+          2
+        ],
+        "score": 55
+      },
+      "query": "éa"
+    }
+  ],
+  "rankings": [
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "browse default",
+        "query": "",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          "section": "Favorites"
+        },
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [
+          "Notes"
+        ],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "favorites suggestions",
+        "query": "",
+        "searchOnly": [],
+        "usage": {
+          "Calendar": 5,
+          "Hacker News": 2
+        }
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          "section": "Favorites"
+        },
+        {
+          "item": {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          "section": "Favorites"
+        },
+        {
+          "item": {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [
+          "Calendar",
+          "Notes",
+          "Gone"
+        ],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "missing favorite",
+        "query": "",
+        "searchOnly": [],
+        "usage": {
+          "Calendar": 9
+        }
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          "section": "Commands"
+        },
+        {
+          "item": {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          },
+          "section": "Commands"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "stable suggestions",
+        "query": "",
+        "searchOnly": [],
+        "usage": {
+          "Browse Planets": 1,
+          "Calculator": 1,
+          "Calendar": 1,
+          "Floe Settings": 1,
+          "Hacker News": 1,
+          "Notes": 1,
+          "Search Menu Bar Items": 1
+        }
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          }
+        },
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "unused cal",
+        "query": "cal",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          }
+        },
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "used cal",
+        "query": "cal",
+        "searchOnly": [],
+        "usage": {
+          "Calculator": 6
+        }
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          }
+        },
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [
+          "Calculator"
+        ],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "favorite cal",
+        "query": "cal",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          }
+        },
+        {
+          "item": {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          }
+        },
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          }
+        },
+        {
+          "item": {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {
+          "Hacker News": "c"
+        },
+        "favorites": [],
+        "items": [
+          {
+            "id": "Hacker News",
+            "isApp": false,
+            "keywords": [
+              "Hacker News"
+            ],
+            "title": "Hacker News"
+          },
+          {
+            "id": "Browse Planets",
+            "isApp": false,
+            "keywords": [
+              "hello"
+            ],
+            "title": "Browse Planets"
+          },
+          {
+            "id": "Calculator",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calculator"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          },
+          {
+            "id": "Search Menu Bar Items",
+            "isApp": false,
+            "keywords": [],
+            "title": "Search Menu Bar Items"
+          },
+          {
+            "id": "Floe Settings",
+            "isApp": false,
+            "keywords": [],
+            "title": "Floe Settings"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "exact alias beats capped usage",
+        "query": "c",
+        "searchOnly": [],
+        "usage": {
+          "Calculator": 1000000
+        }
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "App 41",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 41"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "App 4",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 4"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "App 5",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 5"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 6",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 6"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 7",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 7"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 8",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 8"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 9",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 9"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 10",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 10"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 11",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 11"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 12",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 12"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 13",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 13"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 14",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 14"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 15",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 15"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 16",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 16"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 17",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 17"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 18",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 18"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 19",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 19"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 20",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 20"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 21",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 21"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 22",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 22"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 23",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 23"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 24",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 24"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 25",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 25"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 26",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 26"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 27",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 27"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 28",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 28"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 29",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 29"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 30",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 30"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 31",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 31"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 32",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 32"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 33",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 33"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 34",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 34"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 35",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 35"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 36",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 36"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 37",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 37"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 38",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 38"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 39",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 39"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 40",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 40"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 42",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 42"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 43",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 43"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 44",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 44"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 45",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 45"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 46",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 46"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 47",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 47"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 48",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 48"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 49",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 49"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 50",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 50"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 51",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 51"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 52",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 52"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 53",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 53"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 54",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 54"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 55",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 55"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 56",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 56"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 57",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 57"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 58",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 58"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 59",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 59"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 60",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 60"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 61",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 61"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 62",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 62"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 63",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 63"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 64",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 64"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 65",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 65"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 66",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 66"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 67",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 67"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 68",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 68"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 69",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 69"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 70",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 70"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 71",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 71"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 72",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 72"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 73",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 73"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 74",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 74"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 75",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 75"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 76",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 76"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 77",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 77"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 78",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 78"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 79",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 79"
+          },
+          "section": "Applications"
+        },
+        {
+          "item": {
+            "id": "App 80",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 80"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          },
+          {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          },
+          {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          },
+          {
+            "id": "App 4",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 4"
+          },
+          {
+            "id": "App 5",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 5"
+          },
+          {
+            "id": "App 6",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 6"
+          },
+          {
+            "id": "App 7",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 7"
+          },
+          {
+            "id": "App 8",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 8"
+          },
+          {
+            "id": "App 9",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 9"
+          },
+          {
+            "id": "App 10",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 10"
+          },
+          {
+            "id": "App 11",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 11"
+          },
+          {
+            "id": "App 12",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 12"
+          },
+          {
+            "id": "App 13",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 13"
+          },
+          {
+            "id": "App 14",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 14"
+          },
+          {
+            "id": "App 15",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 15"
+          },
+          {
+            "id": "App 16",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 16"
+          },
+          {
+            "id": "App 17",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 17"
+          },
+          {
+            "id": "App 18",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 18"
+          },
+          {
+            "id": "App 19",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 19"
+          },
+          {
+            "id": "App 20",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 20"
+          },
+          {
+            "id": "App 21",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 21"
+          },
+          {
+            "id": "App 22",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 22"
+          },
+          {
+            "id": "App 23",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 23"
+          },
+          {
+            "id": "App 24",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 24"
+          },
+          {
+            "id": "App 25",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 25"
+          },
+          {
+            "id": "App 26",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 26"
+          },
+          {
+            "id": "App 27",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 27"
+          },
+          {
+            "id": "App 28",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 28"
+          },
+          {
+            "id": "App 29",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 29"
+          },
+          {
+            "id": "App 30",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 30"
+          },
+          {
+            "id": "App 31",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 31"
+          },
+          {
+            "id": "App 32",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 32"
+          },
+          {
+            "id": "App 33",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 33"
+          },
+          {
+            "id": "App 34",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 34"
+          },
+          {
+            "id": "App 35",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 35"
+          },
+          {
+            "id": "App 36",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 36"
+          },
+          {
+            "id": "App 37",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 37"
+          },
+          {
+            "id": "App 38",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 38"
+          },
+          {
+            "id": "App 39",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 39"
+          },
+          {
+            "id": "App 40",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 40"
+          },
+          {
+            "id": "App 41",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 41"
+          },
+          {
+            "id": "App 42",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 42"
+          },
+          {
+            "id": "App 43",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 43"
+          },
+          {
+            "id": "App 44",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 44"
+          },
+          {
+            "id": "App 45",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 45"
+          },
+          {
+            "id": "App 46",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 46"
+          },
+          {
+            "id": "App 47",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 47"
+          },
+          {
+            "id": "App 48",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 48"
+          },
+          {
+            "id": "App 49",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 49"
+          },
+          {
+            "id": "App 50",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 50"
+          },
+          {
+            "id": "App 51",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 51"
+          },
+          {
+            "id": "App 52",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 52"
+          },
+          {
+            "id": "App 53",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 53"
+          },
+          {
+            "id": "App 54",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 54"
+          },
+          {
+            "id": "App 55",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 55"
+          },
+          {
+            "id": "App 56",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 56"
+          },
+          {
+            "id": "App 57",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 57"
+          },
+          {
+            "id": "App 58",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 58"
+          },
+          {
+            "id": "App 59",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 59"
+          },
+          {
+            "id": "App 60",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 60"
+          },
+          {
+            "id": "App 61",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 61"
+          },
+          {
+            "id": "App 62",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 62"
+          },
+          {
+            "id": "App 63",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 63"
+          },
+          {
+            "id": "App 64",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 64"
+          },
+          {
+            "id": "App 65",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 65"
+          },
+          {
+            "id": "App 66",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 66"
+          },
+          {
+            "id": "App 67",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 67"
+          },
+          {
+            "id": "App 68",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 68"
+          },
+          {
+            "id": "App 69",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 69"
+          },
+          {
+            "id": "App 70",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 70"
+          },
+          {
+            "id": "App 71",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 71"
+          },
+          {
+            "id": "App 72",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 72"
+          },
+          {
+            "id": "App 73",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 73"
+          },
+          {
+            "id": "App 74",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 74"
+          },
+          {
+            "id": "App 75",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 75"
+          },
+          {
+            "id": "App 76",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 76"
+          },
+          {
+            "id": "App 77",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 77"
+          },
+          {
+            "id": "App 78",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 78"
+          },
+          {
+            "id": "App 79",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 79"
+          },
+          {
+            "id": "App 80",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 80"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "stable top five",
+        "query": "",
+        "searchOnly": [],
+        "usage": {
+          "App 1": 1,
+          "App 10": 1,
+          "App 11": 1,
+          "App 12": 1,
+          "App 13": 1,
+          "App 14": 1,
+          "App 15": 1,
+          "App 16": 1,
+          "App 17": 1,
+          "App 18": 1,
+          "App 19": 1,
+          "App 2": 1,
+          "App 20": 1,
+          "App 21": 1,
+          "App 22": 1,
+          "App 23": 1,
+          "App 24": 1,
+          "App 25": 1,
+          "App 26": 1,
+          "App 27": 1,
+          "App 28": 1,
+          "App 29": 1,
+          "App 3": 1,
+          "App 30": 1,
+          "App 31": 1,
+          "App 32": 1,
+          "App 33": 1,
+          "App 34": 1,
+          "App 35": 1,
+          "App 36": 1,
+          "App 37": 1,
+          "App 38": 1,
+          "App 39": 1,
+          "App 4": 1,
+          "App 40": 1,
+          "App 41": 2,
+          "App 42": 1,
+          "App 43": 1,
+          "App 44": 1,
+          "App 45": 1,
+          "App 46": 1,
+          "App 47": 1,
+          "App 48": 1,
+          "App 49": 1,
+          "App 5": 1,
+          "App 50": 1,
+          "App 51": 1,
+          "App 52": 1,
+          "App 53": 1,
+          "App 54": 1,
+          "App 55": 1,
+          "App 56": 1,
+          "App 57": 1,
+          "App 58": 1,
+          "App 59": 1,
+          "App 6": 1,
+          "App 60": 1,
+          "App 61": 1,
+          "App 62": 1,
+          "App 63": 1,
+          "App 64": 1,
+          "App 65": 1,
+          "App 66": 1,
+          "App 67": 1,
+          "App 68": 1,
+          "App 69": 1,
+          "App 7": 1,
+          "App 70": 1,
+          "App 71": 1,
+          "App 72": 1,
+          "App 73": 1,
+          "App 74": 1,
+          "App 75": 1,
+          "App 76": 1,
+          "App 77": 1,
+          "App 78": 1,
+          "App 79": 1,
+          "App 8": 1,
+          "App 80": 1,
+          "App 9": 1
+        }
+      }
+    },
+    {
+      "expected": [],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          },
+          {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          },
+          {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          },
+          {
+            "id": "App 4",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 4"
+          },
+          {
+            "id": "App 5",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 5"
+          },
+          {
+            "id": "App 6",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 6"
+          },
+          {
+            "id": "App 7",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 7"
+          },
+          {
+            "id": "App 8",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 8"
+          },
+          {
+            "id": "App 9",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 9"
+          },
+          {
+            "id": "App 10",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 10"
+          },
+          {
+            "id": "App 11",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 11"
+          },
+          {
+            "id": "App 12",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 12"
+          },
+          {
+            "id": "App 13",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 13"
+          },
+          {
+            "id": "App 14",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 14"
+          },
+          {
+            "id": "App 15",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 15"
+          },
+          {
+            "id": "App 16",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 16"
+          },
+          {
+            "id": "App 17",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 17"
+          },
+          {
+            "id": "App 18",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 18"
+          },
+          {
+            "id": "App 19",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 19"
+          },
+          {
+            "id": "App 20",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 20"
+          },
+          {
+            "id": "App 21",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 21"
+          },
+          {
+            "id": "App 22",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 22"
+          },
+          {
+            "id": "App 23",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 23"
+          },
+          {
+            "id": "App 24",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 24"
+          },
+          {
+            "id": "App 25",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 25"
+          },
+          {
+            "id": "App 26",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 26"
+          },
+          {
+            "id": "App 27",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 27"
+          },
+          {
+            "id": "App 28",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 28"
+          },
+          {
+            "id": "App 29",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 29"
+          },
+          {
+            "id": "App 30",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 30"
+          },
+          {
+            "id": "App 31",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 31"
+          },
+          {
+            "id": "App 32",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 32"
+          },
+          {
+            "id": "App 33",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 33"
+          },
+          {
+            "id": "App 34",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 34"
+          },
+          {
+            "id": "App 35",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 35"
+          },
+          {
+            "id": "App 36",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 36"
+          },
+          {
+            "id": "App 37",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 37"
+          },
+          {
+            "id": "App 38",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 38"
+          },
+          {
+            "id": "App 39",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 39"
+          },
+          {
+            "id": "App 40",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 40"
+          },
+          {
+            "id": "App 41",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 41"
+          },
+          {
+            "id": "App 42",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 42"
+          },
+          {
+            "id": "App 43",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 43"
+          },
+          {
+            "id": "App 44",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 44"
+          },
+          {
+            "id": "App 45",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 45"
+          },
+          {
+            "id": "App 46",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 46"
+          },
+          {
+            "id": "App 47",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 47"
+          },
+          {
+            "id": "App 48",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 48"
+          },
+          {
+            "id": "App 49",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 49"
+          },
+          {
+            "id": "App 50",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 50"
+          },
+          {
+            "id": "App 51",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 51"
+          },
+          {
+            "id": "App 52",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 52"
+          },
+          {
+            "id": "App 53",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 53"
+          },
+          {
+            "id": "App 54",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 54"
+          },
+          {
+            "id": "App 55",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 55"
+          },
+          {
+            "id": "App 56",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 56"
+          },
+          {
+            "id": "App 57",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 57"
+          },
+          {
+            "id": "App 58",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 58"
+          },
+          {
+            "id": "App 59",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 59"
+          },
+          {
+            "id": "App 60",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 60"
+          },
+          {
+            "id": "App 61",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 61"
+          },
+          {
+            "id": "App 62",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 62"
+          },
+          {
+            "id": "App 63",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 63"
+          },
+          {
+            "id": "App 64",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 64"
+          },
+          {
+            "id": "App 65",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 65"
+          },
+          {
+            "id": "App 66",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 66"
+          },
+          {
+            "id": "App 67",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 67"
+          },
+          {
+            "id": "App 68",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 68"
+          },
+          {
+            "id": "App 69",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 69"
+          },
+          {
+            "id": "App 70",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 70"
+          },
+          {
+            "id": "App 71",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 71"
+          },
+          {
+            "id": "App 72",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 72"
+          },
+          {
+            "id": "App 73",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 73"
+          },
+          {
+            "id": "App 74",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 74"
+          },
+          {
+            "id": "App 75",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 75"
+          },
+          {
+            "id": "App 76",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 76"
+          },
+          {
+            "id": "App 77",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 77"
+          },
+          {
+            "id": "App 78",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 78"
+          },
+          {
+            "id": "App 79",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 79"
+          },
+          {
+            "id": "App 80",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 80"
+          }
+        ],
+        "limit": 0,
+        "mode": "search",
+        "name": "limit 0",
+        "query": "app",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          }
+        },
+        {
+          "item": {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          }
+        },
+        {
+          "item": {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          },
+          {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          },
+          {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          },
+          {
+            "id": "App 4",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 4"
+          },
+          {
+            "id": "App 5",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 5"
+          },
+          {
+            "id": "App 6",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 6"
+          },
+          {
+            "id": "App 7",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 7"
+          },
+          {
+            "id": "App 8",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 8"
+          },
+          {
+            "id": "App 9",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 9"
+          },
+          {
+            "id": "App 10",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 10"
+          },
+          {
+            "id": "App 11",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 11"
+          },
+          {
+            "id": "App 12",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 12"
+          },
+          {
+            "id": "App 13",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 13"
+          },
+          {
+            "id": "App 14",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 14"
+          },
+          {
+            "id": "App 15",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 15"
+          },
+          {
+            "id": "App 16",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 16"
+          },
+          {
+            "id": "App 17",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 17"
+          },
+          {
+            "id": "App 18",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 18"
+          },
+          {
+            "id": "App 19",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 19"
+          },
+          {
+            "id": "App 20",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 20"
+          },
+          {
+            "id": "App 21",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 21"
+          },
+          {
+            "id": "App 22",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 22"
+          },
+          {
+            "id": "App 23",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 23"
+          },
+          {
+            "id": "App 24",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 24"
+          },
+          {
+            "id": "App 25",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 25"
+          },
+          {
+            "id": "App 26",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 26"
+          },
+          {
+            "id": "App 27",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 27"
+          },
+          {
+            "id": "App 28",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 28"
+          },
+          {
+            "id": "App 29",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 29"
+          },
+          {
+            "id": "App 30",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 30"
+          },
+          {
+            "id": "App 31",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 31"
+          },
+          {
+            "id": "App 32",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 32"
+          },
+          {
+            "id": "App 33",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 33"
+          },
+          {
+            "id": "App 34",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 34"
+          },
+          {
+            "id": "App 35",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 35"
+          },
+          {
+            "id": "App 36",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 36"
+          },
+          {
+            "id": "App 37",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 37"
+          },
+          {
+            "id": "App 38",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 38"
+          },
+          {
+            "id": "App 39",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 39"
+          },
+          {
+            "id": "App 40",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 40"
+          },
+          {
+            "id": "App 41",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 41"
+          },
+          {
+            "id": "App 42",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 42"
+          },
+          {
+            "id": "App 43",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 43"
+          },
+          {
+            "id": "App 44",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 44"
+          },
+          {
+            "id": "App 45",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 45"
+          },
+          {
+            "id": "App 46",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 46"
+          },
+          {
+            "id": "App 47",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 47"
+          },
+          {
+            "id": "App 48",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 48"
+          },
+          {
+            "id": "App 49",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 49"
+          },
+          {
+            "id": "App 50",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 50"
+          },
+          {
+            "id": "App 51",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 51"
+          },
+          {
+            "id": "App 52",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 52"
+          },
+          {
+            "id": "App 53",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 53"
+          },
+          {
+            "id": "App 54",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 54"
+          },
+          {
+            "id": "App 55",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 55"
+          },
+          {
+            "id": "App 56",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 56"
+          },
+          {
+            "id": "App 57",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 57"
+          },
+          {
+            "id": "App 58",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 58"
+          },
+          {
+            "id": "App 59",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 59"
+          },
+          {
+            "id": "App 60",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 60"
+          },
+          {
+            "id": "App 61",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 61"
+          },
+          {
+            "id": "App 62",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 62"
+          },
+          {
+            "id": "App 63",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 63"
+          },
+          {
+            "id": "App 64",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 64"
+          },
+          {
+            "id": "App 65",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 65"
+          },
+          {
+            "id": "App 66",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 66"
+          },
+          {
+            "id": "App 67",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 67"
+          },
+          {
+            "id": "App 68",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 68"
+          },
+          {
+            "id": "App 69",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 69"
+          },
+          {
+            "id": "App 70",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 70"
+          },
+          {
+            "id": "App 71",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 71"
+          },
+          {
+            "id": "App 72",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 72"
+          },
+          {
+            "id": "App 73",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 73"
+          },
+          {
+            "id": "App 74",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 74"
+          },
+          {
+            "id": "App 75",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 75"
+          },
+          {
+            "id": "App 76",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 76"
+          },
+          {
+            "id": "App 77",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 77"
+          },
+          {
+            "id": "App 78",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 78"
+          },
+          {
+            "id": "App 79",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 79"
+          },
+          {
+            "id": "App 80",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 80"
+          }
+        ],
+        "limit": 3,
+        "mode": "search",
+        "name": "limit 3",
+        "query": "app",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          }
+        },
+        {
+          "item": {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          }
+        },
+        {
+          "item": {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          }
+        },
+        {
+          "item": {
+            "id": "App 4",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 4"
+          }
+        },
+        {
+          "item": {
+            "id": "App 5",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 5"
+          }
+        },
+        {
+          "item": {
+            "id": "App 6",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 6"
+          }
+        },
+        {
+          "item": {
+            "id": "App 7",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 7"
+          }
+        },
+        {
+          "item": {
+            "id": "App 8",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 8"
+          }
+        },
+        {
+          "item": {
+            "id": "App 9",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 9"
+          }
+        },
+        {
+          "item": {
+            "id": "App 10",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 10"
+          }
+        },
+        {
+          "item": {
+            "id": "App 11",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 11"
+          }
+        },
+        {
+          "item": {
+            "id": "App 12",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 12"
+          }
+        },
+        {
+          "item": {
+            "id": "App 13",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 13"
+          }
+        },
+        {
+          "item": {
+            "id": "App 14",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 14"
+          }
+        },
+        {
+          "item": {
+            "id": "App 15",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 15"
+          }
+        },
+        {
+          "item": {
+            "id": "App 16",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 16"
+          }
+        },
+        {
+          "item": {
+            "id": "App 17",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 17"
+          }
+        },
+        {
+          "item": {
+            "id": "App 18",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 18"
+          }
+        },
+        {
+          "item": {
+            "id": "App 19",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 19"
+          }
+        },
+        {
+          "item": {
+            "id": "App 20",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 20"
+          }
+        },
+        {
+          "item": {
+            "id": "App 21",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 21"
+          }
+        },
+        {
+          "item": {
+            "id": "App 22",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 22"
+          }
+        },
+        {
+          "item": {
+            "id": "App 23",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 23"
+          }
+        },
+        {
+          "item": {
+            "id": "App 24",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 24"
+          }
+        },
+        {
+          "item": {
+            "id": "App 25",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 25"
+          }
+        },
+        {
+          "item": {
+            "id": "App 26",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 26"
+          }
+        },
+        {
+          "item": {
+            "id": "App 27",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 27"
+          }
+        },
+        {
+          "item": {
+            "id": "App 28",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 28"
+          }
+        },
+        {
+          "item": {
+            "id": "App 29",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 29"
+          }
+        },
+        {
+          "item": {
+            "id": "App 30",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 30"
+          }
+        },
+        {
+          "item": {
+            "id": "App 31",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 31"
+          }
+        },
+        {
+          "item": {
+            "id": "App 32",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 32"
+          }
+        },
+        {
+          "item": {
+            "id": "App 33",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 33"
+          }
+        },
+        {
+          "item": {
+            "id": "App 34",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 34"
+          }
+        },
+        {
+          "item": {
+            "id": "App 35",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 35"
+          }
+        },
+        {
+          "item": {
+            "id": "App 36",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 36"
+          }
+        },
+        {
+          "item": {
+            "id": "App 37",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 37"
+          }
+        },
+        {
+          "item": {
+            "id": "App 38",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 38"
+          }
+        },
+        {
+          "item": {
+            "id": "App 39",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 39"
+          }
+        },
+        {
+          "item": {
+            "id": "App 40",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 40"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "App 1",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 1"
+          },
+          {
+            "id": "App 2",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 2"
+          },
+          {
+            "id": "App 3",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 3"
+          },
+          {
+            "id": "App 4",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 4"
+          },
+          {
+            "id": "App 5",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 5"
+          },
+          {
+            "id": "App 6",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 6"
+          },
+          {
+            "id": "App 7",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 7"
+          },
+          {
+            "id": "App 8",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 8"
+          },
+          {
+            "id": "App 9",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 9"
+          },
+          {
+            "id": "App 10",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 10"
+          },
+          {
+            "id": "App 11",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 11"
+          },
+          {
+            "id": "App 12",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 12"
+          },
+          {
+            "id": "App 13",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 13"
+          },
+          {
+            "id": "App 14",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 14"
+          },
+          {
+            "id": "App 15",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 15"
+          },
+          {
+            "id": "App 16",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 16"
+          },
+          {
+            "id": "App 17",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 17"
+          },
+          {
+            "id": "App 18",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 18"
+          },
+          {
+            "id": "App 19",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 19"
+          },
+          {
+            "id": "App 20",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 20"
+          },
+          {
+            "id": "App 21",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 21"
+          },
+          {
+            "id": "App 22",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 22"
+          },
+          {
+            "id": "App 23",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 23"
+          },
+          {
+            "id": "App 24",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 24"
+          },
+          {
+            "id": "App 25",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 25"
+          },
+          {
+            "id": "App 26",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 26"
+          },
+          {
+            "id": "App 27",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 27"
+          },
+          {
+            "id": "App 28",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 28"
+          },
+          {
+            "id": "App 29",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 29"
+          },
+          {
+            "id": "App 30",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 30"
+          },
+          {
+            "id": "App 31",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 31"
+          },
+          {
+            "id": "App 32",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 32"
+          },
+          {
+            "id": "App 33",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 33"
+          },
+          {
+            "id": "App 34",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 34"
+          },
+          {
+            "id": "App 35",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 35"
+          },
+          {
+            "id": "App 36",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 36"
+          },
+          {
+            "id": "App 37",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 37"
+          },
+          {
+            "id": "App 38",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 38"
+          },
+          {
+            "id": "App 39",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 39"
+          },
+          {
+            "id": "App 40",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 40"
+          },
+          {
+            "id": "App 41",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 41"
+          },
+          {
+            "id": "App 42",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 42"
+          },
+          {
+            "id": "App 43",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 43"
+          },
+          {
+            "id": "App 44",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 44"
+          },
+          {
+            "id": "App 45",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 45"
+          },
+          {
+            "id": "App 46",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 46"
+          },
+          {
+            "id": "App 47",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 47"
+          },
+          {
+            "id": "App 48",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 48"
+          },
+          {
+            "id": "App 49",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 49"
+          },
+          {
+            "id": "App 50",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 50"
+          },
+          {
+            "id": "App 51",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 51"
+          },
+          {
+            "id": "App 52",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 52"
+          },
+          {
+            "id": "App 53",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 53"
+          },
+          {
+            "id": "App 54",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 54"
+          },
+          {
+            "id": "App 55",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 55"
+          },
+          {
+            "id": "App 56",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 56"
+          },
+          {
+            "id": "App 57",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 57"
+          },
+          {
+            "id": "App 58",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 58"
+          },
+          {
+            "id": "App 59",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 59"
+          },
+          {
+            "id": "App 60",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 60"
+          },
+          {
+            "id": "App 61",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 61"
+          },
+          {
+            "id": "App 62",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 62"
+          },
+          {
+            "id": "App 63",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 63"
+          },
+          {
+            "id": "App 64",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 64"
+          },
+          {
+            "id": "App 65",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 65"
+          },
+          {
+            "id": "App 66",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 66"
+          },
+          {
+            "id": "App 67",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 67"
+          },
+          {
+            "id": "App 68",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 68"
+          },
+          {
+            "id": "App 69",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 69"
+          },
+          {
+            "id": "App 70",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 70"
+          },
+          {
+            "id": "App 71",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 71"
+          },
+          {
+            "id": "App 72",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 72"
+          },
+          {
+            "id": "App 73",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 73"
+          },
+          {
+            "id": "App 74",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 74"
+          },
+          {
+            "id": "App 75",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 75"
+          },
+          {
+            "id": "App 76",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 76"
+          },
+          {
+            "id": "App 77",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 77"
+          },
+          {
+            "id": "App 78",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 78"
+          },
+          {
+            "id": "App 79",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 79"
+          },
+          {
+            "id": "App 80",
+            "isApp": true,
+            "keywords": [],
+            "title": "App 80"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "limit 40",
+        "query": "app",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Safari",
+            "isApp": true,
+            "keywords": [],
+            "title": "Safari"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Safari",
+            "isApp": true,
+            "keywords": [],
+            "title": "Safari"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "search only invisible",
+        "query": "",
+        "searchOnly": [
+          {
+            "id": "Displays",
+            "isApp": false,
+            "keywords": [],
+            "title": "Displays"
+          },
+          {
+            "id": "Sound",
+            "isApp": false,
+            "keywords": [],
+            "title": "Sound"
+          }
+        ],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Displays",
+            "isApp": false,
+            "keywords": [],
+            "title": "Displays"
+          },
+          "section": "Favorites"
+        },
+        {
+          "item": {
+            "id": "Safari",
+            "isApp": true,
+            "keywords": [],
+            "title": "Safari"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [
+          "Displays"
+        ],
+        "items": [
+          {
+            "id": "Safari",
+            "isApp": true,
+            "keywords": [],
+            "title": "Safari"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "search only favorite",
+        "query": "",
+        "searchOnly": [
+          {
+            "id": "Displays",
+            "isApp": false,
+            "keywords": [],
+            "title": "Displays"
+          },
+          {
+            "id": "Sound",
+            "isApp": false,
+            "keywords": [],
+            "title": "Sound"
+          }
+        ],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Displays",
+            "isApp": false,
+            "keywords": [],
+            "title": "Displays"
+          },
+          "section": "Suggestions"
+        },
+        {
+          "item": {
+            "id": "Safari",
+            "isApp": true,
+            "keywords": [],
+            "title": "Safari"
+          },
+          "section": "Applications"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Safari",
+            "isApp": true,
+            "keywords": [],
+            "title": "Safari"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "search only suggestion",
+        "query": "",
+        "searchOnly": [
+          {
+            "id": "Displays",
+            "isApp": false,
+            "keywords": [],
+            "title": "Displays"
+          }
+        ],
+        "usage": {
+          "Displays": 1
+        }
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Brewfile",
+            "isApp": true,
+            "keywords": [],
+            "title": "Brewfile"
+          }
+        },
+        {
+          "item": {
+            "id": "Show Installed",
+            "isApp": false,
+            "keywords": [
+              "brew"
+            ],
+            "title": "Show Installed"
+          }
+        },
+        {
+          "item": {
+            "id": "Upgrade",
+            "isApp": false,
+            "keywords": [
+              "brew"
+            ],
+            "title": "Upgrade"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Show Installed",
+            "isApp": false,
+            "keywords": [
+              "brew"
+            ],
+            "title": "Show Installed"
+          },
+          {
+            "id": "Upgrade",
+            "isApp": false,
+            "keywords": [
+              "brew"
+            ],
+            "title": "Upgrade"
+          },
+          {
+            "id": "Brewfile",
+            "isApp": true,
+            "keywords": [],
+            "title": "Brewfile"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "keyword less than title",
+        "query": "brew",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Brewfile",
+            "isApp": true,
+            "keywords": [],
+            "title": "Brewfile"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Show Installed",
+            "isApp": false,
+            "keywords": [
+              "brew"
+            ],
+            "title": "Show Installed"
+          },
+          {
+            "id": "Brewfile",
+            "isApp": true,
+            "keywords": [],
+            "title": "Brewfile"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "keyword refuses scattered",
+        "query": "bw",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Login Items",
+            "isApp": true,
+            "keywords": [],
+            "title": "Login Items"
+          }
+        },
+        {
+          "item": {
+            "id": "Search Items",
+            "isApp": false,
+            "keywords": [
+              "vault",
+              "1p",
+              "login"
+            ],
+            "title": "Search Items"
+          }
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [],
+        "items": [
+          {
+            "id": "Search Items",
+            "isApp": false,
+            "keywords": [
+              "vault",
+              "1p",
+              "login"
+            ],
+            "title": "Search Items"
+          },
+          {
+            "id": "Login Items",
+            "isApp": true,
+            "keywords": [],
+            "title": "Login Items"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "manifest keyword",
+        "query": "login",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [
+        {
+          "item": {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          "section": "Favorites"
+        }
+      ],
+      "input": {
+        "aliases": {},
+        "favorites": [
+          "Calendar"
+        ],
+        "items": [
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Calendar"
+          },
+          {
+            "id": "Calendar",
+            "isApp": true,
+            "keywords": [],
+            "title": "Another Calendar"
+          }
+        ],
+        "limit": 40,
+        "mode": "browse",
+        "name": "duplicate known id first wins",
+        "query": "",
+        "searchOnly": [],
+        "usage": {}
+      }
+    },
+    {
+      "expected": [],
+      "input": {
+        "aliases": {
+          "Notes": "👩‍💻"
+        },
+        "favorites": [],
+        "items": [
+          {
+            "id": "Notes",
+            "isApp": true,
+            "keywords": [],
+            "title": "Notes"
+          }
+        ],
+        "limit": 40,
+        "mode": "search",
+        "name": "unicode alias whole character",
+        "query": "👩",
+        "searchOnly": [],
+        "usage": {}
+      }
+    }
+  ]
+}

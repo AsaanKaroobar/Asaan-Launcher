@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP001, desktop foundation.** Implement only the branded native shell, React/Rust identity handshake, small meaningful tests, packaging and local install/run. Search logic, app discovery, hotkeys, resident supervision, extension runtime and Floe feature parity remain future work.
+**Active: CP002, shared search core.** User explicitly approved starting this checkpoint after local CP001 review and creating branch checkpoint-2. CP001 publication remains historically unverified. Implement exact fuzzy/ranking/result-merging behavior and a native reference-catalog screen only. App discovery, launching, hotkeys, resident services and extensions remain future work.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

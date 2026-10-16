@@ -10,12 +10,12 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const deployRoot = path.join(root, 'deployments/linux');
 const current = path.join(deployRoot, 'current');
 const command = process.argv[2];
+const pkg = JSON.parse(await fs.readFile(path.join(root, "package.json"), "utf8"));
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
 async function install() {
-  const pkg = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
   const bundle = path.join(root, 'src-tauri/target/release/bundle/deb');
-  const candidates = (await fs.readdir(bundle)).filter((file) => file.endsWith('.deb')).sort();
+  const candidates = (await fs.readdir(bundle)).filter((file) => file.endsWith('.deb') && file.includes('_' + pkg.version + '_')).sort();
   if (candidates.length !== 1) throw new Error('Expected exactly one Debian package. Clean stale bundles and rebuild before installing.');
   const file = path.join(bundle, candidates[0]);
   const fields = (await run('dpkg-deb', ['--field', file, 'Package', 'Version', 'Architecture'])).stdout;
@@ -35,7 +35,7 @@ async function install() {
       await run('dpkg-deb', ['--extract', file, staging]);
       const binary = path.join(staging, 'usr/bin/asaaan-launcher');
       await fs.access(binary, fs.constants.X_OK);
-      await fs.writeFile(path.join(staging, 'installation.json'), JSON.stringify({ checkpoint: 'CP001', version: pkg.version, package: candidates[0], packageSha256: sha256, binarySha256: digest(await fs.readFile(binary)), architecture, installedAt: new Date().toISOString() }, null, 2) + '\n');
+      await fs.writeFile(path.join(staging, 'installation.json'), JSON.stringify({ checkpoint: pkg.checkpoint, version: pkg.version, package: candidates[0], packageSha256: sha256, binarySha256: digest(await fs.readFile(binary)), architecture, installedAt: new Date().toISOString() }, null, 2) + '\n');
       await fs.rename(staging, destination);
     } finally { await fs.rm(staging, { recursive: true, force: true }); }
   }
@@ -52,6 +52,7 @@ async function install() {
 async function installedBinary() {
   const binary = path.join(current, 'usr/bin/asaaan-launcher');
   const manifest = JSON.parse(await fs.readFile(path.join(current, 'installation.json'), 'utf8'));
+  if (manifest.version !== pkg.version || manifest.checkpoint !== pkg.checkpoint) throw new Error('The installed package is from another checkpoint. Run npm run install:local.');
   if (digest(await fs.readFile(binary)) !== manifest.binarySha256) throw new Error('Installed binary changed. Reinstall the validated package.');
   return binary;
 }
@@ -59,10 +60,10 @@ async function installedBinary() {
 async function smoke() {
   const binary = await installedBinary();
   const result = await run(binary, ['--smoke-test'], { timeout: 30000, maxBuffer: 1024 * 1024 });
-  if (!result.stdout.includes('ASAAAN_NATIVE_SMOKE_OK')) throw new Error('Native process exited without frontend readiness evidence.\n' + result.stdout + result.stderr);
+  if (!result.stdout.includes('ASAAAN_NATIVE_SMOKE_OK ' + pkg.checkpoint)) throw new Error('Native process exited without frontend readiness evidence.\n' + result.stdout + result.stderr);
   console.log(result.stdout.trim());
   if (result.stderr.trim()) console.error(result.stderr.trim());
-  const evidence = { checkpoint: 'CP001', result: 'passed', kind: 'installed native frontend/Rust round trip', at: new Date().toISOString(), installation: JSON.parse(await fs.readFile(path.join(current, 'installation.json'), 'utf8')) };
+  const evidence = { checkpoint: pkg.checkpoint, result: 'passed', kind: 'installed native frontend/Tauri/Rust cal search with ordered result IDs', at: new Date().toISOString(), installation: JSON.parse(await fs.readFile(path.join(current, 'installation.json'), 'utf8')) };
   await fs.mkdir(path.join(root, '.artifacts'), { recursive: true });
   await fs.writeFile(path.join(root, '.artifacts/native-smoke.json'), JSON.stringify(evidence, null, 2) + '\n');
 }

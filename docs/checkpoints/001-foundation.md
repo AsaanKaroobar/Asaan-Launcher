@@ -1,6 +1,6 @@
 # CP001: Desktop foundation
 
-**Local implementation, validation and deployment complete. Release publication pending at the user's request. Do not start CP002.**
+**Local implementation, validation and deployment complete. Release publication historically unverified. The user subsequently reviewed this build and explicitly authorized CP002 on branch checkpoint-2.**
 
 ## Scope delivered
 

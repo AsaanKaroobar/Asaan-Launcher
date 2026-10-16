@@ -1,0 +1,9 @@
+# CP002 search reference
+
+The files in floe/ are copied verbatim from thaw-app/Floe commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. They retain René Jiménez's copyright and GNU AGPLv3 headers. provenance.json freezes their hashes. test-map.json maps all 38 original ranking test declarations and four pure provider-merge assertions to Rust tests; it does not claim other Floe suites are ported.
+
+The 775 matcher and 20 ranking fixtures were produced by compiling the original Fuzzy.swift and the Ranking enum body using the official Swift 6.2 Linux toolchain. Oracle.swift supplies value-only RootItem/RootResult stubs and stable Swift Algorithms substitutes. The generator replaces only localized English section labels and excludes the RootItem native-domain extension. The scorer itself is not translated or modified in this oracle.
+
+Regenerate explicitly with npm run parity:swift to check frozen outputs; use node scripts/generate-search-fixtures.mjs without --check only for deliberate fixture refresh. Set SWIFTC to a Swift compiler path if it is not on PATH. Swift is a test-oracle tool, never a production/runtime dependency. Regular npm/Cargo tests replay the frozen outputs on every platform without requiring Swift. No toolchain binary is committed or bundled.
+
+This confirms shared pure logic for these cases. It is not a macOS application test or a claim of equivalence over all Unicode versions. See [Swift Character properties](https://github.com/swiftlang/swift/blob/main/stdlib/public/core/CharacterProperties.swift), [unicode-segmentation](https://docs.rs/unicode-segmentation/1.13.3/unicode_segmentation/) and [unicode-normalization](https://docs.rs/unicode-normalization/0.1.25/unicode_normalization/). The independent fixtures caught Rust's contextual Greek final-sigma casing and partial-emoji alias-prefix differences, both corrected in the port.
