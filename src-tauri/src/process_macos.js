@@ -14,6 +14,13 @@ function run(argv) {
     const token='mac:'+app.processIdentifier+':'+stamp;
     if(mode!=='inspect' && argv[2]!==token)throw Error('Application instance changed');
     if(mode==='hide' && !app.hide)throw Error('Hide refused');
-    if(mode==='quit' && !app.terminate)throw Error('Quit refused');
-    return JSON.stringify({hidden:!!app.isHidden,canQuit:true,token:token});
+    if((mode==='quit'||mode==='restart') && !app.terminate)throw Error('Quit refused');
+    if(mode==='force' && !app.forceTerminate)throw Error('Force Quit refused');
+    if(mode==='restart'||mode==='force'){
+        for(let i=0;i<100&&!app.isTerminated;i++)delay(0.1);
+        if(!app.isTerminated){if(mode==='restart')return 'still-running';throw Error('Process exit unconfirmed');}
+        if(mode==='restart'&&$.NSWorkspace.sharedWorkspace.runningApplications.js.some(candidate=>
+            !candidate.isTerminated&&candidate.bundleURL&&candidate.bundleURL.URLByResolvingSymlinksInPath.path.js===path))throw Error('Replacement instance appeared');
+    }
+    return JSON.stringify({hidden:!!app.isHidden,canQuit:true,canRestart:true,canForce:true,token:token});
 }

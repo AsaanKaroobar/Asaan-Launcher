@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP011, graceful running-app controls.** User authorized advancing after CP010. Verify native app identity and offer Hide/Quit only where supported. Restart and Force Quit are CP012. Public CP010 publication is unverified and user controlled. Performance upgrades remain deferred.
+**Active: CP012, guarded Restart and Force Quit.** User authorized advancing after CP011. Wait for actual process exit before restart; use native confirmation and stable process identity before force termination. Public CP011 publication is unverified and user controlled. Extensions and performance upgrades remain deferred.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

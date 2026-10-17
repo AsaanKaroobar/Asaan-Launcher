@@ -3,9 +3,11 @@ mod application_actions;
 mod applications;
 mod clipboard;
 mod data;
+mod force_confirmation;
 mod panel;
 mod picker;
 mod process_actions;
+mod process_wait;
 #[cfg(target_os = "windows")]
 mod process_windows;
 #[cfg(target_os = "linux")]
@@ -109,7 +111,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP011 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP012 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }

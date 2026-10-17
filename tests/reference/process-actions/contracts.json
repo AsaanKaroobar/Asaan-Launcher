@@ -30,8 +30,29 @@
   {
     "reference": "running.forceTerminate()",
     "target": "src-tauri/src/process_actions.rs",
-    "test": "requests_cannot_supply_process_identity_or_force_actions",
-    "status": "excluded-boundary",
-    "note": "Force Quit remains CP012; this check rejects it at the CP011 public boundary."
+    "test": "requests_cannot_supply_process_identity_or_confirmation",
+    "status": "partial",
+    "note": "CP012 enables Force Quit through native confirmation; extra fields cannot assert approval or select a process."
+  },
+  {
+    "reference": "0 ..< 100",
+    "target": "src-tauri/src/process_wait.rs",
+    "test": "a_refused_quit_stops_after_the_reference_deadline",
+    "status": "partial",
+    "note": "Equivalent bounded wait; installed native tests verify no reopen while the original process lives."
+  },
+  {
+    "reference": "Confirm.destructive",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "destructive_requests_require_a_token_and_reject_a_confirmation_override",
+    "status": "partial",
+    "note": "Native installed tests verify default Cancel, Escape, confirmation and revalidation after approval."
+  },
+  {
+    "reference": "restart(app, running, host: host)",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "a_capable_app_offers_restart_then_confirmed_force_quit",
+    "status": "partial",
+    "note": "Menu order and instance-bound guarded restart."
   }
 ]

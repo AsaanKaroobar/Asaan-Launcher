@@ -54,6 +54,7 @@ jobs:
           npm run smoke:settings
           npm run smoke:search-cli
           npm run smoke:process
+          npm run smoke:process-controls
       - name: Upload checkpoint build artifacts (not a published release)
         uses: actions/upload-artifact@v4
         with:

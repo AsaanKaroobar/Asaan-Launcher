@@ -32,7 +32,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 011](docs/checkpoints/011-running-apps.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 012](docs/checkpoints/012-process-controls.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -110,4 +110,12 @@ Linux X11 checks native desktop ID, local hostname, owner, executable and proces
 
 macOS uses NSWorkspace and canonical bundle paths with native hide/terminate requests. Windows uses process AUMIDs and native window requests; unpackaged apps without a process AUMID and windows hosted by a different process cannot be identified by this adapter. Linux/Windows window-close requests can leave background processes running. Native macOS and Windows validation remains pending; no complete process-action parity is claimed.
 
-Run npm run process:parity for the pinned source contracts and npm run smoke:process for the installed Linux/X11 multi-window acceptance test. Restart, Force Quit and performance upgrades remain deferred.
+Run npm run process:parity for the pinned source contracts and npm run smoke:process for the installed Linux/X11 multi-window acceptance test. Restart and Force Quit are added in CP012 below. Performance upgrades remain deferred.
+
+## Restart and Force Quit (CP012)
+
+Restart asks the app to quit, waits up to ten seconds for its original processes to exit, and only then reopens it. Unsaved-work prompts, refusal, a changed desktop entry, a replacement instance or a continuing background process prevent reopening. No forced fallback or history/usage mutation occurs.
+
+Force Quit… dismisses the launcher and opens a native unsaved-work warning with cancellation as the default. It revalidates the selected instance after confirmation before terminating verified processes. Linux uses stable pidfds; Windows uses retained process handles; macOS uses NSRunningApplication. Linux/X11 is locally qualified; native macOS/Windows validation is pending. Controls remain unavailable where identity or required capabilities cannot be proven. No process tree is guessed or killed.
+
+Run npm run smoke:process-controls for the installed Linux/X11 cancellation, hung-app, stale-instance, refused/background/delayed-exit and changed-entry checks. See the checkpoint report for platform and HUD fidelity limits. Extensions and performance work remain deferred.

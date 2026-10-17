@@ -12,7 +12,7 @@ async function prop(w,name,type,value){await run('xprop',['-id',String(w),'-f',n
 async function setID(value){for(const w of windows)await prop(w,'_GTK_APPLICATION_ID','8u',value)}
 async function menu(){await key('Control_L','k');await until(async()=>(await state()).menu.includes('Open'),'Menu missing');await until(async()=>(await state()).text.some(t=>t.includes('Hide minimizes')||t.includes('identity')||t.includes('executable')||t.includes('remote')||t.includes('changed')),'Identity check not completed');return (await state()).menu}
 async function dismiss(){await key('Escape')}
-async function select(label){const snap=await state();await key('Home');for(let i=0;i<snap.menu.indexOf(label);i++)await key('Down');await key('Return')}
+async function select(label){const snap=await state();const index=snap.menu.indexOf(label);if(index<0)throw Error('Missing native action '+label);await key('Home');for(let i=0;i<index;i++)await key('Down');await key('Return')}
 async function reopen(){await run(binary,[],{env,timeout:5000});await until(async()=>(await state()).query!==null,'Panel missing');await delay(350)}
 async function query(){await key('Control_L','a');await key('BackSpace');await run('python3',[python,'text','process'],{env});await until(async()=>(await state()).query==='process','Query missing');await delay(250)}
 async function requests(){try{return(await fs.readFile(calls,'utf8')).trim().split('\n').filter(Boolean).map(JSON.parse)}catch(e){if(e.code==='ENOENT')return[];throw e}}
@@ -21,11 +21,11 @@ async function startFixture(){
  fixture.stdout.on('data',d=>ready+=d);fixture.stderr.on('data',d=>log+=d);
  await until(()=>ready.includes(']'),'App fixture not ready');windows=JSON.parse(ready.trim());await delay(350);
 }
-async function assertNoProcess(reason){const names=await menu();if(names.includes('Quit')||names.includes('Hide'))throw Error(reason+' unexpectedly offered controls');await dismiss()}
+async function assertNoProcess(reason){const names=await menu();if(names.some(n=>['Quit','Hide','Restart','Force Quit…'].includes(n)))throw Error(reason+' unexpectedly offered controls');await dismiss()}
 async function stop(child){if(child&&child.exitCode===null&&child.signalCode===null){child.kill();await until(()=>child.exitCode!==null||child.signalCode!==null,'Fixture teardown stalled');}child?.stdout?.destroy();child?.stderr?.destroy()}
 try{
  const installation=JSON.parse(await fs.readFile(new URL('deployments/linux/current/installation.json',root),'utf8'));
- if(installation.checkpoint!=='CP011'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install CP011 first');
+ if(installation.checkpoint!=='CP012'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install CP012 first');
  await fs.mkdir(path.dirname(desktop),{recursive:true});await fs.mkdir(system,{recursive:true});await fs.mkdir(path.dirname(storage),{recursive:true});
  const entry='[Desktop Entry]\nType=Application\nName=Process Probe\nExec=/usr/bin/python3\n';
  await fs.writeFile(desktop,entry);await fs.writeFile(mode,'refuse');
@@ -46,7 +46,7 @@ try{
  for(const w of windows)await run('xprop',['-id',String(w),'-remove','WM_PROTOCOLS'],{env});
  let unsupported=await menu();if(unsupported.includes('Quit')||!unsupported.includes('Hide'))throw Error('Unsupported graceful protocol offered Quit');await dismiss();
  for(const w of windows)await prop(w,'WM_PROTOCOLS','32a','WM_DELETE_WINDOW');stages.push('missing graceful close protocol omits Quit without disabling Hide');
- let names=await menu();if(!names.includes('Hide')||!names.includes('Quit')||names.some(n=>/Force Quit|Restart/.test(n)))throw Error('Incorrect verified process actions');
+ let names=await menu();if(!names.includes('Hide')||!names.includes('Quit')||!names.includes('Force Quit…')||!names.includes('Restart'))throw Error('Incorrect verified process actions');
  await select('Hide');await until(()=>log.includes('visible: false'),'Hide did not dismiss launcher');
  await until(async()=>{for(const w of windows){const p=(await run('xprop',['-id',String(w),'_NET_WM_STATE'],{env})).stdout;if(!p.includes('_NET_WM_STATE_HIDDEN'))return false}return true},'Hide did not minimize every window');
  if(fixture.exitCode!==null||fixture.signalCode!==null)throw Error('Hide terminated fixture');stages.push('verified multi-window Hide minimizes both and dismisses launcher');
@@ -65,6 +65,6 @@ try{
  if((await requests()).length!==requestCount||fixture.exitCode!==null||fixture.signalCode!==null)throw Error('Stale menu affected replacement app');stages.push('replacement instance is protected from an old menu token');
  if(!(await fs.readFile(storage)).equals(before))throw Error('Process controls changed preferences/history');stages.push('preferences, favorites and usage bytes unchanged');
  await run(binary,['--quit'],{env,timeout:5000});await until(()=>resident.exitCode===0,'Resident did not quit');
- await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-smoke.json',root),JSON.stringify({checkpoint:'CP011',binarySha256:installation.binarySha256,stages},null,2)+'\n');console.log('CP011 process actions passed '+stages.length+' stages: '+stages.join('; '));
+ await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-smoke.json',root),JSON.stringify({checkpoint:'CP012',binarySha256:installation.binarySha256,stages},null,2)+'\n');console.log('CP012 process actions passed '+stages.length+' stages: '+stages.join('; '));
 }catch(error){await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-failure.log',root),String(error)+'\n'+log);throw error}
 finally{await stop(fixture);if(resident&&resident.exitCode===null&&resident.signalCode===null){try{await run(binary,['--quit'],{env,timeout:5000})}catch{}}await stop(resident)}

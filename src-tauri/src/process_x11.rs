@@ -41,14 +41,14 @@ impl X {
             .to_owned())
     }
 }
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 struct Identity {
     pid: u32,
     executable: PathBuf,
     start: String,
 }
 fn process(pid: u32) -> Option<Identity> {
-    if pid <= 1 || pid == std::process::id() {
+    if protected(pid) {
         return None;
     }
     let base = PathBuf::from(format!("/proc/{pid}"));
@@ -79,7 +79,13 @@ pub fn perform(
     action: Option<Action>,
     expected_token: Option<&str>,
 ) -> Result<Option<Running>, String> {
-    perform_inner(app, action, expected_token).map_err(|e| e.to_string())
+    perform_inner(app, action, expected_token).map_err(|e| {
+        if e.downcast_ref::<x11rb::errors::ReplyError>().is_some() {
+            "Running-application state could not be verified. Reopen its action menu.".into()
+        } else {
+            e.to_string()
+        }
+    })
 }
 fn perform_inner(
     app: &Application,
@@ -93,6 +99,7 @@ fn perform_inner(
         return Err("Running-app controls are unavailable in this Wayland session".into());
     }
     let info = asaaan_apps::linux::desktop(app)?;
+    let entry = std::fs::read(&app.location)?;
     let id = app
         .identity
         .as_deref()
@@ -154,6 +161,7 @@ fn perform_inner(
         match candidate {
             Ok(Some(w)) => windows.push(w),
             Ok(None) => {}
+            Err(e) if vanished(&e) => continue,
             Err(e) => return Err(e),
         }
     }
@@ -171,21 +179,41 @@ fn perform_inner(
         w.hash(&mut hash);
         identity.hash(&mut hash);
     }
+    entry.hash(&mut hash);
     let token = format!("x11:{:016x}", hash.finish());
+    let mut held = vec![];
+    let mut pids = HashSet::new();
+    let mut stable = true;
+    for (_, identity, _, _) in &windows {
+        if pids.insert(identity.pid) {
+            match hold(identity) {
+                Ok(p) => held.push(p),
+                Err(_) => stable = false,
+            }
+        }
+    }
     let running = Running {
         hidden: windows.iter().all(|w| w.2),
         can_quit: windows.iter().all(|w| w.3),
+        can_restart: stable && windows.iter().all(|w| w.3),
+        can_force: stable,
         token,
     };
     if let Some(action) = action {
         if expected_token != Some(running.token.as_str()) {
             return Err("Application instance changed; reopen its action menu".into());
         }
-        if action == Action::Quit && !running.can_quit {
+        if matches!(action, Action::Quit | Action::Restart) && !running.can_quit {
             return Err("Application does not support graceful close requests".into());
         }
         if action == Action::Hide && running.hidden {
             return Err("Application windows are already hidden".into());
+        }
+        if action == Action::Restart && !running.can_restart {
+            return Err("Restart requires stable process handles".into());
+        }
+        if action == Action::ForceQuit && !running.can_force {
+            return Err("Force Quit requires stable process handles".into());
         }
         for (w, identity, _, _) in &windows {
             if process(identity.pid).as_ref() != Some(identity)
@@ -195,6 +223,31 @@ fn perform_inner(
             {
                 return Err("Application changed; reopen its action menu".into());
             }
+        }
+        if action == Action::ForceQuit {
+            use std::os::fd::AsRawFd;
+            for p in &held {
+                if process(p.identity.pid).as_ref() != Some(&p.identity) {
+                    return Err("Application instance changed".into());
+                }
+            }
+            for p in &held {
+                if unsafe {
+                    libc::syscall(
+                        libc::SYS_pidfd_send_signal,
+                        p.fd.as_raw_fd(),
+                        libc::SIGKILL,
+                        std::ptr::null::<libc::siginfo_t>(),
+                        0,
+                    )
+                } != 0
+                {
+                    return Err("Force Quit was refused; check the app before retrying".into());
+                }
+            }
+            crate::process_wait::wait_for_exit(|| all_exited(&held))
+                .map_err(|_| "Could not confirm process exit after Force Quit".to_string())?;
+            return Ok(Some(running));
         }
         for (w, _, is_hidden, _) in windows {
             match action {
@@ -209,7 +262,7 @@ fn perform_inner(
                     )?
                     .check()?;
                 }
-                Action::Quit => {
+                Action::Quit | Action::Restart => {
                     let event = ClientMessageEvent::new(
                         32,
                         w,
@@ -223,9 +276,98 @@ fn perform_inner(
             }
         }
         x.c.flush()?;
+        if action == Action::Restart {
+            crate::process_wait::wait_for_exit(|| all_exited(&held))?;
+            if std::fs::read(&app.location)? != entry {
+                return Err("Application desktop entry changed; it was not restarted".into());
+            }
+            if perform(app, None, None)?.is_some() {
+                return Err("Another instance appeared; it was not restarted".into());
+            }
+            asaaan_apps::launch(app)?;
+        }
     }
     Ok(Some(running))
 }
+
+fn vanished(error: &Error) -> bool {
+    matches!(error.downcast_ref::<x11rb::errors::ReplyError>(),Some(x11rb::errors::ReplyError::X11Error(e)) if e.error_kind==x11rb::protocol::ErrorKind::Window)
+}
+struct Held {
+    identity: Identity,
+    fd: std::os::fd::OwnedFd,
+}
+fn protected(pid: u32) -> bool {
+    let mut current = std::process::id();
+    let mut seen = HashSet::new();
+    while current > 1 && seen.insert(current) {
+        if current == pid {
+            return true;
+        }
+        let Some(parent) = std::fs::read_to_string(format!("/proc/{current}/stat"))
+            .ok()
+            .and_then(|s| s.rsplit_once(')').map(|(_, v)| v.to_owned()))
+            .and_then(|s| {
+                s.split_whitespace()
+                    .nth(1)
+                    .and_then(|p| p.parse::<u32>().ok())
+            })
+        else {
+            return true;
+        };
+        current = parent;
+    }
+    pid <= 1
+}
+fn exited(fd: &std::os::fd::OwnedFd) -> Result<bool, String> {
+    use std::os::fd::AsRawFd;
+    let mut p = libc::pollfd {
+        fd: fd.as_raw_fd(),
+        events: libc::POLLIN,
+        revents: 0,
+    };
+    let result = unsafe { libc::poll(&mut p, 1, 0) };
+    if result < 0 || p.revents & (libc::POLLERR | libc::POLLNVAL) != 0 {
+        return Err("Process exit state unavailable".into());
+    }
+    Ok(p.revents & libc::POLLIN != 0)
+}
+fn hold(identity: &Identity) -> Result<Held, String> {
+    use std::os::fd::{AsRawFd, FromRawFd};
+    let raw = unsafe { libc::syscall(libc::SYS_pidfd_open, identity.pid, 0) } as i32;
+    if raw < 0 {
+        return Err("Stable process handles are unavailable on this system".into());
+    }
+    let fd = unsafe { std::os::fd::OwnedFd::from_raw_fd(raw) };
+    if process(identity.pid).as_ref() != Some(identity) || exited(&fd)? {
+        return Err("Application instance changed".into());
+    }
+    if unsafe {
+        libc::syscall(
+            libc::SYS_pidfd_send_signal,
+            fd.as_raw_fd(),
+            0,
+            std::ptr::null::<libc::siginfo_t>(),
+            0,
+        )
+    } != 0
+    {
+        return Err("Application process cannot be controlled".into());
+    }
+    Ok(Held {
+        identity: identity.clone(),
+        fd,
+    })
+}
+fn all_exited(held: &[Held]) -> Result<bool, String> {
+    for p in held {
+        if !exited(&p.fd)? {
+            return Ok(false);
+        }
+    }
+    Ok(true)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -254,5 +396,45 @@ mod tests {
         for pid in [0, 1, std::process::id(), u32::MAX] {
             assert!(process(pid).is_none())
         }
+    }
+    #[test]
+    fn stable_process_handles_report_exit_and_do_not_retarget_by_pid() {
+        let mut child = std::process::Command::new("/bin/sleep")
+            .arg("5")
+            .spawn()
+            .unwrap();
+        let identity = process(child.id()).unwrap();
+        let held = hold(&identity).unwrap();
+        assert!(!exited(&held.fd).unwrap());
+        child.kill().unwrap();
+        child.wait().unwrap();
+        assert!(exited(&held.fd).unwrap());
+        assert!(process(held.identity.pid).is_none());
+    }
+    #[test]
+    fn ancestor_processes_are_never_selected() {
+        let parent = unsafe { libc::getppid() } as u32;
+        assert!(protected(parent));
+        assert!(process(parent).is_none());
+    }
+    #[test]
+    fn only_a_vanished_window_is_skipped_during_enumeration() {
+        use x11rb::{errors::ReplyError, protocol::ErrorKind, x11_utils::X11Error};
+        let error = |kind| -> Error {
+            Box::new(ReplyError::X11Error(X11Error {
+                error_kind: kind,
+                error_code: 3,
+                sequence: 1,
+                bad_value: 42,
+                minor_opcode: 0,
+                major_opcode: 20,
+                extension_name: None,
+                request_name: Some("GetProperty"),
+            }))
+        };
+        assert!(vanished(&error(ErrorKind::Window)));
+        assert!(!vanished(&error(ErrorKind::Access)));
+        let unavailable: Error = "Application identity unavailable".into();
+        assert!(!vanished(&unavailable));
     }
 }

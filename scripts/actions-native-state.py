@@ -18,12 +18,19 @@ def visit(node,depth=0):
             result['query']=Atspi.Text.get_text(node.get_text_iface(),0,-1)
         if role=='menu item':result['menu'].append(name)
         if role in ['frame','window']:result['windows'].append(name)
-        if name and ('Copied' in name or 'File manager' in name or 'removed' in name or 'catalog' in name or any(t in name for t in ['Quitting','Hide minimizes','identity','executable','remote','no longer running','instance changed'])):result['text'].append(name)
+        if name and ('Copied' in name or 'File manager' in name or 'removed' in name or 'catalog' in name or any(t in name for t in ['Quitting','Hide minimizes','identity','executable','remote','no longer running','instance changed','Restart','still running','not restarted','X11','error','Forced','Force','saved'])):result['text'].append(name)
         text=node.get_text_iface()
         if text:
             value=Atspi.Text.get_text(text,0,-1)
-            if value and any(token in value for token in ['Copied','File manager','removed','catalog','failed','Quitting','Hide minimizes','identity','executable','remote','no longer running','instance changed']):result['text'].append(value)
+            if value and any(token in value for token in ['Copied','File manager','removed','catalog','failed','Quitting','Hide minimizes','identity','executable','remote','no longer running','instance changed','Restart','still running','not restarted','X11','error','Forced','Force','saved']):result['text'].append(value)
         if name and node.get_state_set().contains(Atspi.StateType.SELECTED):result['selected'].append(name)
         for i in range(node.get_child_count()):visit(node.get_child_at_index(i),depth+1)
     except (GLib.Error, AttributeError):pass
-visit(Atspi.get_desktop(0)); print(json.dumps(result,ensure_ascii=False))
+root=Atspi.get_desktop(0)
+if len(sys.argv)>2:
+    target=int(sys.argv[2])
+    for i in range(root.get_child_count()):
+        app=root.get_child_at_index(i)
+        if app and app.get_process_id()==target:visit(app)
+else:visit(root)
+print(json.dumps(result,ensure_ascii=False))

@@ -8,6 +8,8 @@ use tauri::Manager;
 pub enum Action {
     Hide,
     Quit,
+    Restart,
+    ForceQuit,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -37,6 +39,10 @@ pub struct Outcome {
 pub struct Running {
     pub hidden: bool,
     pub can_quit: bool,
+    #[serde(default)]
+    pub can_restart: bool,
+    #[serde(default)]
+    pub can_force: bool,
     pub token: String,
 }
 fn describe(running: Option<Running>) -> Vec<Descriptor> {
@@ -55,6 +61,20 @@ fn describe(running: Option<Running>) -> Vec<Descriptor> {
         result.push(Descriptor {
             kind: Action::Quit,
             label: "Quit",
+            token: running.token.clone(),
+        });
+    }
+    if running.can_restart {
+        result.push(Descriptor {
+            kind: Action::Restart,
+            label: "Restart",
+            token: running.token.clone(),
+        });
+    }
+    if running.can_force {
+        result.push(Descriptor {
+            kind: Action::ForceQuit,
+            label: "Force Quit…",
             token: running.token.clone(),
         });
     }
@@ -95,21 +115,60 @@ pub async fn application_process_action(
     let target = store.get(&request.id)?;
     let action = request.action;
     let name = target.name.clone();
+    if action == Action::ForceQuit {
+        let selected = target.clone();
+        let token = request.token.clone();
+        tauri::async_runtime::spawn_blocking(move || {
+            let current =
+                platform(&selected, None, None)?.ok_or("Application is no longer running")?;
+            if current.token != token || !current.can_force {
+                return Err("Application instance changed or Force Quit is unavailable".to_string());
+            }
+            Ok(())
+        })
+        .await
+        .map_err(|e| e.to_string())??;
+        crate::hide_panel(app.clone(), None)?;
+        let handle = app.clone();
+        let title = name.clone();
+        let confirmed = tauri::async_runtime::spawn_blocking(move || {
+            crate::force_confirmation::confirm(&handle, &title)
+        })
+        .await
+        .map_err(|e| e.to_string())??;
+        eprintln!("ASAAAN_FORCE_CONFIRM accepted={confirmed}");
+        if !confirmed {
+            return Ok(Outcome {
+                message: None,
+                dismissed: true,
+            });
+        }
+    }
     tauri::async_runtime::spawn_blocking(move || {
+        if action == Action::ForceQuit {
+            eprintln!("ASAAAN_FORCE_CONFIRM revalidating");
+        }
         platform(&target, Some(action), Some(&request.token))
     })
     .await
-    .map_err(|e| e.to_string())??;
+    .map_err(|e| e.to_string())?
+    .map_err(|e| {
+        e.replace(
+            "Application is still running",
+            &format!("{name} is still running"),
+        )
+    })?;
     if action == Action::Hide {
         crate::hide_panel(app, None)?;
     }
     Ok(Outcome {
-        message: if action == Action::Quit {
-            Some(format!("Quitting {name}"))
-        } else {
-            None
+        message: match action {
+            Action::Quit => Some(format!("Quitting {name}")),
+            Action::Restart => Some(format!("Restarted {name}")),
+            Action::ForceQuit => Some(format!("Forced {name} to quit")),
+            Action::Hide => None,
         },
-        dismissed: action == Action::Hide,
+        dismissed: matches!(action, Action::Hide | Action::ForceQuit),
     })
 }
 fn platform_notice() -> Option<String> {
@@ -151,6 +210,8 @@ fn platform(
             None => "inspect",
             Some(Action::Hide) => "hide",
             Some(Action::Quit) => "quit",
+            Some(Action::Restart) => "restart",
+            Some(Action::ForceQuit) => "force",
         })
         .arg(expected.unwrap_or_default())
         .stdin(Stdio::null())
@@ -158,7 +219,14 @@ fn platform(
         .stderr(Stdio::null())
         .spawn()
         .map_err(|_| "Native application service unavailable")?;
-    let expires = Instant::now() + Duration::from_secs(5);
+    let expires = Instant::now()
+        + Duration::from_secs(
+            if matches!(action, Some(Action::Restart | Action::ForceQuit)) {
+                15
+            } else {
+                5
+            },
+        );
     loop {
         if let Some(status) = child
             .try_wait()
@@ -182,9 +250,15 @@ fn platform(
                     Err("Application is no longer running".into())
                 };
             }
-            return serde_json::from_str::<Running>(text.trim())
-                .map(Some)
-                .map_err(|_| "Native application response invalid".into());
+            if text.trim() == "still-running" {
+                return Err("Application is still running, so it was not restarted".into());
+            }
+            let running = serde_json::from_str::<Running>(text.trim())
+                .map_err(|_| "Native application response invalid".to_string())?;
+            if action == Some(Action::Restart) {
+                asaaan_apps::launch(app)?;
+            }
+            return Ok(Some(running));
         }
         if Instant::now() >= expires {
             let _ = child.kill();
@@ -224,6 +298,8 @@ mod tests {
         let d = describe(Some(Running {
             hidden: true,
             can_quit: true,
+            can_restart: false,
+            can_force: false,
             token: "fixture".into(),
         }));
         assert_eq!(
@@ -236,6 +312,8 @@ mod tests {
         let d = describe(Some(Running {
             hidden: false,
             can_quit: true,
+            can_restart: false,
+            can_force: false,
             token: "fixture".into(),
         }));
         assert_eq!(
@@ -248,18 +326,70 @@ mod tests {
         let d = describe(Some(Running {
             hidden: false,
             can_quit: false,
+            can_restart: false,
+            can_force: false,
             token: "fixture".into(),
         }));
         assert_eq!(d.len(), 1);
         assert_eq!(d[0].kind, Action::Hide);
     }
     #[test]
-    fn requests_cannot_supply_process_identity_or_force_actions() {
+    fn requests_cannot_supply_process_identity_or_confirmation() {
         for text in [
             r#"{"id":"x","action":"quit","pid":123}"#,
             r#"{"id":"x","action":"hide","path":"/app"}"#,
-            r#"{"id":"x","action":"forceQuit"}"#,
+            r#"{"id":"x","action":"forceQuit","token":"t","confirmed":true}"#,
             r#"{"id":"x","action":"restart"}"#,
+        ] {
+            assert!(serde_json::from_str::<Request>(text).is_err());
+        }
+    }
+    #[test]
+    fn a_capable_app_offers_restart_then_confirmed_force_quit() {
+        let d = describe(Some(Running {
+            hidden: false,
+            can_quit: true,
+            can_restart: true,
+            can_force: true,
+            token: "instance".into(),
+        }));
+        assert_eq!(
+            d.iter().map(|a| a.kind).collect::<Vec<_>>(),
+            vec![
+                Action::Hide,
+                Action::Quit,
+                Action::Restart,
+                Action::ForceQuit
+            ]
+        );
+        assert!(d.iter().all(|a| a.token == "instance"));
+    }
+    #[test]
+    fn force_quit_can_be_available_when_graceful_close_is_unsupported() {
+        let d = describe(Some(Running {
+            hidden: true,
+            can_quit: false,
+            can_restart: false,
+            can_force: true,
+            token: "instance".into(),
+        }));
+        assert_eq!(
+            d.iter().map(|a| a.kind).collect::<Vec<_>>(),
+            vec![Action::ForceQuit]
+        );
+    }
+    #[test]
+    fn destructive_requests_require_a_token_and_reject_a_confirmation_override() {
+        assert!(
+            serde_json::from_str::<Request>(
+                r#"{"id":"app:x","action":"forceQuit","token":"instance"}"#
+            )
+            .is_ok()
+        );
+        for text in [
+            r#"{"id":"app:x","action":"forceQuit"}"#,
+            r#"{"id":"app:x","action":"forceQuit","token":"instance","confirmed":true}"#,
+            r#"{"id":"app:x","action":"restart","token":"instance","pid":42}"#,
         ] {
             assert!(serde_json::from_str::<Request>(text).is_err());
         }

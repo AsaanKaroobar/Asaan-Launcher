@@ -20,9 +20,10 @@ else:
  name=sys.argv[3];context=sys.argv[4] if len(sys.argv)>4 else None;found=False
  for node,value in nodes:
   if value['name']!=name and not value['name'].startswith(name):continue
+  if mode=='click-exact' and (value['name']!=name or value['role']!='push button'):continue
   if mode=='focus' and value['editable']:
    Atspi.Component.grab_focus(node.get_component_iface());found=True;break
-  if mode=='click':
+  if mode in ['click','click-exact']:
    if context:
     parent=node.get_parent();matches=False
     for depth in range(25):
@@ -31,5 +32,8 @@ else:
      parent=parent.get_parent()
     if not matches:continue
    action=node.get_action_iface()
-   if action and Atspi.Action.get_n_actions(action)>0:Atspi.Action.do_action(action,0);found=True;break
+   if action and Atspi.Action.get_n_actions(action)>0:
+    accepted=Atspi.Action.do_action(action,0)
+    if mode=='click-exact' and not accepted:raise RuntimeError('Native button action was refused: '+name)
+    found=True;break
  if not found:raise RuntimeError('Accessible action not found: '+name+' '+json.dumps([v for n,v in nodes]))

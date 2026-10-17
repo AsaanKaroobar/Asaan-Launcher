@@ -21,6 +21,8 @@ unsafe extern "system" {
     fn CloseHandle(handle: Handle) -> i32;
     fn GetApplicationUserModelId(process: Handle, length: *mut u32, value: *mut u16) -> i32;
     fn GetExitCodeProcess(process: Handle, code: *mut u32) -> i32;
+    fn TerminateProcess(process: Handle, code: u32) -> i32;
+    fn WaitForSingleObject(process: Handle, timeout: u32) -> u32;
     fn GetProcessTimes(
         process: Handle,
         created: *mut u64,
@@ -98,7 +100,14 @@ pub fn perform(
         if pid == 0 || pid == std::process::id() {
             continue;
         }
-        let handle = unsafe { OpenProcess(0x1000, 0, pid) };
+        let access = 0x1000
+            | 0x100000
+            | if action == Some(Action::ForceQuit) {
+                1
+            } else {
+                0
+            };
+        let handle = unsafe { OpenProcess(access, 0, pid) };
         if handle.is_null() {
             continue;
         }
@@ -137,6 +146,8 @@ pub fn perform(
     let running = Running {
         hidden: windows.iter().all(|w| w.hidden),
         can_quit: true,
+        can_restart: true,
+        can_force: windows.iter().all(can_force),
         token,
     };
     if let Some(action) = action {
@@ -145,6 +156,9 @@ pub fn perform(
         }
         if action == Action::Hide && running.hidden {
             return Err("Application windows are already hidden".into());
+        }
+        if action == Action::ForceQuit && !running.can_force {
+            return Err("Force Quit is unavailable for this app".into());
         }
         // Retain process handles across enumeration/revalidation so PID reuse cannot retarget a request.
         for w in &windows {
@@ -161,11 +175,23 @@ pub fn perform(
                 return Err("Application changed; reopen its action menu".into());
             }
         }
+        if action == Action::ForceQuit {
+            let mut sent = std::collections::HashSet::new();
+            for w in &windows {
+                if sent.insert(w.pid) && unsafe { TerminateProcess(w.process.0, 1) } == 0 {
+                    return Err("Force Quit was refused; check the app before retrying".into());
+                }
+            }
+            crate::process_wait::wait_for_exit(|| all_exited(&windows))
+                .map_err(|_| "Could not confirm process exit after Force Quit".to_string())?;
+            return Ok(Some(running));
+        }
         for w in &windows {
             let accepted = match action {
                 Action::Hide if !w.hidden => unsafe { ShowWindowAsync(w.window, 6) },
                 Action::Hide => 1,
-                Action::Quit => unsafe { PostMessageW(w.window, 0x0010, 0, 0) },
+                Action::Quit | Action::Restart => unsafe { PostMessageW(w.window, 0x0010, 0, 0) },
+                Action::ForceQuit => unreachable!(),
             };
             if accepted == 0 {
                 return Err(
@@ -174,6 +200,34 @@ pub fn perform(
                 );
             }
         }
+        if action == Action::Restart {
+            crate::process_wait::wait_for_exit(|| all_exited(&windows))?;
+            if perform(app, None, None)?.is_some() {
+                return Err("Another instance appeared; it was not restarted".into());
+            }
+            asaaan_apps::launch(app)?;
+        }
     }
     Ok(Some(running))
+}
+
+fn can_force(w: &Window) -> bool {
+    let handle = unsafe { OpenProcess(0x1000 | 0x100000 | 1, 0, w.pid) };
+    if handle.is_null() {
+        return false;
+    }
+    let process = Process(handle);
+    let (mut created, mut exit, mut kernel, mut user) = (0, 0, 0, 0);
+    (unsafe { GetProcessTimes(process.0, &mut created, &mut exit, &mut kernel, &mut user) }) != 0
+        && created == w.created
+}
+fn all_exited(windows: &[Window]) -> Result<bool, String> {
+    for w in windows {
+        match unsafe { WaitForSingleObject(w.process.0, 0) } {
+            0 => {}
+            258 => return Ok(false),
+            _ => return Err("Process exit state unavailable".into()),
+        }
+    }
+    Ok(true)
 }

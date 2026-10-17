@@ -17,4 +17,5 @@ const map=JSON.parse(await read('tests/reference/process-actions/test-map.json')
 for(const row of map){if(!tests.includes('func '+row.function+'(')||!new RegExp('fn\\s+'+row.test+'\\s*\\(').test(await read(row.target)))throw Error('Missing original test mapping '+row.function);}
 const native=await read('scripts/test-process-x11.mjs');
 for(const token of ['Refused Quit terminated app','Hide did not minimize every window','Stale menu action did not revalidate','Process controls changed preferences/history'])if(!native.includes(token))throw Error('Missing installed contract '+token);
-console.log('Verified '+contracts.length+' scoped process contracts/boundaries and partial original non-running declaration; Restart/Force Quit/Trash remain deferred.');
+for(const token of ['Default Cancel affected app','Refused Restart escalated','Closed windows caused early reopen','Confirmation affected replacement instance','Changed desktop entry was reopened'])if(!(await read('scripts/test-process-controls-x11.mjs')).includes(token))throw Error('Missing checkpoint 12 installed contract '+token);
+console.log('Verified '+contracts.length+' scoped process contracts/boundaries and partial original non-running declaration; Restart/Force Quit require native qualification on each OS; Trash remains deferred.');

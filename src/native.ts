@@ -25,9 +25,9 @@ export async function reportFrontendReady(): Promise<void> {
   if (isTauri()) { await panelListenerReady; await invoke("frontend_ready"); }
 }
 
-export type ApplicationAction = "reveal" | "copyPath" | "copyName" | "copyIdentifier" | "hide" | "quit";
+export type ApplicationAction = "reveal" | "copyPath" | "copyName" | "copyIdentifier" | "hide" | "quit" | "restart" | "forceQuit";
 export interface ApplicationActionDescriptor {kind:ApplicationAction;label:string;token?:string}
-export async function runApplicationAction(id:string,action:ApplicationAction,token?:string):Promise<{message:string|null;dismissed:boolean}>{return invoke(action==="hide"||action==="quit"?"application_process_action":"application_action",{request:token===undefined?{id,action}:{id,action,token}});}
+export async function runApplicationAction(id:string,action:ApplicationAction,token?:string):Promise<{message:string|null;dismissed:boolean}>{return invoke(["hide","quit","restart","forceQuit"].includes(action)?"application_process_action":"application_action",{request:token===undefined?{id,action}:{id,action,token}});}
 export interface SearchResult {
   actions?:ApplicationActionDescriptor[];
   item: { id: string; title: string; kind: "application" | "command"; keywords: string[] };

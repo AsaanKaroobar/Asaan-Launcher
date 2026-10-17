@@ -1,7 +1,7 @@
 {
   "name": "asaaan-launcher",
   "private": true,
-  "version": "0.11.0",
+  "version": "0.12.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -38,7 +38,8 @@
     "search-cli:parity": "node scripts/check-search-cli-parity.mjs",
     "smoke:search-cli": "node scripts/test-search-cli.mjs",
     "smoke:process": "node scripts/test-isolated-x11.mjs --process-only",
-    "process:parity": "node scripts/check-process-parity.mjs"
+    "process:parity": "node scripts/check-process-parity.mjs",
+    "smoke:process-controls": "node scripts/test-isolated-x11.mjs --process-controls-only"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",
@@ -65,5 +66,5 @@
     "node": ">=22.12.0 <23 || >=24.0.0"
   },
   "packageManager": "npm@10.9.2",
-  "checkpoint": "CP011"
+  "checkpoint": "CP012"
 }

@@ -61,7 +61,7 @@ dependencies = [
 
 [[package]]
 name = "asaaan-launcher"
-version = "0.11.0"
+version = "0.12.0"
 dependencies = [
  "asaaan-apps",
  "asaaan-lifecycle",
@@ -72,6 +72,7 @@ dependencies = [
  "gdkx11",
  "gio",
  "gtk",
+ "libc",
  "serde",
  "serde_json",
  "tauri",

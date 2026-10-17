@@ -35,6 +35,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   const forceRefresh = useRef(false);
   const launching = useRef(false);
   const acting=useRef(false);
+  const [actingKind,setActingKind]=useState<ApplicationAction|null>(null);
   const [actingName,setActingName]=useState<string|null>(null);
   const [actionFeedback,setActionFeedback]=useState<string|null>(null);
   const smokeLaunched = useRef(false);
@@ -101,10 +102,10 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   }
   async function metadataAction(row:SearchResult,action:ApplicationAction,token?:string){
     if(isReference||acting.current||launching.current||changing.current)return;
-    acting.current=true;setActingName(row.item.title);setActionFeedback(null);setLaunchError(null);setActionTarget(null);inputRef.current?.focus();
+    acting.current=true;setActingKind(action);setActingName(row.item.title);setActionFeedback(null);setLaunchError(null);setActionTarget(null);inputRef.current?.focus();
     try{const outcome=await (token===undefined?runApplicationAction(row.item.id,action):runApplicationAction(row.item.id,action,token));if(outcome.dismissed){setQuery("");recall.current={index:-1,last:""};}else setActionFeedback(outcome.message);}
     catch(error:unknown){setLaunchError(error instanceof Error?error.message:typeof error==="string"?error:"The application action failed.");}
-    finally{acting.current=false;setActingName(null);}
+    finally{acting.current=false;setActingName(null);setActingKind(null);}
   }
   async function change(operation:PersonalizationChange) {
     if(changing.current||isReference||acting.current)return false;changing.current=true;preferencesGeneration.current++;setSaving(true);setLaunchError(null);
@@ -179,7 +180,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
       {actionTarget&&processOptions?.id===actionTarget.item.id&&processOptions.notice&&<p className="launch-feedback" role="status">{processOptions.notice}</p>}
       {aliasTarget&&<AliasEditor key={aliasTarget.item.id} title={aliasTarget.item.title} initial={preferences.aliases[aliasTarget.item.id]??""} saving={saving} error={launchError} onSave={alias=>change({kind:"alias",id:aliasTarget.item.id,alias})} onClose={()=>{setAliasTarget(null);inputRef.current?.focus();}}/>}
       {customizing&&<Customization hidden={preferences.hiddenResults} saving={saving} error={launchError} onRestore={id=>change({kind:"restore",id})} onClose={()=>{setCustomizing(false);inputRef.current?.focus();}}/>}
-      {actingName&&<p className="launch-feedback" role="status">Working on {actingName}…</p>}
+      {actingName&&<p className="launch-feedback" role="status">{actingKind==="restart"?"Restarting ":"Working on "}{actingName}…</p>}
       {actionFeedback&&<p className="launch-feedback" role="status">{actionFeedback}</p>}
       {launchingName && <p className="launch-feedback" role="status">Opening {launchingName}…</p>}
       {launchError && !aliasTarget && !customizing && <p className="launch-feedback error" role="alert">{launchError}</p>}

@@ -34,3 +34,11 @@ it("routes only graceful controls to the process boundary with an opaque catalog
  await applicationProcessOptions("app:notes");
  expect(invoke).toHaveBeenLastCalledWith("application_process_options",{id:"app:notes"});
 });
+
+it("Restart and Force Quit use only catalog ID and instance token at the native boundary",async()=>{
+ vi.mocked(invoke).mockResolvedValue({message:null,dismissed:true});
+ for(const action of ["restart","forceQuit"] as const){
+  await runApplicationAction("app:notes",action,"original");
+  expect(invoke).toHaveBeenLastCalledWith("application_process_action",{request:{id:"app:notes",action,token:"original"}});
+ }
+});

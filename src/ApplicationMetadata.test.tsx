@@ -72,3 +72,31 @@ it("late process rows preserve keyboard navigation from the focused metadata act
  fireEvent.keyDown(screen.getByRole("menu"),{key:"ArrowDown"});
  expect(screen.getByRole("menuitem",{name:"Copy Name"})).toHaveFocus();
 });
+
+it("Restart reports pending work and preserves query through timeout without recording activation",async()=>{
+ vi.mocked(applicationProcessOptions).mockResolvedValue({actions:[{kind:"restart",label:"Restart",token:"original"}],notice:null});
+ let fail!:(reason:Error)=>void;vi.mocked(runApplicationAction).mockReturnValue(new Promise((_,reject)=>fail=reject));
+ render(<SearchPanel/>);await screen.findByText("Native Notes");fireEvent.change(screen.getByRole("combobox"),{target:{value:"notes"}});
+ await screen.findByText("Native Notes");await menu();fireEvent.click(await screen.findByRole("menuitem",{name:"Restart"}));
+ await screen.findByText("Restarting Native Notes…");expect(screen.getByRole("combobox")).toHaveValue("notes");
+ fireEvent.keyDown(screen.getByRole("combobox"),{key:"Enter"});
+ expect(runApplicationAction).toHaveBeenCalledExactlyOnceWith("app:notes","restart","original");
+ await act(async()=>fail(new Error("Native Notes is still running, so it was not restarted")));
+ expect(await screen.findByRole("alert")).toHaveTextContent("not restarted");expect(screen.getByRole("combobox")).toHaveValue("notes");
+ expect(launchApplication).not.toHaveBeenCalled();expect(changePersonalization).not.toHaveBeenCalled();
+});
+it("Force Quit delegates confirmation to native code with no frontend approval override",async()=>{
+ vi.mocked(applicationProcessOptions).mockResolvedValue({actions:[{kind:"forceQuit",label:"Force Quit…",token:"original"}],notice:null});
+ vi.mocked(runApplicationAction).mockResolvedValue({message:null,dismissed:true});
+ render(<SearchPanel/>);await screen.findByText("Native Notes");await menu();fireEvent.click(await screen.findByRole("menuitem",{name:"Force Quit…"}));
+ await waitFor(()=>expect(runApplicationAction).toHaveBeenCalledExactlyOnceWith("app:notes","forceQuit","original"));
+ expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();expect(screen.queryByText(/Forced Native Notes/)).not.toBeInTheDocument();
+ expect(launchApplication).not.toHaveBeenCalled();expect(changePersonalization).not.toHaveBeenCalled();
+});
+it("a refused Force Quit retains the native error and restores usable controls",async()=>{
+ vi.mocked(applicationProcessOptions).mockResolvedValue({actions:[{kind:"forceQuit",label:"Force Quit…",token:"original"}],notice:null});
+ vi.mocked(runApplicationAction).mockRejectedValue("Application instance changed; reopen its action menu");
+ render(<SearchPanel/>);await screen.findByText("Native Notes");await menu();fireEvent.click(await screen.findByRole("menuitem",{name:"Force Quit…"}));
+ expect(await screen.findByRole("alert")).toHaveTextContent("instance changed");
+ expect(screen.getByRole("button",{name:"Actions"})).toBeEnabled();expect(changePersonalization).not.toHaveBeenCalled();
+});
