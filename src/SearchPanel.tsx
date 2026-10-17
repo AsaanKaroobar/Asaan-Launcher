@@ -1,7 +1,7 @@
 import {ApplicationActions,AliasEditor,Customization} from "./ApplicationActions";
 import ApplicationIcon from "./ApplicationIcon";
 import { useEffect, useLayoutEffect, useId, useRef, useState } from "react";
-import { runApplicationAction, type ApplicationAction, searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type Personalization, type SearchResult } from "./native";
+import { applicationProcessOptions, type ApplicationActionDescriptor, runApplicationAction, type ApplicationAction, searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type Personalization, type SearchResult } from "./native";
 
 type SearchState = { status: "loading" } | { status: "loaded"; query: string; rows: SearchResult[]; total?: number; warning?: string | null } | { status: "error"; message: string };
 
@@ -10,6 +10,16 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   const normalize=(value:Personalization)=>({...value,aliases:value.aliases??{},hiddenResults:value.hiddenResults??{}});
   const [preferences,setPreferences]=useState(()=>normalize({favorites:[],queries:[],rememberSearches:true,aliases:{},hiddenResults:{}}));
   const [actionTarget,setActionTarget]=useState<SearchResult|null>(null);
+  const [processOptions,setProcessOptions]=useState<{id:string;actions:ApplicationActionDescriptor[];notice:string|null}|null>(null);
+  useEffect(()=>{
+    setProcessOptions(null);
+    if(!actionTarget||isReference)return;
+    let cancelled=false;
+    void applicationProcessOptions(actionTarget.item.id).then(value=>{
+      if(!cancelled)setProcessOptions({id:actionTarget.item.id,...value});
+    }).catch(()=>{if(!cancelled)setProcessOptions({id:actionTarget.item.id,actions:[],notice:"Running-app controls could not be checked."});});
+    return()=>{cancelled=true;};
+  },[actionTarget,isReference]);
   const [aliasTarget,setAliasTarget]=useState<SearchResult|null>(null);
   const [customizing,setCustomizing]=useState(false);
   const [historyOpen,setHistoryOpen]=useState(false);
@@ -89,10 +99,10 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     catch (error: unknown) { setLaunchError(error instanceof Error ? error.message : "The application could not be opened."); }
     finally { launching.current = false; setLaunchingName(null); }
   }
-  async function metadataAction(row:SearchResult,action:ApplicationAction){
+  async function metadataAction(row:SearchResult,action:ApplicationAction,token?:string){
     if(isReference||acting.current||launching.current||changing.current)return;
     acting.current=true;setActingName(row.item.title);setActionFeedback(null);setLaunchError(null);setActionTarget(null);inputRef.current?.focus();
-    try{const outcome=await runApplicationAction(row.item.id,action);if(outcome.dismissed){setQuery("");recall.current={index:-1,last:""};}else setActionFeedback(outcome.message);}
+    try{const outcome=await (token===undefined?runApplicationAction(row.item.id,action):runApplicationAction(row.item.id,action,token));if(outcome.dismissed){setQuery("");recall.current={index:-1,last:""};}else setActionFeedback(outcome.message);}
     catch(error:unknown){setLaunchError(error instanceof Error?error.message:typeof error==="string"?error:"The application action failed.");}
     finally{acting.current=false;setActingName(null);}
   }
@@ -161,10 +171,12 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
       {actionTarget&&<ApplicationActions id={listId+"-actions"} title={actionTarget.item.title} onClose={()=>{setActionTarget(null);inputRef.current?.focus();}} actions={[
         {label:"Open",run:()=>{const target=actionTarget;setActionTarget(null);void open(target);}},
         {label:preferences.aliases[actionTarget.item.id]?"Edit Alias…":"Set Alias…",run:()=>{setAliasTarget(actionTarget);setActionTarget(null);setLaunchError(null);}},
+        ...(processOptions?.id===actionTarget.item.id?processOptions.actions:[]).map(action=>({label:action.label,run:()=>void metadataAction(actionTarget,action.kind,action.token)})),
         ...(actionTarget.actions??[]).map(action=>({label:action.label,run:()=>void metadataAction(actionTarget,action.kind)})),
         {label:preferences.favorites.includes(actionTarget.item.id)?"Remove from Favorites":"Add to Favorites",disabled:saving,run:()=>{favorite(actionTarget);setActionTarget(null);}},
         {label:"Hide from Search",disabled:saving,run:()=>{void change({kind:"hide",id:actionTarget.item.id});setActionTarget(null);inputRef.current?.focus();}},
       ]}/>}
+      {actionTarget&&processOptions?.id===actionTarget.item.id&&processOptions.notice&&<p className="launch-feedback" role="status">{processOptions.notice}</p>}
       {aliasTarget&&<AliasEditor key={aliasTarget.item.id} title={aliasTarget.item.title} initial={preferences.aliases[aliasTarget.item.id]??""} saving={saving} error={launchError} onSave={alias=>change({kind:"alias",id:aliasTarget.item.id,alias})} onClose={()=>{setAliasTarget(null);inputRef.current?.focus();}}/>}
       {customizing&&<Customization hidden={preferences.hiddenResults} saving={saving} error={launchError} onRestore={id=>change({kind:"restore",id})} onClose={()=>{setCustomizing(false);inputRef.current?.focus();}}/>}
       {actingName&&<p className="launch-feedback" role="status">Working on {actingName}…</p>}

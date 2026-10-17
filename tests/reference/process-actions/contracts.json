@@ -1,0 +1,37 @@
+[
+  {
+    "reference": "running(app)",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "stopped_apps_never_offer_quit_or_hide",
+    "status": "partial",
+    "note": "Scoped policy equivalent; native OS qualification and other process actions remain separate gates."
+  },
+  {
+    "reference": "!running.isHidden",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "hidden_apps_offer_only_graceful_quit",
+    "status": "partial",
+    "note": "Scoped policy equivalent; native OS qualification and other process actions remain separate gates."
+  },
+  {
+    "reference": "running.hide()",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "visible_apps_offer_hide_then_quit",
+    "status": "partial",
+    "note": "Scoped policy equivalent; native OS qualification and other process actions remain separate gates."
+  },
+  {
+    "reference": "running.terminate()",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "unsupported_close_protocol_never_offers_quit",
+    "status": "partial",
+    "note": "Graceful quit equivalent is native-fixture tested; this unit adds an unsupported-protocol safeguard."
+  },
+  {
+    "reference": "running.forceTerminate()",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "requests_cannot_supply_process_identity_or_force_actions",
+    "status": "excluded-boundary",
+    "note": "Force Quit remains CP012; this check rejects it at the CP011 public boundary."
+  }
+]

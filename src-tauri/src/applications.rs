@@ -184,7 +184,7 @@ pub fn application_launch_ready(app: tauri::AppHandle, id: String) -> Result<(),
         {
             return Err("No matching native application launch was accepted".into());
         }
-        println!("ASAAAN_APPLICATION_SMOKE_OK CP010 id={id}");
+        println!("ASAAAN_APPLICATION_SMOKE_OK CP011 id={id}");
         app.exit(0);
     }
     Ok(())

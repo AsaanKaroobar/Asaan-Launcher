@@ -32,7 +32,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 010](docs/checkpoints/010-search-cli.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 011](docs/checkpoints/011-running-apps.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -101,3 +101,13 @@ Exit codes: 0 for a successful search, including no matches; 64 for invalid/miss
 This checkpoint covers application results only. Floe's extension commands, built-ins, dictionary and other root providers remain later work. No browser, general file or network provider is started. npm run smoke:search-cli checks the installed Linux command without a display or session bus. Native Windows/macOS execution remains pending qualification.
 
 For this local session, the disposable Cargo target cache was moved to /tmp/asaaan-cp010-target to work around recurring workspace FUSE/NTFS ENOSPC errors; src-tauri/target is an ignored symlink. Installed versions and checkpoint artifacts remain on the workspace volume. If /tmp is cleared, remove the dangling src-tauri/target symlink before rebuilding. This is a local build-cache arrangement, not a runtime dependency of installed packages.
+
+## Graceful running-app controls (CP011)
+
+Open an application's Actions menu for Hide and Quit when native identity can be verified. Hide dismisses the launcher; Quit preserves the query and acknowledges the request without claiming the app has exited. Apps can refuse to close or ask about unsaved work. These actions do not change usage or preferences. Instance fingerprints prevent a stale menu from affecting a replacement process.
+
+Linux X11 checks native desktop ID, local hostname, owner, executable and process start time. Hide minimizes the verified windows; Quit uses WM_DELETE_WINDOW only when every verified window advertises it. Apps without usable native metadata, wrappers with a different executable, headless/background-only apps and Wayland sessions are unsupported. No process-name/title guessing or signal fallback is used. X11 metadata is cooperative and does not defend against hostile clients in the same desktop session.
+
+macOS uses NSWorkspace and canonical bundle paths with native hide/terminate requests. Windows uses process AUMIDs and native window requests; unpackaged apps without a process AUMID and windows hosted by a different process cannot be identified by this adapter. Linux/Windows window-close requests can leave background processes running. Native macOS and Windows validation remains pending; no complete process-action parity is claimed.
+
+Run npm run process:parity for the pinned source contracts and npm run smoke:process for the installed Linux/X11 multi-window acceptance test. Restart, Force Quit and performance upgrades remain deferred.

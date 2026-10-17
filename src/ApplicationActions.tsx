@@ -7,9 +7,11 @@ export function ApplicationActions({id,title,actions,onClose}:{id:string;title:s
  const [selection,setSelection]=useState(0);const buttons=useRef<Array<HTMLButtonElement|null>>([]);
  useEffect(()=>{buttons.current[selection]?.focus();},[selection]);
  return <aside id={id} ref={menu} role="menu" aria-label={title+" actions"} className="actions-popover" onKeyDown={event=>{
-  const move=(value:number)=>{event.preventDefault();event.stopPropagation();setSelection(value);};
-  if(event.key==="ArrowDown")move((selection+1)%actions.length);
-  if(event.key==="ArrowUp")move((selection+actions.length-1)%actions.length);
+  const move=(value:number)=>{event.preventDefault();event.stopPropagation();buttons.current[value]?.focus();setSelection(value);};
+  const focused=buttons.current.findIndex(button=>button===document.activeElement);
+  const current=focused<0?selection:focused;
+  if(event.key==="ArrowDown")move((current+1)%actions.length);
+  if(event.key==="ArrowUp")move((current+actions.length-1)%actions.length);
   if(event.key==="Home")move(0);if(event.key==="End")move(actions.length-1);
   if(event.key==="Escape"){event.preventDefault();event.stopPropagation();onClose();}
   if(event.key==="Tab")onClose();

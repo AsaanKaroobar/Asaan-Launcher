@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP010, application search CLI.** User authorized advancing after CP009. Add headless --search using existing ranking, aliases, favorites, usage and hidden-app rules; preserve the reference eight-row text format for applications. Test, package, install/run locally and stop. Public CP009 publication is unverified and user controlled. Performance work, process controls, other providers and extensions remain deferred.
+**Active: CP011, graceful running-app controls.** User authorized advancing after CP010. Verify native app identity and offer Hide/Quit only where supported. Restart and Force Quit are CP012. Public CP010 publication is unverified and user controlled. Performance upgrades remain deferred.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

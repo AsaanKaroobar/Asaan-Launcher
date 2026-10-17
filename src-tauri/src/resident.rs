@@ -164,7 +164,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP010 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP011 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }

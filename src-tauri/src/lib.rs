@@ -5,6 +5,11 @@ mod clipboard;
 mod data;
 mod panel;
 mod picker;
+mod process_actions;
+#[cfg(target_os = "windows")]
+mod process_windows;
+#[cfg(target_os = "linux")]
+mod process_x11;
 mod resident;
 mod search_command;
 mod settings;
@@ -104,7 +109,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP010 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP011 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -179,6 +184,8 @@ pub fn run() {
             applications::application_icon,
             applications::application_launch_ready,
             application_actions::application_action,
+            process_actions::application_process_options,
+            process_actions::application_process_action,
             applications::change_personalization
         ])
         .setup(move |app| {

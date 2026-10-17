@@ -25,9 +25,9 @@ export async function reportFrontendReady(): Promise<void> {
   if (isTauri()) { await panelListenerReady; await invoke("frontend_ready"); }
 }
 
-export type ApplicationAction = "reveal" | "copyPath" | "copyName" | "copyIdentifier";
-export interface ApplicationActionDescriptor {kind:ApplicationAction;label:string}
-export async function runApplicationAction(id:string,action:ApplicationAction):Promise<{message:string|null;dismissed:boolean}>{return invoke("application_action",{request:{id,action}});}
+export type ApplicationAction = "reveal" | "copyPath" | "copyName" | "copyIdentifier" | "hide" | "quit";
+export interface ApplicationActionDescriptor {kind:ApplicationAction;label:string;token?:string}
+export async function runApplicationAction(id:string,action:ApplicationAction,token?:string):Promise<{message:string|null;dismissed:boolean}>{return invoke(action==="hide"||action==="quit"?"application_process_action":"application_action",{request:token===undefined?{id,action}:{id,action,token}});}
 export interface SearchResult {
   actions?:ApplicationActionDescriptor[];
   item: { id: string; title: string; kind: "application" | "command"; keywords: string[] };
@@ -69,3 +69,5 @@ export async function searchApplications(query: string, refresh = false): Promis
 export async function launchApplication(id: string,query=""): Promise<{warning:string|null}|void> { return invoke("launch_application", {id,query}); }
 export async function applicationIcon(id: string): Promise<string | null> { return invoke("application_icon", {id}); }
 export async function reportApplicationLaunched(id: string): Promise<void> { return invoke("application_launch_ready", {id}); }
+
+export async function applicationProcessOptions(id:string):Promise<{actions:ApplicationActionDescriptor[];notice:string|null}>{return invoke("application_process_options",{id});}

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import {beforeEach,afterEach,expect,it,vi} from "vitest";
 import SearchPanel from "./SearchPanel";
 import {applicationIcon,launchApplication,searchApplications,changePersonalization,onPanelShown,hidePanel,type Personalization,type SearchResult} from "./native";
-vi.mock("./native",()=>({confirmPanelPresented:vi.fn().mockResolvedValue(undefined),hidePanel:vi.fn().mockResolvedValue(undefined),onPanelShown:vi.fn().mockResolvedValue(()=>{}),reportSearchReady:vi.fn().mockResolvedValue(undefined),searchReferenceCatalog:vi.fn().mockResolvedValue([]),applicationIcon:vi.fn(),searchApplications:vi.fn(),launchApplication:vi.fn(),reportApplicationLaunched:vi.fn(),changePersonalization:vi.fn()}));
+vi.mock("./native",()=>({applicationProcessOptions:vi.fn().mockResolvedValue({actions:[],notice:null}),confirmPanelPresented:vi.fn().mockResolvedValue(undefined),hidePanel:vi.fn().mockResolvedValue(undefined),onPanelShown:vi.fn().mockResolvedValue(()=>{}),reportSearchReady:vi.fn().mockResolvedValue(undefined),searchReferenceCatalog:vi.fn().mockResolvedValue([]),applicationIcon:vi.fn(),searchApplications:vi.fn(),launchApplication:vi.fn(),reportApplicationLaunched:vi.fn(),changePersonalization:vi.fn()}));
 const row=(title:string,id=title):SearchResult=>({item:{id,title,kind:"application",keywords:[]},section:null});
 const prefs=(extra:Partial<Personalization>={}):Personalization=>({favorites:[],queries:[],rememberSearches:true,aliases:{},hiddenResults:{},...extra});
 const reply=(extra:Partial<Personalization>={},rows=[row("Notes","app:notes"),row("Terminal","app:terminal")])=>({rows,total:rows.length,generation:1,warning:null,...prefs(extra)});

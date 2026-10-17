@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { beforeEach, expect, it, vi } from "vitest";
 import SearchPanel from "./SearchPanel";
 import { confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, type SearchResult } from "./native";
-vi.mock("./native", () => ({ applicationIcon: vi.fn().mockResolvedValue(null), searchApplications: vi.fn().mockResolvedValue({rows:[],total:0,generation:1,warning:null}), launchApplication: vi.fn().mockResolvedValue(undefined), reportApplicationLaunched: vi.fn().mockResolvedValue(undefined), confirmPanelPresented: vi.fn().mockResolvedValue(undefined), onPanelShown: vi.fn(), hidePanel: vi.fn().mockResolvedValue(undefined), searchReferenceCatalog: vi.fn(), reportSearchReady: vi.fn() }));
+vi.mock("./native",()=>({applicationProcessOptions:vi.fn().mockResolvedValue({actions:[],notice:null}), applicationIcon: vi.fn().mockResolvedValue(null), searchApplications: vi.fn().mockResolvedValue({rows:[],total:0,generation:1,warning:null}), launchApplication: vi.fn().mockResolvedValue(undefined), reportApplicationLaunched: vi.fn().mockResolvedValue(undefined), confirmPanelPresented: vi.fn().mockResolvedValue(undefined), onPanelShown: vi.fn(), hidePanel: vi.fn().mockResolvedValue(undefined), searchReferenceCatalog: vi.fn(), reportSearchReady: vi.fn() }));
 const row = (title: string): SearchResult => ({ item: { id: title, title, kind: "application", keywords: [] }, section: null });
 beforeEach(() => { vi.resetAllMocks(); vi.mocked(confirmPanelPresented).mockResolvedValue(); vi.mocked(hidePanel).mockResolvedValue(); vi.mocked(onPanelShown).mockResolvedValue(() => {}); vi.mocked(reportSearchReady).mockResolvedValue(); });
 

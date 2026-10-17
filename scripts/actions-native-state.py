@@ -18,11 +18,11 @@ def visit(node,depth=0):
             result['query']=Atspi.Text.get_text(node.get_text_iface(),0,-1)
         if role=='menu item':result['menu'].append(name)
         if role in ['frame','window']:result['windows'].append(name)
-        if name and ('Copied' in name or 'File manager' in name or 'removed' in name or 'catalog' in name):result['text'].append(name)
+        if name and ('Copied' in name or 'File manager' in name or 'removed' in name or 'catalog' in name or any(t in name for t in ['Quitting','Hide minimizes','identity','executable','remote','no longer running','instance changed'])):result['text'].append(name)
         text=node.get_text_iface()
         if text:
             value=Atspi.Text.get_text(text,0,-1)
-            if value and any(token in value for token in ['Copied','File manager','removed','catalog','failed']):result['text'].append(value)
+            if value and any(token in value for token in ['Copied','File manager','removed','catalog','failed','Quitting','Hide minimizes','identity','executable','remote','no longer running','instance changed']):result['text'].append(value)
         if name and node.get_state_set().contains(Atspi.StateType.SELECTED):result['selected'].append(name)
         for i in range(node.get_child_count()):visit(node.get_child_at_index(i),depth+1)
     except (GLib.Error, AttributeError):pass
