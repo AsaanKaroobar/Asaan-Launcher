@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP013, extension host foundation.** User authorized advancing after CP012. Preserve Floe’s Bun/NDJSON boundary, reference-v1 tree decoding and bounded process cleanup. Extension List UI is CP014. Public CP012 publication is unverified and user controlled. Extension List UI and performance upgrades remain deferred.
+**Active: CP014, first interactive extension List UI. Implemented, tested, locally installed/run; public release pending.** User authorized advancing after CP013. Use the existing Bun/reference-v1 host, resident ownership and native panel lifecycle. Public CP013 publication is unverified and user controlled. Detail/Form, store, scheduling and performance upgrades remain deferred.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 
@@ -21,7 +21,7 @@ If publication, a target OS, signing credentials or a deployment environment is 
 
 ## Upcoming sequence (not authorized implementation in this checkpoint)
 
-- CP014: first interactive extension List UI, using the CP013 host and existing resident/panel ownership.
+- CP015: additional extension view support; refine this slice after CP014 acceptance.
 - Later checkpoints: additional extension views/actions/preferences, store/background integrations, everyday tools, native services, fidelity and release qualification. Refine scope before starting each.
 
 The broader phases in ../../docs/floe-cross-platform/PLAN.md are planning groups, not permission to implement them all at once.

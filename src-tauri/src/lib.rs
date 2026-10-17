@@ -3,6 +3,7 @@ mod application_actions;
 mod applications;
 mod clipboard;
 mod data;
+mod extension_service;
 mod extensions;
 mod force_confirmation;
 mod panel;
@@ -112,7 +113,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP013 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP014 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -174,6 +175,7 @@ pub fn run() {
         .manage(settings::Closing::default())
         .invoke_handler(tauri::generate_handler![
             get_app_info,
+            extension_service::extension_exchange,
             settings::open_settings,
             settings::read_settings,
             settings::settings_page_changed,
@@ -313,6 +315,9 @@ pub fn run() {
                 eprintln!("Could not remove temporary picker webview: {e}");
             }
 
+            if let Some(service) = app.try_state::<extension_service::Service>() {
+                service.stop();
+            }
             if let Some(resident) = app.try_state::<resident::Resident>() {
                 resident.stop();
             }

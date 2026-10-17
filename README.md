@@ -2,7 +2,7 @@
 
 A cross-platform desktop launcher built in checkpoints with Tauri 2, React, TypeScript and Rust.
 
-The behavioral reference is Floe at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. Checkpoint 13 adds the isolated extension host foundation: manifest discovery, bundled Bun 1.4.3, NDJSON/reference-v1 decoding, process supervision and installed diagnostics. Applications, aliases/favorites/history, Settings, headless search, picker and guarded process controls remain available. Interactive extension List rendering is checkpoint 14. Full feature parity and native macOS/Windows qualification remain pending.
+The behavioral reference is Floe at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. Checkpoint 14 adds interactive bundled extension Lists, search, selection, actions, toasts and resident-owned resumable sessions on the bundled Bun/reference-v1 host. Applications, aliases/favorites/history, Settings, headless search, picker and guarded process controls remain available. Full feature parity and native macOS/Windows qualification remain pending.
 
 ## Develop
 
@@ -34,7 +34,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 013](docs/checkpoints/013-extension-host.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 014](docs/checkpoints/014-extension-lists.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -100,7 +100,7 @@ The command reads the last committed personalization snapshot from the same plat
 
 Exit codes: 0 for a successful search, including no matches; 64 for invalid/missing/conflicting arguments or queries over 4096 UTF-8 bytes; 69 for catalog failure; 74 for stdout failure; 78 for preference/path failures. --search accepts a single query and cannot be combined with picker, settings or resident-control modes. Use --search=QUERY for a query beginning with --. --help lists the available modes.
 
-This checkpoint covers application results only. Floe's extension commands, built-ins, dictionary and other root providers remain later work. No browser, general file or network provider is started. npm run smoke:search-cli checks the installed Linux command without a display or session bus. Native Windows/macOS execution remains pending qualification.
+The headless --search command covers application results only. The interactive launcher also includes the bundled extension commands below; built-ins, dictionary and other root providers remain later work. No browser, general file or network provider is started. npm run smoke:search-cli checks the installed Linux command without a display or session bus. Native Windows/macOS execution remains pending qualification.
 
 For this local session, the disposable Cargo target cache was moved to /tmp/asaaan-cp010-target to work around recurring workspace FUSE/NTFS ENOSPC errors; src-tauri/target is an ignored symlink. Installed versions and checkpoint artifacts remain on the workspace volume. If /tmp is cleared, remove the dangling src-tauri/target symlink before rebuilding. This is a local build-cache arrangement, not a runtime dependency of installed packages.
 
@@ -120,10 +120,18 @@ Restart asks the app to quit, waits up to ten seconds for its original processes
 
 Force Quit… dismisses the launcher and opens a native unsaved-work warning with cancellation as the default. It revalidates the selected instance after confirmation before terminating verified processes. Linux uses stable pidfds; Windows uses retained process handles; macOS uses NSRunningApplication. Linux/X11 is locally qualified; native macOS/Windows validation is pending. Controls remain unavailable where identity or required capabilities cannot be proven. No process tree is guessed or killed.
 
-Run npm run smoke:process-controls for the installed Linux/X11 cancellation, hung-app, stale-instance, refused/background/delayed-exit and changed-entry checks. See the checkpoint report for platform and HUD fidelity limits. Extensions and performance work remain deferred.
+Run npm run smoke:process-controls for the installed Linux/X11 cancellation, hung-app, stale-instance, refused/background/delayed-exit and changed-entry checks. See the checkpoint report for platform and HUD fidelity limits. Broader process/HUD fidelity and performance work remain deferred.
 
 ## Extension host foundation
 
-The package carries its own Bun 1.4.3 and frozen runtime dependencies. Run npm run smoke:extensions after local installation to test real hello/planets renders and actions, native-request refusal, diagnostics, watchdog and owned subprocess cleanup with private data. The headless --extension-check FIXTURE COMMAND mode accepts NDJSON on stdin and returns decoded messages on stdout; console/raw extension writes stay on stderr. Only bundled hello, diagnostics and host-probe fixtures are accepted in this checkpoint. Close stdin to stop a session. This diagnostic mode is separate from search/picker/Settings and has a 25-second diagnostic deadline. It does not add extension rows to the launcher yet.
+The package carries its own Bun 1.4.3 and frozen runtime dependencies. Run npm run smoke:extensions after local installation to test real hello/planets renders and actions, native-request refusal, diagnostics, watchdog and owned subprocess cleanup with private data. The headless --extension-check FIXTURE COMMAND mode accepts NDJSON on stdin and returns decoded messages on stdout; console/raw extension writes stay on stderr. Only bundled hello, diagnostics, host-probe and list-lab fixtures are accepted. Close stdin to stop a session. This diagnostic mode is separate from search/picker/Settings and has a 25-second diagnostic deadline. CP014 uses a separate private worker for interactive sessions, with the same bundled runtime.
 
 The per-declaration map and deliberate differences are in [extension reference provenance](tests/reference/extensions/README.md). Imported API mocks passing does not demonstrate native extension API availability. Runtime path portability, tree decoding and Linux process cleanup are tested here; general extension installation, native API routing, preferences/secrets, scheduling and cross-platform UI qualification are later work.
+
+## Extension Lists
+
+Search for **Browse Planets**, **Extension List Playground**, **Remote Extension List** or **Empty Extension List**. The four bundled diagnostic commands intentionally fail or hang for testing. List search matches title, subtitle and keywords unless the extension handles search itself. Arrows change selection; Return runs the first action, Ctrl+Return (Command+Return on macOS) the second. Ctrl/Command+K opens searchable actions and submenus. A declared modified shortcut takes precedence. Escape pops the extension even when its search text is nonempty.
+
+Hiding and reopening within 90 seconds retains the session, query and selection across disposable panels. The resident owns text clipboard copies and extension processes. Detail/Form display, installing arbitrary extensions, preference/argument setup and broad native API support remain deferred. Browse Planets uses the unchanged Floe example; its Show Details action currently opens an explicit placeholder with Back.
+
+Run `npm run smoke:extension-ui` for installed List interaction, errors, retry, clipboard ownership, panel resume and hung-host cleanup in an isolated X11 desktop. `npm run extensions-ui:parity` checks the scoped Swift inventory and equivalents. See `tests/reference/extension-ui`.

@@ -25,7 +25,7 @@ async function assertNoProcess(reason){const names=await menu();if(names.some(n=
 async function stop(child){if(child&&child.exitCode===null&&child.signalCode===null){child.kill();await until(()=>child.exitCode!==null||child.signalCode!==null,'Fixture teardown stalled');}child?.stdout?.destroy();child?.stderr?.destroy()}
 try{
  const installation=JSON.parse(await fs.readFile(new URL('deployments/linux/current/installation.json',root),'utf8'));
- if(installation.checkpoint!=='CP013'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install CP013 first');
+ if(installation.checkpoint!=='CP014'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install CP014 first');
  await fs.mkdir(path.dirname(desktop),{recursive:true});await fs.mkdir(system,{recursive:true});await fs.mkdir(path.dirname(storage),{recursive:true});
  const entry='[Desktop Entry]\nType=Application\nName=Process Probe\nExec=/usr/bin/python3\n';
  await fs.writeFile(desktop,entry);await fs.writeFile(mode,'refuse');
@@ -65,6 +65,6 @@ try{
  if((await requests()).length!==requestCount||fixture.exitCode!==null||fixture.signalCode!==null)throw Error('Stale menu affected replacement app');stages.push('replacement instance is protected from an old menu token');
  if(!(await fs.readFile(storage)).equals(before))throw Error('Process controls changed preferences/history');stages.push('preferences, favorites and usage bytes unchanged');
  await run(binary,['--quit'],{env,timeout:5000});await until(()=>resident.exitCode===0,'Resident did not quit');
- await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-smoke.json',root),JSON.stringify({checkpoint:'CP013',binarySha256:installation.binarySha256,stages},null,2)+'\n');console.log('CP013 process actions passed '+stages.length+' stages: '+stages.join('; '));
+ await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-smoke.json',root),JSON.stringify({checkpoint:'CP014',binarySha256:installation.binarySha256,stages},null,2)+'\n');console.log('CP014 process actions passed '+stages.length+' stages: '+stages.join('; '));
 }catch(error){await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-failure.log',root),String(error)+'\n'+log);throw error}
 finally{await stop(fixture);if(resident&&resident.exitCode===null&&resident.signalCode===null){try{await run(binary,['--quit'],{env,timeout:5000})}catch{}}await stop(resident)}

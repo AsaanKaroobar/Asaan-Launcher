@@ -22,7 +22,7 @@ if(mode==='test'){
  await fs.mkdir(destination,{recursive:true});
  const sources=(await fs.readdir(path.join(root,'runtime'))).filter(n=>!['tests','survey.ts','smoke.ts','testing.ts','bunfig.toml'].includes(n));
  for(const name of sources)await fs.cp(path.join(root,'runtime',name),path.join(destination,'runtime',name),{recursive:true,dereference:true});
- for(const name of ['hello','diagnostics','host-probe'])await fs.cp(path.join(root,'extensions',name),path.join(destination,'extensions',name),{recursive:true});
+ for(const name of ['hello','diagnostics','host-probe','list-lab'])await fs.cp(path.join(root,'extensions',name),path.join(destination,'extensions',name),{recursive:true});
  await fs.cp(path.join(root,'LICENSES'),path.join(destination,'LICENSES'),{recursive:true});
  await fs.copyFile(path.join(root,'NOTICE.md'),path.join(destination,'NOTICE.md'));
  const target=path.join(destination,process.platform==='win32'?'bun.exe':'bun');

@@ -1,4 +1,4 @@
-// Tests the installed CP013 executable with its bundled runtime; no GUI/test-only IPC bypass.
+// Tests the installed CP014 executable with its bundled runtime; no GUI/test-only IPC bypass.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
@@ -68,7 +68,7 @@ try{
  const details=JSON.parse((await message(t,'hud',m=>m.title?.startsWith('{"bun"'))).title);
  assert.equal(details.bun,'1.4.3');assert.equal(details.supportPath,path.join(scratch,'data/com.asaaan.launcher/extensions-data/host-probe'));
  const request=await message(t,'request');assert.equal(request.method,'clipboard.read');
- await message(t,'hud',m=>m.title.includes('unavailable in checkpoint 13'));
+ await message(t,'hud',m=>m.title.includes('unavailable in this checkpoint'));
  await message(t,'ended',m=>m.success);await closed(t);await absent(tpid);
  assert(t.stderr.includes('fixture console log'));assert(t.stderr.includes('\x07fixture raw stdout'));
  await done('protocol stdout isolation and correlated unsupported request');
@@ -116,9 +116,9 @@ try{
  assert.equal(await fs.readFile(personal,'utf8'),'{"fixture":"unchanged"}\n');
  await done('personalization stays byte-identical');
  const evidence={checkpoint:pkg.checkpoint,version:pkg.version,result:'passed',binarySha256:manifest.binarySha256,packageSha256:manifest.packageSha256,bun:info,stages,platform:'Linux x64, installed headless native host; no native macOS/Windows qualification',at:new Date().toISOString()};
- await fs.mkdir(path.join(root,'.artifacts/checkpoint-013'),{recursive:true});
- await fs.writeFile(path.join(root,'.artifacts/checkpoint-013/extension-host.json'),JSON.stringify(evidence,null,2)+'\n');
-}catch(e){await fs.mkdir(path.join(root,'.artifacts/checkpoint-013'),{recursive:true});await fs.writeFile(path.join(root,'.artifacts/checkpoint-013/extension-host-failure.json'),JSON.stringify(owned.map(s=>({pid:s.child.pid,code:s.code,messages:s.messages,stderr:s.stderr.slice(-8000)})),null,2));throw e;}
+ await fs.mkdir(path.join(root,'.artifacts/checkpoint-014'),{recursive:true});
+ await fs.writeFile(path.join(root,'.artifacts/checkpoint-014/extension-host.json'),JSON.stringify(evidence,null,2)+'\n');
+}catch(e){await fs.mkdir(path.join(root,'.artifacts/checkpoint-014'),{recursive:true});await fs.writeFile(path.join(root,'.artifacts/checkpoint-014/extension-host-failure.json'),JSON.stringify(owned.map(s=>({pid:s.child.pid,code:s.code,messages:s.messages,stderr:s.stderr.slice(-8000)})),null,2));throw e;}
 finally{
  for(const state of owned){if(!state.closed){state.child.kill('SIGTERM');await until(state,s=>s.closed,5000).catch(()=>state.child.kill('SIGKILL'));}}
  await fs.rm(scratch,{recursive:true,force:true});

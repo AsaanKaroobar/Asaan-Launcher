@@ -1,0 +1,3 @@
+CP014 freezes eight unchanged Floe sources at the pinned commit in provenance.json. inventory.json lists all 88 scoped original Swift test declarations; test-map.json maps 24 equivalent and five partial cases and explicitly defers 59. The checker independently enumerates the frozen declarations. Original Swift tests have not run on Linux.
+
+The original Planets example remains byte-identical to CP013’s frozen copy. New List model, frontend interaction, command persistence and installed X11 tests complement these scoped mappings. Full Detail/Form, native API, toast-action, assets and other UI fidelity are deferred. The historical CP013 map records its own scope and is preserved.

@@ -1,19 +1,24 @@
+import ExtensionPanel from "./ExtensionPanel";
+import {extensionExchange,type ExtensionView} from "./extension-native";
 import {ApplicationActions,AliasEditor,Customization} from "./ApplicationActions";
 import ApplicationIcon from "./ApplicationIcon";
 import { useEffect, useLayoutEffect, useId, useRef, useState } from "react";
 import { applicationProcessOptions, type ApplicationActionDescriptor, runApplicationAction, type ApplicationAction, searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type Personalization, type SearchResult } from "./native";
 
-type SearchState = { status: "loading" } | { status: "loaded"; query: string; rows: SearchResult[]; total?: number; warning?: string | null } | { status: "error"; message: string };
+type SearchState = { status: "loading" } | { status: "loaded"; query: string; rows: SearchResult[]; total?: number; commandTotal?:number; warning?: string | null } | { status: "error"; message: string };
 
 export default function SearchPanel({ smokeTest = false, referenceCatalog = false, applicationSmoke = false }: { smokeTest?: boolean; referenceCatalog?: boolean; applicationSmoke?: boolean }) {
   const isReference = referenceCatalog || smokeTest;
+  const[extensionView,setExtensionView]=useState<ExtensionView|null>(null);
+  const extensionOpen=useRef(false);extensionOpen.current=Boolean(extensionView);
+  useEffect(()=>{if(isReference||applicationSmoke)return;let cancelled=false;void extensionExchange({kind:"read"}).then(reply=>{if(!cancelled&&reply.active)setExtensionView(reply.active);}).catch(()=>{});return()=>{cancelled=true;};},[isReference,applicationSmoke]);
   const normalize=(value:Personalization)=>({...value,aliases:value.aliases??{},hiddenResults:value.hiddenResults??{}});
   const [preferences,setPreferences]=useState(()=>normalize({favorites:[],queries:[],rememberSearches:true,aliases:{},hiddenResults:{}}));
   const [actionTarget,setActionTarget]=useState<SearchResult|null>(null);
   const [processOptions,setProcessOptions]=useState<{id:string;actions:ApplicationActionDescriptor[];notice:string|null}|null>(null);
   useEffect(()=>{
     setProcessOptions(null);
-    if(!actionTarget||isReference)return;
+    if(!actionTarget||isReference||actionTarget.item.kind==="command")return;
     let cancelled=false;
     void applicationProcessOptions(actionTarget.item.id).then(value=>{
       if(!cancelled)setProcessOptions({id:actionTarget.item.id,...value});
@@ -49,6 +54,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
     window.addEventListener("focus", focus);
     void onPanelShown((sequence) => {
+      if(!isReference&&!applicationSmoke){void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
       setActionFeedback(null);setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
       // WebKit can retain DOM focus while its editable native focus is lost on hide.
       // Reacquire editing focus on every presentation, including grace-period reuse.
@@ -68,7 +74,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     const pending = isReference ? searchReferenceCatalog(query).then(rows=>({rows,total:rows.length,warning:null,favorites:[],queries:[],rememberSearches:true,aliases:{},hiddenResults:{}})) : searchApplications(query,refresh);
     pending.then((reply) => {
       if (!cancelled && generation===preferencesGeneration.current) {
-        setState({ status: "loaded", query, rows: reply.rows, total: reply.total, warning: reply.warning });
+        setState({ status: "loaded", query, rows: reply.rows, total: reply.total, commandTotal:"commandTotal" in reply?Number(reply.commandTotal):0, warning: reply.warning });
         if (!isReference) setPreferences(normalize({favorites:reply.favorites??[],queries:reply.queries??[],rememberSearches:reply.rememberSearches??true,aliases:reply.aliases,hiddenResults:reply.hiddenResults}));
         const id=preserveSelection.current;preserveSelection.current=null;
         setSelection(previous=>{const index=id?reply.rows.findIndex(row=>row.item.id===id):-1;return index>=0?index:Math.min(previous,Math.max(0,reply.rows.length-1));});
@@ -96,8 +102,8 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   async function open(row: SearchResult | undefined) {
     if (!row || isReference || launching.current || changing.current || acting.current) return;
     launching.current = true; setLaunchingName(row.item.title); setLaunchError(null);
-    try { const outcome=await launchApplication(row.item.id,query); if(outcome?.warning)setLaunchError(outcome.warning); if (applicationSmoke) await reportApplicationLaunched(row.item.id); }
-    catch (error: unknown) { setLaunchError(error instanceof Error ? error.message : "The application could not be opened."); }
+    try { if(row.item.kind==="command"){const reply=await extensionExchange({kind:"start",id:row.item.id,query});if(!reply.active)throw Error("The extension did not start.");setExtensionView(reply.active);return;} const outcome=await launchApplication(row.item.id,query); if(outcome?.warning)setLaunchError(outcome.warning); if (applicationSmoke) await reportApplicationLaunched(row.item.id); }
+    catch (error: unknown) { setLaunchError(error instanceof Error ? error.message : typeof error==="string"?error:"The application could not be opened."); }
     finally { launching.current = false; setLaunchingName(null); }
   }
   async function metadataAction(row:SearchResult,action:ApplicationAction,token?:string){
@@ -120,7 +126,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   },[applicationSmoke,state]);
   useLayoutEffect(() => {
     const key = (event: KeyboardEvent) => {
-      if (event.isComposing || event.defaultPrevented) return;
+      if (event.isComposing || event.defaultPrevented || extensionOpen.current) return;
       const activeQuery=inputRef.current?.value??query;
       const primary=(event.ctrlKey||event.metaKey)&&!event.altKey;
       if(aliasTarget||customizing){if(saving&&event.key==="Tab")event.preventDefault();if(event.key==="Escape"&&!saving){event.preventDefault();setAliasTarget(null);setCustomizing(false);inputRef.current?.focus();}return;}
@@ -150,16 +156,17 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     window.addEventListener("keydown",key);
     return () => window.removeEventListener("keydown",key);
   },[query,selection,state,isReference,applicationSmoke,historyOpen,preferences,actionTarget,aliasTarget,customizing,saving]);
+  if(extensionView)return <ExtensionPanel key={extensionView.token} initial={extensionView} inputRef={inputRef} onClose={()=>{setExtensionView(null);setQuery("");setPoll(n=>n+1);requestAnimationFrame(()=>inputRef.current?.focus());}}/>;
   return (
     <section className="search-panel" aria-label={isReference ? "Reference catalog search" : "Installed applications"}>
       <div className="search-field">
         <span aria-hidden="true" className="search-symbol">⌕</span>
-        <input ref={inputRef} autoFocus type="text" role="combobox" aria-label={isReference ? "Search reference catalog" : "Search applications"} aria-controls={listId} aria-expanded={rows.length > 0} aria-autocomplete="list" aria-activedescendant={rows.length ? listId + "-" + selection : undefined} value={query} maxLength={1024} placeholder={isReference ? "Search the reference catalog…" : "Search applications…"} autoComplete="off" spellCheck={false}
+        <input ref={inputRef} autoFocus type="text" role="combobox" aria-label={isReference ? "Search reference catalog" : "Search applications"} aria-controls={listId} aria-expanded={rows.length > 0} aria-autocomplete="list" aria-activedescendant={rows.length ? listId + "-" + selection : undefined} value={query} maxLength={1024} placeholder={isReference ? "Search the reference catalog…" : "Search applications and commands…"} autoComplete="off" spellCheck={false}
           onChange={(event) => {recall.current={index:-1,last:""};setQuery(event.target.value);}}
           />
         {query && <button className="clear-query" aria-label="Clear search" onClick={() => {recall.current={index:-1,last:""};setQuery("");}}>Clear</button>}
       </div>
-      <div className="catalog-notice"><span>{isReference ? "Reference catalog" : state.status === "loaded" ? state.total+" applications" : "Applications"}</span>{isReference ? <span>Sample items only. Nothing launches.</span> : <span className="catalog-tools"><button className="refresh-apps" onClick={()=>setHistoryOpen(open=>!open)} aria-expanded={historyOpen}>History</button><button className="refresh-apps" onClick={()=>{forceRefresh.current=true;setAttempt(n=>n+1);}}>Refresh applications</button><button className="refresh-apps" onClick={()=>{setCustomizing(true);setHistoryOpen(false);setActionTarget(null);setLaunchError(null);}}>Customize</button></span>}</div>
+      <div className="catalog-notice"><span>{isReference ? "Reference catalog" : state.status === "loaded" ? state.total+" applications"+(state.commandTotal?" · "+state.commandTotal+" commands":"") : "Applications"}</span>{isReference ? <span>Sample items only. Nothing launches.</span> : <span className="catalog-tools"><button className="refresh-apps" onClick={()=>setHistoryOpen(open=>!open)} aria-expanded={historyOpen}>History</button><button className="refresh-apps" onClick={()=>{forceRefresh.current=true;setAttempt(n=>n+1);}}>Refresh applications</button><button className="refresh-apps" onClick={()=>{setCustomizing(true);setHistoryOpen(false);setActionTarget(null);setLaunchError(null);}}>Customize</button></span>}</div>
       {historyOpen&&!isReference&&<aside role="dialog" aria-label="Search history" className="history-popover">
         <div className="history-heading"><strong>Recent searches</strong><button onClick={()=>{setHistoryOpen(false);inputRef.current?.focus();}} aria-label="Close search history">×</button></div>
         <label><input type="checkbox" checked={preferences.rememberSearches} disabled={saving} onChange={event=>void change({kind:"rememberSearches",enabled:event.target.checked})}/> Remember searches</label>
@@ -192,7 +199,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
         <ul id={listId} role="listbox" aria-label="Search results">
           {rows.map((row, index) => (
             <li key={row.item.id} id={listId + "-" + index} role="option" aria-selected={selection === index} ref={selection === index ? selected : undefined} onMouseDown={(event) => event.preventDefault()} onClick={() => { setSelection(index); inputRef.current?.focus(); }} onContextMenu={event=>{event.preventDefault();setSelection(index);setActionTarget(row);setHistoryOpen(false);setLaunchError(null);}} onDoubleClick={() => { void open(row); }} className={selection === index ? "result selected" : "result"}>
-              {isReference ? <span className="result-icon" aria-hidden="true">{row.item.title[0]}</span> : <ApplicationIcon id={row.item.id} title={row.item.title} />}
+              {isReference ? <span className="result-icon" aria-hidden="true">{row.item.title[0]}</span> : row.item.kind==="command"?<span className="result-icon" aria-hidden="true">⌘</span>:<ApplicationIcon id={row.item.id} title={row.item.title} />}
               <span className="result-title">{row.item.title}</span>{!isReference&&preferences.favorites.includes(row.item.id)&&<span className="favorite-marker" aria-label="Favorite">★</span>}
               {!isReference&&preferences.aliases[row.item.id]&&<span className="alias-chip" aria-label="Alias">{preferences.aliases[row.item.id]}</span>}
               <span className="result-kind">{row.origin ?? row.section ?? (row.item.kind === "application" ? "Application" : "Command")}</span>

@@ -66,7 +66,22 @@ pub fn now() -> u64 {
         .unwrap_or(u64::MAX)
 }
 fn valid_id(id: &str) -> bool {
-    id.starts_with("app:") && id.len() > 4 && id.len() <= 4096 && !id.chars().any(char::is_control)
+    let identity = id
+        .strip_prefix("app:")
+        .is_some_and(|value| !value.is_empty())
+        || id
+            .strip_prefix("command:")
+            .and_then(|value| value.split_once('/'))
+            .is_some_and(|(extension, command)| {
+                [extension, command].into_iter().all(|name| {
+                    !name.is_empty()
+                        && name.len() <= 200
+                        && name
+                            .bytes()
+                            .all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_')
+                })
+            });
+    identity && id.len() <= 4096 && !id.chars().any(char::is_control)
 }
 impl Snapshot {
     pub fn context(&self, query: &str, at: u64) -> asaaan_search::SearchContext {

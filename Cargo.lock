@@ -72,7 +72,7 @@ dependencies = [
 
 [[package]]
 name = "asaaan-launcher"
-version = "0.13.0"
+version = "0.14.0"
 dependencies = [
  "asaaan-apps",
  "asaaan-extensions",
@@ -99,6 +99,7 @@ dependencies = [
 name = "asaaan-lifecycle"
 version = "0.3.0"
 dependencies = [
+ "asaaan-extensions",
  "asaaan-personalization",
  "serde",
  "serde_json",

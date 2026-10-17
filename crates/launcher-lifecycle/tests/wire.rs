@@ -38,3 +38,51 @@ fn roundTripUsesOneLinePerTypedPacket() {
         Some(Packet::Idle { sequence: 42 })
     );
 }
+
+#[test]
+fn extensionCommandsAndAcknowledgementsRoundTripWithUnicodeAndNoRawHandlers() {
+    use asaaan_extensions::view::{Operation, Snapshot};
+    for packet in [
+        Packet::ExtensionRequest {
+            request_id: 7,
+            operation: Operation::Start {
+                id: "command:list-lab/planets".into(),
+                query: "planètes ✓".into(),
+            },
+        },
+        Packet::ExtensionRequest {
+            request_id: 8,
+            operation: Operation::Run {
+                token: 4,
+                id: 9,
+                revision: 12,
+                query: "火星".into(),
+            },
+        },
+        Packet::ExtensionReply {
+            request_id: 8,
+            snapshot: Some(Box::new(Snapshot::default())),
+            error: None,
+        },
+        Packet::ExtensionReply {
+            request_id: 9,
+            snapshot: None,
+            error: Some("Session replaced".into()),
+        },
+    ] {
+        let mut bytes = vec![];
+        wire::write(&mut bytes, &packet).unwrap();
+        assert_eq!(bytes.iter().filter(|b| **b == b'\n').count(), 1);
+        let mut input = BufReader::with_capacity(1, Cursor::new(bytes));
+        assert_eq!(wire::read(&mut input).unwrap(), Some(packet));
+    }
+}
+#[test]
+fn extensionWireRefusesArbitraryEventPropsAndPaths() {
+    for text in [
+        "{\"type\":\"extensionRequest\",\"request_id\":1,\"operation\":{\"kind\":\"run\",\"token\":1,\"id\":2,\"revision\":3,\"query\":\"\",\"prop\":\"onAnything\"}}\n",
+        "{\"type\":\"extensionRequest\",\"request_id\":2,\"operation\":{\"kind\":\"start\",\"id\":\"command:x/y\",\"query\":\"\",\"path\":\"/tmp/elsewhere\"}}\n",
+    ] {
+        assert!(wire::read(&mut Cursor::new(text)).is_err());
+    }
+}

@@ -20,6 +20,15 @@ pub enum Request {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Packet {
+    ExtensionRequest {
+        request_id: u64,
+        operation: asaaan_extensions::view::Operation,
+    },
+    ExtensionReply {
+        request_id: u64,
+        snapshot: Option<Box<asaaan_extensions::view::Snapshot>>,
+        error: Option<String>,
+    },
     OpenSettings {
         page: Option<settings::Page>,
     },

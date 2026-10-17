@@ -1,4 +1,4 @@
-//! Headless, fixed bundled fixtures for reviewing the CP013 host without implementing CP014 UI.
+//! Bundled diagnostic and private supervisor entry points; neither creates a WebView.
 use asaaan_extensions::{
     manifest::{self, Platform},
     protocol::Message,
@@ -20,7 +20,7 @@ static CANCELLED: AtomicBool = AtomicBool::new(false);
 extern "C" fn cancel(_: i32) {
     CANCELLED.store(true, Ordering::Relaxed);
 }
-fn resources() -> Result<PathBuf, String> {
+pub(crate) fn resources() -> Result<PathBuf, String> {
     let exe = std::env::current_exe().map_err(|e| e.to_string())?;
     let parent = exe.parent().ok_or("Application path unavailable")?;
     let base = if cfg!(target_os = "linux") {
@@ -30,6 +30,14 @@ fn resources() -> Result<PathBuf, String> {
     } else {
         parent.join("extension-runtime")
     };
+    #[cfg(debug_assertions)]
+    if !base.join("runtime/host.ts").is_file() {
+        let development =
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../.runtime-bundle");
+        if development.join("runtime/host.ts").is_file() {
+            return Ok(development);
+        }
+    }
     if base.join("runtime/host.ts").is_file() {
         Ok(base)
     } else {
@@ -45,12 +53,13 @@ fn output(v: &Value) -> Result<(), String> {
 }
 pub fn start() -> Option<i32> {
     let args: Vec<_> = std::env::args().skip(1).collect();
-    if !args.iter().any(|a| a == "--extension-check") {
+    let worker = args.first().is_some_and(|a| a == "--extension-worker");
+    if !worker && !args.iter().any(|a| a == "--extension-check") {
         return None;
     }
     if args.len() != 3
-        || args[0] != "--extension-check"
-        || !["hello", "diagnostics", "host-probe"].contains(&args[1].as_str())
+        || !worker && args[0] != "--extension-check"
+        || !["hello", "diagnostics", "host-probe", "list-lab"].contains(&args[1].as_str())
         || !manifest::safe_name(&args[2])
     {
         eprintln!(
@@ -58,15 +67,18 @@ pub fn start() -> Option<i32> {
         );
         return Some(64);
     }
-    Some(match check(&args[1], &args[2]) {
+    Some(match check(&args[1], &args[2], worker) {
         Ok(()) => 0,
         Err(error) => {
+            if worker {
+                let _ = output(&json!({"type":"error","fatal":true,"message":error}));
+            }
             eprintln!("{error}");
             69
         }
     })
 }
-fn check(extension: &str, name: &str) -> Result<(), String> {
+fn check(extension: &str, name: &str, worker: bool) -> Result<(), String> {
     let root = resources()?;
     let commands = manifest::scan(&root.join("extensions"), Platform::current());
     let command = commands
@@ -89,7 +101,10 @@ fn check(extension: &str, name: &str) -> Result<(), String> {
         &support,
         &json!({}),
     )?;
-    output(&json!({"type":"started","pid":host.pid(),"command":command.id,"checkpoint":"CP013"}))?;
+    if worker {
+        host.set_recovery(false);
+    }
+    output(&json!({"type":"started","pid":host.pid(),"command":command.id,"checkpoint":"CP014"}))?;
     let (tx, rx) = mpsc::sync_channel(16);
     std::thread::spawn(move || {
         let mut input = std::io::BufReader::new(std::io::stdin());
@@ -112,6 +127,7 @@ fn check(extension: &str, name: &str) -> Result<(), String> {
         }
     });
     let started = Instant::now();
+    let mut relay = Vec::new();
     let mut heartbeat = Heartbeat::default();
     let mut next_tick = Duration::from_secs(3);
     let mut eof = None;
@@ -149,22 +165,39 @@ fn check(extension: &str, name: &str) -> Result<(), String> {
                 output(&json!({"type":"unresponsive"}))?;
             }
         }
-        if started.elapsed() > Duration::from_secs(25) {
+        if !worker && started.elapsed() > Duration::from_secs(25) {
             return Err("Extension check reached its 25-second diagnostic deadline".into());
         }
-        match host.receive(Duration::from_millis(25))? {
+        match host.receive_forward(Duration::from_millis(25), |bytes| {
+            if worker {
+                relay.extend_from_slice(bytes);
+                if let Some(end) = relay.iter().rposition(|b| *b == b'\n') {
+                    let mut out = std::io::stdout().lock();
+                    out.write_all(&relay[..=end])
+                        .and_then(|_| out.flush())
+                        .map_err(|e| e.to_string())?;
+                    relay.drain(..=end);
+                }
+            }
+            Ok(())
+        })? {
             Some(Event::Message(message)) => match message {
-                Message::Render(tree) => {
+                Message::Render(tree) if !worker => {
                     output(&json!({"type":"render","tree":tree.map(|n|n.json())}))?
                 }
-                Message::UnresolvedRender => output(&json!({"type":"unresolvedRender"}))?,
+                Message::UnresolvedRender if !worker => {
+                    output(&json!({"type":"unresolvedRender"}))?
+                }
                 Message::Fields(fields) => {
                     if fields.get("type").and_then(Value::as_str) == Some("pong") {
                         heartbeat.pong();
                     }
-                    host.refuse_request(&fields)?;
-                    output(&Value::Object(fields))?;
+                    if !worker {
+                        host.refuse_request(&fields)?;
+                        output(&Value::Object(fields))?;
+                    }
                 }
+                _ => {}
             },
             Some(Event::Ended(status)) => {
                 output(

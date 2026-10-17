@@ -48,7 +48,7 @@ elif sys.argv[1]=='ancestors':
  print(ancestors)
 elif sys.argv[1]=='text':
  for char in sys.argv[2]:
-  symbol='space' if char==' ' else char
+  symbol={' ':'space','.':'period'}.get(char,char)
   key=x.XKeysymToKeycode(d,x.XStringToKeysym(symbol.encode()))
   if not key:raise ValueError('Unsupported fixture character')
   t.XTestFakeKeyEvent(d,key,1,0);t.XTestFakeKeyEvent(d,key,0,0);x.XSync(d,0);time.sleep(.035)

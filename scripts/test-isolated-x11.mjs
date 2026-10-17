@@ -13,7 +13,8 @@ if(process.argv.includes('--session')){
  const wm=spawn('kwin_x11',['--replace'],{stdio:['ignore','ignore','pipe']});let log='';wm.stderr.on('data',data=>log+=data);
  try{
   await wait(async()=>{if(wm.exitCode!==null)throw Error('Isolated window manager failed: '+log);try{return (await run('xprop',['-root','_NET_SUPPORTING_WM_CHECK'])).stdout.includes('window id # 0x');}catch{return false;}},'Window manager did not become ready: '+log);
-  if(process.argv.includes('--process-controls-only'))await execute(process.execPath,[path.join(root,'scripts/test-process-controls-x11.mjs')],{cwd:root});
+  if(process.argv.includes('--extensions-only'))await execute(process.execPath,[path.join(root,'scripts/test-extension-ui-x11.mjs')],{cwd:root});
+  else if(process.argv.includes('--process-controls-only'))await execute(process.execPath,[path.join(root,'scripts/test-process-controls-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--process-only'))await execute(process.execPath,[path.join(root,'scripts/test-process-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--settings-only'))await execute(process.execPath,[path.join(root,'scripts/test-settings-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--picker-only'))await execute(process.execPath,[path.join(root,'scripts/test-picker-x11.mjs')],{cwd:root});

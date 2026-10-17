@@ -1,0 +1,530 @@
+[
+  {
+    "id": "ListStateTests.findsTheViewOnTheTopScreen",
+    "suite": "ListStateTests",
+    "name": "findsTheViewOnTheTopScreen",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.findsTheViewOnASingleScreenSnapshot",
+    "suite": "ListStateTests",
+    "name": "findsTheViewOnASingleScreenSnapshot",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.listsAndGridsAreLists",
+    "suite": "ListStateTests",
+    "name": "listsAndGridsAreLists",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.rowsFlattenSectionsAndKeepTheirTitles",
+    "suite": "ListStateTests",
+    "name": "rowsFlattenSectionsAndKeepTheirTitles",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.gridItemsAreRowsToo",
+    "suite": "ListStateTests",
+    "name": "gridItemsAreRowsToo",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.aViewThatIsNotAListHasNoRows",
+    "suite": "ListStateTests",
+    "name": "aViewThatIsNotAListHasNoRows",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.filtersByEveryWordAcrossTitleSubtitleAndKeywords",
+    "suite": "ListStateTests",
+    "name": "filtersByEveryWordAcrossTitleSubtitleAndKeywords",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.aListThatHandlesSearchItselfIsNotFilteredHere",
+    "suite": "ListStateTests",
+    "name": "aListThatHandlesSearchItselfIsNotFilteredHere",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.theFilteringPropOverridesTheDefault",
+    "suite": "ListStateTests",
+    "name": "theFilteringPropOverridesTheDefault",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.selectionIsClampedToTheRows",
+    "suite": "ListStateTests",
+    "name": "selectionIsClampedToTheRows",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ListStateTests.clampKeepsAnIndexInRange",
+    "suite": "ListStateTests",
+    "name": "clampKeepsAnIndexInRange",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.aRowsOwnPanelWinsOverTheListsPanel",
+    "suite": "ActionStateTests",
+    "name": "aRowsOwnPanelWinsOverTheListsPanel",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.anEmptyListUsesItsEmptyViewsPanelThenItsOwn",
+    "suite": "ActionStateTests",
+    "name": "anEmptyListUsesItsEmptyViewsPanelThenItsOwn",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.aDetailUsesItsOwnPanel",
+    "suite": "ActionStateTests",
+    "name": "aDetailUsesItsOwnPanel",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.actionsAreFlattenedInOrderThroughSectionsAndSubmenus",
+    "suite": "ActionStateTests",
+    "name": "actionsAreFlattenedInOrderThroughSectionsAndSubmenus",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.theMenuListsActionsAndSubmenusWithSectionTitles",
+    "suite": "ActionStateTests",
+    "name": "theMenuListsActionsAndSubmenusWithSectionTitles",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.anOpenSubmenuListsOnlyItsOwnActions",
+    "suite": "ActionStateTests",
+    "name": "anOpenSubmenuListsOnlyItsOwnActions",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ActionStateTests.aQuerySearchesEveryActionIncludingInsideSubmenus",
+    "suite": "ActionStateTests",
+    "name": "aQuerySearchesEveryActionIncludingInsideSubmenus",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.fieldsAreTheChildrenWithAnId",
+    "suite": "FormStateTests",
+    "name": "fieldsAreTheChildrenWithAnId",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.aFieldsValueIsTheControlledValueThenTypedThenDefault",
+    "suite": "FormStateTests",
+    "name": "aFieldsValueIsTheControlledValueThenTypedThenDefault",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.aDropdownWithNothingChosenUsesItsFirstItem",
+    "suite": "FormStateTests",
+    "name": "aDropdownWithNothingChosenUsesItsFirstItem",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.aNodeWithoutAnIdHasNoValue",
+    "suite": "FormStateTests",
+    "name": "aNodeWithoutAnIdHasNoValue",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.submittingAnUntouchedFormSendsEachTypesEmptyValue",
+    "suite": "FormStateTests",
+    "name": "submittingAnUntouchedFormSendsEachTypesEmptyValue",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.submittingSendsTypedValuesAndTagsDatesForTheHost",
+    "suite": "FormStateTests",
+    "name": "submittingSendsTypedValuesAndTagsDatesForTheHost",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "FormStateTests.onlyDatePickersAreTaggedAsDates",
+    "suite": "FormStateTests",
+    "name": "onlyDatePickersAreTaggedAsDates",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.whatTheExtensionReachedIsRecordedUnderItsNameAndNotHandedOn",
+    "suite": "ExtensionSessionTests",
+    "name": "whatTheExtensionReachedIsRecordedUnderItsNameAndNotHandedOn",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.withTheRecordSwitchedOffAReportIsDroppedAndStillNotHandedOn",
+    "suite": "ExtensionSessionTests",
+    "name": "withTheRecordSwitchedOffAReportIsDroppedAndStillNotHandedOn",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.keepsItsCommandAndArguments",
+    "suite": "ExtensionSessionTests",
+    "name": "keepsItsCommandAndArguments",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRenderShowsTheViewAndItsRows",
+    "suite": "ExtensionSessionTests",
+    "name": "aRenderShowsTheViewAndItsRows",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.typingFiltersRowsAndResetsTheSelection",
+    "suite": "ExtensionSessionTests",
+    "name": "typingFiltersRowsAndResetsTheSelection",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.typingIsSentToAListThatHandlesSearchItself",
+    "suite": "ExtensionSessionTests",
+    "name": "typingIsSentToAListThatHandlesSearchItself",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aNewScreenClearsTheSearchSelectionAndFormWithoutTellingTheExtension",
+    "suite": "ExtensionSessionTests",
+    "name": "aNewScreenClearsTheSearchSelectionAndFormWithoutTellingTheExtension",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRerenderOfTheSameScreenKeepsWhatTheUserTyped",
+    "suite": "ExtensionSessionTests",
+    "name": "aRerenderOfTheSameScreenKeepsWhatTheUserTyped",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.singleScreenSnapshotsKeepIdentityAndDropTheHiddenScreen",
+    "suite": "ExtensionSessionTests",
+    "name": "singleScreenSnapshotsKeepIdentityAndDropTheHiddenScreen",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aToastIsShownAndHiddenByItsIdentifier",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastIsShownAndHiddenByItsIdentifier",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aToastThatIsShownIsHandedToTheModelAndOneThatIsHiddenIsNot",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastThatIsShownIsHandedToTheModelAndOneThatIsHiddenIsNot",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aToastWithoutDetailsGetsDefaults",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastWithoutDetailsGetsDefaults",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aToastWithActionsKeepsTheirTitles",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastWithActionsKeepsTheirTitles",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.runningAToastActionTellsTheHostAndDismissesTheToast",
+    "suite": "ExtensionSessionTests",
+    "name": "runningAToastActionTellsTheHostAndDismissesTheToast",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aToastActionWithoutThatButtonSendsNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastActionWithoutThatButtonSendsNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aConfirmRequestShowsAnInPanelDialog",
+    "suite": "ExtensionSessionTests",
+    "name": "aConfirmRequestShowsAnInPanelDialog",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aNewAlertReplacesTheOldOneAnsweringItFalse",
+    "suite": "ExtensionSessionTests",
+    "name": "aNewAlertReplacesTheOldOneAnsweringItFalse",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.answeringTwiceAnswersOnce",
+    "suite": "ExtensionSessionTests",
+    "name": "answeringTwiceAnswersOnce",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.cancellingOrStoppingAnAlertAnswersItFalse",
+    "suite": "ExtensionSessionTests",
+    "name": "cancellingOrStoppingAnAlertAnswersItFalse",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aNonFatalErrorIsAFailureToastAndTheViewStays",
+    "suite": "ExtensionSessionTests",
+    "name": "aNonFatalErrorIsAFailureToastAndTheViewStays",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aFatalErrorBecomesAFailureWithTheStackAndTheLog",
+    "suite": "ExtensionSessionTests",
+    "name": "aFatalErrorBecomesAFailureWithTheStackAndTheLog",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anErrorWithoutAMessageStillSaysSomething",
+    "suite": "ExtensionSessionTests",
+    "name": "anErrorWithoutAMessageStillSaysSomething",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.theLogKeepsOnlyItsTail",
+    "suite": "ExtensionSessionTests",
+    "name": "theLogKeepsOnlyItsTail",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aCleanExitIsForwardedAsExit",
+    "suite": "ExtensionSessionTests",
+    "name": "aCleanExitIsForwardedAsExit",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anythingElseIsACrash",
+    "suite": "ExtensionSessionTests",
+    "name": "anythingElseIsACrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aProcessWeStoppedIsNotACrash",
+    "suite": "ExtensionSessionTests",
+    "name": "aProcessWeStoppedIsNotACrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aCrashAfterAnErrorKeepsTheError",
+    "suite": "ExtensionSessionTests",
+    "name": "aCrashAfterAnErrorKeepsTheError",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.theWatchdogPingsThenReportsAHostThatStopsAnswering",
+    "suite": "ExtensionSessionTests",
+    "name": "theWatchdogPingsThenReportsAHostThatStopsAnswering",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aHostOverTheMemoryCeilingIsStoppedAndSaysWhy",
+    "suite": "ExtensionSessionTests",
+    "name": "aHostOverTheMemoryCeilingIsStoppedAndSaysWhy",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anUnresponsiveHostStillHasAMemoryCeiling",
+    "suite": "ExtensionSessionTests",
+    "name": "anUnresponsiveHostStillHasAMemoryCeiling",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anErroredHostIsStoppedOnlyOnceWhenItExceedsTheCeiling",
+    "suite": "ExtensionSessionTests",
+    "name": "anErroredHostIsStoppedOnlyOnceWhenItExceedsTheCeiling",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aPongClearsTheWaitAndAnUnresponsiveFailure",
+    "suite": "ExtensionSessionTests",
+    "name": "aPongClearsTheWaitAndAnUnresponsiveFailure",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aPongDoesNotClearAnErrorOrCrash",
+    "suite": "ExtensionSessionTests",
+    "name": "aPongDoesNotClearAnErrorOrCrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.clearSearchBarEmptiesTheField",
+    "suite": "ExtensionSessionTests",
+    "name": "clearSearchBarEmptiesTheField",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.messagesTheSessionDoesNotOwnGoToTheModel",
+    "suite": "ExtensionSessionTests",
+    "name": "messagesTheSessionDoesNotOwnGoToTheModel",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestIsAnsweredWithAReplyCarryingItsIdentifier",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestIsAnsweredWithAReplyCarryingItsIdentifier",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestIsAnsweredOffTheMainThread",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestIsAnsweredOffTheMainThread",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.textThatArrivesEarlyIsSentInOrderBeforeTheReply",
+    "suite": "ExtensionSessionTests",
+    "name": "textThatArrivesEarlyIsSentInOrderBeforeTheReply",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestThatFailsRepliesWithTheError",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestThatFailsRepliesWithTheError",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anExtensionsQuestionIsRefusedWhileOnlyAIOnThisMacIsAllowed",
+    "suite": "ExtensionSessionTests",
+    "name": "anExtensionsQuestionIsRefusedWhileOnlyAIOnThisMacIsAllowed",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anExtensionsQuestionIsAnsweredOnThisMacWhileOnlyThatIsAllowed",
+    "suite": "ExtensionSessionTests",
+    "name": "anExtensionsQuestionIsAnsweredOnThisMacWhileOnlyThatIsAllowed",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestCarriesTheNameOfTheExtensionThatAsked",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestCarriesTheNameOfTheExtensionThatAsked",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestTheAppDoesNotKnowIsRefusedAtOnce",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestTheAppDoesNotKnowIsRefusedAtOnce",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aCancelledRequestGetsNoReply",
+    "suite": "ExtensionSessionTests",
+    "name": "aCancelledRequestGetsNoReply",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aHostThatEndsLeavesItsRequestsUnanswered",
+    "suite": "ExtensionSessionTests",
+    "name": "aHostThatEndsLeavesItsRequestsUnanswered",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRenderThatNamesWhatTheAppDoesNotHoldAsksForAWholeOneAndLeavesTheListAsItWas",
+    "suite": "ExtensionSessionTests",
+    "name": "aRenderThatNamesWhatTheAppDoesNotHoldAsksForAWholeOneAndLeavesTheListAsItWas",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.theHostStartsWithTheShellsVariablesItsPreferencesAndWhetherAIIsThere",
+    "suite": "ExtensionSessionTests",
+    "name": "theHostStartsWithTheShellsVariablesItsPreferencesAndWhetherAIIsThere",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.theHostIsToldNotToWatchWhileTheRecordIsOff",
+    "suite": "ExtensionSessionTests",
+    "name": "theHostIsToldNotToWatchWhileTheRecordIsOff",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.runningAnActionSendsItsHandlerAndClosesTheMenu",
+    "suite": "ExtensionSessionTests",
+    "name": "runningAnActionSendsItsHandlerAndClosesTheMenu",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anActionWithoutAHandlerSendsNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "anActionWithoutAHandlerSendsNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.submittingSendsTheFormsValues",
+    "suite": "ExtensionSessionTests",
+    "name": "submittingSendsTheFormsValues",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aSubmitActionWithoutAHandlerOrAValueWithoutAFieldIdDoesNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "aSubmitActionWithoutAHandlerOrAValueWithoutAFieldIdDoesNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.arrowKeysMoveTheListSelectionAndStopAtTheEnds",
+    "suite": "ExtensionSessionTests",
+    "name": "arrowKeysMoveTheListSelectionAndStopAtTheEnds",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.whileTheMenuIsOpenArrowsMoveWithinIt",
+    "suite": "ExtensionSessionTests",
+    "name": "whileTheMenuIsOpenArrowsMoveWithinIt",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.enteringASubmenuTellsTheExtensionAndListsItsActions",
+    "suite": "ExtensionSessionTests",
+    "name": "enteringASubmenuTellsTheExtensionAndListsItsActions",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.escapeClearsTheQueryThenLeavesTheSubmenuThenClosesTheMenu",
+    "suite": "ExtensionSessionTests",
+    "name": "escapeClearsTheQueryThenLeavesTheSubmenuThenClosesTheMenu",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anOpenSubmenuThatDisappearsFromTheTreeIsLeft",
+    "suite": "ExtensionSessionTests",
+    "name": "anOpenSubmenuThatDisappearsFromTheTreeIsLeft",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.anOpenSubmenuListsItsActionsAsTheLatestRenderHasThem",
+    "suite": "ExtensionSessionTests",
+    "name": "anOpenSubmenuListsItsActionsAsTheLatestRenderHasThem",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.aRenderByReferenceLeavesTheSelectionAndShowsTheSelectedItemsNewDetail",
+    "suite": "ExtensionSessionTests",
+    "name": "aRenderByReferenceLeavesTheSelectionAndShowsTheSelectedItemsNewDetail",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.theRowsOnlyCountAsChangedWhenARenderSentOneOfThemAnew",
+    "suite": "ExtensionSessionTests",
+    "name": "theRowsOnlyCountAsChangedWhenARenderSentOneOfThemAnew",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.activatingAnEntryThatIsNotThereDoesNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "activatingAnEntryThatIsNotThereDoesNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.returnWithAModifierRunsTheActionThatDeclaredIt",
+    "suite": "ExtensionSessionTests",
+    "name": "returnWithAModifierRunsTheActionThatDeclaredIt",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "ExtensionSessionTests.returnWithAModifierRunsItsActionEvenWithTheMenuOpen",
+    "suite": "ExtensionSessionTests",
+    "name": "returnWithAModifierRunsItsActionEvenWithTheMenuOpen",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  }
+]

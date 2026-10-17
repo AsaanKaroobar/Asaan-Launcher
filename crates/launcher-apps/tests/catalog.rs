@@ -352,3 +352,58 @@ fn personalized_context_changes_the_real_catalog_order_without_losing_apps() {
     assert_eq!(rows[0].section.as_deref(), Some("Favorites"));
     assert_eq!(rows[1].section.as_deref(), Some("Suggestions"));
 }
+
+#[test]
+fn bundled_commands_share_ranking_customizations_but_have_no_application_metadata() {
+    use asaaan_search::{Item, ItemKind, SearchContext};
+    let store = Store::new(Arc::new(|| {
+        Ok(vec![app("Notes", "/Applications/Notes.app", None)])
+    }));
+    let command = Item {
+        id: "command:list-lab/planets".into(),
+        title: "Browse Planets".into(),
+        kind: ItemKind::Command,
+        keywords: vec!["space".into()],
+    };
+    let initial = store
+        .search_with_extra(
+            "",
+            false,
+            SearchContext::default(),
+            std::slice::from_ref(&command),
+        )
+        .unwrap();
+    assert_eq!(initial.total, 1);
+    assert_eq!(
+        initial
+            .rows
+            .iter()
+            .map(|r| r.item.id.as_str())
+            .collect::<Vec<_>>(),
+        [command.id.as_str(), "app:/Applications/Notes.app"]
+    );
+    assert!(initial.rows[0].actions.is_empty());
+    assert!(initial.rows[0].origin.is_none());
+    assert!(store.get(&command.id).is_err());
+    let mut context = SearchContext::default();
+    context.aliases.insert(command.id.clone(), "solar".into());
+    let aliased = store
+        .search_with_extra(
+            "solar",
+            false,
+            context.clone(),
+            std::slice::from_ref(&command),
+        )
+        .unwrap();
+    assert_eq!(aliased.rows[0].item.id, command.id);
+    context.hidden.insert(command.id.clone());
+    assert!(
+        store
+            .search_with_extra("solar", false, context, std::slice::from_ref(&command))
+            .unwrap()
+            .rows
+            .is_empty()
+    );
+    // Existing clients, including --search, keep the application-only catalog.
+    assert_eq!(store.search("", false).unwrap().rows.len(), 1);
+}

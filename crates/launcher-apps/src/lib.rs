@@ -197,7 +197,16 @@ impl Store {
         &self,
         query: &str,
         force: bool,
+        context: asaaan_search::SearchContext,
+    ) -> Result<SearchReply, String> {
+        self.search_with_extra(query, force, context, &[])
+    }
+    pub fn search_with_extra(
+        &self,
+        query: &str,
+        force: bool,
         mut context: asaaan_search::SearchContext,
+        extra: &[asaaan_search::Item],
     ) -> Result<SearchReply, String> {
         let stale = self
             .cache
@@ -248,7 +257,7 @@ impl Store {
             }
         }
         let cache = self.cache.lock().unwrap();
-        let items: Vec<_> = cache
+        let mut items: Vec<_> = cache
             .apps
             .iter()
             .map(|a| asaaan_search::Item {
@@ -258,6 +267,7 @@ impl Store {
                 keywords: a.keywords.clone(),
             })
             .collect();
+        items.extend_from_slice(extra);
         context.query = query.into();
         let rows = asaaan_search::merge(
             &[asaaan_search::Contribution {

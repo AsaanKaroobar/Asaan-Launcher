@@ -57,6 +57,7 @@ pub struct Session {
     pub log: String,
     closed: usize,
     stopped: bool,
+    recover: bool,
     #[cfg(windows)]
     job: Job,
 }
@@ -91,6 +92,7 @@ impl Session {
             .env("ASAAAN_EXTENSION_DATA", support)
             .env("FLOE_LAUNCH_TYPE", "userInitiated")
             .env("FLOE_ACCESS", "off")
+            .env("FLOE_APPEARANCE", "dark")
             .env("FLOE_RENDER_REFERENCES", "1")
             .env_remove("FLOE_OAUTH")
             .env_remove("FLOE_PREFERENCES")
@@ -177,9 +179,13 @@ impl Session {
             log: String::new(),
             closed: 0,
             stopped: false,
+            recover: true,
             #[cfg(windows)]
             job,
         })
+    }
+    pub fn set_recovery(&mut self, enabled: bool) {
+        self.recover = enabled;
     }
     pub fn pid(&self) -> u32 {
         self.child.id()
@@ -201,10 +207,17 @@ impl Session {
     }
     /// Apply each event before calling receive again: chunks cannot overtake a suspended application.
     pub fn receive(&mut self, timeout: Duration) -> Result<Option<Event>, String> {
+        self.receive_forward(timeout, |_| Ok(()))
+    }
+    pub fn receive_forward(
+        &mut self,
+        timeout: Duration,
+        mut forward: impl FnMut(&[u8]) -> Result<(), String>,
+    ) -> Result<Option<Event>, String> {
         let deadline = Instant::now() + timeout;
         loop {
             if let Some(message) = self.pending.pop_front() {
-                if matches!(message, Message::UnresolvedRender) {
+                if self.recover && matches!(message, Message::UnresolvedRender) {
                     self.send(&json!({"type":"fullRender"}))?;
                 }
                 return Ok(Some(Event::Message(message)));
@@ -221,11 +234,14 @@ impl Session {
                 .chunks
                 .recv_timeout(left.min(Duration::from_millis(25)))
             {
-                Ok(Chunk::Out(bytes)) => self.pending.extend(
-                    self.decoder
-                        .append(&bytes)
-                        .map_err(|e| format!("Invalid extension protocol: {e:?}"))?,
-                ),
+                Ok(Chunk::Out(bytes)) => {
+                    forward(&bytes)?;
+                    self.pending.extend(
+                        self.decoder
+                            .append(&bytes)
+                            .map_err(|e| format!("Invalid extension protocol: {e:?}"))?,
+                    );
+                }
                 Ok(Chunk::Err(bytes)) => {
                     self.log.push_str(&String::from_utf8_lossy(&bytes));
                     if self.log.len() > 20000 {
@@ -253,7 +269,7 @@ impl Session {
         if fields.get("type").and_then(Value::as_str) == Some("request")
             && let Some(id) = fields.get("id").and_then(Value::as_i64)
         {
-            self.send(&json!({"type":"reply","id":id,"error":"This native extension API is unavailable in checkpoint 13."}))?;
+            self.send(&json!({"type":"reply","id":id,"error":"This native extension API is unavailable in this checkpoint."}))?;
         }
         Ok(())
     }

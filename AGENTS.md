@@ -10,8 +10,8 @@ Product name is exactly **Asaaan Launcher** (three a's in Asaaan). Machine ident
 - Never label a build, browser preview, CI configuration, or release staging folder as a deployed native application.
 - Do not advance until the current checkpoint is tested, installed/run locally, and its downloadable release is published. Stop and report completion or the concrete outstanding gate.
 - Floe at ../Floe is the pinned, unchanged behavioral reference. Planning and test inventories are in ../docs/floe-cross-platform. Preserve the source-to-test traceability approach there.
-- Current scope is CP013: extension host foundation: manifest discovery, Bun subprocess protocol/lifecycle, equivalent tests, packaging and local run. Extension List UI and performance upgrades remain deferred.
-- User explicitly approved CP013 after CP012. Performance upgrades remain deferred; public CP012 publication is unverified and user controlled.
+- Current scope is CP014: first interactive extension List UI, resident-owned supervised sessions, equivalent tests, packaging and local run. Detail/Form, store, scheduling and performance upgrades remain deferred.
+- User explicitly approved CP014 after CP013. Performance upgrades remain deferred; public CP013 publication is unverified and user controlled.
 - All new commits must use Dani-Bhai and 62589953+Dani-Bhai@users.noreply.github.com for both author and committer. Verify with git var before committing. Do not rewrite historical commits unless requested.
 - Preserve AGPL-3.0 and original attribution if reference code is copied. Use this project's own application IDs and release authorities.
 - UI/browser tests supplement native tests; do not claim Windows/macOS support has been tested from Linux results.

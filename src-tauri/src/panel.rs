@@ -13,6 +13,12 @@ struct Visibility {
     reported: bool,
 }
 pub struct Panel {
+    extension_pending: Mutex<
+        std::collections::HashMap<
+            u64,
+            mpsc::Sender<Result<asaaan_extensions::view::Snapshot, String>>,
+        >,
+    >,
     output: mpsc::Sender<Packet>,
     visibility: Mutex<Visibility>,
     pub work: Work,
@@ -26,6 +32,28 @@ pub struct Panel {
     clipboard_pending: Mutex<std::collections::HashMap<u64, mpsc::Sender<Result<(), String>>>>,
 }
 impl Panel {
+    pub fn extension(
+        &self,
+        operation: asaaan_extensions::view::Operation,
+    ) -> Result<asaaan_extensions::view::Snapshot, String> {
+        let request_id = self
+            .request_id
+            .fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+        let (tx, rx) = mpsc::channel();
+        self.extension_pending
+            .lock()
+            .unwrap()
+            .insert(request_id, tx);
+        self.send(Packet::ExtensionRequest {
+            request_id,
+            operation,
+        });
+        let result = rx
+            .recv_timeout(Duration::from_secs(10))
+            .unwrap_or_else(|_| Err("Resident extension acknowledgement timed out.".into()));
+        self.extension_pending.lock().unwrap().remove(&request_id);
+        result
+    }
     pub fn copy_text(&self, text: String) -> Result<(), String> {
         let request_id = self
             .request_id
@@ -199,6 +227,7 @@ impl Panel {
 pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
     let (output, packets) = mpsc::channel();
     app.manage(Panel {
+        extension_pending: Mutex::new(Default::default()),
         output,
         visibility: Mutex::new(Visibility {
             visible: false,
@@ -265,6 +294,26 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
                         .remove(&request_id)
                     {
                         let _ = tx.send(error.map_or(Ok(()), Err));
+                    }
+                }
+                Packet::ExtensionReply {
+                    request_id,
+                    snapshot,
+                    error,
+                } => {
+                    if let Some(tx) = handle
+                        .state::<Panel>()
+                        .extension_pending
+                        .lock()
+                        .unwrap()
+                        .remove(&request_id)
+                    {
+                        let result = match (snapshot, error) {
+                            (Some(snapshot), None) => Ok(*snapshot),
+                            (_, Some(error)) => Err(error),
+                            _ => Err("Invalid resident extension reply.".into()),
+                        };
+                        let _ = tx.send(result);
                     }
                 }
                 Packet::Shutdown => {

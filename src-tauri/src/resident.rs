@@ -60,6 +60,10 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
     let personalization = std::sync::Arc::new(Mutex::new(
         crate::data::personalization_path().and_then(asaaan_personalization::Store::open),
     ));
+    app.manage(crate::extension_service::Service::start(
+        app.handle().clone(),
+        personalization.clone(),
+    ));
     let panel_preferences = personalization.clone();
     let clipboard_app = app.handle().clone();
     let (control, worker) = process::start_serviced(
@@ -68,7 +72,9 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             if !matches!(
                 &event,
                 Event::Packet(
-                    Packet::PersonalizationRequest { .. }
+                    Packet::ExtensionRequest { .. }
+                        | Packet::ExtensionReply { .. }
+                        | Packet::PersonalizationRequest { .. }
                         | Packet::PersonalizationReply { .. }
                         | Packet::ClipboardWrite { .. }
                         | Packet::ClipboardWritten { .. }
@@ -164,7 +170,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP013 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP014 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }
@@ -208,7 +214,9 @@ fn private_packet(event: &Event) -> bool {
     matches!(
         event,
         Event::Packet(
-            Packet::PersonalizationRequest { .. }
+            Packet::ExtensionRequest { .. }
+                | Packet::ExtensionReply { .. }
+                | Packet::PersonalizationRequest { .. }
                 | Packet::PersonalizationReply { .. }
                 | Packet::ClipboardWrite { .. }
                 | Packet::ClipboardWritten { .. }
@@ -221,6 +229,33 @@ fn serve(
     packet: &Packet,
 ) -> Option<Packet> {
     match packet {
+        Packet::Presented { visible, .. } => {
+            if let Some(service) = app.try_state::<crate::extension_service::Service>() {
+                service.control.visible(*visible);
+            }
+            None
+        }
+        Packet::ExtensionRequest {
+            request_id,
+            operation,
+        } => {
+            let result = app
+                .try_state::<crate::extension_service::Service>()
+                .ok_or("Extension service unavailable".to_string())
+                .and_then(|s| s.control.exchange(operation.clone()));
+            Some(match result {
+                Ok(snapshot) => Packet::ExtensionReply {
+                    request_id: *request_id,
+                    snapshot: Some(Box::new(snapshot)),
+                    error: None,
+                },
+                Err(error) => Packet::ExtensionReply {
+                    request_id: *request_id,
+                    snapshot: None,
+                    error: Some(error),
+                },
+            })
+        }
         Packet::OpenSettings { page } => {
             if let Some(settings) = app.try_state::<crate::settings::SettingsProcess>() {
                 settings.show(*page);

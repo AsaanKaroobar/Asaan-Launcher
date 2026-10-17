@@ -12,6 +12,8 @@ pub struct ApplicationReply {
     remember_searches: bool,
     aliases: std::collections::HashMap<String, String>,
     hidden_results: std::collections::HashMap<String, String>,
+    #[serde(rename = "commandTotal")]
+    command_total: usize,
 }
 #[derive(serde::Serialize)]
 pub struct LaunchOutcome {
@@ -39,21 +41,30 @@ impl PersonalizationChange {
     fn resolve(self, store: &Store) -> Result<Operation, String> {
         Ok(match self {
             PersonalizationChange::Favorite { id, enabled } => {
-                store.get(&id)?;
+                if id.starts_with("command:") {
+                    crate::extension_service::resolve(&id)?;
+                } else {
+                    store.get(&id)?;
+                }
                 Operation::Favorite { id, enabled }
             }
             PersonalizationChange::Alias { id, alias } => {
                 if !alias.is_empty() {
-                    store.get(&id)?;
+                    if id.starts_with("command:") {
+                        crate::extension_service::resolve(&id)?;
+                    } else {
+                        store.get(&id)?;
+                    }
                 }
                 Operation::Alias { id, alias }
             }
             PersonalizationChange::Hide { id } => {
-                let selected = store.get(&id)?;
-                Operation::Hide {
-                    id,
-                    title: selected.name,
-                }
+                let title = if id.starts_with("command:") {
+                    crate::extension_service::resolve(&id)?.title
+                } else {
+                    store.get(&id)?.name
+                };
+                Operation::Hide { id, title }
             }
             PersonalizationChange::Restore { id } => Operation::Restore { id },
             PersonalizationChange::ClearQueries => Operation::ClearQueries,
@@ -102,10 +113,27 @@ pub async fn search_applications(
                 ),
             }
         };
-        let mut catalog = store.search_with_context(
+        let commands = if crate::application_smoke_requested() {
+            vec![]
+        } else {
+            crate::extension_service::entries(
+                &crate::extension_service::catalog().unwrap_or_default(),
+            )
+        };
+        let extra: Vec<_> = commands
+            .iter()
+            .map(|e| asaaan_search::Item {
+                id: e.id.clone(),
+                title: e.title.clone(),
+                kind: asaaan_search::ItemKind::Command,
+                keywords: e.keywords.clone(),
+            })
+            .collect();
+        let mut catalog = store.search_with_extra(
             &query,
             refresh,
             snapshot.context(&query, asaaan_personalization::now()),
+            &extra,
         )?;
         if let Some(warning) = warning {
             catalog.warning = Some(match catalog.warning {
@@ -120,6 +148,7 @@ pub async fn search_applications(
             remember_searches: snapshot.remember_searches,
             aliases: snapshot.aliases,
             hidden_results: snapshot.hidden_results,
+            command_total: commands.len(),
         })
     })
     .await
@@ -184,7 +213,7 @@ pub fn application_launch_ready(app: tauri::AppHandle, id: String) -> Result<(),
         {
             return Err("No matching native application launch was accepted".into());
         }
-        println!("ASAAAN_APPLICATION_SMOKE_OK CP013 id={id}");
+        println!("ASAAAN_APPLICATION_SMOKE_OK CP014 id={id}");
         app.exit(0);
     }
     Ok(())
