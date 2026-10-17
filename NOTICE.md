@@ -21,3 +21,5 @@ CP008 translates the picker model and session behavior from Floe Picker.swift/Pi
 CP009 settings process/page/exit behavior adapts Floe SettingsProcess.swift, SettingsMode.swift and ApplicationSettingsView.swift (© 2026 René Jiménez, AGPLv3). Pinned sources and scoped mappings are in tests/reference/settings.
 
 CP010 adapts the application slice of Floe SearchCommand.swift and its RootItem display kind (© 2026 René Jiménez, AGPLv3). Pinned sources, shared ranking tests and explicit CLI contracts are in tests/reference/search-cli.
+
+CP013 imports Floe’s Bun runtime, hello/diagnostics fixtures, manifest and reference-v1 decoder contracts (© 2026 René Jiménez, GNU AGPLv3). Frozen sources, per-declaration maps and the narrow portability patches are recorded under tests/reference/extensions. The independently packaged Bun 1.4.3 distribution retains its upstream licensing; see LICENSES/Bun-1.4.3-NOTICES.md and https://github.com/oven-sh/bun/tree/bun-v1.4.3 for the pinned source/rebuild instructions. React, react-reconciler and scheduler retain their bundled MIT license files. No upstream Floe application identity or live data store is used.

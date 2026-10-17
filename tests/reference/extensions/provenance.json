@@ -1,0 +1,398 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/Extensions/Manifest.swift",
+      "file": "frozen/Sources/Floe/Extensions/Manifest.swift",
+      "sha256": "06311984f24a127f240c7610656ecf5c40a0b0518762a6694df04f70ec6dcaf8"
+    },
+    {
+      "source": "Sources/Floe/Extensions/Node.swift",
+      "file": "frozen/Sources/Floe/Extensions/Node.swift",
+      "sha256": "a690fc05b6d4dba7dc9eb367c5b7884b9664f0c51f2f92d9b206373b6f702863"
+    },
+    {
+      "source": "Sources/Floe/Extensions/HostMessageDecoder.swift",
+      "file": "frozen/Sources/Floe/Extensions/HostMessageDecoder.swift",
+      "sha256": "6cb1851640c6d7905c9ce9e37bd81b6aff22f0052e091e7acac1df7bb38e37d9"
+    },
+    {
+      "source": "Sources/Floe/Extensions/Session.swift",
+      "file": "frozen/Sources/Floe/Extensions/Session.swift",
+      "sha256": "b8df4499c07b0de04ecae57575f89ef9213ca78ba133dd1f449b6894ca27b17d"
+    },
+    {
+      "source": "Sources/Floe/Extensions/Session+Process.swift",
+      "file": "frozen/Sources/Floe/Extensions/Session+Process.swift",
+      "sha256": "5ea8d0b70205a6966964cdc17077f1019976a6e68f0528de985c88182c9c77a3"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/ManifestTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/ManifestTests.swift",
+      "sha256": "d2f93e48dbfbfee3aab9089a1d2ae46eddfba7e3822b2c395073303dbcd04d79"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/NodeTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/NodeTests.swift",
+      "sha256": "a0b1b1552d5454ad7b7f71a941c9b89f12b0d1db2bdc77917baa53a5e9cb69b6"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/HostMessageDecoderTests.swift",
+      "sha256": "90e28657c9e631d8364cc90632f604fe0a9647c57b6086252b43471ba870e10e"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/RenderReferenceTests.swift",
+      "sha256": "abf8e56f38d03a013e9016909e7d011f5283a7687b129ed34503fab4329982b5"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/SessionTests.swift",
+      "sha256": "1572891344daf566b606b1e922704a09c54c979d7f14129d58e6cc02a964bcd5"
+    },
+    {
+      "source": "extensions/diagnostics/src/throws.tsx",
+      "file": "frozen/extensions/diagnostics/src/throws.tsx",
+      "sha256": "2587887cdee48bf59ec3638cd335bd69cc1f2e2ceeaddd276f1c503526fa1e5e",
+      "portedSha256": "2587887cdee48bf59ec3638cd335bd69cc1f2e2ceeaddd276f1c503526fa1e5e",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/diagnostics/src/rejects.tsx",
+      "file": "frozen/extensions/diagnostics/src/rejects.tsx",
+      "sha256": "f01e5d7e7c0fbe92482786d1bb282b5fd3d7893b5a2fd56d03802fdb15c18685",
+      "portedSha256": "f01e5d7e7c0fbe92482786d1bb282b5fd3d7893b5a2fd56d03802fdb15c18685",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/diagnostics/src/hangs.tsx",
+      "file": "frozen/extensions/diagnostics/src/hangs.tsx",
+      "sha256": "357e4e5c724df4425d10785f46c0714006a1ae191b0fdc6ea06abe48e6cc1492",
+      "portedSha256": "357e4e5c724df4425d10785f46c0714006a1ae191b0fdc6ea06abe48e6cc1492",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/diagnostics/src/exits.tsx",
+      "file": "frozen/extensions/diagnostics/src/exits.tsx",
+      "sha256": "3fb6a93a39251596436d2c45fefb7d69d89c2b05a9cc650931ce86b9ed616088",
+      "portedSha256": "3fb6a93a39251596436d2c45fefb7d69d89c2b05a9cc650931ce86b9ed616088",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/diagnostics/src/actions.tsx",
+      "file": "frozen/extensions/diagnostics/src/actions.tsx",
+      "sha256": "48c2ad23c132158c762f5b92a70cdc7d61607cd6ee1ebca79ebd26112ac6c38e",
+      "portedSha256": "48c2ad23c132158c762f5b92a70cdc7d61607cd6ee1ebca79ebd26112ac6c38e",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/diagnostics/package.json",
+      "file": "frozen/extensions/diagnostics/package.json",
+      "sha256": "95e8a8773e260e7554ecce51c1b01aeffcac0d35018217bbce65b2396326e673",
+      "portedSha256": "95e8a8773e260e7554ecce51c1b01aeffcac0d35018217bbce65b2396326e673",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/package.json",
+      "file": "frozen/extensions/hello/package.json",
+      "sha256": "f8d80ec0b93fc7f9b4c5a3f6072d945fb335675f8b28a8402862eed0822adfbf",
+      "portedSha256": "f8d80ec0b93fc7f9b4c5a3f6072d945fb335675f8b28a8402862eed0822adfbf",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/fetch.ts",
+      "file": "frozen/runtime/fetch.ts",
+      "sha256": "89ffe1d8e7dafc5388d0d99f0bc8798ac67311734fc05c577b00260865fdb7eb",
+      "portedSha256": "89ffe1d8e7dafc5388d0d99f0bc8798ac67311734fc05c577b00260865fdb7eb",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/cache.ts",
+      "file": "frozen/runtime/cache.ts",
+      "sha256": "9515af5f91c255d286b8efa073e1a8ed98fcc7eea1f84edf382b763ce932198e",
+      "portedSha256": "9515af5f91c255d286b8efa073e1a8ed98fcc7eea1f84edf382b763ce932198e",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/bunfig.toml",
+      "file": "frozen/runtime/bunfig.toml",
+      "sha256": "6859cbfa434ebd9f8d4e7869406a060a2c7cd571138effb82b848dcc4f9b3005",
+      "portedSha256": "6859cbfa434ebd9f8d4e7869406a060a2c7cd571138effb82b848dcc4f9b3005",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/bun.lock",
+      "file": "frozen/runtime/bun.lock",
+      "sha256": "5fde375e65173fd4eaafaa687b674cdf01f1e44d3b66b063ff16501b18405d37",
+      "portedSha256": "5fde375e65173fd4eaafaa687b674cdf01f1e44d3b66b063ff16501b18405d37",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/build.ts",
+      "file": "frozen/runtime/build.ts",
+      "sha256": "2e27d112bbe1e99a7c3ce25191e2ef90298da05bca2c125b2f8323fef44c6887",
+      "portedSha256": "2e27d112bbe1e99a7c3ce25191e2ef90298da05bca2c125b2f8323fef44c6887",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/bridge.ts",
+      "file": "frozen/runtime/bridge.ts",
+      "sha256": "5e501953f091ce1552dd969988628316941d34e2da0b500114159b1e1f14ea85",
+      "portedSha256": "5e501953f091ce1552dd969988628316941d34e2da0b500114159b1e1f14ea85",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/planets.tsx",
+      "file": "frozen/extensions/hello/src/planets.tsx",
+      "sha256": "cdbab40c2eeb1745dd4099a93bb87d83de23edaa4db9d381efffadc161c37783",
+      "portedSha256": "cdbab40c2eeb1745dd4099a93bb87d83de23edaa4db9d381efffadc161c37783",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/menu-bar-clock.tsx",
+      "file": "frozen/extensions/hello/src/menu-bar-clock.tsx",
+      "sha256": "a80e0aa466b51187fb86ccd1075baa7cbb916ab6cd7ec28248ff49d37fa462a2",
+      "portedSha256": "a80e0aa466b51187fb86ccd1075baa7cbb916ab6cd7ec28248ff49d37fa462a2",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/greet.tsx",
+      "file": "frozen/extensions/hello/src/greet.tsx",
+      "sha256": "bb0054f9cd8bc0004be45ceded053a4794b0f81254515f052942d823bd53d30f",
+      "portedSha256": "bb0054f9cd8bc0004be45ceded053a4794b0f81254515f052942d823bd53d30f",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/feedback.tsx",
+      "file": "frozen/extensions/hello/src/feedback.tsx",
+      "sha256": "44938f5548cca304e339c7653dab57a7cbe06c82dcdce2e6e6e05bb866ce1409",
+      "portedSha256": "44938f5548cca304e339c7653dab57a7cbe06c82dcdce2e6e6e05bb866ce1409",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/echo.tsx",
+      "file": "frozen/extensions/hello/src/echo.tsx",
+      "sha256": "56c6fa60b61a9d7ceb5a56d8dad1c21075d1d663cbf72cdbd8e6cc24fd61793d",
+      "portedSha256": "56c6fa60b61a9d7ceb5a56d8dad1c21075d1d663cbf72cdbd8e6cc24fd61793d",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/count-ticks.ts",
+      "file": "frozen/extensions/hello/src/count-ticks.ts",
+      "sha256": "f0fffc3714a374a7f4170ae2fa252b6adbef164cfa6b7f3af2e457c3275b2302",
+      "portedSha256": "f0fffc3714a374a7f4170ae2fa252b6adbef164cfa6b7f3af2e457c3275b2302",
+      "patch": "unchanged"
+    },
+    {
+      "source": "extensions/hello/src/copy-date.ts",
+      "file": "frozen/extensions/hello/src/copy-date.ts",
+      "sha256": "e7c485ee6b7ccd0fa3438294f1a62c97f706f66d0b2c57d347a54cf48281fea6",
+      "portedSha256": "e7c485ee6b7ccd0fa3438294f1a62c97f706f66d0b2c57d347a54cf48281fea6",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/package.json",
+      "file": "frozen/runtime/package.json",
+      "sha256": "1ac24d03228cf8b155ca1d26c42e1fbce808f98bf30b59f29a41d7f9eeb247ec",
+      "portedSha256": "1ac24d03228cf8b155ca1d26c42e1fbce808f98bf30b59f29a41d7f9eeb247ec",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/local-storage.ts",
+      "file": "frozen/runtime/local-storage.ts",
+      "sha256": "747347e7b98bf45f463e3efb8da5674ecb5e2bfaac4d992381d566bbe708b1f4",
+      "portedSha256": "747347e7b98bf45f463e3efb8da5674ecb5e2bfaac4d992381d566bbe708b1f4",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/lines.ts",
+      "file": "frozen/runtime/lines.ts",
+      "sha256": "874a7a6cc9d07bc2bc7c9a07feeff7dbbc162495bbde01663100385cff80be9d",
+      "portedSha256": "874a7a6cc9d07bc2bc7c9a07feeff7dbbc162495bbde01663100385cff80be9d",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/host.ts",
+      "file": "frozen/runtime/host.ts",
+      "sha256": "59984befc4d9dd584e7ce7f2c0e36db9c93dab38dac46fe61cc35a3164a25b1f",
+      "portedSha256": "413b81aa4aa3f694ac34808ad2598e87793f98efcea6f9829e5217e27e87d948",
+      "patch": "Host path/name validation or test fixture executable/private data adaptation; original assertions retained."
+    },
+    {
+      "source": "runtime/smoke.ts",
+      "file": "frozen/runtime/smoke.ts",
+      "sha256": "dd9b6e2b00f390d4eba3914fa3f4a53586a8f3dcdf9d9b6452ea5fd13d6c87c2",
+      "portedSha256": "dd9b6e2b00f390d4eba3914fa3f4a53586a8f3dcdf9d9b6452ea5fd13d6c87c2",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/renderer.ts",
+      "file": "frozen/runtime/renderer.ts",
+      "sha256": "66dd2b2c46ce9a5576fbae1578af667cdaf7bfacb6ff72b913de98f9a0006aab",
+      "portedSha256": "66dd2b2c46ce9a5576fbae1578af667cdaf7bfacb6ff72b913de98f9a0006aab",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/survey.ts",
+      "file": "frozen/runtime/survey.ts",
+      "sha256": "501934815ab385d0619b1fb25efd595d98040197331a26049914c16e15b5a27d",
+      "portedSha256": "501934815ab385d0619b1fb25efd595d98040197331a26049914c16e15b5a27d",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/testing.ts",
+      "file": "frozen/runtime/testing.ts",
+      "sha256": "49d34232aa0c3f8c5ee38d18e929bda7b370cf10cd9427bc9de366124035ebc8",
+      "portedSha256": "49d34232aa0c3f8c5ee38d18e929bda7b370cf10cd9427bc9de366124035ebc8",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/access.ts",
+      "file": "frozen/runtime/access.ts",
+      "sha256": "71b38700e28253dfce32240c291f16a721ca144061db982ade8417cce4193072",
+      "portedSha256": "71b38700e28253dfce32240c291f16a721ca144061db982ade8417cce4193072",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/views.test.ts",
+      "file": "frozen/runtime/tests/views.test.ts",
+      "sha256": "804b3ece3b8a5f1fc572b01f086640858a4e2d9d657478b49264a4bc9072d9c2",
+      "portedSha256": "804b3ece3b8a5f1fc572b01f086640858a4e2d9d657478b49264a4bc9072d9c2",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/system.test.ts",
+      "file": "frozen/runtime/tests/system.test.ts",
+      "sha256": "359294c5a2bd2b3745fe1cd132e896b0feb6ca2df10417908adb958eeab8b69e",
+      "portedSha256": "359294c5a2bd2b3745fe1cd132e896b0feb6ca2df10417908adb958eeab8b69e",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/support.ts",
+      "file": "frozen/runtime/tests/support.ts",
+      "sha256": "823d1f3a23409240d1467ea0977aed05466923dc19bcdf7823b474f7f60eac06",
+      "portedSha256": "823d1f3a23409240d1467ea0977aed05466923dc19bcdf7823b474f7f60eac06",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/storage-writer.ts",
+      "file": "frozen/runtime/tests/storage-writer.ts",
+      "sha256": "aaf7d764500e5b629a7ac34f851c438bb3a4511c6d98cb06bde4b0733d4df187",
+      "portedSha256": "aaf7d764500e5b629a7ac34f851c438bb3a4511c6d98cb06bde4b0733d4df187",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/renderer.test.ts",
+      "file": "frozen/runtime/tests/renderer.test.ts",
+      "sha256": "e36c73e27a5e44d9ab947945f1ff33c6da3d3d55a65f74aeea4dedd99aa7fed2",
+      "portedSha256": "e36c73e27a5e44d9ab947945f1ff33c6da3d3d55a65f74aeea4dedd99aa7fed2",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/references.test.ts",
+      "file": "frozen/runtime/tests/references.test.ts",
+      "sha256": "432519110356a2bb57746c9a6ae26d3d0c7ea71f5c2a20554ef186d6318f4402",
+      "portedSha256": "432519110356a2bb57746c9a6ae26d3d0c7ea71f5c2a20554ef186d6318f4402",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/local-storage.test.ts",
+      "file": "frozen/runtime/tests/local-storage.test.ts",
+      "sha256": "fa504f172faad8e297b4b7fac01de2102c92439c7ac609d0ba47cf2ca90aac52",
+      "portedSha256": "fa504f172faad8e297b4b7fac01de2102c92439c7ac609d0ba47cf2ca90aac52",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/lines.test.ts",
+      "file": "frozen/runtime/tests/lines.test.ts",
+      "sha256": "fa9cce32dc1fbc3ef23911e172e9c76d32c9f7e2d7c39bdaf191252d5aacb1cc",
+      "portedSha256": "fa9cce32dc1fbc3ef23911e172e9c76d32c9f7e2d7c39bdaf191252d5aacb1cc",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/fetch.test.ts",
+      "file": "frozen/runtime/tests/fetch.test.ts",
+      "sha256": "6e6af43a547c14634467e9b3f17da5ec0ae4fcec9969a03adb78ac8f8aacedee",
+      "portedSha256": "6e6af43a547c14634467e9b3f17da5ec0ae4fcec9969a03adb78ac8f8aacedee",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/cache.test.ts",
+      "file": "frozen/runtime/tests/cache.test.ts",
+      "sha256": "cb1ea42098306747217f956ec89048a1f22f5cad15974c3ccdc25aa11b1a259e",
+      "portedSha256": "3d5420a270e43e60342f360dbdaa42a7a8ae1544c03bf716d9044fa843909aeb",
+      "patch": "Host path/name validation or test fixture executable/private data adaptation; original assertions retained."
+    },
+    {
+      "source": "runtime/tests/build.test.ts",
+      "file": "frozen/runtime/tests/build.test.ts",
+      "sha256": "13e15ca6cbbc402b02b6f69b652a0aa8d5129e9caa09468dac103ad174f6abbe",
+      "portedSha256": "13e15ca6cbbc402b02b6f69b652a0aa8d5129e9caa09468dac103ad174f6abbe",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/bridge.test.ts",
+      "file": "frozen/runtime/tests/bridge.test.ts",
+      "sha256": "8ae7297a4410fd48981c2191d6ef60d066ba3f614afe26e733624dd3cb2f1ca6",
+      "portedSha256": "e00aaad66a2811212ae594bc70f6af3a382a561f075d5222366fc08fd45d8100",
+      "patch": "Host path/name validation or test fixture executable/private data adaptation; original assertions retained."
+    },
+    {
+      "source": "runtime/tests/bench-renderer.ts",
+      "file": "frozen/runtime/tests/bench-renderer.ts",
+      "sha256": "e3499017680db084bfba3a4deb30c26b426e1fbea0303438714991ee6a425da7",
+      "portedSha256": "e3499017680db084bfba3a4deb30c26b426e1fbea0303438714991ee6a425da7",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/bench-navigation.ts",
+      "file": "frozen/runtime/tests/bench-navigation.ts",
+      "sha256": "4c7c4cb6188d90ba6742de1740f7dae3773899c4528d60154c097f0e4d789a92",
+      "portedSha256": "4c7c4cb6188d90ba6742de1740f7dae3773899c4528d60154c097f0e4d789a92",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/bench-cache.ts",
+      "file": "frozen/runtime/tests/bench-cache.ts",
+      "sha256": "a7957d078e1bc5ea9e3edec4cbf846c576edc2f665243fcea6668903d3eb453e",
+      "portedSha256": "a7957d078e1bc5ea9e3edec4cbf846c576edc2f665243fcea6668903d3eb453e",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/actions.test.ts",
+      "file": "frozen/runtime/tests/actions.test.ts",
+      "sha256": "a038fa27023731914e2320f581e93b18c348bc00e0b24a348994fa9de3bfa043",
+      "portedSha256": "a038fa27023731914e2320f581e93b18c348bc00e0b24a348994fa9de3bfa043",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/tests/access.test.ts",
+      "file": "frozen/runtime/tests/access.test.ts",
+      "sha256": "b5d21dc24fc4d38ad574103736b246df7108830b27b8dc36242f7015ce67da9b",
+      "portedSha256": "b5d21dc24fc4d38ad574103736b246df7108830b27b8dc36242f7015ce67da9b",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/api/oauth.ts",
+      "file": "frozen/runtime/api/oauth.ts",
+      "sha256": "1aade4f40effe297094bbdcedf82fee18ba83e0884f03fe4693314e61473d42d",
+      "portedSha256": "1aade4f40effe297094bbdcedf82fee18ba83e0884f03fe4693314e61473d42d",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/api/names.ts",
+      "file": "frozen/runtime/api/names.ts",
+      "sha256": "9fa915f3339400e1517d736e7ba05abd698ae77605ede2eb2829be3280620b92",
+      "portedSha256": "9fa915f3339400e1517d736e7ba05abd698ae77605ede2eb2829be3280620b92",
+      "patch": "unchanged"
+    },
+    {
+      "source": "runtime/api/index.ts",
+      "file": "frozen/runtime/api/index.ts",
+      "sha256": "d2639901919639dc50011e0ab5798fb7a7a5459cbf3eb8f16a04023dcfe02299",
+      "portedSha256": "d2639901919639dc50011e0ab5798fb7a7a5459cbf3eb8f16a04023dcfe02299",
+      "patch": "unchanged"
+    }
+  ]
+}

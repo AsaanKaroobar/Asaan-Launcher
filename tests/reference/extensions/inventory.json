@@ -1,0 +1,1882 @@
+[
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:40",
+    "name": "aMessageIsReassembledAtEverySplitPosition",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:52",
+    "name": "aSplitInsideAMultibyteCharacterIsReassembled",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:63",
+    "name": "linesCompleteInOrderAcrossAndWithinChunks",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:72",
+    "name": "unreadableLinesAreSkipped",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:79",
+    "name": "aTrailingPartialLineWaitsForItsNewline",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:86",
+    "name": "manyPartialAppendsKeepThePartialLineIntact",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:102",
+    "name": "aRenderWithAnUnreadableTreeDecodesAsAnEmptyRoot",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:111",
+    "name": "decodersDoNotShareState",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:139",
+    "name": "aSuspendedApplicationHoldsBackTheNextChunk",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift:168",
+    "name": "reportDecoderTimings",
+    "source": "Tests/FloeTests/Extensions/HostMessageDecoderTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:13",
+    "name": "readsEveryManifestKey",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:32",
+    "name": "defaultsToAnOptionalTextField",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:41",
+    "name": "scalarDefaultsSurviveTheRoundTrip",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:56",
+    "name": "aWholeNumberDefaultStaysAnIntAndAFractionBecomesADouble",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:63",
+    "name": "defaultsOfUnsupportedTypesBecomeNil",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:68",
+    "name": "aDefaultGivenPerPlatformTakesTheMacsValue",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:75",
+    "name": "argumentsUseTheirPlaceholderAsTitle",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:80",
+    "name": "aFieldNeedsAName",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:84",
+    "name": "onlyPasswordsAreSecret",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:113",
+    "name": "listsViewNoViewAndMenuBarCommands",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:119",
+    "name": "commandsCarryExtensionAndCommandDetails",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:134",
+    "name": "commandFallsBackToItsNameAndTheExtensionIcon",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:142",
+    "name": "extensionTitleFallsBackToItsName",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:151",
+    "name": "theOwnerIsTheManifestsOwnerElseItsAuthorInEitherShape",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:163",
+    "name": "aCommandCarriesItsOwnKeywordsAndItsExtensions",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:175",
+    "name": "aCommandKnowsWhetherItsManifestLeavesItOffByDefault",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:192",
+    "name": "anExtensionWhosePlatformsLackTheMacHasNoCommands",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:199",
+    "name": "aCommandWhosePlatformsLackTheMacIsLeftOut",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:204",
+    "name": "manifestsWithoutANameOrCommandsYieldNothing",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:209",
+    "name": "scansAFolderOfExtensionsInNameOrder",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:232",
+    "name": "identifiersAreStableAndDistinctPerKind",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:240",
+    "name": "titlesSubtitlesAndKinds",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:256",
+    "name": "settingsKeysCoverEverythingThatCanHaveAnAliasOrHotkey",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:264",
+    "name": "onlyAppsAreApps",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/ManifestTests.swift:271",
+    "name": "resultsTakeTheirIdentifierFromTheItem",
+    "source": "Tests/FloeTests/Extensions/ManifestTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:12",
+    "name": "parsesTypePropsHandlersAndChildren",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:27",
+    "name": "rejectsAnythingWithoutAType",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:32",
+    "name": "missingFieldsGetDefaults",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:41",
+    "name": "childrenThatAreNotNodesAreDropped",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:46",
+    "name": "stringReadsPlainTextOrAValueObject",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:54",
+    "name": "slotReturnsTheNamedElementAndContentLeavesSlotsOut",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/NodeTests.swift:66",
+    "name": "descendantsFindsNestedNodesInOrderIncludingItself",
+    "source": "Tests/FloeTests/Extensions/NodeTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:66",
+    "name": "aReferenceIsReplacedByTheNodeKeptUnderItsId",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:77",
+    "name": "aTreeBuiltFromReferencesEqualsTheSameTreeSentWhole",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:96",
+    "name": "aSubtreeNamedUnderAnotherParentIsFoundByItsId",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:107",
+    "name": "aKeptNodeKeepsItsRevisionAndEveryNodeSentAnewGetsAnother",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:126",
+    "name": "aRowAndADetailCompareByRevisionAndWhatElseTheyDraw",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:158",
+    "name": "aReferenceToNothingBuildsNoTreeAndIsReportedOnce",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:172",
+    "name": "aRenderWrittenAgainstOneTheAppMissedIsNotRead",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:181",
+    "name": "referencesOfAnotherVersionAreNotRead",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:193",
+    "name": "wholeRendersNeedNoSequenceAndMayNameNothing",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:201",
+    "name": "aScreenThatWasReplacedIsNoLongerHeld",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/RenderReferenceTests.swift:210",
+    "name": "theDecoderHoldsTheLastRenderBetweenChunksAndMissesWhatItCouldNotRead",
+    "source": "Tests/FloeTests/Extensions/RenderReferenceTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:51",
+    "name": "whatTheExtensionReachedIsRecordedUnderItsNameAndNotHandedOn",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:63",
+    "name": "withTheRecordSwitchedOffAReportIsDroppedAndStillNotHandedOn",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:91",
+    "name": "keepsItsCommandAndArguments",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:98",
+    "name": "aRenderShowsTheViewAndItsRows",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:107",
+    "name": "typingFiltersRowsAndResetsTheSelection",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:116",
+    "name": "typingIsSentToAListThatHandlesSearchItself",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:126",
+    "name": "aNewScreenClearsTheSearchSelectionAndFormWithoutTellingTheExtension",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:142",
+    "name": "aRerenderOfTheSameScreenKeepsWhatTheUserTyped",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:152",
+    "name": "singleScreenSnapshotsKeepIdentityAndDropTheHiddenScreen",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:171",
+    "name": "aToastIsShownAndHiddenByItsIdentifier",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:180",
+    "name": "aToastThatIsShownIsHandedToTheModelAndOneThatIsHiddenIsNot",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:193",
+    "name": "aToastWithoutDetailsGetsDefaults",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:198",
+    "name": "aToastWithActionsKeepsTheirTitles",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:203",
+    "name": "runningAToastActionTellsTheHostAndDismissesTheToast",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:213",
+    "name": "aToastActionWithoutThatButtonSendsNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:222",
+    "name": "aConfirmRequestShowsAnInPanelDialog",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:234",
+    "name": "aNewAlertReplacesTheOldOneAnsweringItFalse",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:247",
+    "name": "answeringTwiceAnswersOnce",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:254",
+    "name": "cancellingOrStoppingAnAlertAnswersItFalse",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:269",
+    "name": "aNonFatalErrorIsAFailureToastAndTheViewStays",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:277",
+    "name": "aFatalErrorBecomesAFailureWithTheStackAndTheLog",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:285",
+    "name": "anErrorWithoutAMessageStillSaysSomething",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:291",
+    "name": "theLogKeepsOnlyItsTail",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:300",
+    "name": "aCleanExitIsForwardedAsExit",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:306",
+    "name": "anythingElseIsACrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:316",
+    "name": "aProcessWeStoppedIsNotACrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:323",
+    "name": "aCrashAfterAnErrorKeepsTheError",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:330",
+    "name": "theWatchdogPingsThenReportsAHostThatStopsAnswering",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:343",
+    "name": "aHostOverTheMemoryCeilingIsStoppedAndSaysWhy",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:353",
+    "name": "anUnresponsiveHostStillHasAMemoryCeiling",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:363",
+    "name": "anErroredHostIsStoppedOnlyOnceWhenItExceedsTheCeiling",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:376",
+    "name": "aPongClearsTheWaitAndAnUnresponsiveFailure",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:388",
+    "name": "aPongDoesNotClearAnErrorOrCrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:396",
+    "name": "clearSearchBarEmptiesTheField",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:403",
+    "name": "messagesTheSessionDoesNotOwnGoToTheModel",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:424",
+    "name": "aRequestIsAnsweredWithAReplyCarryingItsIdentifier",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:437",
+    "name": "aRequestIsAnsweredOffTheMainThread",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:448",
+    "name": "textThatArrivesEarlyIsSentInOrderBeforeTheReply",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:461",
+    "name": "aRequestThatFailsRepliesWithTheError",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:470",
+    "name": "anExtensionsQuestionIsRefusedWhileOnlyAIOnThisMacIsAllowed",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:483",
+    "name": "anExtensionsQuestionIsAnsweredOnThisMacWhileOnlyThatIsAllowed",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:495",
+    "name": "aRequestCarriesTheNameOfTheExtensionThatAsked",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:503",
+    "name": "aRequestTheAppDoesNotKnowIsRefusedAtOnce",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:512",
+    "name": "aCancelledRequestGetsNoReply",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:524",
+    "name": "aHostThatEndsLeavesItsRequestsUnanswered",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:535",
+    "name": "aRenderThatNamesWhatTheAppDoesNotHoldAsksForAWholeOneAndLeavesTheListAsItWas",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:547",
+    "name": "theHostStartsWithTheShellsVariablesItsPreferencesAndWhetherAIIsThere",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:558",
+    "name": "theHostIsToldNotToWatchWhileTheRecordIsOff",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:578",
+    "name": "runningAnActionSendsItsHandlerAndClosesTheMenu",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:586",
+    "name": "anActionWithoutAHandlerSendsNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:591",
+    "name": "submittingSendsTheFormsValues",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:617",
+    "name": "aSubmitActionWithoutAHandlerOrAValueWithoutAFieldIdDoesNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:626",
+    "name": "arrowKeysMoveTheListSelectionAndStopAtTheEnds",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:636",
+    "name": "whileTheMenuIsOpenArrowsMoveWithinIt",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:646",
+    "name": "enteringASubmenuTellsTheExtensionAndListsItsActions",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:667",
+    "name": "escapeClearsTheQueryThenLeavesTheSubmenuThenClosesTheMenu",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:685",
+    "name": "anOpenSubmenuThatDisappearsFromTheTreeIsLeft",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:699",
+    "name": "anOpenSubmenuListsItsActionsAsTheLatestRenderHasThem",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:741",
+    "name": "aRenderByReferenceLeavesTheSelectionAndShowsTheSelectedItemsNewDetail",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:751",
+    "name": "theRowsOnlyCountAsChangedWhenARenderSentOneOfThemAnew",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:783",
+    "name": "activatingAnEntryThatIsNotThereDoesNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:813",
+    "name": "returnWithAModifierRunsTheActionThatDeclaredIt",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "Tests/FloeTests/Extensions/SessionTests.swift:823",
+    "name": "returnWithAModifierRunsItsActionEvenWithTheMenuOpen",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:21",
+    "name": "the first folder under home, and one deeper inside Library",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:29",
+    "name": "outside home, the first two folders",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:34",
+    "name": "the extension's own folders and its packages are not news",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:43",
+    "name": "the host of a request, however it was given",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:53",
+    "name": "the program of a command line, without its folder",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:62",
+    "name": "what an extension reads, changes, contacts and starts is reported once",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:99",
+    "name": "a wrapped function keeps what the original carried, so promisify(exec) still gives stdout and stderr",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:112",
+    "name": "stopping puts every function back, and a failing record never fails the call",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:121",
+    "name": "the app's variable says whether to record, and anything but off records",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/access.test.ts:128",
+    "name": "with the variable saying off, nothing is wrapped and nothing is reported",
+    "source": "runtime/tests/access.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:29",
+    "name": "have a default title and icon that props can replace",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:40",
+    "name": "OpenInBrowser opens the URL, tells the extension, and closes the window",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:49",
+    "name": "Open passes the target and the chosen application",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:59",
+    "name": "OpenWith opens the path",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:64",
+    "name": "CopyToClipboard copies, tells the extension, and confirms with a HUD",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:76",
+    "name": "a concealed copy tells the app it is one",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:81",
+    "name": "Paste sends the text to paste and tells the extension",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:90",
+    "name": "Push shows the target as a new screen and runs onPop when it leaves",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:107",
+    "name": "ShowInFinder reveals the path and closes the window",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:117",
+    "name": "Trash moves the files into the user's Trash folder",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:160",
+    "name": "a plain Action runs the extension's own handler",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/actions.test.ts:171",
+    "name": "ActionPanel.Item is a plain Action",
+    "source": "runtime/tests/actions.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:21",
+    "name": "writes one JSON line per message to the sink",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:29",
+    "name": "writes to stdout unless a sink is set, and again once it is reset",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:44",
+    "name": "once stdout is reserved, a raw write to it goes to stderr and messages still go to stdout",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:60",
+    "name": "the real host keeps a command's raw write out of what the app reads",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:87",
+    "name": "the installed handlers receive the app's pop and pop-to-root",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:98",
+    "name": "each request gets its own id, and a reply settles only the request it names",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/bridge.test.ts:112",
+    "name": "a reply nobody is waiting for is ignored",
+    "source": "runtime/tests/bridge.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:57",
+    "name": "finds a command file in src/",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:62",
+    "name": "finds a command folder with an index file",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:67",
+    "name": "prefers TypeScript sources over JavaScript and over a prebuilt bundle",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:72",
+    "name": "falls back to the prebuilt bundle Raycast installs beside the manifest",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:77",
+    "name": "throws when the command has no entry file",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:84",
+    "name": "is zero for a missing path and the file's own time for a file",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:91",
+    "name": "walks nested folders but skips node_modules and dot entries",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:110",
+    "name": "is stable while nothing changes and records what the bundle depends on",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:117",
+    "name": "changes when any file under src/ changes, not only the entry",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:125",
+    "name": "changes when the manifest or the lockfile changes",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:143",
+    "name": "tracks only the bundle itself for a prebuilt command",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:163",
+    "name": "bundles a command so that @raycast/api is the shim and React is the host's copy",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:181",
+    "name": "a source file's __dirname is the extension's folder, as in the bundle Raycast builds",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:200",
+    "name": "a name only CommonJS finds on a Node module is imported, and one no module has is undefined",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:213",
+    "name": "a command with a top-level await, which CommonJS cannot hold, is still built",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:222",
+    "name": "an imported .wasm file is its compiled module, with or without ?module",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:244",
+    "name": "builds again over a bundle cached from before commands were built as CommonJS",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:257",
+    "name": "reuses the cached bundle until a source file changes",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:279",
+    "name": "bundles again after an ordinary save of a file the entry imports",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:296",
+    "name": "builds again when the output is missing even though the fingerprint matches",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:304",
+    "name": "builds again when the fingerprint file is missing",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:313",
+    "name": "bundles a prebuilt CommonJS command from beside the manifest",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/build.test.ts:321",
+    "name": "fails with the build messages when the command does not compile",
+    "source": "runtime/tests/build.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:32",
+    "name": "get promotes, has does not",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:45",
+    "name": "an overwrite releases its old cost, a shrink frees room",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:58",
+    "name": "the least recent survivors are deterministic",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:65",
+    "name": "zero capacity stores nothing and skips the file",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:81",
+    "name": "an oversized replacement removes only its own stale value",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:93",
+    "name": "multibyte keys and values are counted in utf8 bytes",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:104",
+    "name": "an exact fit is kept and one byte over is dropped",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:114",
+    "name": "repeated insertions keep only the expected survivors",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:126",
+    "name": "evictions and sets announce the final bounded state",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:142",
+    "name": "an oversized set only announces the removal of what it dropped",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:151",
+    "name": "a silent clear notifies nobody and stays bounded",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:162",
+    "name": "a reentrant mutation cannot corrupt the notification pass",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:179",
+    "name": "legacy dictionaries load with deterministic recency and are trimmed to the budget",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:193",
+    "name": "recency written by a mutation survives reopening",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:207",
+    "name": "ordered numeric-looking keys keep their insertion order",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:218",
+    "name": "malformed records and corrupt files are disposable misses",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:230",
+    "name": "a valid snapshot reopens under a smaller capacity",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:240",
+    "name": "an escaping-heavy valid snapshot still fits its restore ceiling",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:257",
+    "name": "an over-ceiling file is rejected before it is read",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:274",
+    "name": "clear leaves an empty bounded snapshot behind",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:306",
+    "name": "mutations in one tick are one write of the final state",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:323",
+    "name": "a hundred 32 KiB inserts write the snapshot once, not a hundred times",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:333",
+    "name": "inserts spread over several ticks cost one write per tick",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:344",
+    "name": "a flush writes the pending state at once and cancels the timer",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:356",
+    "name": "a mutation after a flush schedules a new write",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:368",
+    "name": "reads never write, and a promotion is saved with the next mutation",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:385",
+    "name": "subscribers hear each mutation as it happens, before anything is written",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:406",
+    "name": "the least recently used entry is the one evicted, in memory and on disk",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:433",
+    "name": "a legacy dictionary loads, and is rewritten only when something changes",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:446",
+    "name": "a second instance over the same file sees what the first has not saved yet",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:453",
+    "name": "a failed write is logged, never thrown, and the next mutation tries again",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:523",
+    "name": "the app closing the host's input saves the pending cache",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:531",
+    "name": "a no-view command's cache is on disk before the app hears exit",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/cache.test.ts:542",
+    "name": "closeMainWindow saves first, because a background run is killed on it",
+    "source": "runtime/tests/cache.test.ts"
+  },
+  {
+    "id": "runtime/tests/fetch.test.ts:13",
+    "name": "a refused connection rejects with the code on the error's cause, as Node's fetch does",
+    "source": "runtime/tests/fetch.test.ts"
+  },
+  {
+    "id": "runtime/tests/fetch.test.ts:24",
+    "name": "Bun's own word for a refused connection becomes Node's code",
+    "source": "runtime/tests/fetch.test.ts"
+  },
+  {
+    "id": "runtime/tests/fetch.test.ts:34",
+    "name": "an answer, an error without a code and one whose cause has its code pass through as they are",
+    "source": "runtime/tests/fetch.test.ts"
+  },
+  {
+    "id": "runtime/tests/fetch.test.ts:50",
+    "name": "what fetch carries stays on it",
+    "source": "runtime/tests/fetch.test.ts"
+  },
+  {
+    "id": "runtime/tests/lines.test.ts:19",
+    "name": "a character cut in two by a chunk boundary arrives whole",
+    "source": "runtime/tests/lines.test.ts"
+  },
+  {
+    "id": "runtime/tests/lines.test.ts:26",
+    "name": "a byte at a time is the same as all at once",
+    "source": "runtime/tests/lines.test.ts"
+  },
+  {
+    "id": "runtime/tests/lines.test.ts:31",
+    "name": "several lines in one chunk, and a line over several chunks",
+    "source": "runtime/tests/lines.test.ts"
+  },
+  {
+    "id": "runtime/tests/lines.test.ts:35",
+    "name": "what has no newline yet is held, not handed on",
+    "source": "runtime/tests/lines.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:35",
+    "name": "values come back with their type, and removing and clearing work",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:51",
+    "name": "a file from before this change still loads, and is gone once it does",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:60",
+    "name": "a write that fails leaves the previous values whole",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:72",
+    "name": "a file that cannot be read is moved aside, not overwritten",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:83",
+    "name": "a database another process holds is waited out, never moved aside",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:105",
+    "name": "an import never covers a value written after the legacy file was read",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:120",
+    "name": "a migration that has run is never run again, so a deleted key stays deleted",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:137",
+    "name": "two processes that read the same legacy file import it once",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:148",
+    "name": "a database that cannot be read is moved aside, not overwritten",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:156",
+    "name": "a database that cannot be written is left where it is",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:169",
+    "name": "what another process of the extension wrote is seen, and a write keeps it",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:179",
+    "name": "processes saving at the same moment lose none of each other's keys",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:187",
+    "name": "a lock left over from before this change is of no concern",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:194",
+    "name": "removing a key that is not there changes nothing",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:201",
+    "name": "changing what allItems returned does not change what is stored",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/local-storage.test.ts:209",
+    "name": "no files are left over after a write",
+    "source": "runtime/tests/local-storage.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:103",
+    "name": "the first render is whole and refers to nothing",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:111",
+    "name": "a render that changes nothing the app is shown is not sent",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:116",
+    "name": "a change to the list alone sends its items by reference, in far fewer bytes",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:130",
+    "name": "a changed item is sent whole, its untouched slots and the other items by reference",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:144",
+    "name": "a handler that appears is a change, though no prop differs",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:153",
+    "name": "items that only changed places are named in their new order",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:161",
+    "name": "a full render on request refers to nothing and the next one builds on it",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:174",
+    "name": "with references off every render is whole",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/references.test.ts:194",
+    "name": "a pushed screen and the one a pop brings back are both sent whole",
+    "source": "runtime/tests/references.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:26",
+    "name": "sends the tree under a root node with ids, types and text",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:37",
+    "name": "lists function props as handlers and leaves them out of the props",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:44",
+    "name": "turns dates into ISO strings, at any depth",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:50",
+    "name": "drops what JSON cannot carry: functions, symbols, elements and undefined",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:62",
+    "name": "breaks cycles but keeps a value that is merely shared",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:70",
+    "name": "stops descending into very deep values",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:95",
+    "name": "renders again with new props and text after a state change",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:104",
+    "name": "coalesces commits that land together into one render message",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:113",
+    "name": "removes, reorders and inserts children while keeping their ids",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:130",
+    "name": "ignores events for a node that has been removed",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:146",
+    "name": "builds a fresh parent with 10,000 keyed children in order",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:164",
+    "name": "assembles nested host and text children in one initial pass",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:172",
+    "name": "keeps a keyed child's id and handler when its host parent moves it to the end",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:194",
+    "name": "keeps ids when a fragment's children move at the container level",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:214",
+    "name": "a root without screens serializes as before",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:221",
+    "name": "an empty root serializes with no children",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:226",
+    "name": "only the last of several screen siblings is transmitted",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:242",
+    "name": "non-screen root siblings keep their places around the visible screen",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:261",
+    "name": "hidden screens are not traversed for serialization",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:316",
+    "name": "a change in a hidden screen sends nothing: props, text, added and removed children",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:322",
+    "name": "a change in the visible screen sends one render",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:330",
+    "name": "a hidden and a visible change that land together send one render",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:337",
+    "name": "a change outside the screens is sent while a screen is hidden",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:344",
+    "name": "removing the top screen sends the one under it as it now is, and it is then the visible one",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:363",
+    "name": "a root with no screens, as a menu bar command has, sends every change",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:374",
+    "name": "passes the arguments to the handler",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:381",
+    "name": "revives tagged dates wherever they appear",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:393",
+    "name": "does nothing for an unknown node or a prop that is not a function",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:401",
+    "name": "reports a handler that throws as a non-fatal error",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:414",
+    "name": "reports a rejected promise from an async handler as a non-fatal error",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:422",
+    "name": "toError keeps Errors and wraps strings and plain objects",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:429",
+    "name": "reportError sends the message and logs the stack",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:439",
+    "name": "an error caught by an error boundary is not fatal",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:457",
+    "name": "an error nothing catches is fatal and empties the view",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/renderer.test.ts:470",
+    "name": "a new root that renders nothing still sends its empty tree",
+    "source": "runtime/tests/renderer.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:37",
+    "name": "showToast sends the toast and returns a handle that updates it",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:53",
+    "name": "showToast still accepts the old (style, title, message) form",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:58",
+    "name": "a toast defaults to a success style and gets its own id",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:68",
+    "name": "toast actions sync their titles and run when the app reports a click",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:91",
+    "name": "a title or message that is not text is sent as text",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:100",
+    "name": "changing the options object after creating the toast does not change the toast",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:108",
+    "name": "showHUD sends the title",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:114",
+    "name": "progress, then the window closed, then the result all reach the app in that order",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:130",
+    "name": "a failure toast carries its reason and its action's title",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:152",
+    "name": "asks the app and resolves true with the primary action when confirmed",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:171",
+    "name": "resolves false with the dismiss action when dismissed",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:179",
+    "name": "uses OK and Cancel when no actions are given",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:186",
+    "name": "rememberUserChoice skips the dialog once confirmed, remembered per title",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:211",
+    "name": "window calls each send their message",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:220",
+    "name": "open sends the target with the application as a name, a path, or nothing",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:233",
+    "name": "getApplications parses the Spotlight listing once and reuses it",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:253",
+    "name": "the default and frontmost application come from the app, Finder when it names none",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:269",
+    "name": "the selected text and Finder selection come from the app",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:279",
+    "name": "calls that are not supported yet reject with a message saying so",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:284",
+    "name": "captureException logs the error",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:293",
+    "name": "copy sends text from a string, a number, or a content object",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:305",
+    "name": "paste sends the text to paste",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:313",
+    "name": "clear copies an empty string",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:318",
+    "name": "read asks the app for text, HTML and file",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:326",
+    "name": "read and readText name the older copy they want by its offset, and nothing for the current one",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:340",
+    "name": "an empty clipboard reads as undefined text",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:348",
+    "name": "stores, lists, removes and clears values, keeping their types",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:366",
+    "name": "keeps its values in the extension's support folder",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:376",
+    "name": "a former file that cannot be read is moved aside, and the database keeps what it has",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:388",
+    "name": "stores strings and reports what it holds",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:405",
+    "name": "persists per namespace across instances",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:413",
+    "name": "its methods work when passed around unbound",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:429",
+    "name": "tells subscribers about changes until they unsubscribe",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:455",
+    "name": "uses what the app passes in the environment, ignoring the manifest",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:460",
+    "name": "without the app, falls back to the defaults of the extension and the running command",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:464",
+    "name": "values in preferences.json override the defaults",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:469",
+    "name": "a manifest without preferences gives an empty object",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:474",
+    "name": "the deprecated preferences object reads the same values lazily",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:492",
+    "name": "ask sends the prompt to the app and resolves with its reply",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:504",
+    "name": "an answer that streams fires data per piece, and not again when it is whole",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:517",
+    "name": "ask rejects with what the app said went wrong",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:523",
+    "name": "aborting an ask tells the app to stop and rejects",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:534",
+    "name": "an ask whose signal is already aborted is never sent",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:539",
+    "name": "model names are their own keys",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:544",
+    "name": "an installed extension is not in development, so it does not show its sample data",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:552",
+    "name": "the appearance is the one the app passes, and dark when it passes none",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:560",
+    "name": "extensions can use AI when the app found a tool for it",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:569",
+    "name": "extensions can use the selection and the clipboard, which the app answers",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:598",
+    "name": "every name can be imported",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:602",
+    "name": "the browser and the windows are refused, with the reason",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:611",
+    "name": "the deprecated names still answer",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:622",
+    "name": "reflects the running extension and command",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:633",
+    "name": "falls back from owner to author to an empty name",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:642",
+    "name": "Icon and Color turn any name into a tagged string",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:652",
+    "name": "Icon and Color list the names Raycast has",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:661",
+    "name": "isFullDay tells a day from a time by local midnight, on the form's picker and the action's",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:670",
+    "name": "the enums extensions compare against have Raycast's values",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:685",
+    "name": "creating a client works, so an extension that also takes a token can load",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:692",
+    "name": "GitHub's tokens are asked of the app, which may lend the GitHub CLI's sign-in",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:714",
+    "name": "GitLab's tokens are asked of the app too, which may lend the GitLab CLI's sign-in",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:728",
+    "name": "only GitHub and GitLab are lent, by their id or their name",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:734",
+    "name": "starting a sign-in fails and names the token preference to use instead",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:744",
+    "name": "the message names the tool of the provider that is lent",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:756",
+    "name": "the token preference is the secret one whose name says so, wherever it is declared",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:770",
+    "name": "a sign-in that a token preference can stand in for asks the app to show that preference",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:776",
+    "name": "a lent provider and an extension with no token preference ask for none",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:784",
+    "name": "without a token preference the message says there is none",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:801",
+    "name": "authorizationRequest redirects through Raycast's page with an S256 challenge",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:816",
+    "name": "the state names Floe's scheme the way Raycast's redirect page reads it, and differs every time",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:828",
+    "name": "a redirect straight to Raycast cannot be received, so it falls back to the token preference",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:839",
+    "name": "custom URLs also fall back when the redirect cannot reach Floe",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:852",
+    "name": "custom web URLs send and validate the state embedded in the URL",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:862",
+    "name": "a custom URL callback with a different state is rejected",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:870",
+    "name": "a custom URL without state fails before opening the browser",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:876",
+    "name": "authorize resolves the code from the app's callback",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:887",
+    "name": "getTokens answers undefined without stored tokens and a TokenSet with them",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:900",
+    "name": "setTokens and removeTokens forward to the app",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:913",
+    "name": "point at the current components",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:943",
+    "name": "the old clipboard functions send the same messages",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/system.test.ts:954",
+    "name": "the old storage functions read and write LocalStorage",
+    "source": "runtime/tests/system.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:23",
+    "name": "renders sections and items with their props",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:42",
+    "name": "moves element-valued props into named slots",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:74",
+    "name": "leaves out the slot when the prop is not set",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:81",
+    "name": "renders markdown with metadata and actions",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:108",
+    "name": "renders each field type with its handlers",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:147",
+    "name": "the submit action hands the form values to onSubmit, dates revived",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:161",
+    "name": "a field's ref answers focus and reset, so a failed validation shows its error",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:191",
+    "name": "Grid renders sections, items and its layout constants",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:208",
+    "name": "MenuBarExtra renders its menu structure",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:225",
+    "name": "keeps sections and submenus nested, with titles, shortcuts and styles",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:249",
+    "name": "a shortcut given per platform reaches the app as the Mac's, and as none when there is only one for Windows",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:284",
+    "name": "calls onChange on mount with the first item, even inside a section",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:295",
+    "name": "starts from defaultValue, and a controlled value wins over both",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:307",
+    "name": "does not call onChange on mount when there is nothing to select",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:313",
+    "name": "a selection updates the value and reaches onChange",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:322",
+    "name": "storeValue remembers the selection per command and dropdown id",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:351",
+    "name": "each pushed view becomes the one transmitted screen",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:361",
+    "name": "a lower screen keeps its id and state across a push and a pop",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:373",
+    "name": "the app's pop message pops one screen, runs onPop, and exits at the root",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:392",
+    "name": "pop to root drops every pushed screen at once",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:402",
+    "name": "useNavigation outside a navigation root does nothing",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:446",
+    "name": "twenty updates under a list of 1,000 rows send nothing, and Back shows the last of them",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:464",
+    "name": "each push and each pop sends one render",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:477",
+    "name": "pop to root sends one render for the whole stack",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:487",
+    "name": "what the top screen's view carries still reaches the app: loading, title, search text, selection",
+    "source": "runtime/tests/views.test.ts"
+  },
+  {
+    "id": "runtime/tests/views.test.ts:499",
+    "name": "a toast from a hidden screen is sent, with no render",
+    "source": "runtime/tests/views.test.ts"
+  }
+]

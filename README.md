@@ -2,7 +2,7 @@
 
 A cross-platform desktop launcher built in checkpoints with Tauri 2, React, TypeScript and Rust.
 
-The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 10 adds headless application search with --search, using committed preferences and the existing ranking engine. The separate General/Applications settings process remains in place. The standalone command-line picker remains in place. Catalog-resolved metadata copy/reveal actions and resident clipboard ownership remain in place. Application aliases, a keyboard-accessible Actions menu and hide/restore controls remain in place. Persistent favorites, usage-based suggestions and recent-search recall remain in place. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Process controls, trash, general file actions, full settings, extensions and built-in tools remain later work.
+The behavioral reference is Floe at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. Checkpoint 13 adds the isolated extension host foundation: manifest discovery, bundled Bun 1.4.3, NDJSON/reference-v1 decoding, process supervision and installed diagnostics. Applications, aliases/favorites/history, Settings, headless search, picker and guarded process controls remain available. Interactive extension List rendering is checkpoint 14. Full feature parity and native macOS/Windows qualification remain pending.
 
 ## Develop
 
@@ -17,6 +17,8 @@ Use npm run dev for a browser preview. Browser mode explicitly reports that the 
 
     npm run check
     npm run build
+    npm run runtime:prepare
+    npm run runtime:test
     npm run native:check
     npm run package:linux
 
@@ -32,7 +34,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 012](docs/checkpoints/012-process-controls.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 013](docs/checkpoints/013-extension-host.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -119,3 +121,9 @@ Restart asks the app to quit, waits up to ten seconds for its original processes
 Force Quit… dismisses the launcher and opens a native unsaved-work warning with cancellation as the default. It revalidates the selected instance after confirmation before terminating verified processes. Linux uses stable pidfds; Windows uses retained process handles; macOS uses NSRunningApplication. Linux/X11 is locally qualified; native macOS/Windows validation is pending. Controls remain unavailable where identity or required capabilities cannot be proven. No process tree is guessed or killed.
 
 Run npm run smoke:process-controls for the installed Linux/X11 cancellation, hung-app, stale-instance, refused/background/delayed-exit and changed-entry checks. See the checkpoint report for platform and HUD fidelity limits. Extensions and performance work remain deferred.
+
+## Extension host foundation
+
+The package carries its own Bun 1.4.3 and frozen runtime dependencies. Run npm run smoke:extensions after local installation to test real hello/planets renders and actions, native-request refusal, diagnostics, watchdog and owned subprocess cleanup with private data. The headless --extension-check FIXTURE COMMAND mode accepts NDJSON on stdin and returns decoded messages on stdout; console/raw extension writes stay on stderr. Only bundled hello, diagnostics and host-probe fixtures are accepted in this checkpoint. Close stdin to stop a session. This diagnostic mode is separate from search/picker/Settings and has a 25-second diagnostic deadline. It does not add extension rows to the launcher yet.
+
+The per-declaration map and deliberate differences are in [extension reference provenance](tests/reference/extensions/README.md). Imported API mocks passing does not demonstrate native extension API availability. Runtime path portability, tree decoding and Linux process cleanup are tested here; general extension installation, native API routing, preferences/secrets, scheduling and cross-platform UI qualification are later work.

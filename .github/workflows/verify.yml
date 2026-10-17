@@ -35,6 +35,8 @@ jobs:
         with:
           components: rustfmt, clippy
       - run: npm ci
+      - run: npm run runtime:prepare
+      - run: npm run runtime:test
       - run: npm run check
       - run: npm run build
       - run: npm run native:check
@@ -55,6 +57,7 @@ jobs:
           npm run smoke:search-cli
           npm run smoke:process
           npm run smoke:process-controls
+          npm run smoke:extensions
       - name: Upload checkpoint build artifacts (not a published release)
         uses: actions/upload-artifact@v4
         with:

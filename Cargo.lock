@@ -60,10 +60,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "asaaan-extensions"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "windows",
+]
+
+[[package]]
 name = "asaaan-launcher"
-version = "0.12.0"
+version = "0.13.0"
 dependencies = [
  "asaaan-apps",
+ "asaaan-extensions",
  "asaaan-lifecycle",
  "asaaan-personalization",
  "asaaan-search",

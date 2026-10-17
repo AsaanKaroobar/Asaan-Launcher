@@ -6,3 +6,4 @@ src-tauri/gen/schemas/
 deployments/
 *.local
 .DS_Store
+.runtime-bundle/

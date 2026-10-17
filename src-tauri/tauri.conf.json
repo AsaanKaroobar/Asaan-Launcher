@@ -1,12 +1,12 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Asaaan Launcher",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "identifier": "com.asaaan.launcher",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "npm run runtime:prepare && npm run build",
     "frontendDist": "../dist"
   },
   "app": {
@@ -28,6 +28,9 @@
       "icons/icon.ico"
     ],
     "shortDescription": "Asaaan Launcher desktop foundation",
-    "category": "Productivity"
+    "category": "Productivity",
+    "resources": {
+      "../.runtime-bundle/": "extension-runtime/"
+    }
   }
 }

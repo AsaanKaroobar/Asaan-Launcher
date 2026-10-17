@@ -3,6 +3,7 @@ mod application_actions;
 mod applications;
 mod clipboard;
 mod data;
+mod extensions;
 mod force_confirmation;
 mod panel;
 mod picker;
@@ -111,7 +112,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP012 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP013 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -120,6 +121,9 @@ fn search_ready(
 
 pub fn run() {
     if let Some(code) = search_command::start() {
+        std::process::exit(code);
+    }
+    if let Some(code) = extensions::start() {
         std::process::exit(code);
     }
     if let Err(error) =

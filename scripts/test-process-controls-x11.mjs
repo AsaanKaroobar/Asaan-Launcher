@@ -35,7 +35,7 @@ async function fresh(value){await fs.writeFile(mode,value);await startFixture();
 async function stopCurrent(){await fs.writeFile(mode,'exit');if(livePid)await until(async()=>!await alive(livePid),'Owned fixture did not exit');await stop(fixture)}
 try{
  const installation=JSON.parse(await fs.readFile(new URL('deployments/linux/current/installation.json',root),'utf8'));
- if(installation.checkpoint!=='CP012'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install CP012 first');
+ if(installation.checkpoint!=='CP013'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install CP013 first');
  await fs.mkdir(path.dirname(desktop),{recursive:true});await fs.mkdir(system,{recursive:true});await fs.symlink('/usr/share/mime',path.join(system,'mime'));await fs.symlink('/usr/share/icons',path.join(system,'icons'));await fs.mkdir(path.dirname(storage),{recursive:true});
  const probe=new URL('scripts/process-fixture.py',root).pathname;
  const entry='[Desktop Entry]\nType=Application\nName=Process Probe\nExec=/usr/bin/python3 "'+probe+'" "'+calls+'" "'+mode+'" org.asaaan.ProcessProbe\n';
@@ -90,7 +90,7 @@ try{
  await until(async()=>(await dialogState(pendingPanel)).some(n=>n.name.includes("You will lose")),'Pending confirmation missing before resident quit');
  await run(binary,['--quit'],{env,timeout:5000});await until(()=>resident.exitCode===0,'Resident did not quit');await until(async()=>!await alive(pendingPanel),'Pending confirmation worker outlived resident');
  if(!await alive(pendingTarget))throw Error('Resident quit terminated an unapproved target');record('resident quit closes a pending confirmation without terminating its unapproved target');
- await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-controls-smoke.json',root),JSON.stringify({checkpoint:'CP012',binarySha256:installation.binarySha256,stages},null,2)+'\n');console.log('CP012 Restart/Force Quit passed '+stages.length+' stages: '+stages.join('; '));
+ await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-controls-smoke.json',root),JSON.stringify({checkpoint:'CP013',binarySha256:installation.binarySha256,stages},null,2)+'\n');console.log('CP013 Restart/Force Quit passed '+stages.length+' stages: '+stages.join('; '));
 }catch(error){await fs.mkdir(new URL('.artifacts/',root),{recursive:true});await fs.writeFile(new URL('.artifacts/process-controls-failure.log',root),String(error)+'\n'+log);throw error}
 finally{
  await fs.writeFile(mode,'exit').catch(()=>{});await delay(200);
