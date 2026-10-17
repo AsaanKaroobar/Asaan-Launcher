@@ -2,7 +2,7 @@
 
 A cross-platform desktop launcher built in checkpoints with Tauri 2, React, TypeScript and Rust.
 
-The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 7 adds catalog-resolved native metadata copy/reveal actions, with resident clipboard ownership after foreground disposal. Application aliases, a keyboard-accessible Actions menu and hide/restore controls remain in place. Persistent favorites, usage-based suggestions and recent-search recall remain in place. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Process controls, trash, general file actions, full settings, extensions and built-in tools remain later work.
+The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 8 adds a standalone command-line picker with piped input, title/detail filtering and exact text/index output. Catalog-resolved metadata copy/reveal actions and resident clipboard ownership remain in place. Application aliases, a keyboard-accessible Actions menu and hide/restore controls remain in place. Persistent favorites, usage-based suggestions and recent-search recall remain in place. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Process controls, trash, general file actions, full settings, extensions and built-in tools remain later work.
 
 ## Develop
 
@@ -32,7 +32,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 007](docs/checkpoints/007-application-metadata.md). The user explicitly deferred performance upgrades until the complete software is ready. CP008 has not started.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 008](docs/checkpoints/008-picker.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -59,3 +59,16 @@ The X11 keyboard probe also requires system Python GI and AT-SPI bindings (`pyth
 The Actions menu offers native Copy Name and, when available, Copy Path, the platform application identifier and Reveal in File Manager (Show in Finder on macOS). Copy success preserves the query and reports feedback only after a resident acknowledgement. Reveal resets/dismisses only after native success. Linux copies/selects the `.desktop` catalog entry; macOS uses the application bundle. Windows StartApps identities support name/ID copies and deliberately omit filesystem operations. These adapters require target-specific qualification; only Linux X11 is locally tested.
 
 Run `npm run smoke:actions` for private-session native UI clipboard checks, persistence after foreground disposal, removed targets, FileManager1 refusal/timeout, work-lease cleanup, literal Unicode paths and real Dolphin selection. Linux requires `python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-atspi-2.0`, Xvfb, kwin_x11 and Dolphin. `npm run actions:parity` verifies the 14-declaration scoped reference map. Metadata operations do not record activations or change personalization. Full clipboard history/own-copy markers belong to the later clipboard checkpoint; clipboard text is not logged.
+
+## Command-line picker
+
+From this project on Linux:
+
+    printf 'alpha\nbeta\tdetail\ngamma\n' | deployments/linux/current/usr/bin/asaaan-launcher --pick --prompt 'Choose a line'
+    printf 'alpha\n\nbeta\n' | deployments/linux/current/usr/bin/asaaan-launcher --pick --query beta --index
+
+The first command opens a dedicated picker. Type to filter; use arrows, Page Up/Down (nine rows), Home/End, Enter to choose, or Escape to cancel. A click selects a row; double-click chooses it. Return with no match keeps the window open. Closing the window or losing focus cancels. Starting-query text keeps its caret at the end. IME composition retains Return/Escape.
+
+Output is the entire original line, including tabs and surrounding spaces, followed by a newline. --index prints the original zero-based line position, including skipped blank lines. Tabs split the title and displayed detail; matches in the title score ten points above equivalent detail matches. Equal scores retain input order. CRLF counts as one line break. Non-UTF-8 input falls back to Latin-1. Exit status is 0 for a choice, 1 for cancellation/empty input, and 64 for invalid picker arguments or terminal stdin; I/O failures can return 74. --prompt, --query and --index require --pick; unrelated/repeated picker options are rejected. ASAAAN_PICK_AUTO=1 selects the first filtered match without requiring a display. Use --help for usage.
+
+The picker bypasses resident startup, application scanning, preferences and global shortcuts. It can coexist with the resident and uses an ephemeral WebView. npm run smoke:picker checks the installed Linux package on an isolated X11 desktop, including headless output/encoding/TTY cases, native keyboard/focus and coexistence. Native Windows/macOS/Wayland qualification remains pending; Linux results do not certify those targets. Floe's diagnostic picker snapshot environment variable is not implemented.

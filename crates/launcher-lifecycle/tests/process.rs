@@ -124,6 +124,12 @@ fn aRequestSurvivesALaunchError() {
     let (tx, rx) = mpsc::channel();
     let destination = executable.clone();
     let staged = dir.join("staged-fixture");
+    // Publish a ready executable atomically. On Unix a copied executable can
+    // transiently report ETXTBSY on this filesystem; a symlink never opens it
+    // for writing. The intended first attempt still fails with ENOENT.
+    #[cfg(unix)]
+    std::os::unix::fs::symlink(env!("CARGO_BIN_EXE_lifecycle-fixture"), &staged).unwrap();
+    #[cfg(not(unix))]
     std::fs::copy(env!("CARGO_BIN_EXE_lifecycle-fixture"), &staged).unwrap();
     let (control, worker) = process::start(c, move |event| {
         if let Event::Failed(ref error) = event {

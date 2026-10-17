@@ -1,0 +1,178 @@
+[
+  {
+    "source": "PickerTests.swift",
+    "function": "eachLineOfTheInputIsAnItem",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "each_line_of_the_input_is_an_item"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "blankLinesAreDroppedAndTheOthersKeepTheirPlaceInTheInput",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "blank_lines_are_dropped_and_the_others_keep_their_place_in_the_input"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "aLineKeepsItsOwnSpaces",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "a_line_keeps_its_own_spaces"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "windowsLineEndingsSplitLikeAnyOther",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "windows_line_endings_split_like_any_other"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "inputWithNothingButBlankLinesHasNoItems",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "input_with_nothing_but_blank_lines_has_no_items"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "aTabSplitsALineIntoATitleAndWhatIsShownBesideIt",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "a_tab_splits_a_line_into_a_title_and_what_is_shown_beside_it"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "aQueryFindsARowByItsDetailButPutsATitleMatchFirst",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "a_query_finds_a_row_by_its_detail_but_puts_a_title_match_first"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "anEmptyQueryListsEverythingInInputOrder",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "an_empty_query_lists_everything_in_input_order"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "aQueryKeepsOnlyWhatMatchesBestFirst",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "a_query_keeps_only_what_matches_best_first"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "equalScoresKeepInputOrder",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "equal_scores_keep_input_order"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "aQueryThatMatchesNothingLeavesNothing",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "a_query_that_matches_nothing_leaves_nothing"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "tenThousandLinesAreFilteredInInputOrder",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "ten_thousand_lines_are_filtered_in_input_order"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "aChoicePrintsItsTextOrItsPlaceInTheInput",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "a_choice_prints_its_text_or_its_place_in_the_input"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "theSelectionStaysInsideTheList",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "the_selection_stays_inside_the_list"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "theSelectionOfAnEmptyListIsTheFirstRow",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "the_selection_of_an_empty_list_is_the_first_row"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "theCountSaysHowMuchOfTheInputStillMatches",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "the_count_says_how_much_of_the_input_still_matches"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "theExitCodesAreTheOnesScriptsRelyOn",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/picker.rs",
+    "test": "the_exit_codes_are_the_ones_scripts_rely_on"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "theStartingQueryFiltersBeforeAnythingIsTyped",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/Picker.test.tsx",
+    "test": "theStartingQueryFiltersBeforeAnythingIsTyped"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "typingMovesTheSelectionBackToTheBestMatch",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/Picker.test.tsx",
+    "test": "typingMovesTheSelectionBackToTheBestMatch"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "choosingHandsOverTheSelectedItem",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/Picker.test.tsx",
+    "test": "choosingHandsOverTheSelectedItem"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "choosingWithNothingMatchingDoesNothing",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/Picker.test.tsx",
+    "test": "choosingWithNothingMatchingDoesNothing"
+  },
+  {
+    "source": "PickerTests.swift",
+    "function": "clickingARowSelectsIt",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/Picker.test.tsx",
+    "test": "clickingARowSelectsIt"
+  }
+]

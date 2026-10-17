@@ -3,6 +3,7 @@ mod application_actions;
 mod applications;
 mod clipboard;
 mod panel;
+mod picker;
 mod resident;
 use serde::Serialize;
 use tauri::Manager;
@@ -100,7 +101,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP007 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP008 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -108,9 +109,16 @@ fn search_ready(
 }
 
 pub fn run() {
+    let picker = match picker::start() {
+        picker::Start::Normal => None,
+        picker::Start::Picker(state) => Some(state),
+        picker::Start::Exit(code) => std::process::exit(code),
+    };
+    let picker_mode = picker.is_some();
     let managed = std::env::args().any(|a| a == "--panel");
     let resident_smoke = std::env::args().any(|a| a == "--resident-smoke-test");
-    let resident_mode = !managed && !smoke_test_requested() && !application_smoke_requested();
+    let resident_mode =
+        !picker_mode && !managed && !smoke_test_requested() && !application_smoke_requested();
     let mut builder = tauri::Builder::default();
     if resident_mode && !resident_smoke {
         builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, _| {
@@ -127,11 +135,16 @@ pub fn run() {
             }
         }));
     }
+    if let Some(picker) = picker {
+        builder = builder.manage(picker);
+    }
     let application = builder
         .manage(std::sync::Arc::new(asaaan_apps::Store::default()))
         .manage(applications::Launched::default())
         .invoke_handler(tauri::generate_handler![
             get_app_info,
+            picker::picker_view,
+            picker::picker_finish,
             frontend_ready,
             search_reference_catalog,
             search_ready,
@@ -152,8 +165,25 @@ pub fn run() {
                 }
                 resident::setup(app, resident_smoke)?;
             } else {
-                tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::default())
-                    .title("Asaaan Launcher")
+                let mut window =
+                    tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::default());
+                if let Some(state) = app.try_state::<picker::Picker>()
+                    && let Some(profile) = state.profile.lock().unwrap().as_ref()
+                {
+                    window = window.data_directory(profile.path().to_path_buf());
+                }
+                window
+                    .incognito(picker_mode)
+                    .initialization_script(if picker_mode {
+                        "window.__ASAAAN_PICKER__ = true;"
+                    } else {
+                        ""
+                    })
+                    .title(if picker_mode {
+                        "Asaaan Launcher — Choose"
+                    } else {
+                        "Asaaan Launcher"
+                    })
                     .inner_size(750.0, 474.0)
                     .min_inner_size(480.0, 420.0)
                     .center()
@@ -175,6 +205,36 @@ pub fn run() {
             Ok(())
         })
         .on_window_event(|window, event| {
+            if let Some(picker) = window.app_handle().try_state::<picker::Picker>() {
+                match event {
+                    tauri::WindowEvent::CloseRequested { api, .. } => {
+                        api.prevent_close();
+                        picker.cancel(window.app_handle());
+                    }
+                    tauri::WindowEvent::Focused(true) => {
+                        picker
+                            .focused
+                            .store(true, std::sync::atomic::Ordering::SeqCst);
+                    }
+                    tauri::WindowEvent::Focused(false)
+                        if picker.focused.load(std::sync::atomic::Ordering::SeqCst) =>
+                    {
+                        let app = window.app_handle().clone();
+                        std::thread::spawn(move || {
+                            std::thread::sleep(std::time::Duration::from_millis(100));
+                            if app
+                                .get_webview_window("main")
+                                .is_some_and(|w| w.is_focused().ok() == Some(false))
+                                && let Some(state) = app.try_state::<picker::Picker>()
+                            {
+                                state.cancel(&app);
+                            }
+                        });
+                    }
+                    _ => {}
+                }
+                return;
+            }
             if let Some(panel) = window.app_handle().try_state::<panel::Panel>() {
                 match event {
                     tauri::WindowEvent::CloseRequested { api, .. } => {
@@ -198,6 +258,13 @@ pub fn run() {
             api, code: None, ..
         } if resident_mode => api.prevent_exit(),
         tauri::RunEvent::Exit => {
+            if let Some(state) = app.try_state::<picker::Picker>()
+                && let Some(profile) = state.profile.lock().unwrap().take()
+                && let Err(e) = profile.close()
+            {
+                eprintln!("Could not remove temporary picker webview: {e}");
+            }
+
             if let Some(resident) = app.try_state::<resident::Resident>() {
                 resident.stop();
             }

@@ -2,4 +2,5 @@
 pub mod fuzzy;
 pub mod ranking;
 pub use ranking::{Contribution, Item, ItemKind, ResultRow, SearchContext, browse, merge, search};
+pub mod picker;
 pub mod reference_catalog;

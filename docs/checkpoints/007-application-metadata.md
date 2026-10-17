@@ -33,3 +33,5 @@ Package SHA-256: 3fb6aa86530aab98806a4c7a6966ad6406769c2b36982a0860e87df15c973da
 Installed binary SHA-256: 493896e1ef065853fb2a2bd658ebc79acb30f76210cd734e70895e9047f600b2.
 
 The ignored .artifacts/checkpoint-007 directory holds the package, installation manifest, SHA256SUMS, test/native logs and JSON, diagnostic failures, screenshots and a post-commit validation manifest with the exact source revision. Public publication remains user-controlled and unverified. Stop after CP007; CP008 has not started.
+
+User explicitly approved advancing to CP008 on 2026-10-17. Public CP007 publication remains unverified.

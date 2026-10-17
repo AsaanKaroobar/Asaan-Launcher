@@ -1,3 +1,4 @@
+import Picker from "./Picker";
 import SearchPanel from "./SearchPanel";
 import { useEffect, useState } from "react";
 import { hidePanel, loadAppInfo, reportFrontendReady, type AppInfo } from "./native";
@@ -11,7 +12,9 @@ type Connection =
 
 const platformNames: Record<string, string> = { linux: "Linux", macos: "macOS", windows: "Windows" };
 
-export default function App() {
+export default function App() { return window.__ASAAAN_PICKER__ ? <Picker/> : <Launcher/>; }
+
+function Launcher() {
   const [connection, setConnection] = useState<Connection>({ state: "connecting" });
   const [attempt, setAttempt] = useState(0);
 

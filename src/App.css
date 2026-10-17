@@ -76,3 +76,7 @@ button:disabled {opacity:.45;cursor:default;}
 .customization-backdrop {position:absolute;inset:0;z-index:2;background:#0004;}
 
 .actions-popover {max-height:calc(100% - 45px);overflow-y:auto;}
+
+.picker .search-help button {margin:0;background:transparent;border:0;padding:4px 8px;color:inherit;}
+.picker .result-kind {max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.picker h1 {margin:0;font-weight:400;}
