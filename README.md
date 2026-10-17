@@ -2,7 +2,7 @@
 
 A cross-platform desktop launcher built in checkpoints with Tauri 2, React, TypeScript and Rust.
 
-The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 8 adds a standalone command-line picker with piped input, title/detail filtering and exact text/index output. Catalog-resolved metadata copy/reveal actions and resident clipboard ownership remain in place. Application aliases, a keyboard-accessible Actions menu and hide/restore controls remain in place. Persistent favorites, usage-based suggestions and recent-search recall remain in place. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Process controls, trash, general file actions, full settings, extensions and built-in tools remain later work.
+The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 9 adds a separate settings process with General and Applications pages for existing search history, aliases and hidden applications. The standalone command-line picker remains in place. Catalog-resolved metadata copy/reveal actions and resident clipboard ownership remain in place. Application aliases, a keyboard-accessible Actions menu and hide/restore controls remain in place. Persistent favorites, usage-based suggestions and recent-search recall remain in place. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Process controls, trash, general file actions, full settings, extensions and built-in tools remain later work.
 
 ## Develop
 
@@ -32,7 +32,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 008](docs/checkpoints/008-picker.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 009](docs/checkpoints/009-settings.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -72,3 +72,16 @@ The first command opens a dedicated picker. Type to filter; use arrows, Page Up/
 Output is the entire original line, including tabs and surrounding spaces, followed by a newline. --index prints the original zero-based line position, including skipped blank lines. Tabs split the title and displayed detail; matches in the title score ten points above equivalent detail matches. Equal scores retain input order. CRLF counts as one line break. Non-UTF-8 input falls back to Latin-1. Exit status is 0 for a choice, 1 for cancellation/empty input, and 64 for invalid picker arguments or terminal stdin; I/O failures can return 74. --prompt, --query and --index require --pick; unrelated/repeated picker options are rejected. ASAAAN_PICK_AUTO=1 selects the first filtered match without requiring a display. Use --help for usage.
 
 The picker bypasses resident startup, application scanning, preferences and global shortcuts. It can coexist with the resident and uses an ephemeral WebView. npm run smoke:picker checks the installed Linux package on an isolated X11 desktop, including headless output/encoding/TTY cases, native keyboard/focus and coexistence. Native Windows/macOS/Wayland qualification remains pending; Linux results do not certify those targets. Floe's diagnostic picker snapshot environment variable is not implemented.
+
+## Settings
+
+Open Settings from the launcher header, the tray's Settings… item, or the installed executable:
+
+    deployments/linux/current/usr/bin/asaaan-launcher --settings
+    deployments/linux/current/usr/bin/asaaan-launcher --settings --page applications
+
+General controls Remember searches and Clear search history. Turning recording off keeps the history already stored; clearing history preserves application usage and favorites. Applications lists the full catalog, including hidden apps, with a filter by name, alias or ID. Set/Edit alias uses explicit Save/Cancel; Hide removes the app from Favorites; Restore keeps its alias and usage. Removed apps with stored aliases or hidden records remain manageable: their alias can be removed and visibility restored.
+
+One settings child runs at a time, independently of the disposable search panel. Reopening brings it forward; a new child remembers the last General/Applications page within the resident session. Closing Settings or Ctrl/Command+W ends that child after pending operations finish. Focus loss keeps Settings open. Resident exit or private parent-pipe EOF ends Settings. Preferences remain serialized by one resident store; clients send field operations and receive committed snapshots. Five-second/focus refreshes take external launcher edits without overwriting an unsaved alias draft.
+
+This checkpoint implements only General and Applications and the existing preference fields. Other pages, hotkey recording, import/export, updater and full native visual fidelity remain later work. Unsupported --page values fail with exit 64. npm run settings:parity checks the scoped reference map; npm run smoke:settings exercises the installed normal UI in a private Linux X11 session. Windows/macOS/Wayland native qualification and public release remain pending. Performance upgrades remain deferred.

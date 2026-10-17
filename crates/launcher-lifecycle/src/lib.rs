@@ -20,6 +20,12 @@ pub enum Request {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Packet {
+    OpenSettings {
+        page: Option<settings::Page>,
+    },
+    SettingsPage {
+        page: settings::Page,
+    },
     ClipboardWrite {
         request_id: u64,
         text: String,
@@ -160,3 +166,5 @@ impl Drop for Lease {
         self.0.fetch_sub(1, Ordering::SeqCst);
     }
 }
+
+pub mod settings;

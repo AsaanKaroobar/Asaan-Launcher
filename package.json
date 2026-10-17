@@ -1,7 +1,7 @@
 {
   "name": "asaaan-launcher",
   "private": true,
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "tauri": "tauri",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm run parity:check && npm run lifecycle:parity && npm run applications:parity && npm run personalization:parity && npm run customization:parity && npm run actions:parity && npm run picker:parity && npm test",
+    "check": "npm run typecheck && npm run parity:check && npm run lifecycle:parity && npm run applications:parity && npm run personalization:parity && npm run customization:parity && npm run actions:parity && npm run picker:parity && npm run settings:parity && npm test",
     "native:check": "cargo fmt --all --check && cargo test --workspace --locked --release && cargo clippy --workspace --locked --release --all-targets -- -D warnings",
     "package:linux": "tauri build --bundles deb",
     "install:local": "node scripts/local-deploy.mjs install",
@@ -32,7 +32,9 @@
     "actions:parity": "node scripts/check-action-parity.mjs",
     "smoke:actions": "node scripts/test-isolated-x11.mjs --actions-only",
     "picker:parity": "node scripts/check-picker-parity.mjs",
-    "smoke:picker": "node scripts/test-isolated-x11.mjs --picker-only"
+    "smoke:picker": "node scripts/test-isolated-x11.mjs --picker-only",
+    "settings:parity": "node scripts/check-settings-parity.mjs",
+    "smoke:settings": "node scripts/test-isolated-x11.mjs --settings-only"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",
@@ -59,5 +61,5 @@
     "node": ">=22.12.0 <23 || >=24.0.0"
   },
   "packageManager": "npm@10.9.2",
-  "checkpoint": "CP008"
+  "checkpoint": "CP009"
 }

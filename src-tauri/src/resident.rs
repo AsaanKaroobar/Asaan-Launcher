@@ -57,11 +57,13 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
         config.arguments.push("--shortcut-unavailable".into());
     }
     let (events_tx, events) = mpsc::channel();
-    let mut personalization = app
-        .path()
-        .app_data_dir()
-        .map_err(|e| e.to_string())
-        .and_then(|dir| asaaan_personalization::Store::open(dir.join("personalization.json")));
+    let personalization = std::sync::Arc::new(Mutex::new(
+        app.path()
+            .app_data_dir()
+            .map_err(|e| e.to_string())
+            .and_then(|dir| asaaan_personalization::Store::open(dir.join("personalization.json"))),
+    ));
+    let panel_preferences = personalization.clone();
     let clipboard_app = app.handle().clone();
     let (control, worker) = process::start_serviced(
         config,
@@ -79,53 +81,47 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             }
             let _ = events_tx.send(event);
         },
-        move |packet| {
-            if let Packet::ClipboardWrite {
-                request_id,
-                text,
-                deadline,
-            } = packet
-            {
-                let result = crate::clipboard::write(&clipboard_app, text.clone(), *deadline);
-                return Some(Packet::ClipboardWritten {
-                    request_id: *request_id,
-                    error: result.err(),
-                });
-            }
-            let Packet::PersonalizationRequest {
-                request_id,
-                operation,
-            } = packet
-            else {
-                return None;
-            };
-            let result = match &mut personalization {
-                Ok(store) => store.execute(operation, asaaan_personalization::now()),
-                Err(error) => Err(error.clone()),
-            };
-            Some(match result {
-                Ok(snapshot) => Packet::PersonalizationReply {
-                    request_id: *request_id,
-                    snapshot: Some(Box::new(snapshot)),
-                    error: None,
-                },
-                Err(error) => Packet::PersonalizationReply {
-                    request_id: *request_id,
-                    snapshot: None,
-                    error: Some(error),
-                },
-            })
-        },
+        move |packet| serve(&clipboard_app, &panel_preferences, packet),
     );
     app.manage(Resident {
         control: control.clone(),
         worker: Mutex::new(Some(worker)),
     });
+    let mut settings_config = Config::panel(std::env::current_exe()?);
+    settings_config.arguments.push("--settings".into());
+    let settings_pid = std::sync::Arc::new(std::sync::atomic::AtomicU32::new(0));
+    let observed_pid = settings_pid.clone();
+    let settings_app = app.handle().clone();
+    let (settings_control, settings_worker) = process::start_serviced(
+        settings_config,
+        move |event| {
+            match &event {
+                Event::Started(pid) => {
+                    observed_pid.store(*pid, std::sync::atomic::Ordering::SeqCst);
+                }
+                Event::Exited(_) => {
+                    observed_pid.store(0, std::sync::atomic::Ordering::SeqCst);
+                }
+                _ => {}
+            }
+            if !private_packet(&event) {
+                eprintln!("ASAAAN_SETTINGS {event:?}");
+            }
+        },
+        move |packet| serve(&settings_app, &personalization, packet),
+    );
+    app.manage(crate::settings::SettingsProcess {
+        control: settings_control,
+        worker: Mutex::new(Some(settings_worker)),
+        pid: settings_pid,
+        last_page: Mutex::new(Default::default()),
+    });
     let show = MenuItem::with_id(app, "show", "Show Asaaan Launcher", true, None::<&str>)?;
     let hide = MenuItem::with_id(app, "hide", "Hide launcher", true, None::<&str>)?;
     let status = MenuItem::with_id(app, "shortcut", &shortcut_status, false, None::<&str>)?;
     let quit = MenuItem::with_id(app, "quit", "Quit Asaaan Launcher", true, None::<&str>)?;
-    let menu = Menu::with_items(app, &[&show, &hide, &status, &quit])?;
+    let settings = MenuItem::with_id(app, "settings", "Settings…", true, None::<&str>)?;
+    let menu = Menu::with_items(app, &[&show, &hide, &settings, &status, &quit])?;
     TrayIconBuilder::new()
         .icon(
             app.default_window_icon()
@@ -137,6 +133,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
         .on_menu_event(|app, event| match event.id.as_ref() {
             "show" => app.state::<Resident>().control.request(Request::Show),
             "hide" => app.state::<Resident>().control.request(Request::Hide),
+            "settings" => app.state::<crate::settings::SettingsProcess>().show(None),
             "quit" => app.exit(0),
             _ => {}
         })
@@ -170,7 +167,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP008 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP009 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }
@@ -195,8 +192,79 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             }
         });
     }
-    if smoke || !std::env::args().any(|a| a == "--background" || a == "--hide") {
+    let options =
+        asaaan_lifecycle::settings::options(&std::env::args().skip(1).collect::<Vec<_>>())
+            .map_err(std::io::Error::other)?;
+    if options.requested {
+        app.state::<crate::settings::SettingsProcess>()
+            .show(options.page);
+    }
+    if smoke
+        || (!options.requested && !std::env::args().any(|a| a == "--background" || a == "--hide"))
+    {
         control.request(Request::Show);
     }
     Ok(())
+}
+
+fn private_packet(event: &Event) -> bool {
+    matches!(
+        event,
+        Event::Packet(
+            Packet::PersonalizationRequest { .. }
+                | Packet::PersonalizationReply { .. }
+                | Packet::ClipboardWrite { .. }
+                | Packet::ClipboardWritten { .. }
+        )
+    )
+}
+fn serve(
+    app: &tauri::AppHandle,
+    store: &Mutex<Result<asaaan_personalization::Store, String>>,
+    packet: &Packet,
+) -> Option<Packet> {
+    match packet {
+        Packet::OpenSettings { page } => {
+            if let Some(settings) = app.try_state::<crate::settings::SettingsProcess>() {
+                settings.show(*page);
+            }
+            None
+        }
+        Packet::SettingsPage { page } => {
+            if let Some(settings) = app.try_state::<crate::settings::SettingsProcess>() {
+                *settings.last_page.lock().unwrap() = *page;
+            }
+            None
+        }
+        Packet::ClipboardWrite {
+            request_id,
+            text,
+            deadline,
+        } => Some(Packet::ClipboardWritten {
+            request_id: *request_id,
+            error: crate::clipboard::write(app, text.clone(), *deadline).err(),
+        }),
+        Packet::PersonalizationRequest {
+            request_id,
+            operation,
+        } => {
+            let result = match &mut *store.lock().unwrap() {
+                Ok(store) => store.execute(operation, asaaan_personalization::now()),
+                Err(error) => Err(error.clone()),
+            };
+            Some(match result {
+                Ok(snapshot) => Packet::PersonalizationReply {
+                    request_id: *request_id,
+                    snapshot: Some(Box::new(snapshot)),
+                    error: None,
+                },
+                Err(error) => Packet::PersonalizationReply {
+                    request_id: *request_id,
+                    snapshot: None,
+                    error: Some(error),
+                },
+            })
+        }
+        _ => None,
+    }
 }

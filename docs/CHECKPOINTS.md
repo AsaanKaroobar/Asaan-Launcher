@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP008, standalone command-line picker.** User explicitly approved checkpoint 8 after CP007. Add stdin line parsing, title/detail fuzzy filtering, keyboard/mouse selection, exact line/index output and exit statuses with equivalent/native tests. Performance upgrades remain deferred. Public CP007 publication is unverified; user advancement authorizes this checkpoint. Process controls, trash, general file providers, extensions and full settings remain later work.
+**Active: CP009, basic settings window.** User explicitly authorized this checkpoint after CP008. Add separate settings-process ownership, General/Applications pages for existing preferences and resident-serialized reads/edits, with reference/equivalent/native checks and local delivery. Public CP008 publication remains unverified and user controlled; performance work remains deferred. Full settings, process controls and extensions remain later work.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

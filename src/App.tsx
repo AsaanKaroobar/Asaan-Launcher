@@ -1,3 +1,5 @@
+import Settings from "./Settings";
+import {openSettings} from "./settings-native";
 import Picker from "./Picker";
 import SearchPanel from "./SearchPanel";
 import { useEffect, useState } from "react";
@@ -12,7 +14,7 @@ type Connection =
 
 const platformNames: Record<string, string> = { linux: "Linux", macos: "macOS", windows: "Windows" };
 
-export default function App() { return window.__ASAAAN_PICKER__ ? <Picker/> : <Launcher/>; }
+export default function App() { return window.__ASAAAN_PICKER__ ? <Picker/> : window.__ASAAAN_SETTINGS__ ? <Settings/> : <Launcher/>; }
 
 function Launcher() {
   const [connection, setConnection] = useState<Connection>({ state: "connecting" });
@@ -45,7 +47,7 @@ function Launcher() {
       <header className="topbar">
         <span className="wordmark">asaaan<span aria-hidden="true">.</span></span>
         <span className="product-type">Launcher</span>
-        {connection.state === "connected" && <><span className="shortcut-hint">{connection.info.shortcut ?? "Ctrl+Alt+Space"}</span><button className="hide-panel" aria-label="Hide launcher" onClick={() => { void hidePanel().catch((error: unknown) => setConnection({ state: "error", message: String(error) })); }}>×</button></>}
+        {connection.state === "connected" && <><span className="shortcut-hint">{connection.info.shortcut ?? "Ctrl+Alt+Space"}</span><button className="open-settings" onClick={()=>{void openSettings().catch((error:unknown)=>setConnection({state:"error",message:String(error)}));}}>Settings</button><button className="hide-panel" aria-label="Hide launcher" onClick={() => { void hidePanel().catch((error: unknown) => setConnection({ state: "error", message: String(error) })); }}>×</button></>}
       </header>
       {connection.state === "connected" ? <><h1 id="app-title" className="sr-only">Asaaan Launcher</h1><SearchPanel smokeTest={connection.info.smokeTest} applicationSmoke={connection.info.applicationSmoke} /></> : <section className="welcome">
         <span className="app-mark" aria-hidden="true">a</span>

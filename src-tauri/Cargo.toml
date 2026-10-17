@@ -1,6 +1,6 @@
 [package]
 name = "asaaan-launcher"
-version = "0.8.0"
+version = "0.9.0"
 description = "Asaaan Launcher cross-platform desktop application"
 edition = "2024"
 rust-version = "1.95"

@@ -5,6 +5,7 @@ mod clipboard;
 mod panel;
 mod picker;
 mod resident;
+mod settings;
 use serde::Serialize;
 use tauri::Manager;
 
@@ -101,7 +102,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP008 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP009 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -109,12 +110,19 @@ fn search_ready(
 }
 
 pub fn run() {
+    if let Err(error) =
+        asaaan_lifecycle::settings::options(&std::env::args().skip(1).collect::<Vec<_>>())
+    {
+        eprintln!("{error}");
+        std::process::exit(64);
+    }
     let picker = match picker::start() {
         picker::Start::Normal => None,
         picker::Start::Picker(state) => Some(state),
         picker::Start::Exit(code) => std::process::exit(code),
     };
     let picker_mode = picker.is_some();
+    let settings_mode = settings::is_child();
     let managed = std::env::args().any(|a| a == "--panel");
     let resident_smoke = std::env::args().any(|a| a == "--resident-smoke-test");
     let resident_mode =
@@ -122,7 +130,13 @@ pub fn run() {
     let mut builder = tauri::Builder::default();
     if resident_mode && !resident_smoke {
         builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, _| {
-            if args.iter().any(|a| a == "--quit") {
+            if args.iter().any(|a| a == "--settings") {
+                if let Ok(options) = asaaan_lifecycle::settings::options(&args)
+                    && let Some(settings) = app.try_state::<settings::SettingsProcess>()
+                {
+                    settings.show(options.page);
+                }
+            } else if args.iter().any(|a| a == "--quit") {
                 app.exit(0);
             } else if let Some(resident) = app.try_state::<resident::Resident>() {
                 resident
@@ -141,8 +155,13 @@ pub fn run() {
     let application = builder
         .manage(std::sync::Arc::new(asaaan_apps::Store::default()))
         .manage(applications::Launched::default())
+        .manage(settings::Closing::default())
         .invoke_handler(tauri::generate_handler![
             get_app_info,
+            settings::open_settings,
+            settings::read_settings,
+            settings::settings_page_changed,
+            settings::close_settings,
             picker::picker_view,
             picker::picker_finish,
             frontend_ready,
@@ -176,19 +195,26 @@ pub fn run() {
                     .incognito(picker_mode)
                     .initialization_script(if picker_mode {
                         "window.__ASAAAN_PICKER__ = true;"
+                    } else if settings_mode {
+                        "window.__ASAAAN_SETTINGS__ = true;"
                     } else {
                         ""
                     })
                     .title(if picker_mode {
                         "Asaaan Launcher — Choose"
+                    } else if settings_mode {
+                        "Asaaan Launcher — Settings"
                     } else {
                         "Asaaan Launcher"
                     })
-                    .inner_size(750.0, 474.0)
+                    .inner_size(
+                        if settings_mode { 960.0 } else { 750.0 },
+                        if settings_mode { 640.0 } else { 474.0 },
+                    )
                     .min_inner_size(480.0, 420.0)
                     .center()
                     .visible(!managed)
-                    .always_on_top(managed)
+                    .always_on_top(managed && !settings_mode)
                     .build()?;
                 if managed {
                     panel::setup(app)?;
@@ -239,12 +265,16 @@ pub fn run() {
                 match event {
                     tauri::WindowEvent::CloseRequested { api, .. } => {
                         api.prevent_close();
-                        let _ = panel.hide(window.app_handle());
+                        if settings::is_child() {
+                            let _ = settings::close_settings(window.app_handle().clone());
+                        } else {
+                            let _ = panel.hide(window.app_handle());
+                        }
                     }
                     tauri::WindowEvent::Focused(true) => {
                         panel.focus_gained(window.app_handle());
                     }
-                    tauri::WindowEvent::Focused(false) => {
+                    tauri::WindowEvent::Focused(false) if !settings::is_child() => {
                         panel.focus_lost(window.app_handle());
                     }
                     _ => {}
@@ -267,6 +297,9 @@ pub fn run() {
 
             if let Some(resident) = app.try_state::<resident::Resident>() {
                 resident.stop();
+            }
+            if let Some(settings) = app.try_state::<settings::SettingsProcess>() {
+                settings.stop();
             }
         }
         _ => {}

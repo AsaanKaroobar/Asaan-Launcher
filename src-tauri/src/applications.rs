@@ -17,7 +17,10 @@ pub struct ApplicationReply {
 pub struct LaunchOutcome {
     warning: Option<String>,
 }
-fn preferences(app: &tauri::AppHandle, operation: Operation) -> Result<Snapshot, String> {
+pub(crate) fn preferences(
+    app: &tauri::AppHandle,
+    operation: Operation,
+) -> Result<Snapshot, String> {
     app.try_state::<crate::panel::Panel>()
         .ok_or("Personalization requires the resident launcher")?
         .personalization(operation)
@@ -40,7 +43,9 @@ impl PersonalizationChange {
                 Operation::Favorite { id, enabled }
             }
             PersonalizationChange::Alias { id, alias } => {
-                store.get(&id)?;
+                if !alias.is_empty() {
+                    store.get(&id)?;
+                }
                 Operation::Alias { id, alias }
             }
             PersonalizationChange::Hide { id } => {
@@ -179,7 +184,7 @@ pub fn application_launch_ready(app: tauri::AppHandle, id: String) -> Result<(),
         {
             return Err("No matching native application launch was accepted".into());
         }
-        println!("ASAAAN_APPLICATION_SMOKE_OK CP008 id={id}");
+        println!("ASAAAN_APPLICATION_SMOKE_OK CP009 id={id}");
         app.exit(0);
     }
     Ok(())

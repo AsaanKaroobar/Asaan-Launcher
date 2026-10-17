@@ -17,3 +17,5 @@ Checkpoint 006 aliases, hidden results and action/keyboard behavior are adapted 
 CP007 application metadata contracts translate AppActions/FileActions.copies from Floe ItemActions.swift (© 2026 René Jiménez, AGPLv3). Pinned source and explicit partial/deferred tests are under tests/reference/application-actions.
 
 CP008 translates the picker model and session behavior from Floe Picker.swift/PickerPanel.swift and PickerTests.swift (© 2026 René Jiménez, AGPLv3). Pinned sources and all 22 test declarations are tracked under tests/reference/picker.
+
+CP009 settings process/page/exit behavior adapts Floe SettingsProcess.swift, SettingsMode.swift and ApplicationSettingsView.swift (© 2026 René Jiménez, AGPLv3). Pinned sources and scoped mappings are in tests/reference/settings.

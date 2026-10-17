@@ -154,6 +154,15 @@ impl Panel {
         let show = {
             let mut state = self.visibility.lock().unwrap();
             let show = match request {
+                Request::BuiltIn(ref page) if crate::settings::is_child() => {
+                    let page = asaaan_lifecycle::settings::Page::parse(page)
+                        .ok_or("Unsupported settings page")?;
+                    app.get_webview_window("main")
+                        .ok_or("Settings window missing")?
+                        .emit("settings-page", page)
+                        .map_err(|e| e.to_string())?;
+                    true
+                }
                 Request::Show => true,
                 Request::Hide => false,
                 Request::Toggle => !state.requested_visible,

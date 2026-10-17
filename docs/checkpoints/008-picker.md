@@ -35,3 +35,5 @@ Package SHA-256: 665a1ec973266c0398bb1abbb523df01d0e5027d419897d629d6e96a65f18c8
 Installed binary SHA-256: 5ed1eb739121ce42c82ef9fba8a03263f490af22f181b8758acdbe223d29e18a.
 
 The ignored .artifacts/checkpoint-008 folder holds the validated package, installation manifest, SHA256SUMS, test/native logs and JSON, failure diagnostics, screenshot and a post-commit validation manifest with the exact source revision. Public downloadable release remains pending and user-controlled. Stop at CP008; CP009 has not started.
+
+User explicitly approved advancing to CP009 on 2026-10-17. Public CP008 publication remains unverified.

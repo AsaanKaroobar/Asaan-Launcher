@@ -51,6 +51,7 @@ jobs:
           npm run smoke:customization
           npm run smoke:actions
           npm run smoke:picker
+          npm run smoke:settings
       - name: Upload checkpoint build artifacts (not a published release)
         uses: actions/upload-artifact@v4
         with:
