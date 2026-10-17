@@ -1,0 +1,25 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/App/SearchCommand.swift",
+      "file": "SearchCommand.swift",
+      "sha256": "c128cfc71ef12a7f0dc45fea5f1635042e6008fc66203dff5bcd6eba8b5a6a5c"
+    },
+    {
+      "source": "Sources/Floe/App/DebugOptions.swift",
+      "file": "DebugOptions.swift",
+      "sha256": "ce5aea00a8363457ad7fc0914b0dab3d2820463c53d456239971f69e3769d9da"
+    },
+    {
+      "source": "Sources/Floe/Launcher/RootItem.swift",
+      "file": "RootItem.swift",
+      "sha256": "9bde011f524899d6cec80ac9d4abca098ccea2a8a0af29a71791754e92b84389"
+    },
+    {
+      "source": "Tests/FloeTests/Search/RankingTests.swift",
+      "file": "RankingTests.swift",
+      "sha256": "5bbff24049a6efe32045dbd5ffce3a92d9b620d4f0d97ccad725d4efe56f17f1"
+    }
+  ]
+}

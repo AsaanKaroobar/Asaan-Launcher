@@ -302,3 +302,5 @@ impl Store {
             .ok_or_else(|| "Application is no longer in the catalog. Refresh and try again.".into())
     }
 }
+
+pub mod search_command;

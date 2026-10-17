@@ -58,10 +58,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
     }
     let (events_tx, events) = mpsc::channel();
     let personalization = std::sync::Arc::new(Mutex::new(
-        app.path()
-            .app_data_dir()
-            .map_err(|e| e.to_string())
-            .and_then(|dir| asaaan_personalization::Store::open(dir.join("personalization.json"))),
+        crate::data::personalization_path().and_then(asaaan_personalization::Store::open),
     ));
     let panel_preferences = personalization.clone();
     let clipboard_app = app.handle().clone();
@@ -167,7 +164,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP009 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP010 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }

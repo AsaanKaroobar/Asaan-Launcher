@@ -1,0 +1,268 @@
+[
+  {
+    "source": "RankingTests.swift",
+    "function": "prefixBeatsWordPrefixBeatsAcronymBeatsSubstringBeatsSubsequence",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "prefixBeatsWordPrefixBeatsAcronymBeatsSubstringBeatsSubsequence"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "charactersOutOfOrderOrMissingDoNotMatch",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "charactersOutOfOrderOrMissingDoNotMatch"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "matchingIgnoresCase",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "matchingIgnoresCase"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "shorterCandidateWinsForTheSamePrefix",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "shorterCandidateWinsForTheSamePrefix"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "prefixPenaltyStopsAtTwentyCharacters",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "prefixPenaltyStopsAtTwentyCharacters"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "theFourFixedTiersScoreExactlyAsBefore",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "theFourFixedTiersScoreExactlyAsBefore"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "everyFixedTierOutranksTheBestScatteredMatch",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "everyFixedTierOutranksTheBestScatteredMatch"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "lettersAtWordStartsBeatLettersInsideAWord",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "lettersAtWordStartsBeatLettersInsideAWord"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "lettersInARowBeatTheSameLettersSpreadOut",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "lettersInARowBeatTheSameLettersSpreadOut"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aMatchThatStartsEarlyBeatsOneThatStartsLate",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aMatchThatStartsEarlyBeatsOneThatStartsLate"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aLetterAfterASeparatorCountsAsAWordStart",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aLetterAfterASeparatorCountsAsAWordStart"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "camelCaseHumpsCountAsWordStarts",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "camelCaseHumpsCountAsWordStarts"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "theBestAlignmentIsFoundNotTheFirst",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "theBestAlignmentIsFoundNotTheFirst"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "noScatteredMatchReachesTheSubstringScore",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "noScatteredMatchReachesTheSubstringScore"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "keywordsStillRejectScatteredLetters",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "keywordsStillRejectScatteredLetters"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "matchedPositionsAreRightForEachTier",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "matchedPositionsAreRightForEachTier"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "accentedLettersMatchThemselvesAndCountAsOneCharacter",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "accentedLettersMatchThemselvesAndCountAsOneCharacter"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "uppercaseQueriesScoreLikeLowercaseOnes",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "uppercaseQueriesScoreLikeLowercaseOnes"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "anEmptyQueryIsAPrefixOfEverythingAndMatchesNoCharacters",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "anEmptyQueryIsAPrefixOfEverythingAndMatchesNoCharacters"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aQueryLongerThanTheCandidateDoesNotMatch",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aQueryLongerThanTheCandidateDoesNotMatch"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "menuBarItemsRankAGoodScatteredNameAboveAPoorOne",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "menuBarItemsRankAGoodScatteredNameAboveAPoorOne"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "tenThousandCandidatesScoreWellWithinAKeystroke",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "tenThousandCandidatesScoreWellWithinAKeystroke"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "frecencyWeightFallsOffWithAge",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "frecencyWeightFallsOffWithAge"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "exactAliasOutranksEverything",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "exactAliasOutranksEverything"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aliasPrefixRanksAtLeastAsWellAsATitlePrefix",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aliasPrefixRanksAtLeastAsWellAsATitlePrefix"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aliasThatDoesNotMatchFallsBackToTheTitle",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aliasThatDoesNotMatchFallsBackToTheTitle"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "browsingListsFavoritesThenSuggestionsThenCommandsThenApplications",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "browsingListsFavoritesThenSuggestionsThenCommandsThenApplications"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "browsingKeepsFavoritesInTheirSavedOrderAndOutOfSuggestions",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "browsingKeepsFavoritesInTheirSavedOrderAndOutOfSuggestions"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "browsingSuggestsAtMostFiveItems",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "browsingSuggestsAtMostFiveItems"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "equallyUsedSuggestionsKeepTheirOrder",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "equallyUsedSuggestionsKeepTheirOrder"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "browsingListsCommandsBeforeApplicationsInTheirOwnOrder",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "browsingListsCommandsBeforeApplicationsInTheirOwnOrder"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "searchingOrdersByMatchThenUsage",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "searchingOrdersByMatchThenUsage"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "usageBoostIsCappedSoAnExactAliasStillWins",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "usageBoostIsCappedSoAnExactAliasStillWins"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "favoritesGetASmallBoostInSearch",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "favoritesGetASmallBoostInSearch"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "searchRespectsTheLimit",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "searchRespectsTheLimit"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "menuBarItemsMatchOnNameAndLessStronglyOnOwner",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "menuBarItemsMatchOnNameAndLessStronglyOnOwner"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aCommandAnswersToItsExtensionsNameBehindATitleThatMatches",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aCommandAnswersToItsExtensionsNameBehindATitleThatMatches"
+  },
+  {
+    "source": "RankingTests.swift",
+    "function": "aCommandAnswersToItsManifestKeywordsBehindATitleThatMatches",
+    "status": "ported",
+    "target": "crates/launcher-search/tests/floe_ranking.rs",
+    "test": "aCommandAnswersToItsManifestKeywordsBehindATitleThatMatches"
+  }
+]

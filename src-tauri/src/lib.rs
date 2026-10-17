@@ -2,9 +2,11 @@ mod activation;
 mod application_actions;
 mod applications;
 mod clipboard;
+mod data;
 mod panel;
 mod picker;
 mod resident;
+mod search_command;
 mod settings;
 use serde::Serialize;
 use tauri::Manager;
@@ -102,7 +104,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP009 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP010 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -110,6 +112,9 @@ fn search_ready(
 }
 
 pub fn run() {
+    if let Some(code) = search_command::start() {
+        std::process::exit(code);
+    }
     if let Err(error) =
         asaaan_lifecycle::settings::options(&std::env::args().skip(1).collect::<Vec<_>>())
     {

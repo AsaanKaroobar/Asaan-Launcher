@@ -3,7 +3,9 @@ use asaaan_search::picker::{self, Item};
 use std::io::{IsTerminal, Read, Write};
 use std::sync::{Mutex, atomic::AtomicBool};
 use tauri::Manager;
-pub const HELP: &str = "Asaaan Launcher --pick [--prompt TEXT] [--query TEXT] [--index]\nReads stdin, one item per line. Tabs separate title and detail; returns the whole line.\nExit: 0 chosen, 1 cancelled/empty, 64 usage. ASAAAN_PICK_AUTO=1 chooses the first match without a window.";
+pub const HELP: &str = "Asaaan Launcher --search QUERY: print the first eight ranked applications without a window.
+Asaaan Launcher --settings [--page general|applications]: open Settings.
+Asaaan Launcher --pick [--prompt TEXT] [--query TEXT] [--index]\nReads stdin, one item per line. Tabs separate title and detail; returns the whole line.\nExit: 0 chosen, 1 cancelled/empty, 64 usage. ASAAAN_PICK_AUTO=1 chooses the first match without a window.";
 #[derive(Debug, Default, PartialEq, Eq)]
 pub struct Options {
     pub prompt: Option<String>,

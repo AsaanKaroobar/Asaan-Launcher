@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP009, basic settings window.** User explicitly authorized this checkpoint after CP008. Add separate settings-process ownership, General/Applications pages for existing preferences and resident-serialized reads/edits, with reference/equivalent/native checks and local delivery. Public CP008 publication remains unverified and user controlled; performance work remains deferred. Full settings, process controls and extensions remain later work.
+**Active: CP010, application search CLI.** User authorized advancing after CP009. Add headless --search using existing ranking, aliases, favorites, usage and hidden-app rules; preserve the reference eight-row text format for applications. Test, package, install/run locally and stop. Public CP009 publication is unverified and user controlled. Performance work, process controls, other providers and extensions remain deferred.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

@@ -19,3 +19,5 @@ CP007 application metadata contracts translate AppActions/FileActions.copies fro
 CP008 translates the picker model and session behavior from Floe Picker.swift/PickerPanel.swift and PickerTests.swift (© 2026 René Jiménez, AGPLv3). Pinned sources and all 22 test declarations are tracked under tests/reference/picker.
 
 CP009 settings process/page/exit behavior adapts Floe SettingsProcess.swift, SettingsMode.swift and ApplicationSettingsView.swift (© 2026 René Jiménez, AGPLv3). Pinned sources and scoped mappings are in tests/reference/settings.
+
+CP010 adapts the application slice of Floe SearchCommand.swift and its RootItem display kind (© 2026 René Jiménez, AGPLv3). Pinned sources, shared ranking tests and explicit CLI contracts are in tests/reference/search-cli.
