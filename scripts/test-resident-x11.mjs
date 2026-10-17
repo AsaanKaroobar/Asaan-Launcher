@@ -9,6 +9,7 @@ const binary=new URL('deployments/linux/current/usr/bin/asaaan-launcher',root).p
 const python=new URL('scripts/x11-fixture.py',root).pathname;
 function processExists(pid){process.kill(pid,0);}
 const functionalOnly=process.argv.includes("--functional-only");
+const rapidReopenChecks=5;
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 let resident,fixture;let log='';const samples=[];
 async function until(check,message,ms=15000){const deadline=Date.now()+ms;while(!(await check())){if(Date.now()>deadline)throw Error(message+'\n'+log);await delay(25);}}
@@ -18,6 +19,7 @@ async function awaitPanelFocus(pid){
  const id=line.trim().split(' ')[0];const owner=(await run('xprop',['-id',id,'_NET_WM_PID'])).stdout;if(!owner.includes('= '+pid))throw Error('Native focus target belongs to another process: '+owner);
  await until(async()=>JSON.parse((await run('python3',[python,'ancestors'])).stdout).includes(Number(id)),'Desktop did not activate the launcher');
 }
+async function searchState(){return JSON.parse((await run('/usr/bin/python3',[new URL('scripts/x11-search-state.py',root).pathname])).stdout);}
 async function key(...keys){await run('python3',[python,'keys',...keys]);}
 async function memory(label){if(functionalOnly)return;const s=await fs.readFile('/proc/'+resident.pid+'/smaps_rollup','utf8');const pick=k=>Number(s.match(new RegExp('^'+k+':\\s+(\\d+)','m'))[1]);samples.push({label,rssKiB:pick('Rss'),pssKiB:pick('Pss')});}
 try{
@@ -32,14 +34,20 @@ try{
   if(cycle===1){const duplicate=await run(binary,[],{timeout:5000});if(duplicate.stderr.includes('Started('))throw Error('Second resident spawned another panel');}
   await awaitPanelFocus(pid);
   if(cycle===1&&process.argv.includes('--screenshot')){const destination=process.argv[process.argv.indexOf('--screenshot')+1];await delay(500);const tree=(await run('xwininfo',['-root','-tree'])).stdout;const id=tree.split('\n').find(line=>line.includes('"Asaaan Launcher"')).trim().split(' ')[0];await run('import',['-window','root',destination]);}
-  if(cycle===2){const toggleOffset=log.length;await key('Control_L','Alt_L','space');await until(()=>log.slice(toggleOffset).includes('visible: false'),'Shortcut did not toggle hidden');const reopenOffset=log.length;await key('Control_L','Alt_L','space');await until(()=>log.slice(reopenOffset).includes('visible: true'),'Shortcut did not reopen during grace');if(log.slice(toggleOffset).includes('Started('))throw Error('Grace-period reopen allocated another panel');await awaitPanelFocus(pid);}
   await delay(300);
-  if(cycle===2){await key('z');const clearOffset=log.length;await key('Escape');await delay(100);if(log.slice(clearOffset).includes('visible: false'))throw Error('Escape hid the panel before clearing a typed query');}
+  if(cycle===2){for(let reopen=0;reopen<rapidReopenChecks;reopen++){
+   const toggleOffset=log.length;await key('Control_L','Alt_L','space');await until(()=>log.slice(toggleOffset).includes('visible: false'),'Shortcut did not toggle hidden');
+   const reopenOffset=log.length;await key('Control_L','Alt_L','space');await until(()=>log.slice(reopenOffset).includes('visible: true'),'Shortcut did not reopen during grace');
+   if(log.slice(toggleOffset).includes('Started('))throw Error('Grace-period reopen allocated another panel');await awaitPanelFocus(pid);await delay(300);
+   await key('z');await until(async()=>(await searchState()).some(field=>field.text==='z'),'Reopened search field did not receive typed input');
+   const clearOffset=log.length;await key('Escape');await until(async()=>(await searchState()).some(field=>field.text===''),'Escape did not clear typed input');
+   if(log.slice(clearOffset).includes('visible: false'))throw Error('Escape hid the panel before clearing a typed query');
+  }}
   const dismissOffset=log.length;await key('Escape');await until(()=>log.slice(dismissOffset).includes('visible: false'),'Escape did not hide panel');await until(()=>log.slice(offset).includes('Exited('+pid+')'),'Hidden panel was not reaped');
   for(const process of uiProcesses){await until(()=>{try{processExists(process.pid);return false;}catch(e){if(e.code==='ESRCH')return true;throw e;}},'Renderer/helper survived panel dismissal: '+process.pid);}
   if((await descendants(resident.pid)).length)throw Error('Idle resident retains child processes');
   const focus=(await run('python3',[python,'focus'])).stdout.trim();
-  cycles.push({cycle,pid,uiProcesses,allUiProcessesExited:true,displayReadyMs:displayed-start,coldPresentationMs:opened-start,focusRestored:focus===fixtureId.trim()});await memory('dismissed-'+cycle);
+  cycles.push({cycle,pid,rapidReopens:cycle===2?rapidReopenChecks:0,uiProcesses,allUiProcessesExited:true,displayReadyMs:displayed-start,coldPresentationMs:opened-start,focusRestored:focus===fixtureId.trim()});await memory('dismissed-'+cycle);
  }
  for(let i=0;i<(functionalOnly?0:12);i++){await delay(5000);await memory('settled-'+(i+1));}
  const evidence={checkpoint:pkg.checkpoint,at:new Date().toISOString(),globalShortcut:'Ctrl+Alt+Space',cycles,samples,targetMiB:30,memorySkipped:functionalOnly,targetMet:samples.length?samples.every(s=>s.pssKiB<=30*1024):null,metric:'Linux PSS; RSS recorded separately, not equivalent to macOS physical footprint',log};

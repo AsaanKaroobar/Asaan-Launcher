@@ -39,7 +39,7 @@ pub enum Packet {
     },
     PersonalizationReply {
         request_id: u64,
-        snapshot: Option<asaaan_personalization::Snapshot>,
+        snapshot: Option<Box<asaaan_personalization::Snapshot>>,
         error: Option<String>,
     },
 }

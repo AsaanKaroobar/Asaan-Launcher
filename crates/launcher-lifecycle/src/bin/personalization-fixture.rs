@@ -21,7 +21,7 @@ fn exchange(
             request_id,
             snapshot: Some(snapshot),
             error: None,
-        } if request_id == id => snapshot,
+        } if request_id == id => *snapshot,
         other => panic!("Unexpected resident response: {other:?}"),
     }
 }

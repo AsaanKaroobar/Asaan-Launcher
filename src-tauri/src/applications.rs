@@ -10,6 +10,8 @@ pub struct ApplicationReply {
     favorites: Vec<String>,
     queries: Vec<String>,
     remember_searches: bool,
+    aliases: std::collections::HashMap<String, String>,
+    hidden_results: std::collections::HashMap<String, String>,
 }
 #[derive(serde::Serialize)]
 pub struct LaunchOutcome {
@@ -20,19 +22,49 @@ fn preferences(app: &tauri::AppHandle, operation: Operation) -> Result<Snapshot,
         .ok_or("Personalization requires the resident launcher")?
         .personalization(operation)
 }
+#[derive(serde::Deserialize)]
+#[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
+pub enum PersonalizationChange {
+    Favorite { id: String, enabled: bool },
+    ClearQueries,
+    RememberSearches { enabled: bool },
+    Alias { id: String, alias: String },
+    Hide { id: String },
+    Restore { id: String },
+}
+impl PersonalizationChange {
+    fn resolve(self, store: &Store) -> Result<Operation, String> {
+        Ok(match self {
+            PersonalizationChange::Favorite { id, enabled } => {
+                store.get(&id)?;
+                Operation::Favorite { id, enabled }
+            }
+            PersonalizationChange::Alias { id, alias } => {
+                store.get(&id)?;
+                Operation::Alias { id, alias }
+            }
+            PersonalizationChange::Hide { id } => {
+                let selected = store.get(&id)?;
+                Operation::Hide {
+                    id,
+                    title: selected.name,
+                }
+            }
+            PersonalizationChange::Restore { id } => Operation::Restore { id },
+            PersonalizationChange::ClearQueries => Operation::ClearQueries,
+            PersonalizationChange::RememberSearches { enabled } => {
+                Operation::RememberSearches { enabled }
+            }
+        })
+    }
+}
 #[tauri::command]
 pub async fn change_personalization(
     app: tauri::AppHandle,
     store: tauri::State<'_, Arc<Store>>,
-    operation: Operation,
+    operation: PersonalizationChange,
 ) -> Result<Snapshot, String> {
-    match &operation {
-        Operation::Favorite { id, .. } => {
-            store.get(id)?;
-        }
-        Operation::ClearQueries | Operation::RememberSearches { .. } => {}
-        _ => return Err("Unsupported personalization action".into()),
-    }
+    let operation = operation.resolve(&store)?;
     let _lease = app
         .try_state::<crate::panel::Panel>()
         .map(|p| p.work.begin());
@@ -81,6 +113,8 @@ pub async fn search_applications(
             favorites: snapshot.favorites,
             queries: snapshot.queries,
             remember_searches: snapshot.remember_searches,
+            aliases: snapshot.aliases,
+            hidden_results: snapshot.hidden_results,
         })
     })
     .await
@@ -131,7 +165,7 @@ pub async fn launch_application(
     }
     if warning.is_none()
         && !crate::application_smoke_requested()
-        && let Err(error) = crate::hide_panel(app.clone())
+        && let Err(error) = crate::hide_panel(app.clone(), None)
     {
         eprintln!("Application launch accepted; panel hide failed: {error}");
     }
@@ -145,7 +179,7 @@ pub fn application_launch_ready(app: tauri::AppHandle, id: String) -> Result<(),
         {
             return Err("No matching native application launch was accepted".into());
         }
-        println!("ASAAAN_APPLICATION_SMOKE_OK CP005 id={id}");
+        println!("ASAAAN_APPLICATION_SMOKE_OK CP006 id={id}");
         app.exit(0);
     }
     Ok(())
@@ -174,5 +208,64 @@ pub fn application_icon(store: tauri::State<'_, Arc<Store>>, id: String) -> Opti
     {
         let _ = app;
         None
+    }
+}
+
+#[cfg(test)]
+mod customization_tests {
+    use super::*;
+    #[test]
+    fn public_changes_cannot_forge_titles_or_record_usage() {
+        for value in [
+            r#"{"kind":"hide","id":"app:a","title":"Forged"}"#,
+            r#"{"kind":"recordLaunch","id":"app:a","query":"x"}"#,
+            r#"{"kind":"read"}"#,
+        ] {
+            assert!(serde_json::from_str::<PersonalizationChange>(value).is_err());
+        }
+    }
+    #[test]
+    fn mutations_resolve_catalog_titles_and_allow_restoring_missing_apps() {
+        let store = Store::new(Arc::new(|| {
+            Ok(vec![asaaan_apps::Application {
+                id: "app:notes".into(),
+                name: "Native Notes".into(),
+                location: "/notes".into(),
+                identity: None,
+                origin: None,
+                keywords: vec![],
+                target: asaaan_apps::Target::Bundle("/notes".into()),
+            }])
+        }));
+        store.search("", false).unwrap();
+        assert_eq!(
+            PersonalizationChange::Hide {
+                id: "app:notes".into()
+            }
+            .resolve(&store)
+            .unwrap(),
+            Operation::Hide {
+                id: "app:notes".into(),
+                title: "Native Notes".into()
+            }
+        );
+        assert!(
+            PersonalizationChange::Alias {
+                id: "app:missing".into(),
+                alias: "x".into()
+            }
+            .resolve(&store)
+            .is_err()
+        );
+        assert_eq!(
+            PersonalizationChange::Restore {
+                id: "app:missing".into()
+            }
+            .resolve(&store)
+            .unwrap(),
+            Operation::Restore {
+                id: "app:missing".into()
+            }
+        );
     }
 }

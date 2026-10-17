@@ -27,15 +27,21 @@ pub struct Snapshot {
     pub queries: Vec<String>,
     #[serde(default = "yes")]
     pub remember_searches: bool,
+    #[serde(default)]
+    pub aliases: HashMap<String, String>,
+    #[serde(default)]
+    pub hidden_results: HashMap<String, String>,
 }
 impl Default for Snapshot {
     fn default() -> Self {
         Self {
-            version: 1,
+            version: 2,
             favorites: vec![],
             records: HashMap::new(),
             queries: vec![],
             remember_searches: true,
+            aliases: HashMap::new(),
+            hidden_results: HashMap::new(),
         }
     }
 }
@@ -47,6 +53,9 @@ pub enum Operation {
     RecordLaunch { id: String, query: String },
     ClearQueries,
     RememberSearches { enabled: bool },
+    Alias { id: String, alias: String },
+    Hide { id: String, title: String },
+    Restore { id: String },
 }
 pub fn now() -> u64 {
     std::time::SystemTime::now()
@@ -64,6 +73,8 @@ impl Snapshot {
         asaaan_search::SearchContext {
             query: query.into(),
             favorites: self.favorites.clone(),
+            aliases: self.aliases.clone(),
+            hidden: self.hidden_results.keys().cloned().collect(),
             frecency: self
                 .records
                 .iter()
@@ -77,11 +88,10 @@ impl Snapshot {
                     )
                 })
                 .collect(),
-            ..Default::default()
         }
     }
     fn validate(&self) -> Result<(), String> {
-        if self.version != 1 {
+        if self.version != 2 {
             return Err("Unsupported personalization version; existing data was preserved".into());
         }
         let mut seen = HashSet::new();
@@ -90,6 +100,18 @@ impl Snapshot {
             .iter()
             .any(|id| !valid_id(id) || !seen.insert(id))
             || self.records.keys().any(|id| !valid_id(id))
+            || self.aliases.iter().any(|(id, value)| {
+                !valid_id(id)
+                    || value.is_empty()
+                    || value.len() > 1024
+                    || value.chars().any(char::is_control)
+            })
+            || self.hidden_results.iter().any(|(id, title)| {
+                !valid_id(id)
+                    || title.is_empty()
+                    || title.len() > 4096
+                    || title.chars().any(|c| c == '\0')
+            })
             || self.queries.len() > 50
             || self
                 .queries
@@ -108,6 +130,9 @@ impl Snapshot {
                     return Err("Invalid application identity".into());
                 }
                 if *enabled {
+                    if self.hidden_results.contains_key(id) {
+                        return Err("Restore the application before adding it to Favorites".into());
+                    }
                     if !self.favorites.contains(id) {
                         self.favorites.push(id.clone());
                     }
@@ -131,6 +156,29 @@ impl Snapshot {
                     }
                 }
             }
+            Operation::Alias { id, alias } => {
+                if !valid_id(id) || alias.len() > 1024 || alias.chars().any(char::is_control) {
+                    return Err("Invalid application alias".into());
+                }
+                if alias.is_empty() {
+                    self.aliases.remove(id);
+                } else {
+                    self.aliases.insert(id.clone(), alias.clone());
+                }
+            }
+            Operation::Hide { id, title } => {
+                if !valid_id(id) || title.is_empty() || title.len() > 4096 || title.contains('\0') {
+                    return Err("Invalid hidden application".into());
+                }
+                self.hidden_results.insert(id.clone(), title.clone());
+                self.favorites.retain(|old| old != id);
+            }
+            Operation::Restore { id } => {
+                if !valid_id(id) {
+                    return Err("Invalid application identity".into());
+                }
+                self.hidden_results.remove(id);
+            }
             Operation::ClearQueries => self.queries.clear(),
             Operation::RememberSearches { enabled } => self.remember_searches = *enabled,
         }
@@ -144,7 +192,7 @@ pub struct Store {
 impl Store {
     pub fn open(path: impl Into<PathBuf>) -> Result<Self, String> {
         let path = path.into();
-        let state = match std::fs::File::open(&path) {
+        let mut state = match std::fs::File::open(&path) {
             Ok(file) => {
                 let mut bytes = Vec::new();
                 file.take(2 * 1024 * 1024 + 1)
@@ -162,6 +210,11 @@ impl Store {
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Snapshot::default(),
             Err(e) => return Err(e.to_string()),
         };
+        // CP005 v1 files gain empty customization maps without changing existing values.
+        // A read does not rewrite disk; the first successful mutation publishes v2 atomically.
+        if state.version == 1 {
+            state.version = 2;
+        }
         state.validate()?;
         Ok(Self { path, state })
     }

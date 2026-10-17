@@ -131,7 +131,7 @@ fn malformed_and_future_files_are_preserved() {
     let path = dir.path().join("state.json");
     for bytes in [
         b"{broken".to_vec(),
-        br#"{"version":2}"#.to_vec(),
+        br#"{"version":99}"#.to_vec(),
         br#"{"version":1,"favorites":["bad"]}"#.to_vec(),
     ] {
         std::fs::write(&path, &bytes).unwrap();

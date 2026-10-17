@@ -58,9 +58,12 @@ fn panel_presented(app: tauri::AppHandle, sequence: u64, focused: bool) -> Resul
     }
 }
 #[tauri::command]
-fn hide_panel(app: tauri::AppHandle) -> Result<(), String> {
+fn hide_panel(app: tauri::AppHandle, sequence: Option<u64>) -> Result<(), String> {
     if let Some(panel) = app.try_state::<panel::Panel>() {
-        panel.hide(&app)
+        match sequence {
+            Some(sequence) => panel.hide_requested(&app, sequence),
+            None => panel.hide(&app),
+        }
     } else {
         app.get_webview_window("main")
             .ok_or("Window unavailable")?
@@ -95,7 +98,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP005 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP006 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }

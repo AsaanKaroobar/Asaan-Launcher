@@ -7,6 +7,7 @@ use std::{
 use tauri::{Emitter, Manager};
 struct Visibility {
     visible: bool,
+    requested_visible: bool,
     sequence: u64,
     hidden_at: Instant,
     reported: bool,
@@ -103,12 +104,19 @@ impl Panel {
     pub fn send(&self, packet: Packet) {
         let _ = self.output.send(packet);
     }
+    pub fn hide_requested(&self, app: &tauri::AppHandle, sequence: u64) -> Result<(), String> {
+        let state = self.visibility.lock().unwrap();
+        let current = state.sequence == sequence && !state.requested_visible;
+        drop(state);
+        if current { self.hide(app) } else { Ok(()) }
+    }
     pub fn hide(&self, app: &tauri::AppHandle) -> Result<(), String> {
         if let Some(window) = app.get_webview_window("main") {
             window.hide().map_err(|e| e.to_string())?;
         }
         let mut state = self.visibility.lock().unwrap();
         state.visible = false;
+        state.requested_visible = false;
         state.hidden_at = Instant::now();
         state.reported = false;
         self.send(Packet::Presented {
@@ -123,17 +131,27 @@ impl Panel {
         request: Request,
         sequence: u64,
     ) -> Result<(), String> {
-        let visible = self.visibility.lock().unwrap().visible;
-        {
+        let show = {
             let mut state = self.visibility.lock().unwrap();
+            let show = match request {
+                Request::Show => true,
+                Request::Hide => false,
+                Request::Toggle => !state.requested_visible,
+                _ => return Err("Unsupported checkpoint request".into()),
+            };
             state.sequence = sequence;
             state.reported = false;
-        }
-        if request == Request::Hide || (request == Request::Toggle && visible) {
-            return self.hide(app);
-        }
-        if !matches!(request, Request::Show | Request::Toggle) {
-            return Err("Unsupported checkpoint request".into());
+            state.requested_visible = show;
+            show
+        };
+        if !show {
+            // Let WebKit finish queued key events before unmapping the window.
+            // A direct hide during a global shortcut can stall subsequent key delivery.
+            app.get_webview_window("main")
+                .ok_or("Panel window missing")?
+                .emit("panel-hide-requested", sequence)
+                .map_err(|e| e.to_string())?;
+            return Ok(());
         }
         let window = app
             .get_webview_window("main")
@@ -155,6 +173,7 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
         output,
         visibility: Mutex::new(Visibility {
             visible: false,
+            requested_visible: false,
             sequence: 0,
             hidden_at: Instant::now(),
             reported: false,
@@ -200,7 +219,7 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
                         .remove(&request_id)
                     {
                         let result = match (snapshot, error) {
-                            (Some(state), None) => Ok(state),
+                            (Some(state), None) => Ok(*state),
                             (_, Some(error)) => Err(error),
                             _ => Err("Invalid resident personalization reply".into()),
                         };

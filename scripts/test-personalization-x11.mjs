@@ -14,12 +14,13 @@ const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function until(check,message){const end=Date.now()+15000;while(!(await check())){if(Date.now()>end)throw Error(message+'\n'+log);await delay(30);}}
 async function saved(){try{return JSON.parse(await fs.readFile(storage,'utf8'));}catch(e){if(e.code==='ENOENT')return null;throw e;}}
 async function key(...keys){await run('python3',[python,'keys',...keys]);}
+async function tabs(count){for(let index=0;index<count;index++)await key('Tab');}
 async function text(value){await run('python3',[python,'text',value]);}
 let resident,fixture,log='';const cycles=[];
 async function stop(){if(resident?.exitCode===null){await run(binary,['--quit']);await until(()=>resident.exitCode!==null,'Resident did not quit');}}
 try{
  const installation=JSON.parse(await fs.readFile(new URL('deployments/linux/current/installation.json',root),'utf8'));
- if(installation.checkpoint!=='CP005'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install the validated CP005 package first');
+ if(installation.checkpoint!=='CP006'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install the validated CP006 package first');
  await fs.mkdir(folder,{recursive:true});await fs.mkdir(path.join(data,'applications'),{recursive:true});
  await fs.writeFile(probe,'import fs from "node:fs/promises"; await fs.writeFile(process.argv[2],JSON.stringify({opened:true,args:process.argv.slice(3)})); console.log("Probe output stays outside panel protocol");');
  await fs.writeFile(path.join(data,'applications/asaaan-personalization-probe.desktop'),'[Desktop Entry]\nType=Application\nName=Personalization Probe\nExec="'+process.execPath+'" "'+probe+'" "'+marker+'" "literal ; safe"\n');
@@ -32,10 +33,10 @@ try{
   await delay(250);
   if(cycle<=2){await key('Control_L','Shift_L','f');await until(async()=>{const state=await saved();return state&&state.favorites.includes(id)===(cycle===1);},'Native favorite change was not saved');}
   if(cycle===3){
-   // Input -> Clear -> History. Open the popover, then Refresh -> Close -> checkbox.
-   await key('Tab');await key('Tab');await key('Return');await key('Tab');await key('Tab');await key('Tab');await key('space');
+   // Input -> Clear -> History. Open the popover, then Refresh -> Customize -> Close -> checkbox.
+   await tabs(2);await key('Return');await tabs(4);await key('space');
    await until(async()=>(await saved())?.rememberSearches===false,'History opt-out was not persisted');await delay(150);await key('Escape');
-   await key('Tab');await key('Tab');await key('Return');await key('Tab');await key('Tab');await key('Tab');await key('Tab');await key('Tab');await key('Return');
+   await tabs(2);await key('Return');await tabs(6);await key('Return');
    await until(async()=>(await saved())?.queries.length===0,'History clear was not persisted');await key('Escape');
   }
   await key('Return');
@@ -49,6 +50,6 @@ try{
   cycles.push({cycle,pid:resident.pid,count:state.records[id].count,favorite:state.favorites.includes(id),queries:state.queries,rememberSearches:state.rememberSearches,foregroundReaped:true});
   await stop();
  }
- const evidence={checkpoint:'CP005',result:'passed',kind:'installed normal React UI to resident persistence; private X11/XDG fixture',cycles,installation,at:new Date().toISOString()};
- await fs.writeFile(new URL('.artifacts/personalization-smoke.json',root),JSON.stringify(evidence,null,2)+'\n');console.log('ASAAAN_PERSONALIZATION_SMOKE_OK CP005 restarts=3 launches=4 favorites=passed recall=passed optOut=passed clear=passed');
+ const evidence={checkpoint:'CP006',result:'passed',kind:'installed normal React UI to resident persistence; private X11/XDG fixture',cycles,installation,at:new Date().toISOString()};
+ await fs.writeFile(new URL('.artifacts/personalization-smoke.json',root),JSON.stringify(evidence,null,2)+'\n');console.log('ASAAAN_PERSONALIZATION_SMOKE_OK CP006 restarts=3 launches=4 favorites=passed recall=passed optOut=passed clear=passed');
 }finally{await stop().catch(()=>resident?.kill());fixture?.kill();}

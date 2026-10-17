@@ -11,3 +11,5 @@ CP003 ports the lifecycle policy and finite-work lease ownership from Floe Panel
 CP004 adapts Floe application bundle scan depth, duplicate identity/origin policy and scoped app-catalog tests. Unchanged original sources/tests and their hashes are in tests/reference/applications. Native GIO, bundle/open and Windows StartApps adapters use this project’s own application identities.
 
 Checkpoint 005 personalization and recall behavior is adapted from Floe Settings.swift, Model.swift, Model+Actions.swift and Model+Keys.swift, © 2026 René Jiménez, AGPL-3.0. Unchanged scoped reference files and test provenance are under tests/reference/personalization.
+
+Checkpoint 006 aliases, hidden results and action/keyboard behavior are adapted from Floe Model+Actions.swift, Model+Keys.swift, ApplicationSettingsView.swift and SettingsView.swift, © 2026 René Jiménez, AGPL-3.0. Unchanged scoped references and test mappings are under tests/reference/customization.

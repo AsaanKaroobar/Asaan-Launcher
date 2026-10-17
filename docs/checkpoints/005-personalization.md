@@ -35,4 +35,4 @@ The package, SHA256SUMS, installation manifest, validation manifest with source 
 
 ## Delivery
 
-Test, package, install and run the validated Linux artifact locally for review. Downloadable publication and macOS/Windows/Wayland native qualification remain independent pending gates. Stop after CP005; CP006 is not started.
+Test, package, install and run the validated Linux artifact locally for review. Downloadable publication and macOS/Windows/Wayland native qualification remain independent pending gates. The user reviewed CP005 and explicitly authorized CP006 on 2026-10-17. Performance upgrades remain deferred and public CP005 publication remains unverified. This record preserves CP005 package evidence.

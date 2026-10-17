@@ -1,15 +1,21 @@
+import {ApplicationActions,AliasEditor,Customization} from "./ApplicationActions";
 import ApplicationIcon from "./ApplicationIcon";
-import { useEffect, useId, useRef, useState } from "react";
-import { searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type SearchResult } from "./native";
+import { useEffect, useLayoutEffect, useId, useRef, useState } from "react";
+import { searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type Personalization, type SearchResult } from "./native";
 
 type SearchState = { status: "loading" } | { status: "loaded"; query: string; rows: SearchResult[]; total?: number; warning?: string | null } | { status: "error"; message: string };
 
 export default function SearchPanel({ smokeTest = false, referenceCatalog = false, applicationSmoke = false }: { smokeTest?: boolean; referenceCatalog?: boolean; applicationSmoke?: boolean }) {
   const isReference = referenceCatalog || smokeTest;
-  const [preferences,setPreferences]=useState({favorites:[] as string[],queries:[] as string[],rememberSearches:true});
+  const normalize=(value:Personalization)=>({...value,aliases:value.aliases??{},hiddenResults:value.hiddenResults??{}});
+  const [preferences,setPreferences]=useState(()=>normalize({favorites:[],queries:[],rememberSearches:true,aliases:{},hiddenResults:{}}));
+  const [actionTarget,setActionTarget]=useState<SearchResult|null>(null);
+  const [aliasTarget,setAliasTarget]=useState<SearchResult|null>(null);
+  const [customizing,setCustomizing]=useState(false);
   const [historyOpen,setHistoryOpen]=useState(false);
   const [saving,setSaving]=useState(false);
   const changing=useRef(false);
+  const preferencesGeneration=useRef(0);
   const preserveSelection=useRef<string|null>(null);
   const recall=useRef({index:-1,last:""});
   const [query, setQuery] = useState(applicationSmoke ? "Asaaan Checkpoint Probe" : smokeTest ? "cal" : "");
@@ -29,9 +35,12 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
     window.addEventListener("focus", focus);
     void onPanelShown((sequence) => {
-      focus();
+      setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
+      // WebKit can retain DOM focus while its editable native focus is lost on hide.
+      // Reacquire editing focus on every presentation, including grace-period reuse.
+      inputRef.current?.blur();focus();
       void confirmPanelPresented(sequence, document.activeElement === inputRef.current).catch((error: unknown) => { if (!disposed) setState({status: "error", message: String(error)}); });
-    }).then((stop) => { if (disposed) stop(); else unlisten = stop; }).catch((error: unknown) => { if (!disposed) setState({status: "error", message: String(error)}); });
+    },sequence=>{void hidePanel(sequence).catch((error:unknown)=>{if(!disposed)setState({status:"error",message:String(error)});});}).then((stop) => { if (disposed) stop(); else unlisten = stop; }).catch((error: unknown) => { if (!disposed) setState({status: "error", message: String(error)}); });
     return () => { disposed = true; window.removeEventListener("focus", focus); unlisten?.(); };
   }, []);
   const listId = useId();
@@ -39,18 +48,19 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
 
   useEffect(() => {
     let cancelled = false;
+    const generation=preferencesGeneration.current;
     setState(previous => previous.status === "loaded" && previous.query === query ? previous : {status: "loading"});
     const refresh = forceRefresh.current; forceRefresh.current = false;
-    const pending = isReference ? searchReferenceCatalog(query).then(rows=>({rows,total:rows.length,warning:null,favorites:[],queries:[],rememberSearches:true})) : searchApplications(query,refresh);
+    const pending = isReference ? searchReferenceCatalog(query).then(rows=>({rows,total:rows.length,warning:null,favorites:[],queries:[],rememberSearches:true,aliases:{},hiddenResults:{}})) : searchApplications(query,refresh);
     pending.then((reply) => {
-      if (!cancelled) {
+      if (!cancelled && generation===preferencesGeneration.current) {
         setState({ status: "loaded", query, rows: reply.rows, total: reply.total, warning: reply.warning });
-        if (!isReference) setPreferences({favorites:reply.favorites??[],queries:reply.queries??[],rememberSearches:reply.rememberSearches??true});
+        if (!isReference) setPreferences(normalize({favorites:reply.favorites??[],queries:reply.queries??[],rememberSearches:reply.rememberSearches??true,aliases:reply.aliases,hiddenResults:reply.hiddenResults}));
         const id=preserveSelection.current;preserveSelection.current=null;
         setSelection(previous=>{const index=id?reply.rows.findIndex(row=>row.item.id===id):-1;return index>=0?index:Math.min(previous,Math.max(0,reply.rows.length-1));});
       }
     }).catch((error: unknown) => {
-      if (!cancelled) setState({ status: "error", message: error instanceof Error ? error.message : "Search could not be completed." });
+      if (!cancelled && generation===preferencesGeneration.current) setState({ status: "error", message: error instanceof Error ? error.message : "Search could not be completed." });
     });
     return () => { cancelled = true; };
   }, [query, attempt, poll, isReference]);
@@ -67,47 +77,58 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
 
   useEffect(() => { selected.current?.scrollIntoView?.({ block: "nearest" }); }, [selection]);
 
-  const rows = state.status === "loaded" && state.query === query ? state.rows : [];
+  const rows = state.status === "loaded" && state.query === query ? state.rows.filter(row=>!Object.prototype.hasOwnProperty.call(preferences.hiddenResults,row.item.id)) : [];
+  useEffect(()=>{setSelection(value=>Math.min(value,Math.max(0,rows.length-1)));},[rows.length]);
   async function open(row: SearchResult | undefined) {
-    if (!row || isReference || launching.current) return;
+    if (!row || isReference || launching.current || changing.current) return;
     launching.current = true; setLaunchingName(row.item.title); setLaunchError(null);
     try { const outcome=await launchApplication(row.item.id,query); if(outcome?.warning)setLaunchError(outcome.warning); if (applicationSmoke) await reportApplicationLaunched(row.item.id); }
     catch (error: unknown) { setLaunchError(error instanceof Error ? error.message : "The application could not be opened."); }
     finally { launching.current = false; setLaunchingName(null); }
   }
   async function change(operation:PersonalizationChange) {
-    if(changing.current||isReference)return;changing.current=true;setSaving(true);setLaunchError(null);
-    preserveSelection.current=rows[selection]?.item.id??null;
-    try{const next=await changePersonalization(operation);setPreferences(next);setPoll(n=>n+1);}
-    catch(error:unknown){preserveSelection.current=null;setLaunchError(error instanceof Error?error.message:"Could not save the change.");}
-    finally{changing.current=false;setSaving(false);if(operation.kind==="favorite")inputRef.current?.focus();}
+    if(changing.current||isReference)return false;changing.current=true;preferencesGeneration.current++;setSaving(true);setLaunchError(null);
+    preserveSelection.current=operation.kind==="favorite"||operation.kind==="alias"?operation.id:rows[selection]?.item.id??null;
+    try{const next=await changePersonalization(operation);setPreferences(normalize(next));return true;}
+    catch(error:unknown){preserveSelection.current=null;setLaunchError(error instanceof Error?error.message:"Could not save the change.");return false;}
+    finally{preferencesGeneration.current++;setPoll(n=>n+1);changing.current=false;setSaving(false);if(operation.kind==="favorite")inputRef.current?.focus();}
   }
-  function favorite(){const row=rows[selection];if(row)void change({kind:"favorite",id:row.item.id,enabled:!preferences.favorites.includes(row.item.id)});}
+  function favorite(row=rows[selection]){if(row)void change({kind:"favorite",id:row.item.id,enabled:!preferences.favorites.includes(row.item.id)});}
   useEffect(() => {
     if (applicationSmoke && !smokeLaunched.current && rows.length === 1 && rows[0].item.id === "app:desktop:asaaan-checkpoint-probe.desktop") {smokeLaunched.current = true; void open(rows[0]);}
   },[applicationSmoke,state]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const key = (event: KeyboardEvent) => {
       if (event.isComposing || event.defaultPrevented) return;
+      const activeQuery=inputRef.current?.value??query;
+      const primary=(event.ctrlKey||event.metaKey)&&!event.altKey;
+      if(aliasTarget||customizing){if(saving&&event.key==="Tab")event.preventDefault();if(event.key==="Escape"&&!saving){event.preventDefault();setAliasTarget(null);setCustomizing(false);inputRef.current?.focus();}return;}
+      if(actionTarget){
+        if(event.key==="Escape"||(primary&&!event.shiftKey&&event.key.toLowerCase()==="k")){event.preventDefault();setActionTarget(null);inputRef.current?.focus();}
+        if(primary&&event.shiftKey&&event.key.toLowerCase()==="f"){event.preventDefault();favorite(actionTarget);setActionTarget(null);}
+        return;
+      }
+      if(!isReference&&primary&&!event.shiftKey&&event.key===","){event.preventDefault();setCustomizing(true);setHistoryOpen(false);setLaunchError(null);return;}
+      if(!isReference&&primary&&!event.shiftKey&&event.key.toLowerCase()==="k"){event.preventDefault();if(state.status==="loaded"&&state.query===activeQuery&&rows[selection]){setActionTarget(rows[selection]);setHistoryOpen(false);setLaunchError(null);}return;}
       if(historyOpen){if(event.key==="Escape"){event.preventDefault();setHistoryOpen(false);inputRef.current?.focus();}return;}
       if (!isReference&&event.key.toLowerCase()==="f"&&event.shiftKey&&(event.ctrlKey||event.metaKey)&&!event.altKey){event.preventDefault();favorite();return;}
-      if (!isReference&&event.key==="ArrowUp"&&selection===0&&preferences.queries.length&&(query===""||query===recall.current.last)){
+      if (!isReference&&event.key==="ArrowUp"&&selection===0&&preferences.queries.length&&(activeQuery===""||activeQuery===recall.current.last)){
         event.preventDefault();recall.current.index=Math.min(recall.current.index+1,preferences.queries.length-1);
         const next=preferences.queries[preferences.queries.length-1-recall.current.index];recall.current.last=next;setQuery(next);return;
       }
       if (event.key === "Escape") {
         event.preventDefault();
-        if (query) {recall.current={index:-1,last:""};setQuery("");} else void hidePanel().catch((error: unknown) => setState({status:"error",message:error instanceof Error ? error.message : "Could not hide the launcher."}));
+        if (activeQuery) {recall.current={index:-1,last:""};setQuery("");} else void hidePanel().catch((error: unknown) => setState({status:"error",message:error instanceof Error ? error.message : "Could not hide the launcher."}));
         return;
       }
       if (!rows.length || (event.target instanceof HTMLElement && event.target.closest("button,a"))) return;
-      if (event.key === "Enter") { event.preventDefault(); void open(rows[selection]); }
+      if (event.key === "Enter") { event.preventDefault(); if(state.status==="loaded"&&state.query===activeQuery)void open(rows[selection]); }
       if (event.key === "ArrowDown") { event.preventDefault(); setSelection(value=>Math.min(rows.length-1,value+1)); }
       if (event.key === "ArrowUp") { event.preventDefault(); setSelection(value=>Math.max(0,value-1)); }
     };
     window.addEventListener("keydown",key);
     return () => window.removeEventListener("keydown",key);
-  },[query,selection,state,isReference,applicationSmoke,historyOpen,preferences]);
+  },[query,selection,state,isReference,applicationSmoke,historyOpen,preferences,actionTarget,aliasTarget,customizing,saving]);
   return (
     <section className="search-panel" aria-label={isReference ? "Reference catalog search" : "Installed applications"}>
       <div className="search-field">
@@ -117,7 +138,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
           />
         {query && <button className="clear-query" aria-label="Clear search" onClick={() => {recall.current={index:-1,last:""};setQuery("");}}>Clear</button>}
       </div>
-      <div className="catalog-notice"><span>{isReference ? "Reference catalog" : state.status === "loaded" ? state.total+" applications" : "Applications"}</span>{isReference ? <span>Sample items only. Nothing launches.</span> : <span className="catalog-tools"><button className="refresh-apps" onClick={()=>setHistoryOpen(open=>!open)} aria-expanded={historyOpen}>History</button><button className="refresh-apps" onClick={()=>{forceRefresh.current=true;setAttempt(n=>n+1);}}>Refresh applications</button></span>}</div>
+      <div className="catalog-notice"><span>{isReference ? "Reference catalog" : state.status === "loaded" ? state.total+" applications" : "Applications"}</span>{isReference ? <span>Sample items only. Nothing launches.</span> : <span className="catalog-tools"><button className="refresh-apps" onClick={()=>setHistoryOpen(open=>!open)} aria-expanded={historyOpen}>History</button><button className="refresh-apps" onClick={()=>{forceRefresh.current=true;setAttempt(n=>n+1);}}>Refresh applications</button><button className="refresh-apps" onClick={()=>{setCustomizing(true);setHistoryOpen(false);setActionTarget(null);setLaunchError(null);}}>Customize</button></span>}</div>
       {historyOpen&&!isReference&&<aside role="dialog" aria-label="Search history" className="history-popover">
         <div className="history-heading"><strong>Recent searches</strong><button onClick={()=>{setHistoryOpen(false);inputRef.current?.focus();}} aria-label="Close search history">×</button></div>
         <label><input type="checkbox" checked={preferences.rememberSearches} disabled={saving} onChange={event=>void change({kind:"rememberSearches",enabled:event.target.checked})}/> Remember searches</label>
@@ -126,24 +147,34 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
         {!preferences.queries.length&&<p>No recent searches.</p>}
         <button disabled={saving||!preferences.queries.length} onClick={()=>void change({kind:"clearQueries"})}>Clear search history</button>
       </aside>}
+      {(aliasTarget||customizing)&&<div className="customization-backdrop" aria-hidden="true" onMouseDown={()=>{if(!saving){setAliasTarget(null);setCustomizing(false);inputRef.current?.focus();}}}/>}
+      {actionTarget&&<ApplicationActions id={listId+"-actions"} title={actionTarget.item.title} onClose={()=>{setActionTarget(null);inputRef.current?.focus();}} actions={[
+        {label:"Open",run:()=>{const target=actionTarget;setActionTarget(null);void open(target);}},
+        {label:preferences.aliases[actionTarget.item.id]?"Edit Alias…":"Set Alias…",run:()=>{setAliasTarget(actionTarget);setActionTarget(null);setLaunchError(null);}},
+        {label:preferences.favorites.includes(actionTarget.item.id)?"Remove from Favorites":"Add to Favorites",disabled:saving,run:()=>{favorite(actionTarget);setActionTarget(null);}},
+        {label:"Hide from Search",disabled:saving,run:()=>{void change({kind:"hide",id:actionTarget.item.id});setActionTarget(null);inputRef.current?.focus();}},
+      ]}/>}
+      {aliasTarget&&<AliasEditor key={aliasTarget.item.id} title={aliasTarget.item.title} initial={preferences.aliases[aliasTarget.item.id]??""} saving={saving} error={launchError} onSave={alias=>change({kind:"alias",id:aliasTarget.item.id,alias})} onClose={()=>{setAliasTarget(null);inputRef.current?.focus();}}/>}
+      {customizing&&<Customization hidden={preferences.hiddenResults} saving={saving} error={launchError} onRestore={id=>change({kind:"restore",id})} onClose={()=>{setCustomizing(false);inputRef.current?.focus();}}/>}
       {launchingName && <p className="launch-feedback" role="status">Opening {launchingName}…</p>}
-      {launchError && <p className="launch-feedback error" role="alert">{launchError}</p>}
+      {launchError && !aliasTarget && !customizing && <p className="launch-feedback error" role="alert">{launchError}</p>}
       {state.status === "loaded" && state.warning && <p className="launch-feedback" role="status">{state.warning}</p>}
       <div className="search-results">
         {state.status === "loading" && <p className="search-message" aria-live="polite">Searching…</p>}
         {state.status === "error" && <div className="search-message"><p className="error" role="alert">{state.message}</p><button onClick={() => setAttempt((n) => n + 1)}>Retry search</button></div>}
-        {state.status === "loaded" && !rows.length && <p className="search-message" aria-live="polite">{!isReference && !query ? "No applications found. Refresh after installing an application." : "No matches for “"+query+"”"}</p>}
+        {state.status === "loaded" && !rows.length && <p className="search-message" aria-live="polite">{!isReference && !query ? (Object.keys(preferences.hiddenResults).length?"No visible applications. Restore hidden applications in Customize.":"No applications found. Refresh after installing an application.") : "No matches for “"+query+"”"}</p>}
         <ul id={listId} role="listbox" aria-label="Search results">
           {rows.map((row, index) => (
-            <li key={row.item.id} id={listId + "-" + index} role="option" aria-selected={selection === index} ref={selection === index ? selected : undefined} onMouseDown={(event) => event.preventDefault()} onClick={() => { setSelection(index); inputRef.current?.focus(); }} onDoubleClick={() => { void open(row); }} className={selection === index ? "result selected" : "result"}>
+            <li key={row.item.id} id={listId + "-" + index} role="option" aria-selected={selection === index} ref={selection === index ? selected : undefined} onMouseDown={(event) => event.preventDefault()} onClick={() => { setSelection(index); inputRef.current?.focus(); }} onContextMenu={event=>{event.preventDefault();setSelection(index);setActionTarget(row);setHistoryOpen(false);setLaunchError(null);}} onDoubleClick={() => { void open(row); }} className={selection === index ? "result selected" : "result"}>
               {isReference ? <span className="result-icon" aria-hidden="true">{row.item.title[0]}</span> : <ApplicationIcon id={row.item.id} title={row.item.title} />}
               <span className="result-title">{row.item.title}</span>{!isReference&&preferences.favorites.includes(row.item.id)&&<span className="favorite-marker" aria-label="Favorite">★</span>}
+              {!isReference&&preferences.aliases[row.item.id]&&<span className="alias-chip" aria-label="Alias">{preferences.aliases[row.item.id]}</span>}
               <span className="result-kind">{row.origin ?? row.section ?? (row.item.kind === "application" ? "Application" : "Command")}</span>
             </li>
           ))}
         </ul>
       </div>
-      <div className="search-help"><span>{isReference ? <>Try <kbd>cal</kbd>, <kbd>hn</kbd> or <kbd>vsc</kbd></> : <><kbd>Enter</kbd> to open <button className="favorite-action" disabled={!rows.length||saving} onMouseDown={event=>event.preventDefault()} onClick={favorite}>{preferences.favorites.includes(rows[selection]?.item.id)?"Remove from Favorites":"Add to Favorites"}</button></>}</span><span><kbd>↑</kbd> <kbd>↓</kbd> select <kbd>Esc</kbd> clear / hide</span></div>
+      <div className="search-help"><span>{isReference ? <>Try <kbd>cal</kbd>, <kbd>hn</kbd> or <kbd>vsc</kbd></> : <><kbd>Enter</kbd> to open <button className="favorite-action" disabled={!rows.length||saving} onMouseDown={event=>event.preventDefault()} onClick={()=>favorite()}>{preferences.favorites.includes(rows[selection]?.item.id)?"Remove from Favorites":"Add to Favorites"}</button><button className="favorite-action" aria-haspopup="menu" aria-expanded={Boolean(actionTarget)} aria-controls={actionTarget?listId+"-actions":undefined} disabled={!rows[selection]||saving} onMouseDown={event=>event.preventDefault()} onClick={()=>{setActionTarget(rows[selection]);setHistoryOpen(false);setLaunchError(null);}}>Actions</button></>}</span><span><kbd>↑</kbd> <kbd>↓</kbd> select <kbd>Esc</kbd> clear / hide</span></div>
     </section>
   );
 }

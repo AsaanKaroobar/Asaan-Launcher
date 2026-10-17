@@ -90,7 +90,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             Some(match result {
                 Ok(snapshot) => Packet::PersonalizationReply {
                     request_id: *request_id,
-                    snapshot: Some(snapshot),
+                    snapshot: Some(Box::new(snapshot)),
                     error: None,
                 },
                 Err(error) => Packet::PersonalizationReply {
@@ -154,7 +154,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP005 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP006 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }

@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP005, favorites and launch history.** User reviewed CP004 and approved the next step. Add resident-owned durable favorites and usage, ranked suggestions, recent-search recall, a local history opt-out/clear control and equivalent tests. Performance upgrades remain deferred. Public CP004 publication remains unverified; user advancement authorizes this checkpoint. Aliases, hidden results, full action menus and extensions remain later work.
+**Active: CP006, application actions and search customization.** User reviewed CP005 and approved the next step. Add persistent aliases, an accessible Actions menu, hide/restore controls and checkpoint 5 data migration with equivalent tests. Performance upgrades remain deferred. Public CP005 publication is unverified; user advancement authorizes this checkpoint. Native process/file actions, extensions and full settings remain later work.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

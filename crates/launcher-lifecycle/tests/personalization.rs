@@ -51,7 +51,7 @@ fn foreground_restarts_cannot_overwrite_the_resident_with_stale_snapshots() {
             let snapshot = service.lock().unwrap().execute(operation, 200).unwrap();
             Some(Packet::PersonalizationReply {
                 request_id: *request_id,
-                snapshot: Some(snapshot),
+                snapshot: Some(Box::new(snapshot)),
                 error: None,
             })
         },

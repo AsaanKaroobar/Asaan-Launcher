@@ -2,7 +2,7 @@
 
 A cross-platform desktop launcher built in checkpoints with Tauri 2, React, TypeScript and Rust.
 
-The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 5 adds persistent favorites, usage-based suggestions and recent-search recall to the installed-application launcher. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Aliases, hidden results, full action menus, extensions and built-in tools remain later work.
+The behavioral reference is the adjacent Floe checkout at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The [implementation plan](../docs/floe-cross-platform/PLAN.md) defines the eventual parity goal. Checkpoint 6 adds application aliases, a keyboard-accessible Actions menu and hide/restore controls. Persistent favorites, usage-based suggestions and recent-search recall remain in place. Enter or double-click opens the selected app. The resident tray and Ctrl+Alt+Space disposable panel remain in place. Native process/file actions, full settings, extensions and built-in tools remain later work.
 
 ## Develop
 
@@ -32,7 +32,7 @@ Local installation extracts the Debian package into this project under deploymen
 
 The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 005](docs/checkpoints/005-personalization.md). The user explicitly deferred performance upgrades until the complete software is ready. CP006 has not started.
+See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 006](docs/checkpoints/006-customization.md). The user explicitly deferred performance upgrades until the complete software is ready. CP007 has not started.
 
 The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
 
@@ -49,3 +49,9 @@ On a Linux development host with Xvfb and kwin_x11 installed, npm run test:resid
 Favorites are saved by the resident, in insertion order, with Control+Shift+F (Command+Shift+F on macOS) or the selected-result button. Up at the first row recalls earlier searches; typing ends recall. History exposes a local search-recording opt-out and Clear search history. As in Floe, known application activations count before OS delegation, including a launch that later fails. Clearing queries does not erase usage counts or favorites. Data lives in personalization.json under the native app data directory (Linux: $XDG_DATA_HOME/com.asaaan.launcher, or ~/.local/share/com.asaaan.launcher). The file is versioned, atomically replaced and limited to 2 MiB. Corrupt/unsupported files are preserved and require repair or moving aside while the resident is stopped.
 
 Run npm run smoke:personalization on Linux with the isolated X11 prerequisites above. It exercises the installed normal UI, an isolated marker application, favorite/unfavorite, Up recall, recording opt-out, clearing and three resident restarts. It never changes the user’s catalog or history. See tests/reference/personalization for the full scoped test map, including the explicit immediate-save substitution for the reference burst timer.
+
+Use Actions or Control+K (Command+K on macOS) for Open, Set/Edit Alias, favorite and Hide from Search. Right-clicking a row opens its menu. Customize or Control+comma (Command+comma) lists hidden applications and Show Again restores one, including an app that is no longer installed. Hiding removes its favorite and retains alias/usage; restoring does not re-add the favorite. Alias editing is a focused form with Enter to save and Escape to cancel. The same existing alias ranking handles exact matches, prefixes and title fallback.
+
+CP005 version-1 data is read without rewriting and upgraded to version 2 on the first successful mutation, retaining all previous values. Older builds preserve but cannot read version 2. Run npm run smoke:customization for installed UI coverage of migration, alias search/launch, hide, restoring an uninstalled app, clearing the alias and four resident restarts. It uses a private catalog, data directory and desktop. Scoped provenance is under tests/reference/customization. Full OS-specific application actions remain deferred.
+
+The X11 keyboard probe also requires system Python GI and AT-SPI bindings (`python3-gi`, `gir1.2-atspi-2.0` on Debian/Ubuntu). It checks native focus and observes input text through accessibility before asserting clear/hide behavior, including five rapid grace-period reopen cycles.

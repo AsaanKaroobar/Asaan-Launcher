@@ -40,13 +40,13 @@ export async function reportSearchReady(query: string, resultIds: string[]): Pro
   if (isTauri()) await invoke("search_ready", { query, resultIds });
 }
 
-export async function hidePanel(): Promise<void> {
-  if (isTauri()) await invoke("hide_panel");
+export async function hidePanel(sequence?:number): Promise<void> {
+  if (isTauri()) await invoke("hide_panel", sequence === undefined ? undefined : {sequence});
 }
 
-export async function onPanelShown(focus: (sequence: number) => void): Promise<UnlistenFn> {
+export async function onPanelShown(focus: (sequence: number) => void, hideRequested?: (sequence:number)=>void): Promise<UnlistenFn> {
   if (!isTauri()) return () => {};
-  const subscription = listen<number>("panel-shown", (event) => focus(event.payload));
+  const subscription = Promise.all([listen<number>("panel-shown", (event) => focus(event.payload)),listen<number>("panel-hide-requested",event=>hideRequested?.(event.payload))]).then(stops=>()=>stops.forEach(stop=>stop()));
   panelListenerReady = subscription;
   return subscription;
 }
@@ -54,10 +54,10 @@ export async function confirmPanelPresented(sequence: number, focused: boolean):
   if (isTauri()) await invoke("panel_presented", {sequence, focused});
 }
 
-export interface Personalization { favorites: string[]; queries: string[]; rememberSearches: boolean }
-export type PersonalizationChange = {kind:"favorite";id:string;enabled:boolean}|{kind:"clearQueries"}|{kind:"rememberSearches";enabled:boolean};
+export interface Personalization { favorites: string[]; queries: string[]; rememberSearches: boolean; aliases?:Record<string,string>;hiddenResults?:Record<string,string> }
+export type PersonalizationChange = {kind:"favorite";id:string;enabled:boolean}|{kind:"clearQueries"}|{kind:"rememberSearches";enabled:boolean}|{kind:"alias";id:string;alias:string}|{kind:"hide";id:string}|{kind:"restore";id:string};
 export async function changePersonalization(operation:PersonalizationChange):Promise<Personalization>{return invoke("change_personalization",{operation});}
-export interface ApplicationSearch { rows: SearchResult[]; total: number; generation: number; warning: string | null; favorites?:string[];queries?:string[];rememberSearches?:boolean }
+export interface ApplicationSearch { rows: SearchResult[]; total: number; generation: number; warning: string | null; favorites?:string[];queries?:string[];rememberSearches?:boolean;aliases?:Record<string,string>;hiddenResults?:Record<string,string> }
 export async function searchApplications(query: string, refresh = false): Promise<ApplicationSearch> {
   if (!isTauri()) throw new Error("Applications are available in the native desktop app.");
   return invoke("search_applications", {query, refresh});
