@@ -1,7 +1,7 @@
 import {ApplicationActions,AliasEditor,Customization} from "./ApplicationActions";
 import ApplicationIcon from "./ApplicationIcon";
 import { useEffect, useLayoutEffect, useId, useRef, useState } from "react";
-import { searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type Personalization, type SearchResult } from "./native";
+import { runApplicationAction, type ApplicationAction, searchApplications, launchApplication, reportApplicationLaunched, confirmPanelPresented, hidePanel, onPanelShown, reportSearchReady, searchReferenceCatalog, changePersonalization, type PersonalizationChange, type Personalization, type SearchResult } from "./native";
 
 type SearchState = { status: "loading" } | { status: "loaded"; query: string; rows: SearchResult[]; total?: number; warning?: string | null } | { status: "error"; message: string };
 
@@ -24,18 +24,21 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   const [poll, setPoll] = useState(0);
   const forceRefresh = useRef(false);
   const launching = useRef(false);
+  const acting=useRef(false);
+  const [actingName,setActingName]=useState<string|null>(null);
+  const [actionFeedback,setActionFeedback]=useState<string|null>(null);
   const smokeLaunched = useRef(false);
   const [launchingName, setLaunchingName] = useState<string | null>(null);
   const [launchError, setLaunchError] = useState<string | null>(null);
   const [state, setState] = useState<SearchState>({ status: "loading" });
   useEffect(() => { if (isReference || applicationSmoke || state.status !== "loaded") return; const timer = window.setInterval(() => setPoll(n=>n+1),5000); return () => window.clearInterval(timer); },[isReference,applicationSmoke,state.status]);
-  useEffect(() => { setSelection(0); setLaunchError(null); },[query]);
+  useEffect(() => { setSelection(0); setLaunchError(null);setActionFeedback(null); },[query]);
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
     window.addEventListener("focus", focus);
     void onPanelShown((sequence) => {
-      setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
+      setActionFeedback(null);setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
       // WebKit can retain DOM focus while its editable native focus is lost on hide.
       // Reacquire editing focus on every presentation, including grace-period reuse.
       inputRef.current?.blur();focus();
@@ -80,14 +83,21 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   const rows = state.status === "loaded" && state.query === query ? state.rows.filter(row=>!Object.prototype.hasOwnProperty.call(preferences.hiddenResults,row.item.id)) : [];
   useEffect(()=>{setSelection(value=>Math.min(value,Math.max(0,rows.length-1)));},[rows.length]);
   async function open(row: SearchResult | undefined) {
-    if (!row || isReference || launching.current || changing.current) return;
+    if (!row || isReference || launching.current || changing.current || acting.current) return;
     launching.current = true; setLaunchingName(row.item.title); setLaunchError(null);
     try { const outcome=await launchApplication(row.item.id,query); if(outcome?.warning)setLaunchError(outcome.warning); if (applicationSmoke) await reportApplicationLaunched(row.item.id); }
     catch (error: unknown) { setLaunchError(error instanceof Error ? error.message : "The application could not be opened."); }
     finally { launching.current = false; setLaunchingName(null); }
   }
+  async function metadataAction(row:SearchResult,action:ApplicationAction){
+    if(isReference||acting.current||launching.current||changing.current)return;
+    acting.current=true;setActingName(row.item.title);setActionFeedback(null);setLaunchError(null);setActionTarget(null);inputRef.current?.focus();
+    try{const outcome=await runApplicationAction(row.item.id,action);if(outcome.dismissed){setQuery("");recall.current={index:-1,last:""};}else setActionFeedback(outcome.message);}
+    catch(error:unknown){setLaunchError(error instanceof Error?error.message:typeof error==="string"?error:"The application action failed.");}
+    finally{acting.current=false;setActingName(null);}
+  }
   async function change(operation:PersonalizationChange) {
-    if(changing.current||isReference)return false;changing.current=true;preferencesGeneration.current++;setSaving(true);setLaunchError(null);
+    if(changing.current||isReference||acting.current)return false;changing.current=true;preferencesGeneration.current++;setSaving(true);setLaunchError(null);
     preserveSelection.current=operation.kind==="favorite"||operation.kind==="alias"?operation.id:rows[selection]?.item.id??null;
     try{const next=await changePersonalization(operation);setPreferences(normalize(next));return true;}
     catch(error:unknown){preserveSelection.current=null;setLaunchError(error instanceof Error?error.message:"Could not save the change.");return false;}
@@ -109,7 +119,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
         return;
       }
       if(!isReference&&primary&&!event.shiftKey&&event.key===","){event.preventDefault();setCustomizing(true);setHistoryOpen(false);setLaunchError(null);return;}
-      if(!isReference&&primary&&!event.shiftKey&&event.key.toLowerCase()==="k"){event.preventDefault();if(state.status==="loaded"&&state.query===activeQuery&&rows[selection]){setActionTarget(rows[selection]);setHistoryOpen(false);setLaunchError(null);}return;}
+      if(!isReference&&primary&&!event.shiftKey&&event.key.toLowerCase()==="k"){event.preventDefault();if(!acting.current&&state.status==="loaded"&&state.query===activeQuery&&rows[selection]){setActionTarget(rows[selection]);setHistoryOpen(false);setLaunchError(null);}return;}
       if(historyOpen){if(event.key==="Escape"){event.preventDefault();setHistoryOpen(false);inputRef.current?.focus();}return;}
       if (!isReference&&event.key.toLowerCase()==="f"&&event.shiftKey&&(event.ctrlKey||event.metaKey)&&!event.altKey){event.preventDefault();favorite();return;}
       if (!isReference&&event.key==="ArrowUp"&&selection===0&&preferences.queries.length&&(activeQuery===""||activeQuery===recall.current.last)){
@@ -151,11 +161,14 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
       {actionTarget&&<ApplicationActions id={listId+"-actions"} title={actionTarget.item.title} onClose={()=>{setActionTarget(null);inputRef.current?.focus();}} actions={[
         {label:"Open",run:()=>{const target=actionTarget;setActionTarget(null);void open(target);}},
         {label:preferences.aliases[actionTarget.item.id]?"Edit Alias…":"Set Alias…",run:()=>{setAliasTarget(actionTarget);setActionTarget(null);setLaunchError(null);}},
+        ...(actionTarget.actions??[]).map(action=>({label:action.label,run:()=>void metadataAction(actionTarget,action.kind)})),
         {label:preferences.favorites.includes(actionTarget.item.id)?"Remove from Favorites":"Add to Favorites",disabled:saving,run:()=>{favorite(actionTarget);setActionTarget(null);}},
         {label:"Hide from Search",disabled:saving,run:()=>{void change({kind:"hide",id:actionTarget.item.id});setActionTarget(null);inputRef.current?.focus();}},
       ]}/>}
       {aliasTarget&&<AliasEditor key={aliasTarget.item.id} title={aliasTarget.item.title} initial={preferences.aliases[aliasTarget.item.id]??""} saving={saving} error={launchError} onSave={alias=>change({kind:"alias",id:aliasTarget.item.id,alias})} onClose={()=>{setAliasTarget(null);inputRef.current?.focus();}}/>}
       {customizing&&<Customization hidden={preferences.hiddenResults} saving={saving} error={launchError} onRestore={id=>change({kind:"restore",id})} onClose={()=>{setCustomizing(false);inputRef.current?.focus();}}/>}
+      {actingName&&<p className="launch-feedback" role="status">Working on {actingName}…</p>}
+      {actionFeedback&&<p className="launch-feedback" role="status">{actionFeedback}</p>}
       {launchingName && <p className="launch-feedback" role="status">Opening {launchingName}…</p>}
       {launchError && !aliasTarget && !customizing && <p className="launch-feedback error" role="alert">{launchError}</p>}
       {state.status === "loaded" && state.warning && <p className="launch-feedback" role="status">{state.warning}</p>}
@@ -174,7 +187,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
           ))}
         </ul>
       </div>
-      <div className="search-help"><span>{isReference ? <>Try <kbd>cal</kbd>, <kbd>hn</kbd> or <kbd>vsc</kbd></> : <><kbd>Enter</kbd> to open <button className="favorite-action" disabled={!rows.length||saving} onMouseDown={event=>event.preventDefault()} onClick={()=>favorite()}>{preferences.favorites.includes(rows[selection]?.item.id)?"Remove from Favorites":"Add to Favorites"}</button><button className="favorite-action" aria-haspopup="menu" aria-expanded={Boolean(actionTarget)} aria-controls={actionTarget?listId+"-actions":undefined} disabled={!rows[selection]||saving} onMouseDown={event=>event.preventDefault()} onClick={()=>{setActionTarget(rows[selection]);setHistoryOpen(false);setLaunchError(null);}}>Actions</button></>}</span><span><kbd>↑</kbd> <kbd>↓</kbd> select <kbd>Esc</kbd> clear / hide</span></div>
+      <div className="search-help"><span>{isReference ? <>Try <kbd>cal</kbd>, <kbd>hn</kbd> or <kbd>vsc</kbd></> : <><kbd>Enter</kbd> to open <button className="favorite-action" disabled={!rows.length||saving||Boolean(actingName)} onMouseDown={event=>event.preventDefault()} onClick={()=>favorite()}>{preferences.favorites.includes(rows[selection]?.item.id)?"Remove from Favorites":"Add to Favorites"}</button><button className="favorite-action" aria-haspopup="menu" aria-expanded={Boolean(actionTarget)} aria-controls={actionTarget?listId+"-actions":undefined} disabled={!rows[selection]||saving||Boolean(actingName)} onMouseDown={event=>event.preventDefault()} onClick={()=>{setActionTarget(rows[selection]);setHistoryOpen(false);setLaunchError(null);}}>Actions</button></>}</span><span><kbd>↑</kbd> <kbd>↓</kbd> select <kbd>Esc</kbd> clear / hide</span></div>
     </section>
   );
 }

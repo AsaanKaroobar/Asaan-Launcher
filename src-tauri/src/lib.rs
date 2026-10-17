@@ -1,5 +1,7 @@
 mod activation;
+mod application_actions;
 mod applications;
+mod clipboard;
 mod panel;
 mod resident;
 use serde::Serialize;
@@ -98,7 +100,7 @@ fn search_ready(
         if let Some(panel) = app.try_state::<panel::Panel>() {
             panel.send(asaaan_lifecycle::Packet::SearchVerified);
         } else {
-            println!("ASAAAN_NATIVE_SMOKE_OK CP006 query=cal results=Calendar,Calculator");
+            println!("ASAAAN_NATIVE_SMOKE_OK CP007 query=cal results=Calendar,Calculator");
             app.exit(0);
         }
     }
@@ -139,6 +141,7 @@ pub fn run() {
             applications::launch_application,
             applications::application_icon,
             applications::application_launch_ready,
+            application_actions::application_action,
             applications::change_personalization
         ])
         .setup(move |app| {

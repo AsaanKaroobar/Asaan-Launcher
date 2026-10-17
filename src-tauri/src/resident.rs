@@ -62,13 +62,17 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
         .app_data_dir()
         .map_err(|e| e.to_string())
         .and_then(|dir| asaaan_personalization::Store::open(dir.join("personalization.json")));
+    let clipboard_app = app.handle().clone();
     let (control, worker) = process::start_serviced(
         config,
         move |event| {
             if !matches!(
                 &event,
                 Event::Packet(
-                    Packet::PersonalizationRequest { .. } | Packet::PersonalizationReply { .. }
+                    Packet::PersonalizationRequest { .. }
+                        | Packet::PersonalizationReply { .. }
+                        | Packet::ClipboardWrite { .. }
+                        | Packet::ClipboardWritten { .. }
                 )
             ) {
                 eprintln!("ASAAAN_LIFECYCLE {event:?}");
@@ -76,6 +80,18 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             let _ = events_tx.send(event);
         },
         move |packet| {
+            if let Packet::ClipboardWrite {
+                request_id,
+                text,
+                deadline,
+            } = packet
+            {
+                let result = crate::clipboard::write(&clipboard_app, text.clone(), *deadline);
+                return Some(Packet::ClipboardWritten {
+                    request_id: *request_id,
+                    error: result.err(),
+                });
+            }
             let Packet::PersonalizationRequest {
                 request_id,
                 operation,
@@ -154,7 +170,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
                         }
                         cycles += 1;
                         if cycles == 3 {
-                            println!("ASAAAN_RESIDENT_SMOKE_OK CP006 cycles=3 pids={pids:?}");
+                            println!("ASAAAN_RESIDENT_SMOKE_OK CP007 cycles=3 pids={pids:?}");
                             handle.exit(0);
                             return;
                         }

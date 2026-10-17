@@ -37,3 +37,5 @@ No performance or stress qualification is claimed. CP003 memory/cold-start evide
 ## Delivery
 
 The tested Linux artifact is packaged, installed and running locally for user review. Public publication and native macOS/Windows/Wayland qualification remain independent pending gates. Stop after CP006; CP007 is not started.
+
+User explicitly authorized CP007 on 2026-10-17. This supersedes the local advancement hold; public CP006 publication remains unverified.

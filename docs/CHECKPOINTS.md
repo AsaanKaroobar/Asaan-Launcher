@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP006, application actions and search customization.** User reviewed CP005 and approved the next step. Add persistent aliases, an accessible Actions menu, hide/restore controls and checkpoint 5 data migration with equivalent tests. Performance upgrades remain deferred. Public CP005 publication is unverified; user advancement authorizes this checkpoint. Native process/file actions, extensions and full settings remain later work.
+**Active: CP007, application metadata actions.** User explicitly approved checkpoint 7 after CP006. Add catalog-resolved Copy Path/Name/Identifier and native reveal, resident clipboard ownership, per-platform capabilities and equivalent/native tests. Performance upgrades remain deferred. Public CP006 publication is unverified; user advancement authorizes this checkpoint. Process controls, trash, file providers, extensions and full settings remain later work.
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

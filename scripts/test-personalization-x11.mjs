@@ -20,7 +20,7 @@ let resident,fixture,log='';const cycles=[];
 async function stop(){if(resident?.exitCode===null){await run(binary,['--quit']);await until(()=>resident.exitCode!==null,'Resident did not quit');}}
 try{
  const installation=JSON.parse(await fs.readFile(new URL('deployments/linux/current/installation.json',root),'utf8'));
- if(installation.checkpoint!=='CP006'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install the validated CP006 package first');
+ if(installation.checkpoint!=='CP007'||createHash('sha256').update(await fs.readFile(binary)).digest('hex')!==installation.binarySha256)throw Error('Install the validated CP007 package first');
  await fs.mkdir(folder,{recursive:true});await fs.mkdir(path.join(data,'applications'),{recursive:true});
  await fs.writeFile(probe,'import fs from "node:fs/promises"; await fs.writeFile(process.argv[2],JSON.stringify({opened:true,args:process.argv.slice(3)})); console.log("Probe output stays outside panel protocol");');
  await fs.writeFile(path.join(data,'applications/asaaan-personalization-probe.desktop'),'[Desktop Entry]\nType=Application\nName=Personalization Probe\nExec="'+process.execPath+'" "'+probe+'" "'+marker+'" "literal ; safe"\n');
@@ -50,6 +50,6 @@ try{
   cycles.push({cycle,pid:resident.pid,count:state.records[id].count,favorite:state.favorites.includes(id),queries:state.queries,rememberSearches:state.rememberSearches,foregroundReaped:true});
   await stop();
  }
- const evidence={checkpoint:'CP006',result:'passed',kind:'installed normal React UI to resident persistence; private X11/XDG fixture',cycles,installation,at:new Date().toISOString()};
- await fs.writeFile(new URL('.artifacts/personalization-smoke.json',root),JSON.stringify(evidence,null,2)+'\n');console.log('ASAAAN_PERSONALIZATION_SMOKE_OK CP006 restarts=3 launches=4 favorites=passed recall=passed optOut=passed clear=passed');
+ const evidence={checkpoint:'CP007',result:'passed',kind:'installed normal React UI to resident persistence; private X11/XDG fixture',cycles,installation,at:new Date().toISOString()};
+ await fs.writeFile(new URL('.artifacts/personalization-smoke.json',root),JSON.stringify(evidence,null,2)+'\n');console.log('ASAAAN_PERSONALIZATION_SMOKE_OK CP007 restarts=3 launches=4 favorites=passed recall=passed optOut=passed clear=passed');
 }finally{await stop().catch(()=>resident?.kill());fixture?.kill();}

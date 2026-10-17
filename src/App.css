@@ -74,3 +74,5 @@ button:disabled {opacity:.45;cursor:default;}
 @media(max-width:600px){.catalog-tools{gap:10px;}.search-help{flex-wrap:wrap;flex-basis:auto;min-height:33px;padding-block:5px;}.search-help>span:first-child{display:flex;align-items:center;flex-wrap:wrap;gap:3px;}.favorite-action{margin-left:4px;}}
 
 .customization-backdrop {position:absolute;inset:0;z-index:2;background:#0004;}
+
+.actions-popover {max-height:calc(100% - 45px);overflow-y:auto;}

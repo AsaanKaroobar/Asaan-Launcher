@@ -5,6 +5,7 @@ use std::sync::{
     Arc,
     atomic::{AtomicUsize, Ordering},
 };
+pub mod clipboard;
 pub mod process;
 pub mod wire;
 
@@ -19,6 +20,15 @@ pub enum Request {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Packet {
+    ClipboardWrite {
+        request_id: u64,
+        text: String,
+        deadline: u64,
+    },
+    ClipboardWritten {
+        request_id: u64,
+        error: Option<String>,
+    },
     Ready,
     Request {
         request: Request,

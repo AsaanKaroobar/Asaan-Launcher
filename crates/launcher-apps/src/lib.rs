@@ -6,6 +6,7 @@ use std::{
     sync::{Arc, Mutex},
     time::{Duration, Instant},
 };
+pub mod actions;
 pub mod bundles;
 #[cfg(target_os = "linux")]
 pub mod linux;
@@ -147,6 +148,7 @@ pub fn launch(app: &Application) -> Result<(), String> {
 }
 #[derive(Debug, Clone, Serialize)]
 pub struct Row {
+    pub actions: Vec<actions::Descriptor>,
     pub item: asaaan_search::Item,
     pub section: Option<String>,
     pub origin: Option<String>,
@@ -267,6 +269,12 @@ impl Store {
         )
         .into_iter()
         .map(|r| Row {
+            actions: cache
+                .apps
+                .iter()
+                .find(|a| a.id == r.item.id)
+                .map(actions::describe)
+                .unwrap_or_default(),
             origin: cache
                 .apps
                 .iter()

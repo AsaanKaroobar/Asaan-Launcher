@@ -25,7 +25,11 @@ export async function reportFrontendReady(): Promise<void> {
   if (isTauri()) { await panelListenerReady; await invoke("frontend_ready"); }
 }
 
+export type ApplicationAction = "reveal" | "copyPath" | "copyName" | "copyIdentifier";
+export interface ApplicationActionDescriptor {kind:ApplicationAction;label:string}
+export async function runApplicationAction(id:string,action:ApplicationAction):Promise<{message:string|null;dismissed:boolean}>{return invoke("application_action",{request:{id,action}});}
 export interface SearchResult {
+  actions?:ApplicationActionDescriptor[];
   item: { id: string; title: string; kind: "application" | "command"; keywords: string[] };
   section: string | null;
   origin?: string | null;

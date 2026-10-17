@@ -1,0 +1,15 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/Launcher/ItemActions.swift",
+      "file": "ItemActions.swift",
+      "sha256": "c18105ca2cfc4e57ca3d2e3ae5671ffb5a55b43f314b18555040ab0eb26f36aa"
+    },
+    {
+      "source": "Tests/FloeTests/Launcher/ItemActionTests.swift",
+      "file": "ItemActionTests.swift",
+      "sha256": "3dd219edcdc78f283e9b8ca0fce3fa3b6a142d3ad6ab2ae3ee37f58dbeb80dd5"
+    }
+  ]
+}

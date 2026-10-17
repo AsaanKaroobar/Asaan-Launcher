@@ -1,0 +1,94 @@
+[
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theDefaultAppLeadsTheOpenWithListAndNoAppRepeats",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aFileOutsideTheSystemCanBeMovedToTheTrashAndOneInsideCannot",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aFileOffersItsCopiesAndAlwaysShowInFinder",
+    "status": "partial",
+    "reason": "Application path/name copies share FileActions.copies(includesFile:false); native reveal is integration-tested. General files, Copy File and full file menu remain deferred.",
+    "kind": "rust",
+    "target": "crates/launcher-apps/tests/actions.rs",
+    "test": "literal_metadata_comes_from_catalog_target_and_not_location_or_shell"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "quickLookHandsTheFileToTheHost",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "anAppThatIsNotRunningOffersNoQuitAndASystemAppNoTrash",
+    "status": "partial",
+    "reason": "Metadata actions and app Copy File exclusion transfer. Running-process controls and trash eligibility remain deferred; their universal absence does not prove running-app parity.",
+    "kind": "rust",
+    "target": "crates/launcher-apps/tests/actions.rs",
+    "test": "application_menu_offers_metadata_without_copy_file_or_process_actions"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aMenuNestsChildrenAndDrawsSeparators",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "rootActionsStartWithOpenAndEndWithTheFavoriteToggle",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/ApplicationMetadata.test.tsx",
+    "test": "native app menu keeps Open first and favorites last without Copy File or process controls"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aResultThatIsGoneNextTimeHasNoFavoriteToggle",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "returnOnACalculationWithNothingToCopySaysSo",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aHiddenResultLeavesTheListTheSearchAndTheFavorites",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theExtensionStoreIsFoundInTheSearchAndOpensItsSettingsPage",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theWayIntoSettingsAndWhatIsGoneNextTimeCannotBeHidden",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aSearchIsRememberedOnceAndTheOldestGivesWay",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "upAtTheTopWalksBackThroughEarlierSearches",
+    "status": "deferred",
+    "reason": "Outside CP007 metadata scope: complete file/process/settings/provider actions remain later work; prior checkpoint mappings remain separately tracked."
+  }
+]

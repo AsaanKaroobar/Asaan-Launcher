@@ -23,8 +23,28 @@ pub struct Panel {
         >,
     >,
     request_id: std::sync::atomic::AtomicU64,
+    clipboard_pending: Mutex<std::collections::HashMap<u64, mpsc::Sender<Result<(), String>>>>,
 }
 impl Panel {
+    pub fn copy_text(&self, text: String) -> Result<(), String> {
+        let request_id = self
+            .request_id
+            .fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+        let (tx, rx) = mpsc::channel();
+        self.clipboard_pending
+            .lock()
+            .unwrap()
+            .insert(request_id, tx);
+        self.send(Packet::ClipboardWrite {
+            request_id,
+            text,
+            deadline: asaaan_lifecycle::clipboard::now()
+                .saturating_add(asaaan_lifecycle::clipboard::TIMEOUT_MS),
+        });
+        let result=rx.recv_timeout(Duration::from_secs(10)).unwrap_or_else(|_|Err("Resident clipboard acknowledgement timed out; check the clipboard before retrying".into()));
+        self.clipboard_pending.lock().unwrap().remove(&request_id);
+        result
+    }
     pub fn personalization(
         &self,
         operation: asaaan_personalization::Operation,
@@ -180,6 +200,7 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
         }),
         work: Work::default(),
         pending: Mutex::new(std::collections::HashMap::new()),
+        clipboard_pending: Mutex::new(std::collections::HashMap::new()),
         request_id: std::sync::atomic::AtomicU64::new(1),
     });
     std::thread::spawn(move || {
@@ -224,6 +245,17 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
                             _ => Err("Invalid resident personalization reply".into()),
                         };
                         let _ = tx.send(result);
+                    }
+                }
+                Packet::ClipboardWritten { request_id, error } => {
+                    if let Some(tx) = handle
+                        .state::<Panel>()
+                        .clipboard_pending
+                        .lock()
+                        .unwrap()
+                        .remove(&request_id)
+                    {
+                        let _ = tx.send(error.map_or(Ok(()), Err));
                     }
                 }
                 Packet::Shutdown => {

@@ -13,7 +13,8 @@ if(process.argv.includes('--session')){
  const wm=spawn('kwin_x11',['--replace'],{stdio:['ignore','ignore','pipe']});let log='';wm.stderr.on('data',data=>log+=data);
  try{
   await wait(async()=>{if(wm.exitCode!==null)throw Error('Isolated window manager failed: '+log);try{return (await run('xprop',['-root','_NET_SUPPORTING_WM_CHECK'])).stdout.includes('window id # 0x');}catch{return false;}},'Window manager did not become ready: '+log);
-  if(process.argv.includes('--customization-only'))await execute(process.execPath,[path.join(root,'scripts/test-customization-x11.mjs')],{cwd:root});
+  if(process.argv.includes('--actions-only'))await execute(process.execPath,[path.join(root,'scripts/test-actions-x11.mjs')],{cwd:root});
+  else if(process.argv.includes('--customization-only'))await execute(process.execPath,[path.join(root,'scripts/test-customization-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--personalization-only'))await execute(process.execPath,[path.join(root,'scripts/test-personalization-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--smoke-only')){for(const command of ['smoke','application-smoke','resident-smoke'])await execute(process.execPath,[path.join(root,'scripts/local-deploy.mjs'),command],{cwd:root});}
   else await execute(process.execPath,[path.join(root,'scripts/test-resident-x11.mjs'),'--functional-only'],{cwd:root});
