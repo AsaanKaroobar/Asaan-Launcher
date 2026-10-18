@@ -5,6 +5,9 @@ use std::{
     time::{Duration, Instant},
 };
 use tauri::{Emitter, Manager};
+// Bounded reuse was explicitly authorized for the first performance increment.
+const LAUNCHER_REUSE_GRACE: Duration = Duration::from_secs(10);
+const SETTINGS_IDLE_GRACE: Duration = Duration::from_millis(750);
 struct Visibility {
     visible: bool,
     requested_visible: bool,
@@ -106,6 +109,7 @@ impl Panel {
         if !focused {
             return Err("The presented search field did not receive focus".into());
         }
+        crate::startup::mark("input-focused");
         self.send(Packet::Presented {
             sequence,
             visible: true,
@@ -213,6 +217,7 @@ impl Panel {
         let window = app
             .get_webview_window("main")
             .ok_or("Panel window missing")?;
+        crate::startup::mark("presentation-start");
         window.center().map_err(|e| e.to_string())?;
         window.show().map_err(|e| e.to_string())?;
         window.set_focus().map_err(|e| e.to_string())?;
@@ -339,7 +344,12 @@ pub fn setup(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
             if !state.visible
                 && state.sequence > 0
                 && !state.reported
-                && state.hidden_at.elapsed() >= Duration::from_millis(750)
+                && state.hidden_at.elapsed()
+                    >= if crate::settings::is_child() {
+                        SETTINGS_IDLE_GRACE
+                    } else {
+                        LAUNCHER_REUSE_GRACE
+                    }
                 && !panel.work.is_busy()
             {
                 state.reported = true;

@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP014, first interactive extension List UI. Implemented, tested, locally installed/run; public release pending.** User authorized advancing after CP013. Use the existing Bun/reference-v1 host, resident ownership and native panel lifecycle. Public CP013 publication is unverified and user controlled. Detail/Form, store, scheduling and performance upgrades remain deferred.
+**Active: CP014, first interactive extension List UI. Implemented, tested, locally installed/run; public release pending.** User authorized advancing after CP013. Use the existing Bun/reference-v1 host, resident ownership and native panel lifecycle. Public CP013 publication is unverified and user controlled. Detail/Form, store and scheduling remain deferred. The user subsequently authorized incremental launch performance work after platform CI repair; the active follow-up is [launch performance increment 1](checkpoints/014-launch-performance-1.md).
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 

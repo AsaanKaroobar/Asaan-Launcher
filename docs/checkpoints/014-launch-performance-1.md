@@ -1,0 +1,21 @@
+# Launch performance — increment 1 (CP014 follow-up)
+
+The user explicitly authorized performance work after the platform CI repair. This supersedes the earlier performance deferral; CP015 feature work remains outside this task.
+
+Target: move toward sub-500 ms launch incrementally. First establish a fresh installed Linux baseline, distinguish disposable-panel startup from grace-period reuse, identify the critical path, and validate one focused optimization. Do not retain hidden WebViews indefinitely or weaken readiness/focus/EOF checks to lower the number.
+
+Status: measurement in progress. Native timing results apply to this Linux host only. A passing hosted build does not establish Windows/macOS launch latency. Public release remains user controlled.
+
+Measurements use a private Xvfb/D-Bus/KWin session and the existing scoped keyboard/focus fixture. The reported end-to-end timings include test adapter and focus-observation overhead, with filesystem caches left intact. Each disposable-panel sample follows confirmed panel/helper exit. Compare identical sample counts and environments; keep the original CP014 evidence archive intact.
+
+## Implemented candidate
+
+The user approved panel reuse after discussing its memory tradeoff. Launcher panels now remain available for up to 10 seconds after dismissal with no finite work outstanding. Settings retains its existing 750 ms idle grace. Parent EOF, explicit Quit, readiness watchdogs, stale-sequence rejection and supervision remain unchanged. Unused launcher panels still exit and reap their renderer helpers after the bounded window.
+
+Root search refreshes once per new presentation sequence on reopening. It preserves query/selection and leaves an active extension session under the existing resident supervision. A frontend regression checks updated results, retained input/selection and duplicate focus notifications.
+
+Run `npm run benchmark:launch -- --samples 12 --expect-reuse` after packaging and local installation. By default it waits two seconds between hide/reopen (beyond the old 750 ms grace), checks PID reuse, native focus, editable input, initial results, eventual process/helper disposal and focus restoration. It records median/p95, installed package/binary hashes, environment and hidden/disposed memory. The same harness can benchmark an older installed version using `--binary /absolute/path/to/usr/bin/asaaan-launcher` without `--expect-reuse`. CI adds a five-sample functional reuse check; timing results are recorded without a hardware-dependent pass threshold.
+
+Fresh disposable-panel startup and reopening are separate metrics. Reuse does not remove the first WebView startup. The earlier handshake experiments did not improve end-to-end launch and were removed; icon-loading work is left for a later increment.
+
+Validation and measured results: pending the installed default-policy checks and hosted matrix. No public release has been published.

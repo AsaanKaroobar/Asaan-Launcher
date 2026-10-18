@@ -50,11 +50,14 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   useEffect(() => { if (isReference || applicationSmoke || state.status !== "loaded") return; const timer = window.setInterval(() => setPoll(n=>n+1),5000); return () => window.clearInterval(timer); },[isReference,applicationSmoke,state.status]);
   useEffect(() => { setSelection(0); setLaunchError(null);setActionFeedback(null); },[query]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const lastPresentation=useRef<number|null>(null);
   useEffect(() => {
     const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
     window.addEventListener("focus", focus);
     void onPanelShown((sequence) => {
-      if(!isReference&&!applicationSmoke){void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
+      const reopening=lastPresentation.current!==null&&lastPresentation.current!==sequence;
+      lastPresentation.current=sequence;
+      if(!isReference&&!applicationSmoke){if(reopening&&!extensionOpen.current)setPoll(n=>n+1);void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
       setActionFeedback(null);setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
       // WebKit can retain DOM focus while its editable native focus is lost on hide.
       // Reacquire editing focus on every presentation, including grace-period reuse.

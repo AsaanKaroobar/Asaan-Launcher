@@ -84,6 +84,9 @@ jobs:
       - name: Linux - Resident focus and reopening
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run test:resident:isolated
+      - name: Linux - Bounded panel reuse
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run benchmark:launch -- --samples 5 --expect-reuse
       - name: Upload checkpoint build artifacts (not a published release)
         if: ${{ !cancelled() && steps.package.outcome == 'success' }}
         uses: actions/upload-artifact@v4

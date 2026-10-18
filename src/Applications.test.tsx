@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import {act,fireEvent,render,screen,waitFor} from "@testing-library/react";
 import {afterEach,beforeEach,expect,it,vi} from "vitest";
 import SearchPanel from "./SearchPanel";
-import {applicationIcon,launchApplication,reportApplicationLaunched,changePersonalization,searchApplications,type ApplicationSearch,type SearchResult} from "./native";
+import {onPanelShown,applicationIcon,launchApplication,reportApplicationLaunched,changePersonalization,searchApplications,type ApplicationSearch,type SearchResult} from "./native";
 vi.mock("./native",()=>({applicationProcessOptions:vi.fn().mockResolvedValue({actions:[],notice:null}),confirmPanelPresented:vi.fn().mockResolvedValue(undefined),hidePanel:vi.fn().mockResolvedValue(undefined),onPanelShown:vi.fn().mockResolvedValue(()=>{}),reportSearchReady:vi.fn().mockResolvedValue(undefined),searchReferenceCatalog:vi.fn().mockResolvedValue([]),applicationIcon:vi.fn(),searchApplications:vi.fn(),launchApplication:vi.fn(),reportApplicationLaunched:vi.fn(),changePersonalization:vi.fn()}));
 const row=(title:string,id=title):SearchResult=>({item:{id,title,kind:"application",keywords:[]},section:null});
 const reply=(rows:SearchResult[]):ApplicationSearch=>({rows,total:rows.length,generation:1,warning:null});
@@ -37,3 +37,22 @@ it("up below the first result navigates before recalling history",async()=>{vi.m
 it("history controls opt out and clear queries through resident operations",async()=>{vi.mocked(searchApplications).mockResolvedValue({...reply([row("Notes")]),queries:["notes"]});render(<SearchPanel/>);await screen.findByText("Notes");fireEvent.click(screen.getByRole("button",{name:"History"}));expect(screen.getByRole("dialog",{name:"Search history"})).toBeInTheDocument();fireEvent.click(screen.getByRole("checkbox",{name:"Remember searches"}));await waitFor(()=>expect(changePersonalization).toHaveBeenCalledWith({kind:"rememberSearches",enabled:false}));await waitFor(()=>expect(screen.getByRole("button",{name:"Clear search history"})).toBeEnabled());fireEvent.click(screen.getByRole("button",{name:"Clear search history"}));await waitFor(()=>expect(changePersonalization).toHaveBeenCalledWith({kind:"clearQueries"}));fireEvent.keyDown(window,{key:"Escape"});expect(screen.queryByRole("dialog")).not.toBeInTheDocument();expect(screen.getByRole("combobox")).toHaveFocus();});
 it("selecting a history entry restores its query without launching",async()=>{vi.mocked(searchApplications).mockResolvedValue({...reply([row("Notes")]),queries:["old query"]});render(<SearchPanel/>);await screen.findByText("Notes");fireEvent.click(screen.getByRole("button",{name:"History"}));fireEvent.click(screen.getByRole("button",{name:"old query"}));expect(screen.getByRole("combobox")).toHaveValue("old query");expect(launchApplication).not.toHaveBeenCalled();});
 it("forwards the query only with the launch and reports accepted-launch history failures",async()=>{vi.mocked(launchApplication).mockResolvedValue({warning:"Application opened, but history could not be saved"});render(<SearchPanel/>);await screen.findByText("Notes");const input=screen.getByRole("combobox");fireEvent.change(input,{target:{value:"notes"}});await screen.findByText("Notes");fireEvent.keyDown(input,{key:"Enter"});await waitFor(()=>expect(launchApplication).toHaveBeenCalledExactlyOnceWith("app:notes","notes"));expect(await screen.findByRole("alert")).toHaveTextContent("Application opened, but history could not be saved");});
+
+it("refreshes a reused panel without discarding its query or current selection",async()=>{
+ let shown!:(sequence:number)=>void;
+ vi.mocked(onPanelShown).mockImplementation(async callback=>{shown=callback;return()=>{};});
+ render(<SearchPanel/>);await screen.findByText("Notes");await act(async()=>shown(1));
+ const input=screen.getByRole("combobox");fireEvent.change(input,{target:{value:"not"}});
+ await waitFor(()=>expect(searchApplications).toHaveBeenLastCalledWith("not",false));
+ await waitFor(()=>expect(screen.getAllByRole("option")).toHaveLength(2));
+ fireEvent.keyDown(input,{key:"ArrowDown"});
+ const before=vi.mocked(searchApplications).mock.calls.length;
+ vi.mocked(searchApplications).mockResolvedValue(reply([row("Updated Notes","app:notes"),row("Updated Terminal","app:terminal")]));
+ await act(async()=>shown(2));
+ await waitFor(()=>expect(searchApplications).toHaveBeenCalledTimes(before+1));
+ expect(searchApplications).toHaveBeenLastCalledWith("not",false);
+ await act(async()=>shown(2));expect(searchApplications).toHaveBeenCalledTimes(before+1);
+ expect(input).toHaveValue("not");expect(input).toHaveFocus();
+ expect(await screen.findByText("Updated Terminal")).toBeInTheDocument();
+ expect(screen.getAllByRole("option")[1]).toHaveAttribute("aria-selected","true");
+});

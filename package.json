@@ -45,7 +45,8 @@
     "extensions:parity": "node scripts/check-extension-parity.mjs",
     "smoke:extensions": "node scripts/test-extension-host.mjs",
     "smoke:extension-ui": "node scripts/test-isolated-x11.mjs --extensions-only",
-    "extensions-ui:parity": "node scripts/check-extension-ui-parity.mjs"
+    "extensions-ui:parity": "node scripts/check-extension-ui-parity.mjs",
+    "benchmark:launch": "node scripts/test-isolated-x11.mjs --launch-benchmark"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",

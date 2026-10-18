@@ -18,6 +18,7 @@ mod process_x11;
 mod resident;
 mod search_command;
 mod settings;
+mod startup;
 use serde::Serialize;
 use tauri::Manager;
 
@@ -35,6 +36,7 @@ struct AppInfo {
 
 #[tauri::command]
 fn get_app_info() -> AppInfo {
+    startup::mark("frontend-identity");
     AppInfo {
         name: "Asaaan Launcher",
         version: env!("CARGO_PKG_VERSION"),
@@ -61,6 +63,7 @@ fn smoke_test_requested() -> bool {
 // CP002 smoke completion waits for the search view, not only the identity reply.
 #[tauri::command]
 fn frontend_ready(app: tauri::AppHandle) {
+    startup::mark("frontend-ready");
     if let Some(panel) = app.try_state::<panel::Panel>() {
         panel.send(asaaan_lifecycle::Packet::Ready);
     }
@@ -122,6 +125,7 @@ fn search_ready(
 }
 
 pub fn run() {
+    startup::mark("process-entry");
     if let Some(code) = search_command::start() {
         std::process::exit(code);
     }
@@ -198,6 +202,7 @@ pub fn run() {
             applications::change_personalization
         ])
         .setup(move |app| {
+            startup::mark("tauri-setup");
             if resident_mode {
                 if std::env::args().any(|a| a == "--quit") {
                     app.handle().exit(0);
@@ -212,6 +217,7 @@ pub fn run() {
                 {
                     window = window.data_directory(profile.path().to_path_buf());
                 }
+                startup::mark("window-build-start");
                 window
                     .incognito(picker_mode)
                     .initialization_script(if picker_mode {
@@ -237,6 +243,7 @@ pub fn run() {
                     .visible(!managed)
                     .always_on_top(managed && !settings_mode)
                     .build()?;
+                startup::mark("window-built");
                 if managed {
                     panel::setup(app)?;
                 }
