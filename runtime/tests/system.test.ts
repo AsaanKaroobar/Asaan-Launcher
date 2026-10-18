@@ -12,7 +12,7 @@ import path from "node:path";
 import * as api from "../api/index";
 import { isLent } from "../api/oauth";
 import { ctx, handleReply, handleReplyChunk } from "../bridge";
-import { createLocalStorage } from "../local-storage";
+import { createLocalStorage, closeLocalStorage } from "../local-storage";
 import { installRuntime, sent } from "./support";
 
 const runtime = installRuntime("system-tests");
@@ -369,18 +369,22 @@ describe("LocalStorage", () => {
     try {
       expect(JSON.parse((database.prepare("select value from items where key = 'kept'").get() as { value: string }).value)).toBe("yes");
     } finally {
-      database.close();
+      database.close(true);
     }
   });
 
   test("a former file that cannot be read is moved aside, and the database keeps what it has", async () => {
     fs.writeFileSync(path.join(runtime.supportPath, "local-storage.json"), "{not json");
     const opened = createLocalStorage(() => path.join(runtime.supportPath, "local-storage.sqlite"));
-    expect(await opened.getItem("kept")).toBe("yes");
-    await opened.setItem("fresh", "start");
-    expect(await opened.getItem("fresh")).toBe("start");
-    const aside = fs.readdirSync(runtime.supportPath).filter((name) => name.includes(".unreadable-"));
-    expect(aside).toHaveLength(1);
+    try {
+      expect(await opened.getItem("kept")).toBe("yes");
+      await opened.setItem("fresh", "start");
+      expect(await opened.getItem("fresh")).toBe("start");
+      const aside = fs.readdirSync(runtime.supportPath).filter((name) => name.includes(".unreadable-"));
+      expect(aside).toHaveLength(1);
+    } finally {
+      await closeLocalStorage(opened);
+    }
   });
 });
 

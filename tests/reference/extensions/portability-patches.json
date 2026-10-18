@@ -83,5 +83,26 @@
     "after": "afterAll(async () => {\n    await closeLocalStorage(LocalStorage);\n    setSink();",
     "reason": "Close the shared API SQLite handle before removing its Windows support folder.",
     "count": 1
+  },
+  {
+    "source": "runtime/tests/system.test.ts",
+    "before": "import { createLocalStorage } from \"../local-storage\";",
+    "after": "import { createLocalStorage, closeLocalStorage } from \"../local-storage\";",
+    "reason": "Dispose the independent storage opened by the API migration fixture.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/system.test.ts",
+    "before": "database.close();",
+    "after": "database.close(true);",
+    "reason": "Finalize the read-only API fixture’s prepared statement before Windows directory cleanup.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/system.test.ts",
+    "before": "    expect(await opened.getItem(\"kept\")).toBe(\"yes\");\n    await opened.setItem(\"fresh\", \"start\");\n    expect(await opened.getItem(\"fresh\")).toBe(\"start\");\n    const aside = fs.readdirSync(runtime.supportPath).filter((name) => name.includes(\".unreadable-\"));\n    expect(aside).toHaveLength(1);",
+    "after": "    try {\n      expect(await opened.getItem(\"kept\")).toBe(\"yes\");\n      await opened.setItem(\"fresh\", \"start\");\n      expect(await opened.getItem(\"fresh\")).toBe(\"start\");\n      const aside = fs.readdirSync(runtime.supportPath).filter((name) => name.includes(\".unreadable-\"));\n      expect(aside).toHaveLength(1);\n    } finally {\n      await closeLocalStorage(opened);\n    }",
+    "reason": "Keep every migration assertion and release the fixture-owned SQLite handle even if an assertion fails.",
+    "count": 1
   }
 ]
