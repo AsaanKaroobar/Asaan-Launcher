@@ -243,14 +243,14 @@ pub fn run() {
                     .min_inner_size(480.0, 420.0)
                     .decorations(settings_mode || picker_mode)
                     .center()
-                    .visible(false)
+                    .visible(picker_mode)
                     .always_on_top(managed && !settings_mode)
                     .build()?;
                 if !settings_mode && !picker_mode {
                     app.manage(placement::BorderlessLauncher);
                 }
                 startup::mark("window-built");
-                if !managed {
+                if !managed && !picker_mode {
                     placement::center_on_focused_monitor(&native_window)?;
                     native_window.show()?;
                 }
