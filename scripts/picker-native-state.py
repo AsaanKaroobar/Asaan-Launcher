@@ -14,6 +14,8 @@ def visit(node,depth=0):
    if text:
     result['query']=Atspi.Text.get_text(text,0,-1)
     result['caret']=Atspi.Text.get_caret_offset(text)
+    bounds=Atspi.Component.get_extents(node.get_component_iface(),Atspi.CoordType.SCREEN)
+    result['fieldBounds']=[bounds.x,bounds.y,bounds.width,bounds.height]
     result['focused']=node.get_state_set().contains(Atspi.StateType.FOCUSED)
   if node.get_state_set().contains(Atspi.StateType.SELECTED):result['selected'].append(name)
   if name:result['text'].append(name)

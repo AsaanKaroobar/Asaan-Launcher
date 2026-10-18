@@ -1,7 +1,8 @@
 /* Geometry adapted from Floe © 2026 René Jiménez (AGPLv3) and Thaw
  * © 2026 Toni Förster (GPLv3). Cross-platform material approximation. */
 :root:not([data-theme="legacy"]) {color-scheme:dark;--muted:#aaaab0;--line:#ffffff18;--accent:#d9d9df;--text:#f2f2f5;color:var(--text);background:#242428;}
-:root:not([data-theme="legacy"]) .launcher {grid-template-rows:minmax(0,1fr);background:linear-gradient(150deg,#303034,#242428 65%);border:1px solid #ffffff30;border-radius:24px;overflow:hidden;}
+:root:not([data-theme="legacy"]) .launcher:not(.picker) {grid-template-rows:minmax(0,1fr);}
+:root:not([data-theme="legacy"]) .launcher {background:linear-gradient(150deg,#303034,#242428 65%);border:1px solid #ffffff30;border-radius:24px;overflow:hidden;}
 :root:not([data-theme="legacy"]) .search-panel {padding-top:12px;}
 :root:not([data-theme="legacy"]) .search-field {flex:0 0 43px;margin:0 12px 10px;padding:0 14px;gap:10px;border:1px solid #ffffff36;border-radius:22px;background:#ffffff0b;}
 :root:not([data-theme="legacy"]) .search-field:focus-within {border-color:#ffffff65;}
