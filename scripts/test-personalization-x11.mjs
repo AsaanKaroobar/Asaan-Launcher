@@ -14,7 +14,7 @@ const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function until(check,message){const end=Date.now()+15000;while(!(await check())){if(Date.now()>end)throw Error(message+'\n'+log);await delay(30);}}
 async function saved(){try{return JSON.parse(await fs.readFile(storage,'utf8'));}catch(e){if(e.code==='ENOENT')return null;throw e;}}
 async function key(...keys){await run('python3',[python,'keys',...keys]);}
-async function tabs(count){for(let index=0;index<count;index++)await key('Tab');}
+async function click(name){const pid=[...log.matchAll(/ASAAAN_LIFECYCLE Started\((\d+)\)/g)].at(-1)[1];await run('/usr/bin/python3',[new URL('scripts/settings-native-state.py',root).pathname,'click',pid,name]);}
 async function text(value){await run('python3',[python,'text',value]);}
 let resident,fixture,log='';const cycles=[];
 async function stop(){if(resident?.exitCode===null){await run(binary,['--quit']);await until(()=>resident.exitCode!==null,'Resident did not quit');}}
@@ -33,10 +33,10 @@ try{
   await delay(250);
   if(cycle<=2){await key('Control_L','Shift_L','f');await until(async()=>{const state=await saved();return state&&state.favorites.includes(id)===(cycle===1);},'Native favorite change was not saved');}
   if(cycle===3){
-   // Input -> Clear -> History. Open the popover, then Refresh -> Customize -> Close -> checkbox.
-   await tabs(2);await key('Return');await tabs(4);await key('space');
+   // Use named accessible actions so both launcher themes exercise the same behavior.
+   await click('Search tools');await click('History');await click('Remember searches');
    await until(async()=>(await saved())?.rememberSearches===false,'History opt-out was not persisted');await delay(150);await key('Escape');
-   await tabs(2);await key('Return');await tabs(6);await key('Return');
+   await click('Search tools');await click('History');await click('Clear search history');
    await until(async()=>(await saved())?.queries.length===0,'History clear was not persisted');await key('Escape');
   }
   await key('Return');

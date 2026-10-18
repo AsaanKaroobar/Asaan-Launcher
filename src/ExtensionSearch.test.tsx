@@ -2,8 +2,8 @@ import {act,fireEvent,render,screen,waitFor} from "@testing-library/react";
 import {beforeEach,expect,it,vi} from "vitest";
 import SearchPanel from "./SearchPanel";
 import {extensionExchange,type ExtensionSnapshot,type ExtensionView} from "./extension-native";
-import {launchApplication,searchApplications,applicationProcessOptions} from "./native";
-vi.mock("./native",()=>({applicationProcessOptions:vi.fn().mockResolvedValue({actions:[],notice:null}),confirmPanelPresented:vi.fn().mockResolvedValue(undefined),hidePanel:vi.fn().mockResolvedValue(undefined),onPanelShown:vi.fn().mockResolvedValue(()=>{}),reportSearchReady:vi.fn(),searchReferenceCatalog:vi.fn(),applicationIcon:vi.fn().mockResolvedValue(null),searchApplications:vi.fn(),launchApplication:vi.fn(),reportApplicationLaunched:vi.fn(),changePersonalization:vi.fn()}));
+import {launchApplication,searchApplications,applicationProcessOptions,onPanelShown,readLauncherTheme} from "./native";
+vi.mock("./native",()=>({readLauncherTheme:vi.fn().mockResolvedValue("floe"),applicationProcessOptions:vi.fn().mockResolvedValue({actions:[],notice:null}),confirmPanelPresented:vi.fn().mockResolvedValue(undefined),hidePanel:vi.fn().mockResolvedValue(undefined),onPanelShown:vi.fn().mockResolvedValue(()=>{}),reportSearchReady:vi.fn(),searchReferenceCatalog:vi.fn(),applicationIcon:vi.fn().mockResolvedValue(null),searchApplications:vi.fn(),launchApplication:vi.fn(),reportApplicationLaunched:vi.fn(),changePersonalization:vi.fn()}));
 vi.mock("./extension-native",()=>({extensionExchange:vi.fn()}));
 const view:ExtensionView={token:1,revision:1,commandId:"command:list-lab/planets",title:"Browse Planets",screen:1,kind:"List",query:"mars",placeholder:"Search planets",loading:false,selected:0,rows:[{id:5,revision:1,title:"Mars",subtitle:null,section:null,icon:null,accessories:[]}],actions:[],emptyTitle:"No results",emptyDescription:null,failure:null,toast:null};
 const snapshot=(active:ExtensionView|null):ExtensionSnapshot=>({active,commands:[]});
@@ -31,4 +31,13 @@ it("shows a native string activation error and keeps the root query for retry",a
 it("command actions do not request application process controls",async()=>{
  render(<SearchPanel/>);await screen.findByText("Browse Planets");fireEvent.keyDown(screen.getByRole("combobox"),{key:"k",ctrlKey:true});
  await screen.findByRole("menu");expect(applicationProcessOptions).not.toHaveBeenCalled();
+});
+
+it("retained extensions pick up the resident theme on presentation without restarting",async()=>{
+ vi.mocked(extensionExchange).mockResolvedValue(snapshot(view));vi.mocked(readLauncherTheme).mockResolvedValue("legacy");
+ render(<SearchPanel/>);await screen.findByRole("combobox",{name:"Search extension"});
+ await act(async()=>vi.mocked(onPanelShown).mock.calls[0][0](2));
+ await waitFor(()=>expect(document.documentElement.dataset.theme).toBe("legacy"));
+ expect(readLauncherTheme).toHaveBeenCalledOnce();expect(screen.getByRole("combobox",{name:"Search extension"})).toHaveValue("mars");
+ expect(vi.mocked(extensionExchange).mock.calls.every(([op])=>op.kind==="read")).toBe(true);
 });

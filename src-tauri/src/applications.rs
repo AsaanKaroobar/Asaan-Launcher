@@ -7,6 +7,7 @@ use tauri::Manager;
 pub struct ApplicationReply {
     #[serde(flatten)]
     catalog: asaaan_apps::SearchReply,
+    theme: asaaan_personalization::Theme,
     favorites: Vec<String>,
     queries: Vec<String>,
     remember_searches: bool,
@@ -30,12 +31,27 @@ pub(crate) fn preferences(
 #[derive(serde::Deserialize)]
 #[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
 pub enum PersonalizationChange {
-    Favorite { id: String, enabled: bool },
+    Favorite {
+        id: String,
+        enabled: bool,
+    },
     ClearQueries,
-    RememberSearches { enabled: bool },
-    Alias { id: String, alias: String },
-    Hide { id: String },
-    Restore { id: String },
+    Theme {
+        theme: asaaan_personalization::Theme,
+    },
+    RememberSearches {
+        enabled: bool,
+    },
+    Alias {
+        id: String,
+        alias: String,
+    },
+    Hide {
+        id: String,
+    },
+    Restore {
+        id: String,
+    },
 }
 impl PersonalizationChange {
     fn resolve(self, store: &Store) -> Result<Operation, String> {
@@ -68,6 +84,7 @@ impl PersonalizationChange {
             }
             PersonalizationChange::Restore { id } => Operation::Restore { id },
             PersonalizationChange::ClearQueries => Operation::ClearQueries,
+            PersonalizationChange::Theme { theme } => Operation::Theme { theme },
             PersonalizationChange::RememberSearches { enabled } => {
                 Operation::RememberSearches { enabled }
             }
@@ -87,6 +104,19 @@ pub async fn change_personalization(
     tauri::async_runtime::spawn_blocking(move || preferences(&app, operation))
         .await
         .map_err(|e| e.to_string())?
+}
+#[tauri::command]
+pub async fn read_launcher_theme(
+    app: tauri::AppHandle,
+) -> Result<asaaan_personalization::Theme, String> {
+    let _lease = app
+        .try_state::<crate::panel::Panel>()
+        .map(|p| p.work.begin());
+    tauri::async_runtime::spawn_blocking(move || {
+        preferences(&app, Operation::Read).map(|s| s.theme)
+    })
+    .await
+    .map_err(|e| e.to_string())?
 }
 #[derive(Default)]
 pub struct Launched(pub Mutex<Option<String>>);
@@ -143,6 +173,7 @@ pub async fn search_applications(
         }
         Ok(ApplicationReply {
             catalog,
+            theme: snapshot.theme,
             favorites: snapshot.favorites,
             queries: snapshot.queries,
             remember_searches: snapshot.remember_searches,

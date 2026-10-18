@@ -12,6 +12,13 @@ pub struct Record {
     pub count: u64,
     pub last_used: u64,
 }
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum Theme {
+    #[default]
+    Floe,
+    Legacy,
+}
 fn yes() -> bool {
     true
 }
@@ -19,6 +26,8 @@ fn yes() -> bool {
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Snapshot {
     pub version: u32,
+    #[serde(default)]
+    pub theme: Theme,
     #[serde(default)]
     pub favorites: Vec<String>,
     #[serde(default)]
@@ -36,6 +45,7 @@ impl Default for Snapshot {
     fn default() -> Self {
         Self {
             version: 2,
+            theme: Theme::default(),
             favorites: vec![],
             records: HashMap::new(),
             queries: vec![],
@@ -52,6 +62,7 @@ pub enum Operation {
     Favorite { id: String, enabled: bool },
     RecordLaunch { id: String, query: String },
     ClearQueries,
+    Theme { theme: Theme },
     RememberSearches { enabled: bool },
     Alias { id: String, alias: String },
     Hide { id: String, title: String },
@@ -140,6 +151,7 @@ impl Snapshot {
     pub fn apply(&mut self, operation: &Operation, at: u64) -> Result<(), String> {
         match operation {
             Operation::Read => {}
+            Operation::Theme { theme } => self.theme = *theme,
             Operation::Favorite { id, enabled } => {
                 if !valid_id(id) {
                     return Err("Invalid application identity".into());

@@ -8,6 +8,7 @@ mod extensions;
 mod force_confirmation;
 mod panel;
 mod picker;
+mod placement;
 mod process_actions;
 #[cfg(any(target_os = "linux", target_os = "windows", test))]
 mod process_wait;
@@ -199,6 +200,7 @@ pub fn run() {
             application_actions::application_action,
             process_actions::application_process_options,
             process_actions::application_process_action,
+            applications::read_launcher_theme,
             applications::change_personalization
         ])
         .setup(move |app| {
@@ -218,7 +220,7 @@ pub fn run() {
                     window = window.data_directory(profile.path().to_path_buf());
                 }
                 startup::mark("window-build-start");
-                window
+                let native_window = window
                     .incognito(picker_mode)
                     .initialization_script(if picker_mode {
                         "window.__ASAAAN_PICKER__ = true;"
@@ -239,11 +241,19 @@ pub fn run() {
                         if settings_mode { 640.0 } else { 474.0 },
                     )
                     .min_inner_size(480.0, 420.0)
+                    .decorations(settings_mode || picker_mode)
                     .center()
-                    .visible(!managed)
+                    .visible(false)
                     .always_on_top(managed && !settings_mode)
                     .build()?;
+                if !settings_mode && !picker_mode {
+                    app.manage(placement::BorderlessLauncher);
+                }
                 startup::mark("window-built");
+                if !managed {
+                    placement::center_on_focused_monitor(&native_window)?;
+                    native_window.show()?;
+                }
                 if managed {
                     panel::setup(app)?;
                 }

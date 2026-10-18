@@ -218,7 +218,7 @@ impl Panel {
             .get_webview_window("main")
             .ok_or("Panel window missing")?;
         crate::startup::mark("presentation-start");
-        window.center().map_err(|e| e.to_string())?;
+        crate::placement::center_on_focused_monitor(&window).map_err(|e| e.to_string())?;
         window.show().map_err(|e| e.to_string())?;
         window.set_focus().map_err(|e| e.to_string())?;
         crate::activation::activate(&window).map_err(|e| e.to_string())?;

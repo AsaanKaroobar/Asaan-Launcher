@@ -22,3 +22,20 @@ it("anEditWaitingToBeSavedSurvivesAReload",async()=>{await setup();applications(
 it("lateReadCannotReplaceAcknowledgedMutation",async()=>{await setup();let finish!:(s:SettingsView)=>void;vi.mocked(readSettings).mockReturnValue(new Promise(r=>{finish=r;}));fireEvent(window,new Event("focus"));vi.mocked(saveSettings).mockResolvedValue({...snapshot(),rememberSearches:false});fireEvent.click(screen.getByRole("checkbox"));await waitFor(()=>expect(screen.getByRole("checkbox")).not.toBeChecked());await act(async()=>finish(view()));expect(screen.getByRole("checkbox")).not.toBeChecked();});
 it("pageNavigationIsReportedAndNativeReopenFocusesSettings",async()=>{await setup();applications();expect(reportSettingsPage).toHaveBeenCalledWith("applications");const [shown,page]=vi.mocked(connectSettings).mock.calls[0];await act(async()=>{page("general");shown(42);});expect(confirmSettingsShown).toHaveBeenCalledWith(42,true);expect(screen.getByRole("heading",{level:1})).toHaveTextContent("General");});
 it("closingAndKeyboardCloseUseNativeSettingsLifecycle",async()=>{await setup();fireEvent.click(screen.getByRole("button",{name:"Close settings"}));expect(closeSettings).toHaveBeenCalledTimes(1);fireEvent.keyDown(window,{key:"w",ctrlKey:true});expect(closeSettings).toHaveBeenCalledTimes(2);});
+
+it("theme changes wait for native acknowledgement and survive a reload",async()=>{
+ await setup();const choice=screen.getByRole("combobox",{name:"Launcher theme"});expect(choice).toHaveValue("floe");
+ let finish!:(s:ReturnType<typeof snapshot>&{theme:"legacy"})=>void;
+ vi.mocked(saveSettings).mockReturnValue(new Promise(r=>{finish=r;}));
+ fireEvent.change(choice,{target:{value:"legacy"}});expect(choice).toHaveValue("floe");expect(choice).toBeDisabled();
+ expect(saveSettings).toHaveBeenCalledWith({kind:"theme",theme:"legacy"});
+ await act(async()=>finish({...snapshot(),theme:"legacy"}));expect(choice).toHaveValue("legacy");expect(document.documentElement.dataset.theme).toBe("legacy");
+ vi.mocked(readSettings).mockResolvedValue({...view(),snapshot:{...snapshot(),theme:"legacy"}});
+ fireEvent(window,new Event("focus"));await waitFor(()=>expect(choice).not.toBeDisabled());expect(choice).toHaveValue("legacy");
+});
+it("failed theme persistence keeps the acknowledged appearance",async()=>{
+ await setup();vi.mocked(saveSettings).mockRejectedValueOnce("Disk full");
+ fireEvent.change(screen.getByRole("combobox",{name:"Launcher theme"}),{target:{value:"legacy"}});
+ expect(await screen.findByRole("alert")).toHaveTextContent("Disk full");
+ expect(screen.getByRole("combobox",{name:"Launcher theme"})).toHaveValue("floe");
+});

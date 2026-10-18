@@ -1,3 +1,4 @@
+import {applyTheme} from "./theme";
 import {useCallback,useEffect,useRef,useState} from "react";
 import {closeSettings,confirmSettingsShown,connectSettings,readSettings,reportSettingsPage,saveSettings,type SettingsPage,type SettingsView} from "./settings-native";
 import type {PersonalizationChange} from "./native";
@@ -34,6 +35,7 @@ export default function Settings(){
   catch(e){if(alive.current)setError(message(e));return false;}
   finally{saving.current=false;if(alive.current)setBusy(false);}
  }
+ useEffect(()=>{if(view)applyTheme(view.snapshot.theme);},[view]);
  const snapshot=view?.snapshot,aliases=snapshot?.aliases??{},hidden=snapshot?.hiddenResults??{};
  const applications=view?.applications.filter(a=>(a.name+" "+a.id+" "+(aliases[a.id]??"")).toLocaleLowerCase().includes(filter.toLocaleLowerCase()))??[];
  return <main className="settings-shell" aria-labelledby="settings-title">
@@ -44,6 +46,7 @@ export default function Settings(){
     {view?.warning&&<p role="status" className="settings-warning">{view.warning}</p>}
     {!view&&!error&&<p role="status">Loading settings…</p>}
     {snapshot&&page==="general"&&<>
+     <section className="settings-card"><h2>Appearance</h2><label className="theme-choice">Launcher theme<select aria-label="Launcher theme" value={snapshot.theme??"floe"} disabled={busy} onChange={e=>{void change({kind:"theme",theme:e.target.value==="legacy"?"legacy":"floe"});}}><option value="floe">Floe</option><option value="legacy">Legacy</option></select></label><p className="settings-note">Floe uses the reference launcher layout. Legacy keeps the original Asaaan design.</p></section>
      <section className="settings-card" aria-labelledby="history-heading"><h2 id="history-heading">Search history</h2><label className="settings-toggle"><span><strong>Remember searches</strong><small>Save searches locally when you open an application.</small></span><input type="checkbox" checked={snapshot.rememberSearches} disabled={busy} onChange={e=>{void change({kind:"rememberSearches",enabled:e.target.checked});}}/></label><p className="settings-note">Turning this off keeps existing history. Application usage and favorites are managed separately.</p><div className="settings-card-footer"><span>{snapshot.queries.length} recent searches</span><button disabled={busy||!snapshot.queries.length} onClick={()=>{void change({kind:"clearQueries"});}}>Clear search history</button></div>{snapshot.queries.length>0&&<ul className="settings-history">{[...snapshot.queries].reverse().map(query=><li key={query}>{query}</li>)}</ul>}</section>
      <section className="settings-card"><h2>Application preferences</h2><p>Set short aliases for applications and choose which applications appear in search.</p><button onClick={()=>selectPage("applications")}>Manage applications</button></section>
     </>}

@@ -21,8 +21,8 @@ else:
  for node,value in nodes:
   if value['name']!=name and not value['name'].startswith(name):continue
   if mode=='click-exact' and (value['name']!=name or value['role']!='push button'):continue
-  if mode=='focus' and value['editable']:
-   Atspi.Component.grab_focus(node.get_component_iface());found=True;break
+  if (mode=='focus-control' and value['role']=='combo box') or (mode=='focus' and value['editable']):
+   if Atspi.Component.grab_focus(node.get_component_iface()):found=True;break
   if mode in ['click','click-exact']:
    if context:
     parent=node.get_parent();matches=False

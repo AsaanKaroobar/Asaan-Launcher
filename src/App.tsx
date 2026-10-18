@@ -1,3 +1,4 @@
+import {useTheme} from "./theme";
 import Settings from "./Settings";
 import {openSettings} from "./settings-native";
 import Picker from "./Picker";
@@ -5,6 +6,7 @@ import SearchPanel from "./SearchPanel";
 import { useEffect, useState } from "react";
 import { hidePanel, loadAppInfo, reportFrontendReady, type AppInfo } from "./native";
 import "./App.css";
+import "./floe.css";
 
 type Connection =
   | { state: "connecting" }
@@ -17,6 +19,7 @@ const platformNames: Record<string, string> = { linux: "Linux", macos: "macOS", 
 export default function App() { return window.__ASAAAN_PICKER__ ? <Picker/> : window.__ASAAAN_SETTINGS__ ? <Settings/> : <Launcher/>; }
 
 function Launcher() {
+  const theme=useTheme();
   const [connection, setConnection] = useState<Connection>({ state: "connecting" });
   const [attempt, setAttempt] = useState(0);
 
@@ -44,11 +47,11 @@ function Launcher() {
 
   return (
     <main className="launcher" aria-labelledby="app-title">
-      <header className="topbar">
+      {theme==="legacy"&&<header className="topbar">
         <span className="wordmark">asaaan<span aria-hidden="true">.</span></span>
         <span className="product-type">Launcher</span>
         {connection.state === "connected" && <><span className="shortcut-hint">{connection.info.shortcut ?? "Ctrl+Alt+Space"}</span><button className="open-settings" onClick={()=>{void openSettings().catch((error:unknown)=>setConnection({state:"error",message:String(error)}));}}>Settings</button><button className="hide-panel" aria-label="Hide launcher" onClick={() => { void hidePanel().catch((error: unknown) => setConnection({ state: "error", message: String(error) })); }}>×</button></>}
-      </header>
+      </header>}
       {connection.state === "connected" ? <><h1 id="app-title" className="sr-only">Asaaan Launcher</h1><SearchPanel smokeTest={connection.info.smokeTest} applicationSmoke={connection.info.applicationSmoke} /></> : <section className="welcome">
         <span className="app-mark" aria-hidden="true">a</span>
         <h1 id="app-title">Asaaan Launcher</h1>
@@ -60,7 +63,7 @@ function Launcher() {
           {connection.state === "error" && <><span className="status-label error">Connection unavailable</span><span className="status-detail">{connection.message}</span><button onClick={() => setAttempt((value) => value + 1)}>Try again</button></>}
         </div>
       </section>}
-      <footer><span role={connection.state === "connected" ? "status" : undefined}>{connection.state === "connected" ? "Native connection ready · " + (platformNames[connection.info.platform] ?? connection.info.platform) : "Desktop connection"}</span><span>{connection.state === "connected" ? connection.info.version : "Asaaan Launcher"}</span></footer>
+      {theme==="legacy"&&<footer><span role={connection.state === "connected" ? "status" : undefined}>{connection.state === "connected" ? "Native connection ready · " + (platformNames[connection.info.platform] ?? connection.info.platform) : "Desktop connection"}</span><span>{connection.state === "connected" ? connection.info.version : "Asaaan Launcher"}</span></footer>}
     </main>
   );
 }

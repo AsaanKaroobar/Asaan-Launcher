@@ -51,6 +51,9 @@ jobs:
       - name: Linux - Native rendering, activation and parent EOF
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: node scripts/test-isolated-x11.mjs --smoke-only
+      - name: Linux - Appearance and placement
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/test-isolated-x11.mjs --appearance-only
       - name: Linux - Personalization
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run smoke:personalization

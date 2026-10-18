@@ -58,10 +58,12 @@ export async function confirmPanelPresented(sequence: number, focused: boolean):
   if (isTauri()) await invoke("panel_presented", {sequence, focused});
 }
 
-export interface Personalization { favorites: string[]; queries: string[]; rememberSearches: boolean; aliases?:Record<string,string>;hiddenResults?:Record<string,string> }
-export type PersonalizationChange = {kind:"favorite";id:string;enabled:boolean}|{kind:"clearQueries"}|{kind:"rememberSearches";enabled:boolean}|{kind:"alias";id:string;alias:string}|{kind:"hide";id:string}|{kind:"restore";id:string};
+export const readLauncherTheme=()=>invoke<Theme>("read_launcher_theme");
+export type Theme = "floe" | "legacy";
+export interface Personalization { theme?:Theme; favorites: string[]; queries: string[]; rememberSearches: boolean; aliases?:Record<string,string>;hiddenResults?:Record<string,string> }
+export type PersonalizationChange = {kind:"theme";theme:Theme}| {kind:"favorite";id:string;enabled:boolean}|{kind:"clearQueries"}|{kind:"rememberSearches";enabled:boolean}|{kind:"alias";id:string;alias:string}|{kind:"hide";id:string}|{kind:"restore";id:string};
 export async function changePersonalization(operation:PersonalizationChange):Promise<Personalization>{return invoke("change_personalization",{operation});}
-export interface ApplicationSearch { commandTotal?:number; rows: SearchResult[]; total: number; generation: number; warning: string | null; favorites?:string[];queries?:string[];rememberSearches?:boolean;aliases?:Record<string,string>;hiddenResults?:Record<string,string> }
+export interface ApplicationSearch { theme?:Theme; commandTotal?:number; rows: SearchResult[]; total: number; generation: number; warning: string | null; favorites?:string[];queries?:string[];rememberSearches?:boolean;aliases?:Record<string,string>;hiddenResults?:Record<string,string> }
 export async function searchApplications(query: string, refresh = false): Promise<ApplicationSearch> {
   if (!isTauri()) throw new Error("Applications are available in the native desktop app.");
   return invoke("search_applications", {query, refresh});

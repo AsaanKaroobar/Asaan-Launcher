@@ -14,6 +14,7 @@ if(process.argv.includes('--session')){
  try{
   await wait(async()=>{if(wm.exitCode!==null)throw Error('Isolated window manager failed: '+log);try{return (await run('xprop',['-root','_NET_SUPPORTING_WM_CHECK'])).stdout.includes('window id # 0x');}catch{return false;}},'Window manager did not become ready: '+log);
   if(process.argv.includes('--launch-benchmark'))await execute(process.execPath,[path.join(root,'scripts/benchmark-launch-x11.mjs'),...process.argv.slice(2).filter(arg=>arg!=='--session'&&arg!=='--launch-benchmark')],{cwd:root});
+  else if(process.argv.includes('--appearance-only'))await execute(process.execPath,[path.join(root,'scripts/test-appearance-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--extensions-only'))await execute(process.execPath,[path.join(root,'scripts/test-extension-ui-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--process-controls-only'))await execute(process.execPath,[path.join(root,'scripts/test-process-controls-x11.mjs')],{cwd:root});
   else if(process.argv.includes('--process-only'))await execute(process.execPath,[path.join(root,'scripts/test-process-x11.mjs')],{cwd:root});
