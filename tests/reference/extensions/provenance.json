@@ -202,7 +202,7 @@
       "source": "runtime/local-storage.ts",
       "file": "frozen/runtime/local-storage.ts",
       "sha256": "747347e7b98bf45f463e3efb8da5674ecb5e2bfaac4d992381d566bbe708b1f4",
-      "portedSha256": "747347e7b98bf45f463e3efb8da5674ecb5e2bfaac4d992381d566bbe708b1f4",
+      "portedSha256": "67fc28973ad059aef59196ee6268836d6b35cb15594b4e19a605cd787cf3ee8a",
       "patch": "unchanged"
     },
     {
@@ -251,7 +251,7 @@
       "source": "runtime/access.ts",
       "file": "frozen/runtime/access.ts",
       "sha256": "71b38700e28253dfce32240c291f16a721ca144061db982ade8417cce4193072",
-      "portedSha256": "71b38700e28253dfce32240c291f16a721ca144061db982ade8417cce4193072",
+      "portedSha256": "84f16a6cd927ef4118ee228ca0ec49e2d43780dee4fcf0024826437e23418ea2",
       "patch": "unchanged"
     },
     {
@@ -272,7 +272,7 @@
       "source": "runtime/tests/support.ts",
       "file": "frozen/runtime/tests/support.ts",
       "sha256": "823d1f3a23409240d1467ea0977aed05466923dc19bcdf7823b474f7f60eac06",
-      "portedSha256": "823d1f3a23409240d1467ea0977aed05466923dc19bcdf7823b474f7f60eac06",
+      "portedSha256": "03f7ae4e334eba541e1a2b0f8ac40fada3b66766864640fd1d3c62e1acaffde0",
       "patch": "unchanged"
     },
     {
@@ -300,7 +300,7 @@
       "source": "runtime/tests/local-storage.test.ts",
       "file": "frozen/runtime/tests/local-storage.test.ts",
       "sha256": "fa504f172faad8e297b4b7fac01de2102c92439c7ac609d0ba47cf2ca90aac52",
-      "portedSha256": "fa504f172faad8e297b4b7fac01de2102c92439c7ac609d0ba47cf2ca90aac52",
+      "portedSha256": "543b7730a794f4cfbfb5e7c2e6624e21b4a87dc811921d26b59d659ac48607de",
       "patch": "unchanged"
     },
     {
@@ -321,14 +321,14 @@
       "source": "runtime/tests/cache.test.ts",
       "file": "frozen/runtime/tests/cache.test.ts",
       "sha256": "cb1ea42098306747217f956ec89048a1f22f5cad15974c3ccdc25aa11b1a259e",
-      "portedSha256": "3d5420a270e43e60342f360dbdaa42a7a8ae1544c03bf716d9044fa843909aeb",
+      "portedSha256": "ccaddbfca776cd2c2aca7c08c17eb84501706195d840d645bef68420647c6fa0",
       "patch": "Host path/name validation or test fixture executable/private data adaptation; original assertions retained."
     },
     {
       "source": "runtime/tests/build.test.ts",
       "file": "frozen/runtime/tests/build.test.ts",
       "sha256": "13e15ca6cbbc402b02b6f69b652a0aa8d5129e9caa09468dac103ad174f6abbe",
-      "portedSha256": "13e15ca6cbbc402b02b6f69b652a0aa8d5129e9caa09468dac103ad174f6abbe",
+      "portedSha256": "3592a6c663ad7957639efd733d44f28bb3d46fcf03003ebd19123e63db2c3194",
       "patch": "unchanged"
     },
     {
@@ -370,7 +370,7 @@
       "source": "runtime/tests/access.test.ts",
       "file": "frozen/runtime/tests/access.test.ts",
       "sha256": "b5d21dc24fc4d38ad574103736b246df7108830b27b8dc36242f7015ce67da9b",
-      "portedSha256": "b5d21dc24fc4d38ad574103736b246df7108830b27b8dc36242f7015ce67da9b",
+      "portedSha256": "1947ce6e02ff55427ec3fd14598e90d3c7d7b87306094fc23dc850fbd06a42ff",
       "patch": "unchanged"
     },
     {

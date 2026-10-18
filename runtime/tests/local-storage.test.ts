@@ -3,7 +3,13 @@ import { Database } from "bun:sqlite";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createLocalStorage, storagePersistence } from "../local-storage";
+import { createLocalStorage as openLocalStorage, closeLocalStorage, storagePersistence } from "../local-storage";
+const storages = new Set<ReturnType<typeof openLocalStorage>>();
+function createLocalStorage(file: () => string) {
+    const storage = openLocalStorage(file);
+    storages.add(storage);
+    return storage;
+}
 
 let folder: string;
 let file: string;
@@ -14,7 +20,9 @@ beforeEach(() => {
     file = path.join(folder, "local-storage.sqlite");
 });
 
-afterEach(() => {
+afterEach(async () => {
+    await Promise.all([...storages].map(closeLocalStorage));
+    storages.clear();
     Object.assign(storagePersistence, original);
     fs.rmSync(folder, { recursive: true, force: true });
 });
@@ -27,7 +35,7 @@ const onDisk = () => {
             (database.prepare("select key, value from items").all() as { key: string; value: string }[]).map(({ key, value }) => [key, JSON.parse(value)]),
         );
     } finally {
-        database.close();
+        database.close(true);
     }
 };
 
@@ -63,7 +71,7 @@ describe("LocalStorage", () => {
         const storage = createLocalStorage(() => file);
         await storage.setItem("kept", "yes");
         // The connection dies underneath, the way a killed process's would have: the write fails and nothing of it is kept.
-        database!.close();
+        database!.close(true);
         await expect(storage.setItem("lost", "x".repeat(4096))).rejects.toThrow();
         expect(await createLocalStorage(() => file).getItem("kept")).toBe("yes");
         expect(await createLocalStorage(() => file).getItem("lost")).toBeUndefined();
@@ -99,7 +107,7 @@ describe("LocalStorage", () => {
         expect(done).toBe(true);
         expect(await storage.getItem<number>("during")).toBe(1);
         expect(await storage.getItem("kept")).toBe("yes");
-        other.close();
+        other.close(true);
     });
 
     test("an import never covers a value written after the legacy file was read", async () => {
@@ -111,7 +119,7 @@ describe("LocalStorage", () => {
         raw.exec("CREATE TABLE IF NOT EXISTS items (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
         raw.exec("CREATE TABLE IF NOT EXISTS migration (done INTEGER NOT NULL)");
         raw.exec(`INSERT INTO items (key, value) VALUES ('key', '"newer"')`);
-        raw.close();
+        raw.close(true);
         expect(await storage.getItem("key")).toBe("newer");
         expect(onDisk()).toEqual({ key: "newer" });
         expect(fs.existsSync(path.join(folder, "local-storage.json"))).toBe(false);
@@ -131,7 +139,7 @@ describe("LocalStorage", () => {
         // One import, one claim: the marker holds a single row for INSERT OR IGNORE to have ignored.
         const raw = new Database(file);
         expect((raw.prepare("SELECT COUNT(*) AS count FROM migration").get() as { count: number }).count).toBe(1);
-        raw.close();
+        raw.close(true);
     });
 
     test("two processes that read the same legacy file import it once", async () => {

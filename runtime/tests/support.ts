@@ -13,7 +13,8 @@ import path from "node:path";
 import React, { useState } from "react";
 import { ctx, setSink } from "../bridge";
 import { dispatchEvent, render } from "../renderer";
-import { NavigationRoot } from "../api/index";
+import { NavigationRoot, LocalStorage } from "../api/index";
+import { closeLocalStorage } from "../local-storage";
 
 export type TreeNode = {
   id: number;
@@ -47,7 +48,8 @@ export function installRuntime(extensionName: string): { readonly supportPath: s
   beforeEach(() => {
     received.length = 0;
   });
-  afterAll(() => {
+  afterAll(async () => {
+    await closeLocalStorage(LocalStorage);
     setSink();
     fs.rmSync(runtime.supportPath, { recursive: true, force: true });
   });

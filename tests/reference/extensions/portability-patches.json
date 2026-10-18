@@ -1,0 +1,87 @@
+[
+  {
+    "source": "runtime/tests/access.test.ts",
+    "before": "childProcess.execSync(\"/usr/bin/true\");",
+    "after": "childProcess.execSync(JSON.stringify(process.execPath) + \" -e \" + JSON.stringify(\"\"));",
+    "reason": "Use the pinned runtime as the real portable subprocess instead of /usr/bin/true.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/access.test.ts",
+    "before": "const where = \"/\" + folder.split(\"/\").filter(Boolean).slice(0, 2).join(\"/\");",
+    "after": "const where = place(folder, []);",
+    "reason": "Path summarization is asserted independently above; this case checks recording and deduplication for the native temp folder.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/access.test.ts",
+    "before": "expect(all(\"programs\")).toContain(\"true\");",
+    "after": "expect(all(\"programs\")).toContain(path.basename(process.execPath));",
+    "reason": "Keep the real-subprocess recording assertion for the portable executable.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/access.test.ts",
+    "before": "expect(await util.promisify(viaModule.exec)(\"echo hi\")).toEqual({ stdout: \"hi\\n\", stderr: \"\" });",
+    "after": "const result = await util.promisify(viaModule.exec)(\"echo hi\");\n      expect({ ...result, stdout: result.stdout.replaceAll(\"\\r\\n\", \"\\n\") }).toEqual({ stdout: \"hi\\n\", stderr: \"\" });",
+    "reason": "Normalize cmd.exe CRLF while preserving the promisify object-shape/stdout/stderr assertion.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/access.test.ts",
+    "before": "util.promisify(viaModule.execFile)(\"/bin/echo\", [\"there\"])",
+    "after": "util.promisify(viaModule.execFile)(process.execPath, [\"-e\", \"process.stdout.write('there\\\\n')\"])",
+    "reason": "Use a portable executable that produces the same exact output.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/build.test.ts",
+    "before": "expect(code).toContain(path.dirname(require.resolve(\"react\")));",
+    "after": "expect(code).toContain(JSON.stringify(path.dirname(require.resolve(\"react\"))).slice(1, -1));",
+    "reason": "Compare the escaped JS-string representation of the same React directory on Windows.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/cache.test.ts",
+    "before": "test.each([\"SIGTERM\", \"SIGINT\", \"SIGHUP\"] as const)",
+    "after": "(process.platform === \"win32\" ? test.skip : test).each([\"SIGTERM\", \"SIGINT\", \"SIGHUP\"] as const)",
+    "reason": "POSIX signal delivery has no cooperative Windows equivalent; Windows runs the existing stdin-EOF flush test.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/local-storage.test.ts",
+    "before": "import { createLocalStorage, storagePersistence } from \"../local-storage\";",
+    "after": "import { createLocalStorage as openLocalStorage, closeLocalStorage, storagePersistence } from \"../local-storage\";\nconst storages = new Set<ReturnType<typeof openLocalStorage>>();\nfunction createLocalStorage(file: () => string) {\n    const storage = openLocalStorage(file);\n    storages.add(storage);\n    return storage;\n}",
+    "reason": "Track test-owned storage instances for explicit teardown; keep every original assertion.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/local-storage.test.ts",
+    "before": "afterEach(() => {\n    Object.assign(storagePersistence, original);",
+    "after": "afterEach(async () => {\n    await Promise.all([...storages].map(closeLocalStorage));\n    storages.clear();\n    Object.assign(storagePersistence, original);",
+    "reason": "Release SQLite connections before removing the fixture directory on Windows.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/local-storage.test.ts",
+    "before": ".close();",
+    "after": ".close(true);",
+    "all": true,
+    "reason": "Finalize prepared statements as well as connections before Windows fixture deletion.",
+    "count": 5
+  },
+  {
+    "source": "runtime/tests/support.ts",
+    "before": "import { NavigationRoot } from \"../api/index\";",
+    "after": "import { NavigationRoot, LocalStorage } from \"../api/index\";\nimport { closeLocalStorage } from \"../local-storage\";",
+    "reason": "Use internal teardown for the API storage owned by each test support folder.",
+    "count": 1
+  },
+  {
+    "source": "runtime/tests/support.ts",
+    "before": "afterAll(() => {\n    setSink();",
+    "after": "afterAll(async () => {\n    await closeLocalStorage(LocalStorage);\n    setSink();",
+    "reason": "Close the shared API SQLite handle before removing its Windows support folder.",
+    "count": 1
+  }
+]

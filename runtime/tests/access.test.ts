@@ -77,19 +77,19 @@ describe("recording", () => {
       await fs.promises.readFile(path.join(folder, "theirs.txt"));
       await fetch(`http://127.0.0.1:${port}/a`);
       await fetch(`http://127.0.0.1:${port}/b`);
-      childProcess.execSync("/usr/bin/true");
+      childProcess.execSync(JSON.stringify(process.execPath) + " -e " + JSON.stringify(""));
       await Bun.sleep(40);
     } finally {
       stop();
       server.stop(true);
     }
-    const where = "/" + folder.split("/").filter(Boolean).slice(0, 2).join("/");
+    const where = place(folder, []);
     const all = (kind: keyof AccessReport) => reports.flatMap((found) => found[kind] ?? []);
     expect(all("reads")).toEqual([where]);
     expect(all("writes")).toEqual([where]);
     expect(all("hosts")).toEqual([`127.0.0.1:${port}`]);
     // A command line is run by a shell, which is a program started too.
-    expect(all("programs")).toContain("true");
+    expect(all("programs")).toContain(path.basename(process.execPath));
     expect(new Set(all("programs")).size).toBe(all("programs").length);
     fs.rmSync(folder, { recursive: true });
   });
@@ -101,8 +101,9 @@ describe("recording", () => {
     const stop = observe({ own: [], report: () => {}, delay: 10 });
     try {
       const viaModule = require("node:child_process");
-      expect(await util.promisify(viaModule.exec)("echo hi")).toEqual({ stdout: "hi\n", stderr: "" });
-      expect((await util.promisify(viaModule.execFile)("/bin/echo", ["there"])).stdout).toBe("there\n");
+      const result = await util.promisify(viaModule.exec)("echo hi");
+      expect({ ...result, stdout: result.stdout.replaceAll("\r\n", "\n") }).toEqual({ stdout: "hi\n", stderr: "" });
+      expect((await util.promisify(viaModule.execFile)(process.execPath, ["-e", "process.stdout.write('there\\n')"])).stdout).toBe("there\n");
       expect(typeof (globalThis.fetch as any).preconnect).toBe("function");
     } finally {
       stop();

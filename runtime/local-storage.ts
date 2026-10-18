@@ -4,6 +4,13 @@ import fs from "node:fs";
 
 type Items = Record<string, any>;
 
+// Internal owner teardown: pending callers must settle first. The public Raycast API stays unchanged.
+const closers = new WeakMap<object, () => Promise<void>>();
+export async function closeLocalStorage(storage: object): Promise<void> {
+    await closers.get(storage)?.();
+}
+
+
 const itemsTable = "CREATE TABLE IF NOT EXISTS items (key TEXT PRIMARY KEY, value TEXT NOT NULL)";
 // The marker is one row and one row only: the uniqueness is what makes INSERT OR IGNORE below a claim
 // that exactly one process wins, so a migration that has run is never run again.
@@ -65,19 +72,21 @@ async function settle(opened: Database, target: string): Promise<Database> {
         });
         return opened;
     } catch (error) {
-        if (!isBroken(error)) throw error;
         try {
-            opened.close();
+            opened.close(true);
         } catch {}
+        if (!isBroken(error)) throw error;
         try {
             storagePersistence.keepAside(target);
         } catch {}
         const again = storagePersistence.open(target);
-        await patiently(() => {
-            again.run(itemsTable);
-            again.run(migrationTable);
-        });
-        return again;
+        try {
+            await patiently(() => { again.run(itemsTable); again.run(migrationTable); });
+            return again;
+        } catch (error) {
+            try { again.close(true); } catch {}
+            throw error;
+        }
     }
 }
 
@@ -120,9 +129,15 @@ export function createLocalStorage(file: () => string) {
         let opening = openings.get(target);
         if (!opening) {
             opening = (async () => {
-                const db = await settle(storagePersistence.open(target), target);
-                await migrate(db, target);
-                return db;
+                                let db: Database | undefined;
+                try {
+                    db = await settle(storagePersistence.open(target), target);
+                    await migrate(db, target);
+                    return db;
+                } catch (error) {
+                    try { db?.close(true); } catch {}
+                    throw error;
+                }
             })();
             opening.catch(() => openings.delete(target));
             openings.set(target, opening);
@@ -130,7 +145,7 @@ export function createLocalStorage(file: () => string) {
         return opening;
     }
 
-    return {
+    const storage = {
         async getItem<T = string>(key: string): Promise<T | undefined> {
             const read = await patiently(async () => {
                 const row = (await database()).query("SELECT value FROM items WHERE key = ?").get(key) as { value: string } | null | undefined;
@@ -152,4 +167,12 @@ export function createLocalStorage(file: () => string) {
             await patiently(async () => (await database()).run("DELETE FROM items"));
         },
     };
+    closers.set(storage, async () => {
+        const pending = [...openings.values()];
+        openings.clear();
+        for (const result of await Promise.allSettled(pending)) {
+            if (result.status === "fulfilled") result.value.close(true);
+        }
+    });
+    return storage;
 }

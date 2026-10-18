@@ -1,5 +1,7 @@
 //! Floe's bounded wait for actual process termination, without escalation.
+#[cfg(any(target_os = "linux", target_os = "windows"))]
 use std::time::Duration;
+#[cfg(any(target_os = "linux", target_os = "windows"))]
 pub fn wait_for_exit(check: impl FnMut() -> Result<bool, String>) -> Result<(), String> {
     poll_exit(
         check,

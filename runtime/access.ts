@@ -13,6 +13,7 @@ import http from "node:http";
 import https from "node:https";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 export type AccessKind = "hosts" | "reads" | "writes" | "programs";
 export type AccessReport = Partial<Record<AccessKind, string[]>>;
@@ -20,15 +21,23 @@ export type AccessReport = Partial<Record<AccessKind, string[]>>;
 // A path as the page shows it: its first folder under home, and one deeper inside Library, where the first says
 // nothing. Undefined for the extension's own files.
 export function place(file: string, own: string[], home = os.homedir()): string | undefined {
-  const full = path.resolve(file);
-  if (full.includes("/node_modules/") || own.some((folder) => full === folder || full.startsWith(folder + "/"))) return undefined;
-  if (full === home) return "~";
-  if (full.startsWith(home + "/")) {
-    const parts = full.slice(home.length + 1).split("/");
+  // Keep POSIX reference paths POSIX on Windows; real drive/UNC paths use Windows semantics.
+  const windows = /^[a-z]:[\\/]|^\\\\/i.test(file) || (process.platform === "win32" && !file.startsWith("/"));
+  const flavor = windows ? path.win32 : path.posix;
+  const normalize = (value: string) => windows ? flavor.resolve(value).replaceAll("\\", "/") : flavor.resolve(value);
+  const full = normalize(file);
+  const base = normalize(home).replace(/\/$/, "");
+  const compare = (value: string) => windows ? value.toLowerCase() : value;
+  const inside = (folder: string) => compare(full) === compare(folder) || compare(full).startsWith(compare(folder) + "/");
+  if (compare(full).includes("/node_modules/") || own.some((folder) => inside(normalize(folder).replace(/\/$/, "")))) return undefined;
+  if (compare(full) === compare(base)) return "~";
+  if (inside(base)) {
+    const parts = full.slice(base.length + 1).split("/");
     const depth = parts[0] === "Library" ? 3 : 1;
     return "~/" + parts.slice(0, depth).join("/");
   }
-  return "/" + full.split("/").filter(Boolean).slice(0, 2).join("/");
+  const root = flavor.parse(full).root.replaceAll("\\", "/");
+  return root + full.slice(root.length).split("/").filter(Boolean).slice(0, 2).join("/");
 }
 
 // The host a request goes to, from whatever fetch or http.request was given.
@@ -49,8 +58,9 @@ export function hostOf(target: unknown): string | undefined {
 // The program a command line starts: its first word, without the folder.
 export function programOf(command: unknown): string | undefined {
   if (typeof command !== "string") return undefined;
-  const word = command.trim().split(/\s+/)[0];
-  return word ? path.basename(word) : undefined;
+  const match = command.trim().match(/^(?:"([^"]+)"|'([^']+)'|(\S+))/);
+  const word = match?.[1] ?? match?.[2] ?? match?.[3];
+  return word ? path.win32.basename(word) : undefined;
 }
 
 const reading = ["readFile", "readFileSync", "readdir", "readdirSync", "createReadStream", "opendir", "opendirSync"] as const;
@@ -119,7 +129,7 @@ export function observe(options: { own: string[]; report: (found: AccessReport) 
 
   const pathOf = (target: unknown) => {
     if (typeof target === "string") return target;
-    return target instanceof URL ? target.pathname : undefined;
+    return target instanceof URL ? fileURLToPath(target) : undefined;
   };
   const read = (target: unknown) => note("reads", pathOf(target) && place(pathOf(target)!, options.own));
   const write = (target: unknown) => note("writes", pathOf(target) && place(pathOf(target)!, options.own));

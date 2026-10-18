@@ -168,7 +168,7 @@ describe("bundle", () => {
     const code = fs.readFileSync(output, "utf8");
     expect(code).toContain(JSON.stringify(shimPath));
     expect(code).toContain("from the bundle");
-    expect(code).toContain(path.dirname(require.resolve("react")));
+    expect(code).toContain(JSON.stringify(path.dirname(require.resolve("react"))).slice(1, -1));
     expect(code).not.toContain(path.join(extDir, "node_modules"));
 
     const Command = (await import(output)).default;

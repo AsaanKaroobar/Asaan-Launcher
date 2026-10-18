@@ -9,6 +9,7 @@ mod force_confirmation;
 mod panel;
 mod picker;
 mod process_actions;
+#[cfg(any(target_os = "linux", target_os = "windows", test))]
 mod process_wait;
 #[cfg(target_os = "windows")]
 mod process_windows;

@@ -511,7 +511,7 @@ new Cache().set("k", "v");
 console.log("ready");
 export default function Command() { return <Detail markdown="" />; }`;
 
-    test.each(["SIGTERM", "SIGINT", "SIGHUP"] as const)("%s saves the pending cache and still ends the host", async (signal) => {
+    (process.platform === "win32" ? test.skip : test).each(["SIGTERM", "SIGINT", "SIGHUP"] as const)("%s saves the pending cache and still ends the host", async (signal) => {
         const { proc, saved } = makeHost("view", "view", view);
         await waitFor(proc.stderr, "ready");
         proc.kill(signal);

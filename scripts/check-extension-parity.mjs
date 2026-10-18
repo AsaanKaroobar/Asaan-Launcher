@@ -5,6 +5,7 @@ const read=p=>fs.readFile(new URL(p,root),'utf8');
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const prefix='tests/reference/extensions/';
 const provenance=JSON.parse(await read(prefix+'provenance.json'));
+const patches=JSON.parse(await read(prefix+'portability-patches.json'));
 if(provenance.commit!=='5b26e9d7a0240243251d7421bee5b90da5f52b9b')throw Error('Extension reference changed');
 for(const entry of provenance.sources){
  const bytes=await fs.readFile(new URL(prefix+entry.file,root));
@@ -16,6 +17,11 @@ for(const entry of provenance.sources){
    expected=expected.replaceAll('["bun",','[process.execPath,')
     .replaceAll('env: { ...process.env, HOME: home }','env: { ...process.env, HOME: home, ASAAAN_EXTENSION_DATA: path.join(home, "data") }')
     .replace('path.join(home, "Library/Application Support/Floe/Data/flush-sample/cache-default.json")','path.join(home, "data/flush-sample/cache-default.json")');
+  }
+  for(const patch of patches.filter(p=>p.source===entry.source)){
+   const count=expected.split(patch.before).length-1;
+   if(count!==patch.count||!patch.reason)throw Error('Portability patch drift: '+entry.source);
+   expected=patch.all?expected.replaceAll(patch.before,patch.after):expected.replace(patch.before,patch.after);
   }
   if(await read(entry.source)!==expected)throw Error('Original assertions changed: '+entry.source);
  }
