@@ -10,7 +10,7 @@ Floe uses system light/dark appearance. macOS Liquid Glass, SF Symbols and platf
 
 The active application's window is examined before the launcher takes focus on every presentation, including reuse. Linux/X11 reads EWMH active-window geometry; Windows reads the foreground window bounds; macOS reads the frontmost normal window's CoreGraphics metadata, without requesting screen capture or Accessibility permission. The selected monitor's usable work area is centered using target DPI and preserved logical panel dimensions. Missing foreground geometry falls back to the pointer monitor, then primary display. Wayland restricts global focus/pointer geometry and absolute positioning; final placement is compositor controlled there.
 
-Native GTK tests exposed stale pre-map outer dimensions, so an undecorated launcher uses its inner dimensions. They also exposed a first-map GTK/KWin paint issue that was invisible to accessibility-only tests. Native pixel checks cover initial painting, live input repainting, Legacy repainting, and fresh panels. The Linux/WebKitGTK 2.52.6 rendering gate is currently failing; timing and surface-recreation experiments were rejected because they did not restore continuous repainting. No such workaround is retained.
+Native GTK tests exposed stale pre-map outer dimensions, so an undecorated launcher uses its inner dimensions. Pixel tests also exposed stale/blank frames in the private Xvfb session on a host with both NVIDIA and Mesa EGL providers. The test harness now explicitly selects Mesa and uses normal WebKit compositing, removing the inherited legacy WebKit fallback overrides. This restores continuous painting on WebKitGTK 2.52.6; no timing, resize, surface recreation or graphics override is added to the application. Native acceptance passes eight stages, including initial painting, live input repainting, visible Legacy selection, reuse and a fresh panel.
 
 ## Reference traceability
 
@@ -37,4 +37,4 @@ Next incremental experiments, one at a time:
 
 ## Delivery status
 
-Theme and placement implementation are in place; native rendering validation remains blocked by the failing Linux pixel acceptance test. Frontend checks pass (125 tests). Local package, native acceptance, hosted matrix, source revision and artifact hashes will be recorded after final verification. Public release remains user controlled.
+Theme and placement implementation are in place. Frontend checks pass (125 tests), and installed Linux appearance acceptance passes all eight stages. Full native regressions and hosted matrix are in progress. Local package, native acceptance, hosted matrix, source revision and artifact hashes will be recorded after final verification. Public release remains user controlled.

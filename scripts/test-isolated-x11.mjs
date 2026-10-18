@@ -32,7 +32,10 @@ if(process.argv.includes('--session')){
  try{
   await wait(()=>{if(xserver.exitCode!==null)throw Error('Xvfb failed: '+log);return display.trim();},'Xvfb did not allocate a display');
   for(const folder of ['runtime','config','data','cache'])await fs.mkdir(path.join(scratch,folder),{mode:0o700});
-  const env={...process.env,DISPLAY:':'+display.trim(),XAUTHORITY:'',XDG_SESSION_TYPE:'x11',XDG_CURRENT_DESKTOP:'KDE',XDG_RUNTIME_DIR:path.join(scratch,'runtime'),XDG_CONFIG_HOME:path.join(scratch,'config'),XDG_DATA_HOME:path.join(scratch,'data'),XDG_CACHE_HOME:path.join(scratch,'cache'),KWIN_COMPOSE:'N',LIBGL_ALWAYS_SOFTWARE:'1',WEBKIT_DISABLE_DMABUF_RENDERER:'1',WEBKIT_DISABLE_COMPOSITING_MODE:'1',GTK_IM_MODULE:'xim',QT_IM_MODULE:'compose',XMODIFIERS:'@im=none',IBUS_ADDRESS:''};
+  const env={...process.env,DISPLAY:':'+display.trim(),XAUTHORITY:'',XDG_SESSION_TYPE:'x11',XDG_CURRENT_DESKTOP:'KDE',XDG_RUNTIME_DIR:path.join(scratch,'runtime'),XDG_CONFIG_HOME:path.join(scratch,'config'),XDG_DATA_HOME:path.join(scratch,'data'),XDG_CACHE_HOME:path.join(scratch,'cache'),KWIN_COMPOSE:'N',LIBGL_ALWAYS_SOFTWARE:'1',__EGL_VENDOR_LIBRARY_FILENAMES:'/usr/share/glvnd/egl_vendor.d/50_mesa.json',__GLX_VENDOR_LIBRARY_NAME:'mesa',GTK_IM_MODULE:'xim',QT_IM_MODULE:'compose',XMODIFIERS:'@im=none',IBUS_ADDRESS:''};
+  // Xvfb has no NVIDIA display. Select Mesa explicitly on hybrid/NVIDIA hosts.
+  // Legacy WebKit fallback flags can leave frames stale on WebKitGTK 2.52.
+  delete env.WEBKIT_DISABLE_COMPOSITING_MODE;delete env.WEBKIT_DISABLE_DMABUF_RENDERER;
   await execute('dbus-run-session',['--',process.execPath,here,'--session',...process.argv.slice(2)],{cwd:root,env});
   }finally{
   xserver.kill();

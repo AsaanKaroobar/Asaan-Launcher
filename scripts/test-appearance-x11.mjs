@@ -16,7 +16,7 @@ async function show(){const presentations=(log.match(/visible: true/g)||[]).leng
 async function screenshot(name){const file=new URL('.artifacts/'+name+'.png',root).pathname;await run('import',['-window','root',file],{env});return file;}
 async function difference(before,after){return Number((await run('convert',[before,after,'-compose','difference','-composite','-crop','600x50+280+180','-format','%[fx:mean]','info:'],{env})).stdout);}
 async function saved(){return JSON.parse(await fs.readFile(storage,'utf8'));}
-async function theme(value){await run('/usr/bin/python3',[observer,'focus-control',String(settings()),'Launcher theme'],{env});await key(value==='legacy'?'End':'Home');await key('Return');await until(async()=>(await saved()).theme===value,'Theme was not persisted');}
+async function theme(value){await run('/usr/bin/python3',[observer,'focus-control',String(settings()),'Launcher theme'],{env});await key(value==='legacy'?'End':'Home');await until(async()=>(await saved()).theme===value,'Theme was not persisted');}
 try{
  const installation=JSON.parse(await fs.readFile(new URL('deployments/linux/current/installation.json',root),'utf8'));assert.equal(createHash('sha256').update(await fs.readFile(binary)).digest('hex'),installation.binarySha256);
  await fs.mkdir(path.join(env.XDG_DATA_HOME,'applications'),{recursive:true});await fs.mkdir(env.XDG_DATA_DIRS,{recursive:true});
