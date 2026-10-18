@@ -31,6 +31,14 @@ try{
  await key('Control_L','k');await waitText('Search extension actions');await key('Down');await key('Down');await key('Return');await waitText('More actions');await waitText('Mark Favorite');await key('Shift_L','Return');await waitText('Star');stages.push('nested actions invoke onOpen and declared modified shortcut while menu is open');
  await key('Control_L','k');await query('remove','Search extension actions');await waitText('Remove Mark');await key('Return');await key('Control_L','k');await query('mark','Search extension actions');await waitText('Mark Favorite');await key('Escape');await key('Escape');stages.push('menu query searches actions inside submenus');
  await query('rocky');await key('Down');const count=(await saved()).records['command:list-lab/playground'].count;assert.equal(count,1);
+ const retainedPanel=panelPid;const panelCount=panels().length;const hiddenOffset=log.length;
+ await key('Control_L','Alt_L','space');await until(()=>log.slice(hiddenOffset).includes('visible: false'),'List did not hide');await delay(2000);
+ assert.equal(await gone(retainedPanel),false);assert.equal(await gone(host.pid),false);
+ const reuseOffset=log.length;await key('Control_L','Alt_L','space');await until(()=>log.slice(reuseOffset).includes('visible: true'),'List did not reopen');
+ assert.equal(panels().length,panelCount);assert.equal(panelPid,retainedPanel);await waitText('Search extension');
+ assert.ok((await state()).some(n=>n.name==='Search extension'&&n.text==='rocky'));assert.deepEqual(hosts(),[host]);
+ await key('Return');await waitText('Selected Venus');assert.equal((await saved()).records['command:list-lab/playground'].count,count);
+ stages.push('two-second panel reuse preserves extension query/selection and keyboard actions without respawning Bun or recounting usage');
  const oldPanel=panelPid;await key('Control_L','Alt_L','space');await until(()=>gone(oldPanel),'Hidden panel not disposed');assert.equal(await gone(host.pid),false);assert.equal(await gone(host.supervisor),false);
  const preserved=JSON.parse((await run('/usr/bin/python3',[path.join(root,'scripts/actions-native-state.py'),'clipboard'],{env,timeout:5000})).stdout);assert.equal(preserved,clip);
  await key('Control_L','Alt_L','space');await until(()=>panels().length>1,'Panel did not respawn');panelPid=panels().at(-1);assert.notEqual(panelPid,oldPanel);await waitText('Search extension');assert.ok((await state()).some(n=>n.name==='Search extension'&&n.text==='rocky'));assert.deepEqual(hosts(),[host]);await key('Return');await waitText('Selected Venus');assert.equal((await saved()).records['command:list-lab/playground'].count,count);stages.push('panel disposal preserves session/query/selection and clipboard; reopen does not recount or respawn Bun');
