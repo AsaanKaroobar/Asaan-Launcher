@@ -51,13 +51,14 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   useEffect(() => { setSelection(0); setLaunchError(null);setActionFeedback(null); },[query]);
   const inputRef = useRef<HTMLInputElement>(null);
   const lastPresentation=useRef<number|null>(null);
+  const selectedIdentity=useRef<string|null>(null);
   useEffect(() => {
     const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
     window.addEventListener("focus", focus);
     void onPanelShown((sequence) => {
       const reopening=lastPresentation.current!==null&&lastPresentation.current!==sequence;
       lastPresentation.current=sequence;
-      if(!isReference&&!applicationSmoke){if(reopening&&!extensionOpen.current){forceRefresh.current=true;setPoll(n=>n+1);}void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
+      if(!isReference&&!applicationSmoke){if(reopening&&!extensionOpen.current){preserveSelection.current=selectedIdentity.current;forceRefresh.current=true;setPoll(n=>n+1);}void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
       setActionFeedback(null);setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
       // WebKit can retain DOM focus while its editable native focus is lost on hide.
       // Reacquire editing focus on every presentation, including grace-period reuse.
@@ -101,6 +102,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
   useEffect(() => { selected.current?.scrollIntoView?.({ block: "nearest" }); }, [selection]);
 
   const rows = state.status === "loaded" && state.query === query ? state.rows.filter(row=>!Object.prototype.hasOwnProperty.call(preferences.hiddenResults,row.item.id)) : [];
+  selectedIdentity.current=rows[selection]?.item.id??null;
   useEffect(()=>{setSelection(value=>Math.min(value,Math.max(0,rows.length-1)));},[rows.length]);
   async function open(row: SearchResult | undefined) {
     if (!row || isReference || launching.current || changing.current || acting.current) return;
