@@ -12,7 +12,7 @@ Evidence: [CP010](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/runs/3
 
 ## Changes
 
-Linux CI uses the same isolated native smoke harness as local validation and explicitly installs accessibility-bus services and software GL support. Each native suite has its own named step and can report independently after a successful installation. Failure evidence and successfully built packages are uploaded even when a later test fails. No test or Clippy gate is made optional.
+Linux CI uses the same isolated native smoke harness as local validation and explicitly installs accessibility-bus services and software GL support. Each native suite has its own named step and can report independently after a successful installation. Failure evidence and successfully built packages are uploaded even when a later test fails. Native diagnostics include the hidden .artifacts directory, and evidence upload runs after successful installation. No test or Clippy gate is made optional.
 
 The shared process wait module is compiled only for its Linux/Windows callers and its pure unit tests. macOS uses its existing native termination path.
 
@@ -24,7 +24,7 @@ The original runtime sources/tests stay frozen. tests/reference/extensions/porta
 
 ## Validation
 
-The complete hosted matrix is **green**: [run 39103282170](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/runs/39103282170), validated code revision **5ad34dd47068c3c7b32d1086ed81ee49856d288e** on checkpoint-14-platform-fixes.
+The complete hosted matrix is **green**: [run 39104712043](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/runs/39104712043), validated code/workflow revision **b4864d97094a4db996cb62813fb20fe6e62556a8** on checkpoint-14-platform-fixes.
 
 | Runner | Rust tests | Bun runtime | Frontend | Package |
 | --- | ---: | ---: | ---: | --- |
@@ -38,8 +38,8 @@ The first repair run reduced Windows runtime failures from 26 to one independent
 
 Local Linux validation also passed 280 runtime tests/862 assertions, 120 frontend tests, 279 Rust tests and all installed-native regressions. The repaired package is installed/run locally. The original CP014 evidence archive was preserved and its 65-file SHA256SUMS seal rechecked.
 
-Downloaded CI packages, raw logs, native evidence, artifact hashes and the final source/job metadata are retained under ignored .artifacts/platform-fixes. GitHub's three generated packages are workflow artifacts, not a published checkpoint release. Historical failed runs remain unchanged.
+Downloaded CI packages, raw logs, native evidence, artifact hashes and the final source/job metadata are retained under ignored .artifacts/platform-fixes. All three installer artifacts and the native-test-evidence-ubuntu-24.04 artifact were uploaded successfully in the final run; the downloaded native results reference the same Linux package and binary hashes. GitHub's three generated packages are workflow artifacts, not a published checkpoint release. Historical failed runs remain unchanged.
 
-SQLite teardown follows the documented distinction between closing a connection and finalizing its outstanding prepared statements: [Bun SQLite close](https://bun.sh/docs/runtime/sqlite). The result-record update is documentation-only; executable code and workflow remain exactly those validated by the green run.
+SQLite teardown follows the documented distinction between closing a connection and finalizing its outstanding prepared statements: [Bun SQLite close](https://bun.sh/docs/runtime/sqlite). The result-record update is documentation-only; executable code and workflow remain exactly those validated by the final green run. All repair commits use Dani-Bhai as author and committer.
 
 Public release, signing and full native desktop acceptance on Windows/macOS remain separate from CI build/test qualification.
