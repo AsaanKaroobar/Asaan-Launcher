@@ -95,7 +95,7 @@ jobs:
             src-tauri/target/release/bundle/dmg/*.dmg
           if-no-files-found: error
       - name: Upload native test evidence
-        if: ${{ !cancelled() && runner.os == 'Linux' }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         uses: actions/upload-artifact@v4
         with:
           name: native-test-evidence-${{ matrix.os }}
