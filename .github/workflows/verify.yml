@@ -100,4 +100,5 @@ jobs:
         with:
           name: native-test-evidence-${{ matrix.os }}
           path: .artifacts/
-          if-no-files-found: warn
+          include-hidden-files: true
+          if-no-files-found: error
