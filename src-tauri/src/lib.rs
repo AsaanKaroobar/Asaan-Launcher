@@ -246,9 +246,6 @@ pub fn run() {
                     .visible(picker_mode)
                     .always_on_top(managed && !settings_mode)
                     .build()?;
-                if !settings_mode && !picker_mode {
-                    app.manage(placement::BorderlessLauncher);
-                }
                 startup::mark("window-built");
                 if !managed && !picker_mode {
                     placement::center_on_focused_monitor(&native_window)?;

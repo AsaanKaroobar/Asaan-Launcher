@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 export interface PickItem {index:number;text:string;title:string;detail:string|null}
 export interface PickView {prompt:string;query:string;rows:PickItem[];total:number;count:string}
@@ -6,7 +6,8 @@ declare global {interface Window {__ASAAAN_PICKER__?:boolean}}
 export default function Picker(){
   const [view,setView]=useState<PickView|null>(null),[query,setQuery]=useState<string|null>(null),[selection,setSelection]=useState(0),[error,setError]=useState("");
   const field=useRef<HTMLInputElement>(null), finishing=useRef(false), composing=useRef(false), initial=useRef(true), liveQuery=useRef("");
-  useEffect(()=>{let cancelled=false; invoke<PickView>("picker_view",{query}).then(next=>{if(!cancelled){setView(next);setSelection(0);liveQuery.current=next.query;if(initial.current){initial.current=false;requestAnimationFrame(()=>{field.current?.focus();field.current?.setSelectionRange(next.query.length,next.query.length);});}}},e=>{if(!cancelled)setError(String(e));}); return()=>{cancelled=true;};},[query]);
+  useEffect(()=>{let cancelled=false; invoke<PickView>("picker_view",{query}).then(next=>{if(!cancelled){setView(next);setSelection(0);liveQuery.current=next.query;}},e=>{if(!cancelled)setError(String(e));}); return()=>{cancelled=true;};},[query]);
+  useLayoutEffect(()=>{if(!view||!initial.current)return;initial.current=false;field.current?.focus();field.current?.setSelectionRange(view.query.length,view.query.length);},[view]);
   useEffect(()=>{document.getElementById("pick-"+view?.rows[selection]?.index)?.scrollIntoView?.({block:"nearest"});},[view,selection]);
   async function finish(item?:PickItem){if(finishing.current||item&&view?.query!==liveQuery.current)return;finishing.current=true;try{await invoke("picker_finish",{index:item?.index??null,query:liveQuery.current});}catch(e){finishing.current=false;setError(String(e));}}
   const ready=view?.query===liveQuery.current;

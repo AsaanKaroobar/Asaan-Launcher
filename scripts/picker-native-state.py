@@ -11,7 +11,10 @@ def visit(node,depth=0):
   if role in ['frame','window']:result['windows'].append(name)
   if name=='Pick a line':
    text=node.get_text_iface()
-   if text:result['query']=Atspi.Text.get_text(text,0,-1)
+   if text:
+    result['query']=Atspi.Text.get_text(text,0,-1)
+    result['caret']=Atspi.Text.get_caret_offset(text)
+    result['focused']=node.get_state_set().contains(Atspi.StateType.FOCUSED)
   if node.get_state_set().contains(Atspi.StateType.SELECTED):result['selected'].append(name)
   if name:result['text'].append(name)
   text=node.get_text_iface()

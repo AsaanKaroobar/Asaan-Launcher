@@ -1,6 +1,5 @@
 //! Place before activation, so the launcher cannot select its own old monitor.
 use tauri::Manager;
-pub struct BorderlessLauncher;
 
 fn centered(origin: i32, available: u32, extent: u32) -> i32 {
     (i64::from(origin) + (i64::from(available) - i64::from(extent)).max(0) / 2)
@@ -59,19 +58,10 @@ pub fn center_on_focused_monitor(window: &tauri::WebviewWindow) -> tauri::Result
         return window.center();
     };
     let area = monitor.work_area();
-    // Preserve logical dimensions when moving between different DPI monitors.
-    // GTK outer-frame metrics can be stale until the first map. The launcher is
-    // undecorated, so its inner size is also its real outer size.
-    let extent = if window
-        .app_handle()
-        .try_state::<BorderlessLauncher>()
-        .is_none()
-        && window.is_decorated()?
-    {
-        window.outer_size()?
-    } else {
-        window.inner_size()?
-    };
+    // Center the content dimensions, matching Tao's normal centering behavior.
+    // GTK outer-frame metrics can still describe the initial 640x480 surface
+    // before the first map, even when the requested content size is larger.
+    let extent = window.inner_size()?;
     let logical = extent.to_logical::<f64>(window.scale_factor()?);
     let target = logical.to_physical::<u32>(monitor.scale_factor());
     let x = centered(area.position.x, area.size.width, target.width);
