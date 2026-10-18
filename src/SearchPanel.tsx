@@ -57,7 +57,7 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     void onPanelShown((sequence) => {
       const reopening=lastPresentation.current!==null&&lastPresentation.current!==sequence;
       lastPresentation.current=sequence;
-      if(!isReference&&!applicationSmoke){if(reopening&&!extensionOpen.current)setPoll(n=>n+1);void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
+      if(!isReference&&!applicationSmoke){if(reopening&&!extensionOpen.current){forceRefresh.current=true;setPoll(n=>n+1);}void extensionExchange({kind:"read"}).then(reply=>{if(!disposed){if(!reply.active&&extensionOpen.current)setQuery("");setExtensionView(reply.active);}}).catch(()=>{});}
       setActionFeedback(null);setActionTarget(null);setAliasTarget(null);setCustomizing(false);setHistoryOpen(false);
       // WebKit can retain DOM focus while its editable native focus is lost on hide.
       // Reacquire editing focus on every presentation, including grace-period reuse.

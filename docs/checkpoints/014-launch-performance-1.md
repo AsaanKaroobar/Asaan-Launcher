@@ -19,3 +19,5 @@ Run `npm run benchmark:launch -- --samples 12 --expect-reuse` after packaging an
 Fresh disposable-panel startup and reopening are separate metrics. Reuse does not remove the first WebView startup. The earlier handshake experiments did not improve end-to-end launch and were removed; icon-loading work is left for a later increment.
 
 Validation and measured results: pending the installed default-policy checks and hosted matrix. No public release has been published.
+
+Initial installed default-policy check: 5/5 two-second reopens reused the same panel; focus median 211 ms, p95 213 ms. Fresh panel focus median 841 ms. Native freshness check renamed a private desktop fixture while hidden and confirmed its updated result with the retained query after reopening. All panels/helpers reaped after 10.04–10.08 seconds following final dismissal. Complete group PSS was 232,234 KiB while hidden versus 40,830 KiB after disposal; this is the explicit transient memory tradeoff. Twelve-sample comparison and final platform results remain pending.

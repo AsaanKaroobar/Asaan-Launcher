@@ -50,7 +50,7 @@ it("refreshes a reused panel without discarding its query or current selection",
  vi.mocked(searchApplications).mockResolvedValue(reply([row("Updated Notes","app:notes"),row("Updated Terminal","app:terminal")]));
  await act(async()=>shown(2));
  await waitFor(()=>expect(searchApplications).toHaveBeenCalledTimes(before+1));
- expect(searchApplications).toHaveBeenLastCalledWith("not",false);
+ expect(searchApplications).toHaveBeenLastCalledWith("not",true);
  await act(async()=>shown(2));expect(searchApplications).toHaveBeenCalledTimes(before+1);
  expect(input).toHaveValue("not");expect(input).toHaveFocus();
  expect(await screen.findByText("Updated Terminal")).toBeInTheDocument();
