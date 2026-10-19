@@ -10,7 +10,7 @@ Built with **Tauri 2 · Rust · React · TypeScript**. The original idea was ins
 
 ## Project status
 
-Asaaan Launcher is under active development. The current version is **0.14.0**, developed through tested checkpoints with explicit implementation, validation, local installation, and release gates.
+Asaaan Launcher is under active development. The current version is **0.1.0**, developed through tested checkpoints with explicit implementation, validation, local installation, and release gates.
 
 | Platform | Build and packaging | Interactive validation |
 | --- | --- | --- |
