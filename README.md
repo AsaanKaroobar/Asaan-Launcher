@@ -1,137 +1,181 @@
 # Asaaan Launcher
 
-A cross-platform desktop launcher built in checkpoints with Tauri 2, React, TypeScript and Rust.
+**A keyboard-first desktop launcher for Linux, macOS, and Windows.**
 
-The behavioral reference is Floe at commit 5b26e9d7a0240243251d7421bee5b90da5f52b9b. Checkpoint 14 adds interactive bundled extension Lists, search, selection, actions, toasts and resident-owned resumable sessions on the bundled Bun/reference-v1 host. Applications, aliases/favorites/history, Settings, headless search, picker and guarded process controls remain available. Full feature parity and native macOS/Windows qualification remain pending.
+Find applications, run commands, and get back to work without breaking your flow. Asaaan Launcher combines fuzzy search, personal shortcuts, and an extensible command interface in a focused desktop experience.
 
-## Develop
+Built with **Tauri 2 · Rust · React · TypeScript**. The original idea was inspired by [Floe](https://github.com/thaw-app/Floe).
 
-Install Node.js 22.12+ and Rust 1.95.0, plus the [Tauri prerequisites](https://tauri.app/start/prerequisites/) for your operating system.
+[Getting started](#getting-started) · [Features](#features) · [Development](#development) · [Documentation](#documentation)
 
-    npm ci
-    npm run tauri dev
+## Project status
 
-Use npm run dev for a browser preview. Browser mode explicitly reports that the native connection is unavailable.
+Asaaan Launcher is under active development. The current version is **0.14.0**, developed through tested checkpoints with explicit implementation, validation, local installation, and release gates.
 
-## Validate and package
+| Platform | Build and packaging | Interactive validation |
+| --- | --- | --- |
+| Linux | Ubuntu CI; Debian package | Native X11 regression tests and local desktop use |
+| macOS | macOS CI; disk image | Manual desktop qualification pending |
+| Windows | Windows CI; NSIS installer | Manual desktop qualification pending |
 
-    npm run check
-    npm run build
-    npm run runtime:prepare
-    npm run runtime:test
-    npm run native:check
-    npm run package:linux
+CI builds are available through [GitHub Actions](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/workflows/verify.yml). Build artifacts are development checkpoints; public release publication is tracked separately. See the [checkpoint overview](docs/CHECKPOINTS.md) for current delivery gates.
 
-Native validation checks all Cargo workspace members: formatting, Rust tests and Clippy with warnings denied. npm run check also verifies the pinned reference hashes and test mappings. Linux packaging creates a Debian package. On Windows use npm run tauri build -- --bundles nsis; on macOS use npm run tauri build -- --bundles app. Each platform must be built and tested on its own runner.
+## Features
 
-    npm run install:local
-    npm run smoke:local
-    npm run smoke:resident
-    npm run smoke:applications
-    npm run start:local
+- **Application search** — fuzzy matching across installed applications, aliases, and keywords, with favorites and usage-based ranking.
+- **Personalization** — save favorites, assign aliases, hide results, recall searches, and control search-history recording.
+- **Focused presentation** — a minimal launcher, light/dark appearance, a selectable Legacy theme, and centering on the focused application's monitor where supported.
+- **Application actions** — open applications, copy names and available metadata, reveal supported application entries, and access guarded running-app controls.
+- **Extension Lists** — bundled commands with searchable lists, keyboard selection, actions, feedback, and resumable sessions.
+- **Terminal tools** — search applications without opening a window, or pipe lines into an interactive picker.
+- **Resident lifecycle** — tray access, a global shortcut where supported, and bounded panel reuse for quick reopening.
 
-Local installation extracts the Debian package into this project under deployments/linux/current, without root or changing the system package database. The reference search smoke test loads the installed application, performs a cal search through React/Tauri/Rust, verifies Calendar then Calculator, and only then exits; start:local starts the resident and opens its disposable native panel. Ctrl+Alt+Space toggles it; Escape clears text first, then hides an empty search. Closing the panel hides it, while Quit in the tray exits the resident. Both require a graphical session (or Xvfb for automated smoke testing).
+Available actions depend on platform capabilities and verified application identity. Extension support currently covers bundled commands and List views; arbitrary extension installation, Detail/Form views, a store, and scheduling are future work.
 
-The resident smoke test opens/searches/hides/reaps three distinct foreground processes and verifies a native panel exits after parent-pipe EOF. On an X11 desktop, npm run test:resident:x11 exercises actual shortcut events, Escape, focus return, single-instance forwarding and a 60-second settled resident-memory sample. It creates its own focus fixture; avoid interacting with the keyboard while it runs. Wayland currently exposes a tray fallback with an explicit shortcut-unavailable status.
+## Getting started
 
-See [checkpoint rules](docs/CHECKPOINTS.md) and [checkpoint 014](docs/checkpoints/014-extension-lists.md). The user explicitly deferred performance upgrades until the complete software is ready. Public checkpoint releases remain user-controlled.
+### Prerequisites
 
-The pure search crate is in crates/launcher-search. npm run search:test replays 775 matcher and 20 ranking oracle cases and the ported Floe assertions. See [reference provenance](tests/reference/README.md). An optional Swift compiler can recheck the frozen oracle with npm run parity:swift; regular builds do not require Swift.
+- **Node.js 22.12+ within Node 22, or Node.js 24+**, with npm. CI uses Node 22.
+- **Rust 1.95.0**, including rustfmt and Clippy, as pinned in [rust-toolchain.toml](rust-toolchain.toml).
+- The [Tauri system prerequisites](https://tauri.app/start/prerequisites/) for your operating system.
+- A graphical desktop session to run the native application.
 
-The pure lifecycle crate is in crates/launcher-lifecycle. npm run lifecycle:parity verifies copied source hashes and the explicit ported/deferred test map. No Swift toolchain or test fixture executable is included in release packages.
+The extension runtime uses the project's pinned Bun dependency, installed through npm. A separate global Bun installation is unnecessary.
 
-Native tray routing can be inspected or exercised on a StatusNotifier Linux desktop with /usr/bin/python3 scripts/test-tray-linux.py RESIDENT_PID inspect (or show/hide/quit). It requires the system GIO Python adapter and targets only that PID. CP003’s memory and cold-start feasibility findings are recorded in its checkpoint record.
+### Run in development
 
-The application catalog crate is crates/launcher-apps. npm run applications:parity verifies the 25-declaration application test map. Normal use scans installed apps in a worker, keeps cached results during refresh and polls every five seconds while the foreground is open; Refresh applications forces a scan. The reference catalog is now used only by diagnostic smoke mode.
+Clone the repository and start the native application:
 
-The installed application smoke uses a temporary isolated XDG catalog and launches its own marker-writing probe; it does not open an existing user application. On Linux X11 use npm run test:resident:x11 -- --functional-only for keyboard/focus/process regression without memory qualification. Native macOS/Windows execution and platform icons remain pending qualification as detailed in the checkpoint record.
+```sh
+git clone https://github.com/AsaanKaroobar/Asaan-Launcher.git
+cd Asaan-Launcher
+npm ci
+npm run tauri dev
+```
 
-On a Linux development host with Xvfb and kwin_x11 installed, npm run test:resident:isolated exercises native keyboard/focus/lifecycle behavior in a private display and D-Bus session with temporary preferences. It leaves the current desktop untouched and skips performance qualification.
+The native development command prepares the bundled extension runtime and starts the frontend automatically.
 
-Favorites are saved by the resident, in insertion order, with Control+Shift+F (Command+Shift+F on macOS) or the selected-result button. Up at the first row recalls earlier searches; typing ends recall. History exposes a local search-recording opt-out and Clear search history. As in Floe, known application activations count before OS delegation, including a launch that later fails. Clearing queries does not erase usage counts or favorites. Data lives in personalization.json under the native app data directory (Linux: $XDG_DATA_HOME/com.asaaan.launcher, or ~/.local/share/com.asaaan.launcher). The file is versioned, atomically replaced and limited to 2 MiB. Corrupt/unsupported files are preserved and require repair or moving aside while the resident is stopped.
+For frontend-only work, use `npm run dev`. The browser preview cannot exercise native application discovery, operating-system actions, or resident lifecycle behavior.
 
-Run npm run smoke:personalization on Linux with the isolated X11 prerequisites above. It exercises the installed normal UI, an isolated marker application, favorite/unfavorite, Up recall, recording opt-out, clearing and three resident restarts. It never changes the user’s catalog or history. See tests/reference/personalization for the full scoped test map, including the explicit immediate-save substitution for the reference burst timer.
+### Build a package
 
-Use Actions or Control+K (Command+K on macOS) for Open, Set/Edit Alias, favorite and Hide from Search. Right-clicking a row opens its menu. Customize or Control+comma (Command+comma) lists hidden applications and Show Again restores one, including an app that is no longer installed. Hiding removes its favorite and retains alias/usage; restoring does not re-add the favorite. Alias editing is a focused form with Enter to save and Escape to cancel. The same existing alias ranking handles exact matches, prefixes and title fallback.
+Run the command for your target operating system on that operating system:
 
-CP005 version-1 data is read without rewriting and upgraded to version 2 on the first successful mutation, retaining all previous values. Older builds preserve but cannot read version 2. Run npm run smoke:customization for installed UI coverage of migration, alias search/launch, hide, restoring an uninstalled app, clearing the alias and four resident restarts. It uses a private catalog, data directory and desktop. Scoped provenance is under tests/reference/customization. Full OS-specific application actions remain deferred.
+| Platform | Command | Output |
+| --- | --- | --- |
+| Linux | `npm run package:linux` | Debian `.deb` package |
+| macOS | `npm run tauri build -- --bundles dmg` | `.dmg` disk image |
+| Windows | `npm run tauri build -- --bundles nsis` | NSIS `.exe` installer |
 
-The X11 keyboard probe also requires system Python GI and AT-SPI bindings (`python3-gi`, `gir1.2-atspi-2.0` on Debian/Ubuntu). It checks native focus and observes input text through accessibility before asserting clear/hide behavior, including five rapid grace-period reopen cycles.
+Packages are written under `src-tauri/target/release/bundle/`. The build prepares the extension runtime automatically. Signing and public release qualification are separate delivery steps.
 
-The Actions menu offers native Copy Name and, when available, Copy Path, the platform application identifier and Reveal in File Manager (Show in Finder on macOS). Copy success preserves the query and reports feedback only after a resident acknowledgement. Reveal resets/dismisses only after native success. Linux copies/selects the `.desktop` catalog entry; macOS uses the application bundle. Windows StartApps identities support name/ID copies and deliberately omit filesystem operations. These adapters require target-specific qualification; only Linux X11 is locally tested.
+For a local Linux installation without root:
 
-Run `npm run smoke:actions` for private-session native UI clipboard checks, persistence after foreground disposal, removed targets, FileManager1 refusal/timeout, work-lease cleanup, literal Unicode paths and real Dolphin selection. Linux requires `python3-gi`, `gir1.2-gtk-3.0`, `gir1.2-atspi-2.0`, Xvfb, kwin_x11 and Dolphin. `npm run actions:parity` verifies the 14-declaration scoped reference map. Metadata operations do not record activations or change personalization. Full clipboard history/own-copy markers belong to the later clipboard checkpoint; clipboard text is not logged.
+```sh
+npm run install:local
+npm run start:local
+```
 
-## Command-line picker
+The installer extracts the built Debian package into `deployments/linux/` and updates `deployments/linux/current`. It does not modify the system package database.
 
-From this project on Linux:
+## Everyday use
 
-    printf 'alpha\nbeta\tdetail\ngamma\n' | deployments/linux/current/usr/bin/asaaan-launcher --pick --prompt 'Choose a line'
-    printf 'alpha\n\nbeta\n' | deployments/linux/current/usr/bin/asaaan-launcher --pick --query beta --index
+Open the launcher with **Ctrl+Alt+Space** on supported desktops, or use its tray menu. Type to search, move through results with the arrow keys, and press **Enter** to open a selection.
 
-The first command opens a dedicated picker. Type to filter; use arrows, Page Up/Down (nine rows), Home/End, Enter to choose, or Escape to cancel. A click selects a row; double-click chooses it. Return with no match keeps the window open. Closing the window or losing focus cancels. Starting-query text keeps its caret at the end. IME composition retains Return/Escape.
+| Control | Action |
+| --- | --- |
+| Ctrl+K / Command+K | Open the selected result's actions |
+| Ctrl+Shift+F / Command+Shift+F | Toggle the selected result's favorite status |
+| Up at the first result | Recall previous searches |
+| Escape in application search | Clear the query, then hide when empty |
+| Settings gear | Open General and Applications settings |
+| Search tools menu | Access history, refresh, and customization |
 
-Output is the entire original line, including tabs and surrounding spaces, followed by a newline. --index prints the original zero-based line position, including skipped blank lines. Tabs split the title and displayed detail; matches in the title score ten points above equivalent detail matches. Equal scores retain input order. CRLF counts as one line break. Non-UTF-8 input falls back to Latin-1. Exit status is 0 for a choice, 1 for cancellation/empty input, and 64 for invalid picker arguments or terminal stdin; I/O failures can return 74. --prompt, --query and --index require --pick; unrelated/repeated picker options are rejected. ASAAAN_PICK_AUTO=1 selects the first filtered match without requiring a display. Use --help for usage.
+Choose the launcher theme in **Settings → General → Launcher theme**. The **Legacy** option retains the earlier green appearance. Extension views have their own navigation: Escape returns from the active extension.
 
-The picker bypasses resident startup, application scanning, preferences and global shortcuts. It can coexist with the resident and uses an ephemeral WebView. npm run smoke:picker checks the installed Linux package on an isolated X11 desktop, including headless output/encoding/TTY cases, native keyboard/focus and coexistence. Native Windows/macOS/Wayland qualification remains pending; Linux results do not certify those targets. Floe's diagnostic picker snapshot environment variable is not implemented.
+Closing the launcher hides the panel. **Quit** in the tray exits the resident application.
 
-## Settings
+### Search from the terminal
 
-Open Settings from the launcher header, the tray's Settings… item, or the installed executable:
+After a local Linux installation:
 
-    deployments/linux/current/usr/bin/asaaan-launcher --settings
-    deployments/linux/current/usr/bin/asaaan-launcher --settings --page applications
+```sh
+deployments/linux/current/usr/bin/asaaan-launcher --search notes
+```
 
-General controls Remember searches and Clear search history. Turning recording off keeps the history already stored; clearing history preserves application usage and favorites. Applications lists the full catalog, including hidden apps, with a filter by name, alias or ID. Set/Edit alias uses explicit Save/Cancel; Hide removes the app from Favorites; Restore keeps its alias and usage. Removed apps with stored aliases or hidden records remain manageable: their alias can be removed and visibility restored.
+The headless command prints up to eight ranked application results, honoring saved aliases, favorites, and hidden entries. It does not open a window, launch an application, or record search history.
 
-One settings child runs at a time, independently of the disposable search panel. Reopening brings it forward; a new child remembers the last General/Applications page within the resident session. Closing Settings or Ctrl/Command+W ends that child after pending operations finish. Focus loss keeps Settings open. Resident exit or private parent-pipe EOF ends Settings. Preferences remain serialized by one resident store; clients send field operations and receive committed snapshots. Five-second/focus refreshes take external launcher edits without overwriting an unsaved alias draft.
+### Choose from piped input
 
-This checkpoint implements only General and Applications and the existing preference fields. Other pages, hotkey recording, import/export, updater and full native visual fidelity remain later work. Unsupported --page values fail with exit 64. npm run settings:parity checks the scoped reference map; npm run smoke:settings exercises the installed normal UI in a private Linux X11 session. Windows/macOS/Wayland native qualification and public release remain pending. Performance upgrades remain deferred.
+```sh
+printf 'Development\nDesign\nDocuments\n' | deployments/linux/current/usr/bin/asaaan-launcher --pick --prompt 'Choose a workspace'
+```
 
-## Search from the terminal
+Type to filter and press Enter to choose. The picker writes the original selected line to standard output. Add `--index` to return its original zero-based position. Use `--help` for the available command-line modes.
 
-    deployments/linux/current/usr/bin/asaaan-launcher --search notes
-    deployments/linux/current/usr/bin/asaaan-launcher --search ''
-    deployments/linux/current/usr/bin/asaaan-launcher --search=memo
+## Development
 
-Search prints the first eight ranked installed applications. An empty query browses Favorites, Suggestions and Applications in the same order as the launcher. Output follows Floe's English text format, for example Notes (Application) (alias memo), with [Favorites] or another section prefix when browsing. Aliases, favorite boosts, usage, keywords and hidden apps use the existing shared search engine. Unicode remains literal; control characters in catalog text are escaped so one result cannot inject terminal controls or extra lines.
+The application separates persistent desktop coordination from the foreground UI. A Rust resident owns preferences, native actions, and supervised extension sessions. The search panel can be hidden, briefly reused, and disposed independently. Shared Rust crates keep search and lifecycle rules testable outside the webview.
 
-The command reads the last committed personalization snapshot from the same platform data directory as the resident. It does not record usage/history, write preferences, launch applications, read stdin, open a window, start a resident or forward activation to one already running. Atomic settings publications can be read concurrently. Missing preferences use defaults without creating a file; corrupt, future-version or unreadable preferences fail visibly rather than ignoring hidden-app rules. Old v1 data is interpreted in memory without rewriting it.
+```text
+src/                  React interface, themes, and native client
+src-tauri/            Tauri integration and platform adapters
+crates/               Search, lifecycle, catalog, preferences, extensions
+runtime/              Bundled extension host and runtime tests
+extensions/           Bundled extension commands and fixtures
+scripts/              Validation, packaging, and native acceptance tools
+tests/reference/      Frozen behavioral fixtures and test mappings
+docs/                 Checkpoint plans, findings, and delivery records
+```
 
-Exit codes: 0 for a successful search, including no matches; 64 for invalid/missing/conflicting arguments or queries over 4096 UTF-8 bytes; 69 for catalog failure; 74 for stdout failure; 78 for preference/path failures. --search accepts a single query and cannot be combined with picker, settings or resident-control modes. Use --search=QUERY for a query beginning with --. --help lists the available modes.
+### Validate changes
 
-The headless --search command covers application results only. The interactive launcher also includes the bundled extension commands below; built-ins, dictionary and other root providers remain later work. No browser, general file or network provider is started. npm run smoke:search-cli checks the installed Linux command without a display or session bus. Native Windows/macOS execution remains pending qualification.
+```sh
+npm run check
+npm run build
+npm run runtime:prepare
+npm run runtime:test
+npm run native:check
+```
 
-For this local session, the disposable Cargo target cache was moved to /tmp/asaaan-cp010-target to work around recurring workspace FUSE/NTFS ENOSPC errors; src-tauri/target is an ignored symlink. Installed versions and checkpoint artifacts remain on the workspace volume. If /tmp is cleared, remove the dangling src-tauri/target symlink before rebuilding. This is a local build-cache arrangement, not a runtime dependency of installed packages.
+These commands cover TypeScript, frontend tests, behavioral fixture checks, extension-runtime tests, Rust formatting, workspace tests, and Clippy with warnings denied. A Swift toolchain is optional for fixture regeneration and is not required for normal builds.
 
-## Graceful running-app controls (CP011)
+After packaging and installing on Linux, run native acceptance in a private X11 session:
 
-Open an application's Actions menu for Hide and Quit when native identity can be verified. Hide dismisses the launcher; Quit preserves the query and acknowledges the request without claiming the app has exited. Apps can refuse to close or ask about unsaved work. These actions do not change usage or preferences. Instance fingerprints prevent a stale menu from affecting a replacement process.
+```sh
+npm run test:resident:isolated
+npm run smoke:appearance
+npm run smoke:picker
+npm run smoke:extension-ui
+```
 
-Linux X11 checks native desktop ID, local hostname, owner, executable and process start time. Hide minimizes the verified windows; Quit uses WM_DELETE_WINDOW only when every verified window advertises it. Apps without usable native metadata, wrappers with a different executable, headless/background-only apps and Wayland sessions are unsupported. No process-name/title guessing or signal fallback is used. X11 metadata is cooperative and does not defend against hostile clients in the same desktop session.
+The isolated harness requires Xvfb, KWin X11, D-Bus, X11 utilities, Python GI/AT-SPI bindings, and the relevant desktop libraries. The complete Ubuntu dependency list and additional feature suites are maintained in the [validation workflow](.github/workflows/verify.yml). Tests use private display sessions and temporary preferences. Launch timing can be measured with `npm run benchmark:launch -- --samples 5 --expect-reuse` after local installation.
 
-macOS uses NSWorkspace and canonical bundle paths with native hide/terminate requests. Windows uses process AUMIDs and native window requests; unpackaged apps without a process AUMID and windows hosted by a different process cannot be identified by this adapter. Linux/Windows window-close requests can leave background processes running. Native macOS and Windows validation remains pending; no complete process-action parity is claimed.
+## Platform notes
 
-Run npm run process:parity for the pinned source contracts and npm run smoke:process for the installed Linux/X11 multi-window acceptance test. Restart and Force Quit are added in CP012 below. Performance upgrades remain deferred.
+- **Wayland:** global shortcut availability and absolute window placement depend on compositor support. Tray access provides a fallback; focused-monitor positioning cannot be guaranteed.
+- **Appearance:** platform fonts, icons, and native materials can differ. The default theme uses an appearance-aware opaque surface.
+- **Running-app controls:** Hide, Quit, Restart, and Force Quit are exposed only when the adapter can verify the target and required capabilities. Unsupported applications do not receive guessed process actions.
+- **Preferences:** history and personalization are stored locally. Linux uses `$XDG_DATA_HOME/com.asaaan.launcher`, falling back to `~/.local/share/com.asaaan.launcher`. Versioned preference formats mean older builds may not read data saved by newer versions.
 
-## Restart and Force Quit (CP012)
+## Documentation
 
-Restart asks the app to quit, waits up to ten seconds for its original processes to exit, and only then reopens it. Unsaved-work prompts, refusal, a changed desktop entry, a replacement instance or a continuing background process prevent reopening. No forced fallback or history/usage mutation occurs.
+- [Checkpoint overview and delivery process](docs/CHECKPOINTS.md)
+- [Interactive extension Lists](docs/checkpoints/014-extension-lists.md)
+- [Current appearance, monitor placement, and launch measurements](docs/checkpoints/014-floe-theme-placement.md)
+- [Panel reuse and launch performance](docs/checkpoints/014-launch-performance-1.md)
+- [Platform CI and packaging](docs/checkpoints/014-platform-ci.md)
+- [Behavioral test provenance](tests/reference/README.md)
 
-Force Quit… dismisses the launcher and opens a native unsaved-work warning with cancellation as the default. It revalidates the selected instance after confirmation before terminating verified processes. Linux uses stable pidfds; Windows uses retained process handles; macOS uses NSRunningApplication. Linux/X11 is locally qualified; native macOS/Windows validation is pending. Controls remain unavailable where identity or required capabilities cannot be proven. No process tree is guessed or killed.
+Checkpoint records describe the evidence and limitations at the time of each delivery. Later follow-up records document subsequent changes.
 
-Run npm run smoke:process-controls for the installed Linux/X11 cancellation, hung-app, stale-instance, refused/background/delayed-exit and changed-entry checks. See the checkpoint report for platform and HUD fidelity limits. Broader process/HUD fidelity and performance work remain deferred.
+## Contributing
 
-## Extension host foundation
+Keep changes focused and include the validation appropriate to the behavior you change. For platform issues, include your operating system, display server where applicable, build version or commit, reproduction steps, and relevant logs with personal information removed.
 
-The package carries its own Bun 1.4.3 and frozen runtime dependencies. Run npm run smoke:extensions after local installation to test real hello/planets renders and actions, native-request refusal, diagnostics, watchdog and owned subprocess cleanup with private data. The headless --extension-check FIXTURE COMMAND mode accepts NDJSON on stdin and returns decoded messages on stdout; console/raw extension writes stay on stderr. Only bundled hello, diagnostics, host-probe and list-lab fixtures are accepted. Close stdin to stop a session. This diagnostic mode is separate from search/picker/Settings and has a 25-second diagnostic deadline. CP014 uses a separate private worker for interactive sessions, with the same bundled runtime.
+Review the [checkpoint scope](docs/CHECKPOINTS.md) before proposing larger features. Preserve existing license headers and third-party attribution when adapting code or fixtures.
 
-The per-declaration map and deliberate differences are in [extension reference provenance](tests/reference/extensions/README.md). Imported API mocks passing does not demonstrate native extension API availability. Runtime path portability, tree decoding and Linux process cleanup are tested here; general extension installation, native API routing, preferences/secrets, scheduling and cross-platform UI qualification are later work.
+## License
 
-## Extension Lists
-
-Search for **Browse Planets**, **Extension List Playground**, **Remote Extension List** or **Empty Extension List**. The four bundled diagnostic commands intentionally fail or hang for testing. List search matches title, subtitle and keywords unless the extension handles search itself. Arrows change selection; Return runs the first action, Ctrl+Return (Command+Return on macOS) the second. Ctrl/Command+K opens searchable actions and submenus. A declared modified shortcut takes precedence. Escape pops the extension even when its search text is nonempty.
-
-Hiding and reopening within 90 seconds retains the session, query and selection across disposable panels. The resident owns text clipboard copies and extension processes. Detail/Form display, installing arbitrary extensions, preference/argument setup and broad native API support remain deferred. Browse Planets uses the unchanged Floe example; its Show Details action currently opens an explicit placeholder with Back.
-
-Run `npm run smoke:extension-ui` for installed List interaction, errors, retry, clipboard ownership, panel resume and hung-host cleanup in an isolated X11 desktop. `npm run extensions-ui:parity` checks the scoped Swift inventory and equivalents. See `tests/reference/extension-ui`.
+Distributed under **AGPL-3.0-only**. See [LICENSE](LICENSE), [project attribution](NOTICE.md), and [third-party notices](LICENSES/) for details.
