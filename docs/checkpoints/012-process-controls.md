@@ -1,0 +1,44 @@
+# CP012: Restart and Force Quit
+
+Status: implemented, tested, locally installed and locally run. Public downloadable release pending. Version 0.12.0; branch checkpoint-12. User explicitly authorized advancing after CP011; its public release is unverified and user controlled. Extensions and performance upgrades remain deferred.
+
+## Behavior and scope
+
+Restart sends the same graceful quit request as CP011, holds a work lease, and waits at most 100 intervals of 100 ms for the original processes to exit. Closed windows alone do not count as process termination. Refusal, an unsaved-work prompt or a continuing background process ends with “NAME is still running, so it was not restarted”; there is no force escalation or reopen in that case. Once actual termination is confirmed, a new verified instance prevents an extra reopen. The native catalog launch is used without recording an activation or changing history/favorites.
+
+Force Quit… first revalidates the catalog ID and instance token, dismisses the launcher, and displays a native warning naming the app and stating that unsaved changes will be lost. Cancel is the default; Escape/window close cancel where supported by the native dialog. The command accepts no confirmed/approved boolean or user-supplied process identity. After a positive native response it re-resolves and revalidates the instance again. A replacement process is not terminated. Cancellation sends no close/termination request.
+
+Running controls remain ordered Hide, Quit, Restart, Force Quit… before metadata and personalization suffix actions. Restart and Force Quit are omitted when the required platform capability cannot be proven. Query, operation errors, duplicate-action prevention and lifecycle work leases remain integrated with the existing launcher. Restart shows progress and completion in the launcher status area. Floe's detached HUD is not implemented; a force completion response while the launcher is hidden does not produce a detached HUD. This visual-fidelity difference remains for later work.
+
+## Platform implementations and limits
+
+Linux/X11 retains CP011's exact desktop-ID, local host, owner, executable and instance checks. Parent/ancestor/self/system processes are excluded. Desktop-entry bytes are included in the instance fingerprint and must stay unchanged through a restart wait. Linux pidfds bind each unique verified process; poll observes actual exit and pidfd_send_signal sends SIGKILL only after native approval. There is no numeric-PID kill fallback, process-name matching, process-group termination or XKillClient. Stable handles and signal permission must be available for Restart/Force Quit; Hide and graceful Quit can remain available without them. Only proven window-owning processes are controlled; unverified helpers/children are not inferred or killed. Wayland and unsupported native metadata remain unavailable.
+
+macOS uses the original NSRunningApplication selected by canonical bundle path and PID/launch-date token. Restart waits for that native object's isTerminated state before reopening; a replacement at the same bundle URL prevents reopening. Force uses forceTerminate only after a separate native NSAlert with Cancel first. The static helper receives names/paths as literal arguments, never shell script interpolation. The operation helper has a 15-second deadline for restart/force and five seconds for ordinary inspection/Hide/Quit; the confirmation itself has no automatic approval timeout. Native macOS execution and full target compilation remain unverified.
+
+Windows uses AUMID/window ownership plus process creation times and retained handles. Restart waits on original process handles; Force requires PROCESS_TERMINATE and uses TerminateProcess only on retained verified handles. Native MessageBox warning defaults to No, the platform cancellation equivalent; Yes authorizes the named Force Quit action. This differs from Floe's custom Force Quit/Cancel button wording. Unsupported unpackaged/hosted/background-only identities retain CP011's limitations. Linux-host Rust metadata type checking of the actual Windows adapter is not Windows ABI linking or native qualification. Native Windows execution and full target compilation remain unverified.
+
+## Traceability
+
+Floe remains pinned and unchanged at 5b26e9d7a0240243251d7421bee5b90da5f52b9b. The existing frozen ItemActions.swift/ItemActionTests.swift snapshots and partial original non-running declaration map remain in tests/reference/process-actions. The scoped source-contract map now includes bounded restart waiting, menu order and native confirmation boundaries. All statuses remain partial where native OS qualification or detached-HUD fidelity is outstanding. No dedicated original Restart/Force Quit test suite is invented.
+
+- 192 Rust tests pass, Cargo formatting passes and full workspace Clippy passes with warnings denied. Tests cover bounded exit polling, capability order, rejected identity/approval fields, ancestor/self exclusion, stable-handle exit detection and narrow vanished-window error handling.
+- 101 frontend tests pass, TypeScript passes and all pinned-reference checks pass. New cases cover pending Restart, timeout without activation, token-only process dispatch, native-only force approval and refused force errors.
+- The installed package passes 11 native process-control stages: unsaved-work warning/default Enter cancellation and retained worker; Escape cancellation; confirmed hung-app termination; replacement protection after approval; stale Restart; refused graceful Restart; closed windows with a continuing background process and a hidden work lease; delayed exit followed by exactly one identifiable GIO reopen; changed desktop entry preventing reopen; unchanged preference/history bytes; and resident shutdown cancelling an unanswered confirmation without terminating its target.
+- The same installed executable passes all 12 prior Hide/Quit/identity stages, all ten headless CLI stages, live Settings/CLI context, resident keyboard/focus and five rapid reopens, clipboard/reveal including real Dolphin selection, customization, personalization, picker, native GIO launch and resident/EOF smoke checks. Performance qualification was skipped.
+- The installed 0.12.0 resident is running on the actual KDE/X11 desktop with Ctrl+Alt+Space registered. Its rendered window and version were visually inspected. Acceptance uses private fixture data; the actual preference screenshot remains in /tmp and is not included in the archive.
+
+Initial native runs found an incomplete fixture environment (missing GTK MIME/icon data) and an accessibility observer that attempted to read the deliberately hung fixture; the fixture now exposes system MIME/icon data without exposing system application entries, and observations target the launcher's PID. The real confirmation test also found a production X11 race: the closed confirmation window briefly remained in _NET_CLIENT_LIST, causing BadWindow during revalidation before any termination request. Enumeration now skips only typed vanished-window errors, preserves all identity/token checks and fails closed on other native errors. Native confirmation publishes one response after closing the dialog. The corrected installed package passes the complete suite. A repeated hidden-action test was corrected to observe native completion and target survival across normal panel disposal, rather than depend on an error remaining in a disposed WebView; detached-HUD feedback remains explicitly deferred. Initial failure logs and the scoped syscall trace are retained in the evidence archive. Public downloadable release, native macOS/Windows/Wayland qualification, remote CI, clean-machine installation and signing remain pending. Stop at CP012; CP013 has not started.
+
+Native protocol references: [Linux stable-handle signals and PID-reuse guarantees](https://man7.org/linux/man-pages/man2/pidfd_send_signal.2.html), [Windows handle-bound force termination](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess).
+
+
+## Local artifact
+
+Asaaan Launcher 0.12.0 / CP012, Linux amd64. The Debian package is extracted into deployments/linux/current, and every final native acceptance suite uses that installed executable.
+
+Package SHA-256: 0d72b3543a4c164b9ac6bb9df6ed4621a53e9b6cf2bae85a5e50c5c52a8e5dbf.
+
+Installed binary SHA-256: 787cf40f09f0c6b33c23aca758f5bb7df446ace7aa5916d53d56c422bec29e47.
+
+The ignored .artifacts/checkpoint-012 directory holds the durable package, installation manifest, native/frontend/build logs, acceptance JSON, desktop-run evidence, retained initial diagnostics, Windows metadata type-check wrapper, SHA256SUMS and a post-commit validation manifest with the exact source revision. Installed versions and the archived package do not depend on the disposable /tmp Cargo cache. Public release remains user controlled and pending.

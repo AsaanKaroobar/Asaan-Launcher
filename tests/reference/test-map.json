@@ -1,0 +1,301 @@
+{
+  "referenceCommit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "checkpoint": "CP002",
+  "scope": "All 38 RankingTests declarations and four pure merge assertions; native providers and other search suites remain unported.",
+  "tests": [
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "prefixBeatsWordPrefixBeatsAcronymBeatsSubstringBeatsSubsequence",
+      "sourceLine": 13,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "charactersOutOfOrderOrMissingDoNotMatch",
+      "sourceLine": 25,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "matchingIgnoresCase",
+      "sourceLine": 30,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "shorterCandidateWinsForTheSamePrefix",
+      "sourceLine": 34,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "prefixPenaltyStopsAtTwentyCharacters",
+      "sourceLine": 40,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "theFourFixedTiersScoreExactlyAsBefore",
+      "sourceLine": 82,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "everyFixedTierOutranksTheBestScatteredMatch",
+      "sourceLine": 97,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "lettersAtWordStartsBeatLettersInsideAWord",
+      "sourceLine": 111,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "lettersInARowBeatTheSameLettersSpreadOut",
+      "sourceLine": 117,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aMatchThatStartsEarlyBeatsOneThatStartsLate",
+      "sourceLine": 123,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aLetterAfterASeparatorCountsAsAWordStart",
+      "sourceLine": 129,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "camelCaseHumpsCountAsWordStarts",
+      "sourceLine": 136,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "theBestAlignmentIsFoundNotTheFirst",
+      "sourceLine": 145,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "noScatteredMatchReachesTheSubstringScore",
+      "sourceLine": 151,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "keywordsStillRejectScatteredLetters",
+      "sourceLine": 160,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "matchedPositionsAreRightForEachTier",
+      "sourceLine": 166,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "accentedLettersMatchThemselvesAndCountAsOneCharacter",
+      "sourceLine": 180,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "uppercaseQueriesScoreLikeLowercaseOnes",
+      "sourceLine": 191,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "anEmptyQueryIsAPrefixOfEverythingAndMatchesNoCharacters",
+      "sourceLine": 196,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aQueryLongerThanTheCandidateDoesNotMatch",
+      "sourceLine": 203,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "menuBarItemsRankAGoodScatteredNameAboveAPoorOne",
+      "sourceLine": 209,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "tenThousandCandidatesScoreWellWithinAKeystroke",
+      "sourceLine": 215,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "frecencyWeightFallsOffWithAge",
+      "sourceLine": 246,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "exactAliasOutranksEverything",
+      "sourceLine": 263,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aliasPrefixRanksAtLeastAsWellAsATitlePrefix",
+      "sourceLine": 268,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aliasThatDoesNotMatchFallsBackToTheTitle",
+      "sourceLine": 273,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "browsingListsFavoritesThenSuggestionsThenCommandsThenApplications",
+      "sourceLine": 279,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "browsingKeepsFavoritesInTheirSavedOrderAndOutOfSuggestions",
+      "sourceLine": 295,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "browsingSuggestsAtMostFiveItems",
+      "sourceLine": 304,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "equallyUsedSuggestionsKeepTheirOrder",
+      "sourceLine": 309,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "browsingListsCommandsBeforeApplicationsInTheirOwnOrder",
+      "sourceLine": 319,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "searchingOrdersByMatchThenUsage",
+      "sourceLine": 324,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "usageBoostIsCappedSoAnExactAliasStillWins",
+      "sourceLine": 334,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "favoritesGetASmallBoostInSearch",
+      "sourceLine": 345,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "searchRespectsTheLimit",
+      "sourceLine": 350,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "menuBarItemsMatchOnNameAndLessStronglyOnOwner",
+      "sourceLine": 356,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aCommandAnswersToItsExtensionsNameBehindATitleThatMatches",
+      "sourceLine": 364,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/RankingTests.swift",
+      "function": "aCommandAnswersToItsManifestKeywordsBehindATitleThatMatches",
+      "sourceLine": 379,
+      "target": "crates/launcher-search/tests/floe_ranking.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/SearchProviderTests.swift",
+      "function": "theMergePutsSectionedRowsFirstThenPinnedThenRankedThenAppended",
+      "sourceLine": 157,
+      "target": "crates/launcher-search/tests/merge.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/SearchProviderTests.swift",
+      "function": "rowsOfOneKindKeepTheOrderOfTheirProviders",
+      "sourceLine": 169,
+      "target": "crates/launcher-search/tests/merge.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/SearchProviderTests.swift",
+      "function": "aPinnedRowTakesThePlaceOfTheRankedRowWithItsId",
+      "sourceLine": 182,
+      "target": "crates/launcher-search/tests/merge.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    },
+    {
+      "source": "tests/reference/floe/SearchProviderTests.swift",
+      "function": "withoutAQuerySearchOnlyRowsShowOnlyAsFavoritesOrSuggestions",
+      "sourceLine": 189,
+      "target": "crates/launcher-search/tests/merge.rs",
+      "assertions": "Ported with original parameter sets; fixed-tier matrix strengthened to exact original-Swift snapshots."
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "first eight ranked rows",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "prints_only_the_first_eight_in_ranked_order",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "section prefixes and saved favorite order",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "empty_query_preserves_sections_favorite_order_and_suggestions",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "alias display and ranking",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "aliases_are_used_for_ranking_and_shown_on_title_matches_too",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "hidden rows before output limit",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "hidden_rows_are_filtered_before_the_display_limit",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "usage and favorite boosts",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "usage_and_favorites_use_the_shared_ranking_context",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "keywords and no matches",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "keywords_and_no_matches_follow_the_existing_catalog",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "UTF-8 text with control escaping exception",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "unicode_is_preserved_and_terminal_controls_cannot_forge_rows",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "availability failures",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "scan_failures_propagate_instead_of_returning_partial_output",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "explicit search syntax",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "search_options_are_explicit_and_isolated",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  },
+  {
+    "source": "SearchCommand.swift",
+    "function": "runSearch",
+    "contract": "invalid or conflicting arguments",
+    "target": "crates/launcher-apps/tests/search_command.rs",
+    "test": "missing_repeated_and_conflicting_options_are_usage_errors",
+    "status": "scoped-equivalent",
+    "reason": "Applications only. Other root providers and local dictionary remain deferred; control characters are escaped for terminal output."
+  }
+]

@@ -1,7 +1,7 @@
 name: Checkpoint validation
 on:
   push:
-    branches: [main]
+    branches: [main, 'checkpoint-*']
   pull_request:
   workflow_dispatch:
 permissions:
@@ -22,6 +22,7 @@ jobs:
           - os: macos-14
             bundle: dmg
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,27 +31,80 @@ jobs:
           cache: npm
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev librsvg2-dev libayatana-appindicator3-dev patchelf xvfb xauth
+        run: sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev librsvg2-dev libayatana-appindicator3-dev patchelf xvfb xauth kwin-x11 x11-utils libxtst6 imagemagick python3 python3-gi at-spi2-core dbus-x11 libgl1-mesa-dri libegl-mesa0 libglx-mesa0 gir1.2-atspi-2.0 gir1.2-gtk-3.0 dolphin
       - uses: dtolnay/rust-toolchain@1.95.0
         with:
           components: rustfmt, clippy
       - run: npm ci
+      - run: npm run runtime:prepare
+      - run: npm run runtime:test
       - run: npm run check
       - run: npm run build
       - run: npm run native:check
       - name: Package native application
+        id: package
         run: npm run tauri build -- --bundles ${{ matrix.bundle }}
-      - name: Install and smoke test Linux package
+      - name: Install Linux package
+        id: install
         if: runner.os == 'Linux'
-        run: |
-          npm run install:local
-          xvfb-run -a npm run smoke:local
+        run: npm run install:local
+      - name: Linux - Native rendering, activation and parent EOF
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/test-isolated-x11.mjs --smoke-only
+      - name: Linux - Appearance and placement
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/test-isolated-x11.mjs --appearance-only
+      - name: Linux - Personalization
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:personalization
+      - name: Linux - Customization
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:customization
+      - name: Linux - Metadata, clipboard and reveal
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:actions
+      - name: Linux - Picker
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:picker
+      - name: Linux - Settings
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:settings
+      - name: Linux - Headless search
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:search-cli
+      - name: Linux - Graceful process controls
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:process
+      - name: Linux - Restart and Force Quit
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:process-controls
+      - name: Linux - Extension host
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:extensions
+      - name: Linux - Extension Lists
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run smoke:extension-ui
+      - name: Linux - Resident focus and reopening
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run test:resident:isolated
+      - name: Linux - Bounded panel reuse
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run benchmark:launch -- --samples 5 --expect-reuse
       - name: Upload checkpoint build artifacts (not a published release)
+        if: ${{ !cancelled() && steps.package.outcome == 'success' }}
         uses: actions/upload-artifact@v4
         with:
-          name: asaaan-launcher-cp001-${{ matrix.os }}
+          name: asaaan-launcher-checkpoint-${{ matrix.os }}
           path: |
             src-tauri/target/release/bundle/deb/*.deb
             src-tauri/target/release/bundle/nsis/*.exe
             src-tauri/target/release/bundle/dmg/*.dmg
+          if-no-files-found: error
+      - name: Upload native test evidence
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-test-evidence-${{ matrix.os }}
+          path: .artifacts/
+          include-hidden-files: true
           if-no-files-found: error

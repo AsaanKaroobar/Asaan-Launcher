@@ -1,0 +1,40 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/Settings/Settings.swift",
+      "file": "Settings.swift",
+      "sha256": "a153361414cf8dd47948651097c057cfe56f719d97161171135b7f75835413b5"
+    },
+    {
+      "source": "Sources/Floe/Launcher/Model+Actions.swift",
+      "file": "Model+Actions.swift",
+      "sha256": "4a46ae48ce3f129e464dcd6198ce719ea3152220e25b22d58484b1a30b4a89f9"
+    },
+    {
+      "source": "Sources/Floe/Launcher/Model+Keys.swift",
+      "file": "Model+Keys.swift",
+      "sha256": "51dd9422aa9ee138d3986c35fef8aaaebae7c11428f062e9bd95eccd27ef6ea9"
+    },
+    {
+      "source": "Sources/Floe/Launcher/Model.swift",
+      "file": "Model.swift",
+      "sha256": "03c01be2bc7799ba79609cbff9fad1c638408ddf249eb78d1af9b0377f30c410"
+    },
+    {
+      "source": "Tests/FloeTests/Settings/UsageStoreTests.swift",
+      "file": "UsageStoreTests.swift",
+      "sha256": "c2c48b1bdd798693d285d846473701eb4b16e77236634463c23edb0bf42281ee"
+    },
+    {
+      "source": "Tests/FloeTests/Settings/SettingsTests.swift",
+      "file": "SettingsTests.swift",
+      "sha256": "8f002ea0e2fcd82709b05c0ea39af22fcbaa1ca633a3d9fbc44290ad547d96af"
+    },
+    {
+      "source": "Tests/FloeTests/Launcher/ItemActionTests.swift",
+      "file": "ItemActionTests.swift",
+      "sha256": "3dd219edcdc78f283e9b8ca0fce3fa3b6a142d3ad6ab2ae3ee37f58dbeb80dd5"
+    }
+  ]
+}

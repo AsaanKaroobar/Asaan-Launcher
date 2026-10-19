@@ -1,0 +1,30 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/Launcher/Catalog.swift",
+      "file": "Catalog.swift",
+      "sha256": "24a21545948642a0289ed0a606e29ae42fb43aa925c8252db4510f8b507d3342"
+    },
+    {
+      "source": "Sources/Floe/Launcher/CatalogLoader.swift",
+      "file": "CatalogLoader.swift",
+      "sha256": "23a15a78a53515d39742516e84a9ecaa227d940cfa2164be0f55f71f51cb111a"
+    },
+    {
+      "source": "Tests/FloeTests/Launcher/AppScanTests.swift",
+      "file": "AppScanTests.swift",
+      "sha256": "08967e3a6001ade980520c7c8493d9e906e716af81b0d3b19c854c0bbd1ea574"
+    },
+    {
+      "source": "Tests/FloeTests/Launcher/CatalogLoaderTests.swift",
+      "file": "CatalogLoaderTests.swift",
+      "sha256": "29da3e4a47a87d9f43828421acd9905fff7627834cad2880b3415bb74ab1149a"
+    },
+    {
+      "source": "Tests/FloeTests/Launcher/LauncherCatalogTests.swift",
+      "file": "LauncherCatalogTests.swift",
+      "sha256": "dc886dd49a61db5a8f842a16f2b6d82bea325fd4eddfe3915a2d1829c9428c53"
+    }
+  ]
+}

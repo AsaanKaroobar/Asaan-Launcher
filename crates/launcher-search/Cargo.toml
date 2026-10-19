@@ -1,0 +1,15 @@
+[package]
+name = "asaaan-search"
+version = "0.2.0"
+edition = "2024"
+rust-version = "1.95"
+license = "AGPL-3.0-only"
+description = "Platform-independent Floe-compatible fuzzy matching and result ranking"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+unicode-segmentation = "=1.13.3"
+unicode-normalization = "=0.1.25"
+
+[dev-dependencies]
+serde_json = "1"

@@ -1,0 +1,30 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "path": "Sources/Floe/App/PanelLifetime.swift",
+      "file": "PanelLifetime.swift",
+      "sha256": "d03fd20352bb85d18feb26b60e8c805e31421199a9708610036dc31cc18a01a6"
+    },
+    {
+      "path": "Sources/Floe/App/PanelWork.swift",
+      "file": "PanelWork.swift",
+      "sha256": "45580238e3d31f5780ca7adf07aa7da6ba0d540779b72c831570e8e315b64b13"
+    },
+    {
+      "path": "Tests/FloeTests/App/PanelLifetimeTests.swift",
+      "file": "PanelLifetimeTests.swift",
+      "sha256": "d3f1908534357893efeb24f90810c1d125cf2a6352442bd10b267c0d646f1768"
+    },
+    {
+      "path": "Tests/FloeTests/App/PanelProcessTests.swift",
+      "file": "PanelProcessTests.swift",
+      "sha256": "162042fadb61d5a4acd6998157a69fb5e58eda2c0334ed79e36af0cc73ac2721"
+    },
+    {
+      "path": "Tests/FloeTests/App/PanelOwnershipTests.swift",
+      "file": "PanelOwnershipTests.swift",
+      "sha256": "80d69eb70665181b7957b4fe956d0addd126c606b53401d91ee2b90425a310a1"
+    }
+  ]
+}

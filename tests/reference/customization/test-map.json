@@ -1,0 +1,252 @@
+[
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theDefaultAppLeadsTheOpenWithListAndNoAppRepeats",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aFileOutsideTheSystemCanBeMovedToTheTrashAndOneInsideCannot",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aFileOffersItsCopiesAndAlwaysShowInFinder",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "quickLookHandsTheFileToTheHost",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "anAppThatIsNotRunningOffersNoQuitAndASystemAppNoTrash",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aMenuNestsChildrenAndDrawsSeparators",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "rootActionsStartWithOpenAndEndWithTheFavoriteToggle",
+    "status": "ported",
+    "kind": "frontend",
+    "target": "src/Customization.test.tsx",
+    "test": "root actions start with Open and end with favorite and hide"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aResultThatIsGoneNextTimeHasNoFavoriteToggle",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "returnOnACalculationWithNothingToCopySaysSo",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aHiddenResultLeavesTheListTheSearchAndTheFavorites",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/customization.rs",
+    "test": "hidden_results_leave_browse_search_favorites_and_suggestions"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theExtensionStoreIsFoundInTheSearchAndOpensItsSettingsPage",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theWayIntoSettingsAndWhatIsGoneNextTimeCannotBeHidden",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Customization.test.tsx",
+    "test": "Customize stays reachable with no visible results and restores missing apps by ID",
+    "reason": "The recovery control is outside app results and cannot be hidden; full RootItem guards for unsupported providers remain deferred."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aSearchIsRememberedOnceAndTheOldestGivesWay",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "queries_are_trimmed_unique_bounded_and_clearable"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "upAtTheTopWalksBackThroughEarlierSearches",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Applications.test.tsx",
+    "test": "up at the top recalls history newest first and typing ends recall",
+    "reason": "CP005 recall behavior is retained; full LauncherModel and other command/tool activation remain deferred."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aKeywordAloneIsFoundInAnyCase",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "theContextKeepsTheQueryAsTypedBesideItsTrimmedForm",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "theCatalogOffersCommandsScriptsAppsAndBuiltInsAndKeepsPanesForSearching",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "quicklinksRankByNameAndEndTheListAsFallbacks",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aQuicklinkKeywordAndASpacePinsThatSearchOnTop",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "quicklinksStayOutOfABlankQuery",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "theCalculatorPinsItsAnswerUnderItsOwnTitle",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aNoteKeywordWithTextPinsTheNoteItWouldMake",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "appendIsOnlyOfferedByAnAppThatCanAppend",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aScriptTitleFollowedByArgumentsPinsTheScript",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "eventsAreSplitIntoTodayAndTomorrow",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aColonListsEmojiUnderTheirSection",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "everySearchEndsWithARowThatSearchesFilesForIt",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "theMergePutsSectionedRowsFirstThenPinnedThenRankedThenAppended",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/merge.rs",
+    "test": "theMergePutsSectionedRowsFirstThenPinnedThenRankedThenAppended"
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "rowsOfOneKindKeepTheOrderOfTheirProviders",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/merge.rs",
+    "test": "rowsOfOneKindKeepTheOrderOfTheirProviders"
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aPinnedRowTakesThePlaceOfTheRankedRowWithItsId",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/merge.rs",
+    "test": "aPinnedRowTakesThePlaceOfTheRankedRowWithItsId"
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "withoutAQuerySearchOnlyRowsShowOnlyAsFavoritesOrSuggestions",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-search/tests/merge.rs",
+    "test": "withoutAQuerySearchOnlyRowsShowOnlyAsFavoritesOrSuggestions"
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "rankingReadsAliasesFavoritesAndFrecencyFromTheContext",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/customization.rs",
+    "test": "ranking_reads_aliases_and_frecency_from_persisted_context"
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aQuicklinkAnswersToItsKeywordAndOtherRowsToTheirAlias",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aSearchesKeywordAloneDoesNotLeadTheAppOfThatName",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aSearchesKeywordStillFindsItWhenNoNameStartsWithIt",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aQuicklinkThatOpensOnePageStillLeadsOnItsKeyword",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "theStandardProvidersLayOutAKeywordSearchAsBefore",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  },
+  {
+    "source": "SearchProviderTests.swift",
+    "function": "aNoteLeadsAKeywordHitWhichLeadsTheCalculator",
+    "status": "deferred",
+    "reason": "Outside CP006: native file/process menus, other providers/scopes, full settings and tools remain later work. Core ranking and merge cases are tracked separately."
+  }
+]

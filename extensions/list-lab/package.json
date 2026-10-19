@@ -1,0 +1,1 @@
+{"name":"list-lab","title":"Extension Lists","commands":[{"name":"planets","title":"Browse Planets","mode":"view","keywords":["planets"]},{"name":"playground","title":"Extension List Playground","mode":"view"},{"name":"remote","title":"Remote Extension List","mode":"view"},{"name":"empty","title":"Empty Extension List","mode":"view"}]}

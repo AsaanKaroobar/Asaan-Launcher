@@ -1,0 +1,30 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/Picker/Picker.swift",
+      "file": "Picker.swift",
+      "sha256": "1fe5ad167b9f826dcc033008c419fd8a922d800cb6292a3deb3b2278550f0adb"
+    },
+    {
+      "source": "Sources/Floe/Picker/PickerPanel.swift",
+      "file": "PickerPanel.swift",
+      "sha256": "55b1a087cfe54b32ad068918c7e63500e9f34ff576ec73e12c3035555f5dae1b"
+    },
+    {
+      "source": "Sources/Floe/App/DebugOptions.swift",
+      "file": "DebugOptions.swift",
+      "sha256": "ce5aea00a8363457ad7fc0914b0dab3d2820463c53d456239971f69e3769d9da"
+    },
+    {
+      "source": "Tests/FloeTests/Picker/PickerTests.swift",
+      "file": "PickerTests.swift",
+      "sha256": "9f97acfe351df9e50eaa61ddf507496d90f654a1cd5cc89805a1c80c9b997ffd"
+    },
+    {
+      "source": "Sources/Floe/Launcher/Shortcuts.swift",
+      "file": "Shortcuts.swift",
+      "sha256": "80228a7e18b05622e21d81ff7ba8a1e99cae0b38ba98471aadcd9885eae8aeae"
+    }
+  ]
+}

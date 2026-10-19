@@ -1,0 +1,238 @@
+[
+  {
+    "source": "UsageStoreTests.swift",
+    "function": "usesAreCountedAtOnceAndWrittenDownOncePerBurst",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "acknowledged_writes_need_no_timer_or_foreground_flush",
+    "reason": "Use counts and durable writes are equivalent; immediate acknowledged saves replace the deferred burst timer."
+  },
+  {
+    "source": "UsageStoreTests.swift",
+    "function": "flushWritesWhatIsWaitingWithoutItsTimer",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "acknowledged_writes_need_no_timer_or_foreground_flush",
+    "reason": "Every acknowledged mutation is durable; there is no pending timer or foreground flush."
+  },
+  {
+    "source": "UsageStoreTests.swift",
+    "function": "foregroundFlushCannotOverwriteTheResidentWithAStaleSnapshot",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/tests/personalization.rs",
+    "test": "foreground_restarts_cannot_overwrite_the_resident_with_stale_snapshots"
+  },
+  {
+    "source": "UsageStoreTests.swift",
+    "function": "whatWasWrittenIsReadBackByTheNextStore",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "persisted_uses_favorites_and_queries_survive_restart"
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "startsWithTheDocumentedDefaults",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "aCommandIsOnUnlessItOrItsExtensionIsSwitchedOff",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "aCommandOffByDefaultIsOffUntilItIsSwitchedOnAndComesBackOn",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "savedSettingsComeBackInANewInstance",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "theAIChoiceStartsWithTheToolsAndComesBackAfterASave",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "theToolAndItsModelStartAsAutomaticAndComeBackAfterASave",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "aToolThisVersionDoesNotKnowIsAutomaticAndTheRestStays",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "appearanceDefaultsPreserveTheCurrentLauncherLook",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "aGlassThatFollowsTheSystemIsRegularWhileTintedAndClearOtherwise",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "onlyTheLiquidStylesTakeAWash",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "settingsSavedBeforeNewerFieldsExistedStillLoad",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "unreadableSettingsFallBackToDefaults",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "changesAreSavedOnTheirOwnShortlyAfter",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "anItemNeverUsedHasNoFrecency",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "never_used_has_no_frecency"
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "eachUseCountsAndRecentUseWeighsMost",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "each_use_counts_immediately"
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "frecencyFadesAsTimePasses",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "frecency_fades_with_the_reference_clock_boundaries"
+  },
+  {
+    "source": "SettingsTests.swift",
+    "function": "usageSurvivesARestart",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "persisted_uses_favorites_and_queries_survive_restart"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theDefaultAppLeadsTheOpenWithListAndNoAppRepeats",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aFileOutsideTheSystemCanBeMovedToTheTrashAndOneInsideCannot",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aFileOffersItsCopiesAndAlwaysShowInFinder",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "quickLookHandsTheFileToTheHost",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "anAppThatIsNotRunningOffersNoQuitAndASystemAppNoTrash",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aMenuNestsChildrenAndDrawsSeparators",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "rootActionsStartWithOpenAndEndWithTheFavoriteToggle",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Applications.test.tsx",
+    "test": "favorites use stable IDs and keep the selected app after results reorder",
+    "reason": "Primary open and favorite control are implemented; the complete native action menu and Hide from Search remain later work."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aResultThatIsGoneNextTimeHasNoFavoriteToggle",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "returnOnACalculationWithNothingToCopySaysSo",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aHiddenResultLeavesTheListTheSearchAndTheFavorites",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theExtensionStoreIsFoundInTheSearchAndOpensItsSettingsPage",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "theWayIntoSettingsAndWhatIsGoneNextTimeCannotBeHidden",
+    "status": "deferred",
+    "reason": "Outside CP005 favorites, usage and query recall: complete settings, hidden results, other providers and native action menus remain later checkpoints."
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "aSearchIsRememberedOnceAndTheOldestGivesWay",
+    "status": "ported",
+    "kind": "rust",
+    "target": "crates/launcher-personalization/tests/store.rs",
+    "test": "queries_are_trimmed_unique_bounded_and_clearable"
+  },
+  {
+    "source": "ItemActionTests.swift",
+    "function": "upAtTheTopWalksBackThroughEarlierSearches",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Applications.test.tsx",
+    "test": "up at the top recalls history newest first and typing ends recall",
+    "reason": "Recall, typing precedence and opt-out are covered by UI/store tests. Full LauncherModel reset and command/tool activation are later scope."
+  }
+]

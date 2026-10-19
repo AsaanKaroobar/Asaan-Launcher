@@ -1,0 +1,12 @@
+{
+  "referenceCommit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "repository": "https://github.com/thaw-app/Floe",
+  "license": "AGPL-3.0",
+  "sha256": {
+    "Fuzzy.swift": "3fc28c5de20763bb9e274445b306bd61ed9d514e88878fa49a4c0f2d2caf5d65",
+    "Ranking.swift": "c6eedafb1f8d0c87c670e89c2aa90823cb16d61133adfef5624c7d740456fb6c",
+    "RankingTests.swift": "5bbff24049a6efe32045dbd5ffce3a92d9b620d4f0d97ccad725d4efe56f17f1",
+    "RootSearch.swift": "b36946e2e0247a7e8019ad41d8158ea020c29dac3fad2d356d9fdd7b8cb1216e",
+    "SearchProviderTests.swift": "b61278cc8b34c2c6f29686a3c3e09441a00732985af0a3309d0a9054f3b11928"
+  }
+}

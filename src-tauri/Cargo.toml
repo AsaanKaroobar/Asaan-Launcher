@@ -1,6 +1,6 @@
 [package]
 name = "asaaan-launcher"
-version = "0.1.0"
+version = "0.14.0"
 description = "Asaaan Launcher cross-platform desktop application"
 edition = "2024"
 rust-version = "1.95"
@@ -19,15 +19,28 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-tauri = { version = "2", features = [] }
+asaaan-extensions = { path = "../crates/launcher-extensions" }
+dirs = "7"
+tempfile = "3"
+asaaan-personalization = { path = "../crates/launcher-personalization" }
+asaaan-search = { path = "../crates/launcher-search" }
+tauri = { version = "2", features = ["tray-icon"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+asaaan-lifecycle = { path = "../crates/launcher-lifecycle" }
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-single-instance = "2"
+asaaan-apps = { path = "../crates/launcher-apps" }
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
+gtk = "0.18"
+gio = "0.18"
+base64 = "0.22"
+gdkx11 = "0.18"
+x11rb = "0.13"
 
+[target.'cfg(target_os = "windows")'.dependencies]
+base64 = "0.22"
 
-# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
-[profile.release]
-codegen-units = 1
-lto = true
-opt-level = 3
-panic = "abort"
-strip = true
+[target.'cfg(target_os = "macos")'.dependencies]
+libc = "0.2"

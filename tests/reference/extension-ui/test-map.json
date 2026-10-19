@@ -1,0 +1,882 @@
+[
+  {
+    "id": "ListStateTests.findsTheViewOnTheTopScreen",
+    "suite": "ListStateTests",
+    "name": "findsTheViewOnTheTopScreen",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "finds_the_view_on_the_top_screen",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.findsTheViewOnASingleScreenSnapshot",
+    "suite": "ListStateTests",
+    "name": "findsTheViewOnASingleScreenSnapshot",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "finds_the_view_on_a_single_screen_snapshot",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.listsAndGridsAreLists",
+    "suite": "ListStateTests",
+    "name": "listsAndGridsAreLists",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "lists_and_grids_are_lists",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.rowsFlattenSectionsAndKeepTheirTitles",
+    "suite": "ListStateTests",
+    "name": "rowsFlattenSectionsAndKeepTheirTitles",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "rows_flatten_sections_and_keep_their_titles",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.gridItemsAreRowsToo",
+    "suite": "ListStateTests",
+    "name": "gridItemsAreRowsToo",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "grid_items_are_rows_too",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.aViewThatIsNotAListHasNoRows",
+    "suite": "ListStateTests",
+    "name": "aViewThatIsNotAListHasNoRows",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_view_that_is_not_a_list_has_no_rows",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.filtersByEveryWordAcrossTitleSubtitleAndKeywords",
+    "suite": "ListStateTests",
+    "name": "filtersByEveryWordAcrossTitleSubtitleAndKeywords",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "filters_by_every_word_across_title_subtitle_and_keywords",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.aListThatHandlesSearchItselfIsNotFilteredHere",
+    "suite": "ListStateTests",
+    "name": "aListThatHandlesSearchItselfIsNotFilteredHere",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_list_that_handles_search_itself_is_not_filtered_here",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.theFilteringPropOverridesTheDefault",
+    "suite": "ListStateTests",
+    "name": "theFilteringPropOverridesTheDefault",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "the_filtering_prop_overrides_the_default",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.selectionIsClampedToTheRows",
+    "suite": "ListStateTests",
+    "name": "selectionIsClampedToTheRows",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "selection_is_clamped_to_the_rows",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ListStateTests.clampKeepsAnIndexInRange",
+    "suite": "ListStateTests",
+    "name": "clampKeepsAnIndexInRange",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "clamp_keeps_an_index_in_range",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.aRowsOwnPanelWinsOverTheListsPanel",
+    "suite": "ActionStateTests",
+    "name": "aRowsOwnPanelWinsOverTheListsPanel",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_rows_own_panel_wins_over_the_lists_panel",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.anEmptyListUsesItsEmptyViewsPanelThenItsOwn",
+    "suite": "ActionStateTests",
+    "name": "anEmptyListUsesItsEmptyViewsPanelThenItsOwn",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "an_empty_list_uses_its_empty_views_panel_then_its_own",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.aDetailUsesItsOwnPanel",
+    "suite": "ActionStateTests",
+    "name": "aDetailUsesItsOwnPanel",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_detail_uses_its_own_panel",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.actionsAreFlattenedInOrderThroughSectionsAndSubmenus",
+    "suite": "ActionStateTests",
+    "name": "actionsAreFlattenedInOrderThroughSectionsAndSubmenus",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "actions_are_flattened_in_order_through_sections_and_submenus",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.theMenuListsActionsAndSubmenusWithSectionTitles",
+    "suite": "ActionStateTests",
+    "name": "theMenuListsActionsAndSubmenusWithSectionTitles",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "the_menu_lists_actions_and_submenus_with_section_titles",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.anOpenSubmenuListsOnlyItsOwnActions",
+    "suite": "ActionStateTests",
+    "name": "anOpenSubmenuListsOnlyItsOwnActions",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "an_open_submenu_lists_only_its_own_actions",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ActionStateTests.aQuerySearchesEveryActionIncludingInsideSubmenus",
+    "suite": "ActionStateTests",
+    "name": "aQuerySearchesEveryActionIncludingInsideSubmenus",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "passing",
+    "target": "src/ExtensionPanel.test.tsx",
+    "test": "a query searches every action including inside submenus",
+    "note": "Equivalent menu search through nested actions."
+  },
+  {
+    "id": "FormStateTests.fieldsAreTheChildrenWithAnId",
+    "suite": "FormStateTests",
+    "name": "fieldsAreTheChildrenWithAnId",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "FormStateTests.aFieldsValueIsTheControlledValueThenTypedThenDefault",
+    "suite": "FormStateTests",
+    "name": "aFieldsValueIsTheControlledValueThenTypedThenDefault",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "FormStateTests.aDropdownWithNothingChosenUsesItsFirstItem",
+    "suite": "FormStateTests",
+    "name": "aDropdownWithNothingChosenUsesItsFirstItem",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "FormStateTests.aNodeWithoutAnIdHasNoValue",
+    "suite": "FormStateTests",
+    "name": "aNodeWithoutAnIdHasNoValue",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "FormStateTests.submittingAnUntouchedFormSendsEachTypesEmptyValue",
+    "suite": "FormStateTests",
+    "name": "submittingAnUntouchedFormSendsEachTypesEmptyValue",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "FormStateTests.submittingSendsTypedValuesAndTagsDatesForTheHost",
+    "suite": "FormStateTests",
+    "name": "submittingSendsTypedValuesAndTagsDatesForTheHost",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "FormStateTests.onlyDatePickersAreTaggedAsDates",
+    "suite": "FormStateTests",
+    "name": "onlyDatePickersAreTaggedAsDates",
+    "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.whatTheExtensionReachedIsRecordedUnderItsNameAndNotHandedOn",
+    "suite": "ExtensionSessionTests",
+    "name": "whatTheExtensionReachedIsRecordedUnderItsNameAndNotHandedOn",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.withTheRecordSwitchedOffAReportIsDroppedAndStillNotHandedOn",
+    "suite": "ExtensionSessionTests",
+    "name": "withTheRecordSwitchedOffAReportIsDroppedAndStillNotHandedOn",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.keepsItsCommandAndArguments",
+    "suite": "ExtensionSessionTests",
+    "name": "keepsItsCommandAndArguments",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRenderShowsTheViewAndItsRows",
+    "suite": "ExtensionSessionTests",
+    "name": "aRenderShowsTheViewAndItsRows",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_render_shows_the_view_and_its_rows",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ExtensionSessionTests.typingFiltersRowsAndResetsTheSelection",
+    "suite": "ExtensionSessionTests",
+    "name": "typingFiltersRowsAndResetsTheSelection",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "typing_filters_rows_and_resets_the_selection",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ExtensionSessionTests.typingIsSentToAListThatHandlesSearchItself",
+    "suite": "ExtensionSessionTests",
+    "name": "typingIsSentToAListThatHandlesSearchItself",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "typing_is_sent_to_a_list_that_handles_search_itself",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ExtensionSessionTests.aNewScreenClearsTheSearchSelectionAndFormWithoutTellingTheExtension",
+    "suite": "ExtensionSessionTests",
+    "name": "aNewScreenClearsTheSearchSelectionAndFormWithoutTellingTheExtension",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "partial",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_new_screen_clears_the_search_selection_without_telling_the_extension",
+    "note": "List-scoped equivalent; Form, stack/log presentation and other surrounding behavior remain deferred."
+  },
+  {
+    "id": "ExtensionSessionTests.aRerenderOfTheSameScreenKeepsWhatTheUserTyped",
+    "suite": "ExtensionSessionTests",
+    "name": "aRerenderOfTheSameScreenKeepsWhatTheUserTyped",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_rerender_of_the_same_screen_keeps_what_the_user_typed",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ExtensionSessionTests.singleScreenSnapshotsKeepIdentityAndDropTheHiddenScreen",
+    "suite": "ExtensionSessionTests",
+    "name": "singleScreenSnapshotsKeepIdentityAndDropTheHiddenScreen",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "single_screen_snapshots_keep_identity_and_drop_the_hidden_screen",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ExtensionSessionTests.aToastIsShownAndHiddenByItsIdentifier",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastIsShownAndHiddenByItsIdentifier",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "passing",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "a_toast_is_shown_and_hidden_by_its_identifier",
+    "note": "Equivalent assertions for the CP014 List state."
+  },
+  {
+    "id": "ExtensionSessionTests.aToastThatIsShownIsHandedToTheModelAndOneThatIsHiddenIsNot",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastThatIsShownIsHandedToTheModelAndOneThatIsHiddenIsNot",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aToastWithoutDetailsGetsDefaults",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastWithoutDetailsGetsDefaults",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aToastWithActionsKeepsTheirTitles",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastWithActionsKeepsTheirTitles",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.runningAToastActionTellsTheHostAndDismissesTheToast",
+    "suite": "ExtensionSessionTests",
+    "name": "runningAToastActionTellsTheHostAndDismissesTheToast",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aToastActionWithoutThatButtonSendsNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "aToastActionWithoutThatButtonSendsNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aConfirmRequestShowsAnInPanelDialog",
+    "suite": "ExtensionSessionTests",
+    "name": "aConfirmRequestShowsAnInPanelDialog",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aNewAlertReplacesTheOldOneAnsweringItFalse",
+    "suite": "ExtensionSessionTests",
+    "name": "aNewAlertReplacesTheOldOneAnsweringItFalse",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.answeringTwiceAnswersOnce",
+    "suite": "ExtensionSessionTests",
+    "name": "answeringTwiceAnswersOnce",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.cancellingOrStoppingAnAlertAnswersItFalse",
+    "suite": "ExtensionSessionTests",
+    "name": "cancellingOrStoppingAnAlertAnswersItFalse",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aNonFatalErrorIsAFailureToastAndTheViewStays",
+    "suite": "ExtensionSessionTests",
+    "name": "aNonFatalErrorIsAFailureToastAndTheViewStays",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "partial",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "fatal_and_nonfatal_errors_have_distinct_outcomes",
+    "note": "List-scoped equivalent; Form, stack/log presentation and other surrounding behavior remain deferred."
+  },
+  {
+    "id": "ExtensionSessionTests.aFatalErrorBecomesAFailureWithTheStackAndTheLog",
+    "suite": "ExtensionSessionTests",
+    "name": "aFatalErrorBecomesAFailureWithTheStackAndTheLog",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "partial",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "fatal_and_nonfatal_errors_have_distinct_outcomes",
+    "note": "List-scoped equivalent; Form, stack/log presentation and other surrounding behavior remain deferred."
+  },
+  {
+    "id": "ExtensionSessionTests.anErrorWithoutAMessageStillSaysSomething",
+    "suite": "ExtensionSessionTests",
+    "name": "anErrorWithoutAMessageStillSaysSomething",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.theLogKeepsOnlyItsTail",
+    "suite": "ExtensionSessionTests",
+    "name": "theLogKeepsOnlyItsTail",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aCleanExitIsForwardedAsExit",
+    "suite": "ExtensionSessionTests",
+    "name": "aCleanExitIsForwardedAsExit",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anythingElseIsACrash",
+    "suite": "ExtensionSessionTests",
+    "name": "anythingElseIsACrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aProcessWeStoppedIsNotACrash",
+    "suite": "ExtensionSessionTests",
+    "name": "aProcessWeStoppedIsNotACrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aCrashAfterAnErrorKeepsTheError",
+    "suite": "ExtensionSessionTests",
+    "name": "aCrashAfterAnErrorKeepsTheError",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.theWatchdogPingsThenReportsAHostThatStopsAnswering",
+    "suite": "ExtensionSessionTests",
+    "name": "theWatchdogPingsThenReportsAHostThatStopsAnswering",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aHostOverTheMemoryCeilingIsStoppedAndSaysWhy",
+    "suite": "ExtensionSessionTests",
+    "name": "aHostOverTheMemoryCeilingIsStoppedAndSaysWhy",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anUnresponsiveHostStillHasAMemoryCeiling",
+    "suite": "ExtensionSessionTests",
+    "name": "anUnresponsiveHostStillHasAMemoryCeiling",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anErroredHostIsStoppedOnlyOnceWhenItExceedsTheCeiling",
+    "suite": "ExtensionSessionTests",
+    "name": "anErroredHostIsStoppedOnlyOnceWhenItExceedsTheCeiling",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aPongClearsTheWaitAndAnUnresponsiveFailure",
+    "suite": "ExtensionSessionTests",
+    "name": "aPongClearsTheWaitAndAnUnresponsiveFailure",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aPongDoesNotClearAnErrorOrCrash",
+    "suite": "ExtensionSessionTests",
+    "name": "aPongDoesNotClearAnErrorOrCrash",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "partial",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "fatal_and_nonfatal_errors_have_distinct_outcomes",
+    "note": "List-scoped equivalent; Form, stack/log presentation and other surrounding behavior remain deferred."
+  },
+  {
+    "id": "ExtensionSessionTests.clearSearchBarEmptiesTheField",
+    "suite": "ExtensionSessionTests",
+    "name": "clearSearchBarEmptiesTheField",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.messagesTheSessionDoesNotOwnGoToTheModel",
+    "suite": "ExtensionSessionTests",
+    "name": "messagesTheSessionDoesNotOwnGoToTheModel",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestIsAnsweredWithAReplyCarryingItsIdentifier",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestIsAnsweredWithAReplyCarryingItsIdentifier",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestIsAnsweredOffTheMainThread",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestIsAnsweredOffTheMainThread",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.textThatArrivesEarlyIsSentInOrderBeforeTheReply",
+    "suite": "ExtensionSessionTests",
+    "name": "textThatArrivesEarlyIsSentInOrderBeforeTheReply",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestThatFailsRepliesWithTheError",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestThatFailsRepliesWithTheError",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anExtensionsQuestionIsRefusedWhileOnlyAIOnThisMacIsAllowed",
+    "suite": "ExtensionSessionTests",
+    "name": "anExtensionsQuestionIsRefusedWhileOnlyAIOnThisMacIsAllowed",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anExtensionsQuestionIsAnsweredOnThisMacWhileOnlyThatIsAllowed",
+    "suite": "ExtensionSessionTests",
+    "name": "anExtensionsQuestionIsAnsweredOnThisMacWhileOnlyThatIsAllowed",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestCarriesTheNameOfTheExtensionThatAsked",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestCarriesTheNameOfTheExtensionThatAsked",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRequestTheAppDoesNotKnowIsRefusedAtOnce",
+    "suite": "ExtensionSessionTests",
+    "name": "aRequestTheAppDoesNotKnowIsRefusedAtOnce",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aCancelledRequestGetsNoReply",
+    "suite": "ExtensionSessionTests",
+    "name": "aCancelledRequestGetsNoReply",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aHostThatEndsLeavesItsRequestsUnanswered",
+    "suite": "ExtensionSessionTests",
+    "name": "aHostThatEndsLeavesItsRequestsUnanswered",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRenderThatNamesWhatTheAppDoesNotHoldAsksForAWholeOneAndLeavesTheListAsItWas",
+    "suite": "ExtensionSessionTests",
+    "name": "aRenderThatNamesWhatTheAppDoesNotHoldAsksForAWholeOneAndLeavesTheListAsItWas",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.theHostStartsWithTheShellsVariablesItsPreferencesAndWhetherAIIsThere",
+    "suite": "ExtensionSessionTests",
+    "name": "theHostStartsWithTheShellsVariablesItsPreferencesAndWhetherAIIsThere",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.theHostIsToldNotToWatchWhileTheRecordIsOff",
+    "suite": "ExtensionSessionTests",
+    "name": "theHostIsToldNotToWatchWhileTheRecordIsOff",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.runningAnActionSendsItsHandlerAndClosesTheMenu",
+    "suite": "ExtensionSessionTests",
+    "name": "runningAnActionSendsItsHandlerAndClosesTheMenu",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "partial",
+    "target": "crates/launcher-extensions/tests/view.rs",
+    "test": "action_dispatch_revalidates_the_current_query_selection_and_revision",
+    "note": "List-scoped equivalent; Form, stack/log presentation and other surrounding behavior remain deferred."
+  },
+  {
+    "id": "ExtensionSessionTests.anActionWithoutAHandlerSendsNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "anActionWithoutAHandlerSendsNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.submittingSendsTheFormsValues",
+    "suite": "ExtensionSessionTests",
+    "name": "submittingSendsTheFormsValues",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aSubmitActionWithoutAHandlerOrAValueWithoutAFieldIdDoesNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "aSubmitActionWithoutAHandlerOrAValueWithoutAFieldIdDoesNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.arrowKeysMoveTheListSelectionAndStopAtTheEnds",
+    "suite": "ExtensionSessionTests",
+    "name": "arrowKeysMoveTheListSelectionAndStopAtTheEnds",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.whileTheMenuIsOpenArrowsMoveWithinIt",
+    "suite": "ExtensionSessionTests",
+    "name": "whileTheMenuIsOpenArrowsMoveWithinIt",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.enteringASubmenuTellsTheExtensionAndListsItsActions",
+    "suite": "ExtensionSessionTests",
+    "name": "enteringASubmenuTellsTheExtensionAndListsItsActions",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.escapeClearsTheQueryThenLeavesTheSubmenuThenClosesTheMenu",
+    "suite": "ExtensionSessionTests",
+    "name": "escapeClearsTheQueryThenLeavesTheSubmenuThenClosesTheMenu",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anOpenSubmenuThatDisappearsFromTheTreeIsLeft",
+    "suite": "ExtensionSessionTests",
+    "name": "anOpenSubmenuThatDisappearsFromTheTreeIsLeft",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.anOpenSubmenuListsItsActionsAsTheLatestRenderHasThem",
+    "suite": "ExtensionSessionTests",
+    "name": "anOpenSubmenuListsItsActionsAsTheLatestRenderHasThem",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.aRenderByReferenceLeavesTheSelectionAndShowsTheSelectedItemsNewDetail",
+    "suite": "ExtensionSessionTests",
+    "name": "aRenderByReferenceLeavesTheSelectionAndShowsTheSelectedItemsNewDetail",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.theRowsOnlyCountAsChangedWhenARenderSentOneOfThemAnew",
+    "suite": "ExtensionSessionTests",
+    "name": "theRowsOnlyCountAsChangedWhenARenderSentOneOfThemAnew",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.activatingAnEntryThatIsNotThereDoesNothing",
+    "suite": "ExtensionSessionTests",
+    "name": "activatingAnEntryThatIsNotThereDoesNothing",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.returnWithAModifierRunsTheActionThatDeclaredIt",
+    "suite": "ExtensionSessionTests",
+    "name": "returnWithAModifierRunsTheActionThatDeclaredIt",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  },
+  {
+    "id": "ExtensionSessionTests.returnWithAModifierRunsItsActionEvenWithTheMenuOpen",
+    "suite": "ExtensionSessionTests",
+    "name": "returnWithAModifierRunsItsActionEvenWithTheMenuOpen",
+    "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+    "status": "deferred",
+    "target": null,
+    "test": null,
+    "note": "Outside this List-state slice or covered only by broader integration tests; no one-to-one claim."
+  }
+]

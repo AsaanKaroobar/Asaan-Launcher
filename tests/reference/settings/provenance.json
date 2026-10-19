@@ -1,0 +1,35 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/App/SettingsProcess.swift",
+      "file": "SettingsProcess.swift",
+      "sha256": "39d5e483b13210959f6887bac9c5046dc01924ca40b7e9d95499e19cf0c13b07"
+    },
+    {
+      "source": "Sources/Floe/Settings/SettingsMode.swift",
+      "file": "SettingsMode.swift",
+      "sha256": "884025bdbfc46a8cc2331506ab6e2173fbfa4561eeb793c8b2963ca3ff8a181f"
+    },
+    {
+      "source": "Sources/Floe/Settings/ApplicationSettingsView.swift",
+      "file": "ApplicationSettingsView.swift",
+      "sha256": "98f8565df0b506e255844016f4b995183879155d41e7f7fd30a2ccc55826b402"
+    },
+    {
+      "source": "Sources/Floe/Settings/SettingsView.swift",
+      "file": "SettingsView.swift",
+      "sha256": "35533244b98fed34d7c87220785daa5a978e51f4910c55024ed2a9ee936de41c"
+    },
+    {
+      "source": "Tests/FloeTests/App/SettingsProcessTests.swift",
+      "file": "SettingsProcessTests.swift",
+      "sha256": "ffffa20b88f317766ce47a11cdd078b3c52e07bc70d9c3459f23a00eb36f7320"
+    },
+    {
+      "source": "Tests/FloeTests/Settings/SettingsReloadTests.swift",
+      "file": "SettingsReloadTests.swift",
+      "sha256": "07d49589d6f25b9997d319759910274be1365fd2c9467504aa5064ba27adc6cc"
+    }
+  ]
+}

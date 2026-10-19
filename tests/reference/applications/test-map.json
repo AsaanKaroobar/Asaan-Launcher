@@ -1,0 +1,203 @@
+[
+  {
+    "source": "AppScanTests.swift",
+    "function": "aWebAppABrowserInstalledIsFoundInItsFolder",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "aWebAppABrowserInstalledIsFoundInItsFolder",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "AppScanTests.swift",
+    "function": "twoAppsOfOneNameAreBothKeptAndTheSameAppTwiceIsOne",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "twoAppsOfOneNameAreBothKeptAndTheSameAppTwiceIsOne",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "AppScanTests.swift",
+    "function": "twoAppsShownUnderOneNameInOneFolderAreToldApartByTheirFiles",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "twoAppsShownUnderOneNameInOneFolderAreToldApartByTheirFiles",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "AppScanTests.swift",
+    "function": "appsWithNoIdentifierAreToldApartByWhereTheyAre",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "appsWithNoIdentifierAreToldApartByWhereTheyAre",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "AppScanTests.swift",
+    "function": "aFolderMadeLaterIsWatchedWithoutARelaunch",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "aFolderMadeLaterIsWatchedWithoutARelaunch",
+    "note": "Equivalent rescans; foreground polls every five seconds instead of native filesystem watchers."
+  },
+  {
+    "source": "AppScanTests.swift",
+    "function": "aFolderThatIsNotThereIsNothingToScan",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "aFolderThatIsNotThereIsNothingToScan",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "AppScanTests.swift",
+    "function": "thisMacsOwnFoldersIncludeUtilities",
+    "status": "deferred",
+    "reason": "Live macOS roots/Terminal test requires macOS qualification. Linux native discovery is covered by isolated XDG fixtures."
+  },
+  {
+    "source": "CatalogLoaderTests.swift",
+    "function": "theWorkerIsACatalogScanner",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "theWorkerIsACatalogScanner",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "CatalogLoaderTests.swift",
+    "function": "scanCommandsFindsTheDevelopmentSample",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  },
+  {
+    "source": "CatalogLoaderTests.swift",
+    "function": "scanAppsReturnsEachAppOnceSortedAndTellsApartTheOnesThatShareAName",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "scanAppsReturnsEachAppOnceSortedAndTellsApartTheOnesThatShareAName",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "CatalogLoaderTests.swift",
+    "function": "aSnapshotCarriesItsCatalogUntouched",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "aSnapshotCarriesItsCatalogUntouched",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "constructionStartsNoScansAndKeepsTheBuiltins",
+    "status": "partial",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "constructionStartsNoScans",
+    "reason": "Construction does not scan. Built-in commands are outside CP004."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "aSnapshotWorksImmediatelyAndStartsNoScans",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "scansPublishTheirResultsAndCompleteLoading",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "scanAppsReturnsEachAppOnceSortedAndTellsApartTheOnesThatShareAName",
+    "note": "Application-only snapshot publication; command catalogs are deferred."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "aQueryTypedDuringALoadIsUsedWhenItPublishes",
+    "status": "ported",
+    "target": "src/Applications.test.tsx",
+    "kind": "frontend",
+    "test": "uses a query typed during load and ignores the older catalog reply",
+    "note": "Application catalog equivalent of the original mixed command/app case."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "anOlderRequestCannotOverwriteANewerOne",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "olderAppsResultsCannotOverwriteNewerApps",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "olderAppsResultsCannotOverwriteNewerApps",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "aRescanKeepsThePreviousResultsVisible",
+    "status": "ported",
+    "target": "src/Applications.test.tsx",
+    "kind": "frontend",
+    "test": "keeps previous results visible while refreshing the same query",
+    "note": "Application catalog equivalent of the original mixed command/app case."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "anEmptyCatalogStillCompletesReadiness",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "anEmptyCatalogStillCompletesReadiness",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "readinessCallersShareOneLoadAndFollowItsReplacement",
+    "status": "partial",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "readinessCallersShareOneLoad",
+    "reason": "Concurrent initial requests share the cache; command readiness/replacement waiters are not implemented."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "readinessReturnsImmediatelyWhenNothingIsLoading",
+    "status": "ported",
+    "target": "crates/launcher-apps/tests/catalog.rs",
+    "kind": "rust",
+    "test": "readinessCallersShareOneLoad",
+    "note": "Application-only platform equivalent."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "theMainActorStaysFreeWhileScansAreSuspended",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "theModelCanBeReleasedWhileAScanIsSuspended",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "autorunWaitsForReadinessThenRunsAtMostOnce",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  },
+  {
+    "source": "LauncherCatalogTests.swift",
+    "function": "autorunForAnAbsentCommandLaunchesNothing",
+    "status": "deferred",
+    "reason": "Extension/built-in command loading, preloaded snapshots, command autorun or full model cancellation/main-actor contract are later work; native scanning here is off the UI thread."
+  }
+]

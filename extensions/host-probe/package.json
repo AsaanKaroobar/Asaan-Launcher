@@ -1,0 +1,1 @@
+{"name":"host-probe","title":"Extension Host Diagnostics","commands":[{"name":"transport","mode":"no-view"},{"name":"child","mode":"no-view"},{"name":"flood","mode":"no-view"}]}

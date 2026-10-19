@@ -1,0 +1,257 @@
+[
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "openingSettingsStartsAProcessWhenNoneRuns",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "opening_settings_starts_when_none_runs",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aNewProcessOpensWhereTheLastOneWasLeft",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "a_new_process_opens_where_last_left",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "openingSettingsAgainBringsTheRunningProcessForward",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "opening_again_brings_running_process_forward",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aHandleWithNoProcessHasNoPid",
+    "status": "partial",
+    "reason": "Installed resident proves no settings child exists before opening; native Linux equivalence, original macOS process-handle unit baseline remains unexecuted.",
+    "kind": "native",
+    "target": "scripts/test-settings-x11.mjs",
+    "test": "settings child is created lazily"
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "theHotkeysStandDownWhileTheSettingsProcessRecords",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aSettingsProcessThatDiesMidRecordingDoesNotLeaveThemSuspended",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "theSettingsModeIsParsedWithItsPage",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "mode_parses_supported_pages",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aPageNeedsTheSettingsModeAndARealName",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "a_page_needs_settings_and_a_real_name",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "everyPageHasANameThatReadsBack",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "every_supported_page_reads_back",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "theProcessEndsWhenItsWindowIsClosedAndNothingIsStillGoing",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/src/settings.rs",
+    "test": "exits_only_after_window_closes_and_work_finishes",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "everyRequestReadsBackFromItsText",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "textThatIsNoRequestIsRefused",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "inTheSettingsProcessTheUpdateControlsAskTheLauncher",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "theUpdatersStateReadsBackFromItsText",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aRequestCrossesTheLinkAsThisText",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "textThatOnlyResemblesARequestIsRefused",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aRequestIsCarriedOutByTheControlItNames",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "aLauncherThatCannotUpdateStillKeepsTheChannelAndTheConsentAnswer",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "theStateIsWhatTheControlsShow",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsProcessTests.swift",
+    "function": "everyChangeOfStateIsAnnouncedNotOnlyTheFirst",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aReloadTakesWhatTheOtherProcessSaved",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Settings.test.tsx",
+    "test": "aReloadTakesWhatTheOtherProcessSaved",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aReloadIsNotAnEditSoNothingEchoesBack",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Settings.test.tsx",
+    "test": "loadsResidentPreferencesWithoutSaving",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aSaveIsAnnouncedOnceAndOnlyWhenItChangedSomething",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aReloadWithNothingNewLeavesEverythingAlone",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aSaveKeepsWhatTheOtherProcessChangedMeanwhile",
+    "status": "partial",
+    "kind": "rust",
+    "target": "crates/launcher-lifecycle/tests/settings.rs",
+    "test": "simultaneous_settings_and_panel_edits_keep_both_sides_changes",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "anEditWaitingToBeSavedSurvivesAReload",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Settings.test.tsx",
+    "test": "anEditWaitingToBeSavedSurvivesAReload",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "whenBothChangedTheSameSettingTheUnsavedEditWins",
+    "status": "partial",
+    "kind": "frontend",
+    "target": "src/Settings.test.tsx",
+    "test": "anEditWaitingToBeSavedSurvivesAReload",
+    "reason": "Scoped to General/Applications and existing history/alias/hidden preferences; other pages, full AppSettings/autosave/status semantics remain deferred."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "anImportReachesTheOtherProcess",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "keyOrderDoesNotMakeTwoBlobsDiffer",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "eachSidesChangesAreKept",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aKeyChangedOnBothSidesKeepsMine",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aKeyTheOtherSideRemovedOrAddedFollows",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "snippetsSavedByOneProcessAreReadByTheOther",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "quicklinksSavedByOneProcessAreReadByTheOther",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "aQuicklinkReloadWithoutAFileKeepsWhatIsThere",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  },
+  {
+    "source": "SettingsReloadTests.swift",
+    "function": "theSettingsProcessShowsTheLaunchersStatusAndItsSavedAnswers",
+    "status": "deferred",
+    "reason": "Outside CP009: full settings, recorder, updater, merge/import or unrelated stores. Native process lifecycle is additionally checked in the installed settings harness."
+  }
+]

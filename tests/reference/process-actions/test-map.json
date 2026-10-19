@@ -1,0 +1,10 @@
+[
+  {
+    "source": "ItemActionTests.swift",
+    "function": "anAppThatIsNotRunningOffersNoQuitAndASystemAppNoTrash",
+    "status": "partial",
+    "target": "src-tauri/src/process_actions.rs",
+    "test": "stopped_apps_never_offer_quit_or_hide",
+    "note": "Only the no-running-controls assertion is covered here. Trash and Force Quit are deferred; existing metadata maps are preserved."
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "commit": "5b26e9d7a0240243251d7421bee5b90da5f52b9b",
+  "sources": [
+    {
+      "source": "Sources/Floe/Extensions/ViewState.swift",
+      "file": "frozen/Sources/Floe/Extensions/ViewState.swift",
+      "sha256": "0f85ca4c0121798818de5a2ff9754c592255bda57ca1c8d6d28ff9c661e7827c"
+    },
+    {
+      "source": "Sources/Floe/Extensions/ExtensionListViews.swift",
+      "file": "frozen/Sources/Floe/Extensions/ExtensionListViews.swift",
+      "sha256": "996e5a34f3f231f328f05cfbf88a9176bf717aa77190ff27b89bcb56bf13187c"
+    },
+    {
+      "source": "Sources/Floe/Extensions/ExtensionViews.swift",
+      "file": "frozen/Sources/Floe/Extensions/ExtensionViews.swift",
+      "sha256": "16cf2e7eab71afbdad7add0c2ee5faaeda8a9363349fc1b335c50b62825e02d1"
+    },
+    {
+      "source": "Sources/Floe/Extensions/Session.swift",
+      "file": "frozen/Sources/Floe/Extensions/Session.swift",
+      "sha256": "b8df4499c07b0de04ecae57575f89ef9213ca78ba133dd1f449b6894ca27b17d"
+    },
+    {
+      "source": "Sources/Floe/Launcher/Model.swift",
+      "file": "frozen/Sources/Floe/Launcher/Model.swift",
+      "sha256": "03c01be2bc7799ba79609cbff9fad1c638408ddf249eb78d1af9b0377f30c410"
+    },
+    {
+      "source": "Sources/Floe/Launcher/Model+Keys.swift",
+      "file": "frozen/Sources/Floe/Launcher/Model+Keys.swift",
+      "sha256": "51dd9422aa9ee138d3986c35fef8aaaebae7c11428f062e9bd95eccd27ef6ea9"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/ViewStateTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/ViewStateTests.swift",
+      "sha256": "99851e9a38ab660c50bf5da0e0d771e88eeacca4a3136c579ac70bf411f440ee"
+    },
+    {
+      "source": "Tests/FloeTests/Extensions/SessionTests.swift",
+      "file": "frozen/Tests/FloeTests/Extensions/SessionTests.swift",
+      "sha256": "1572891344daf566b606b1e922704a09c54c979d7f14129d58e6cc02a964bcd5"
+    }
+  ]
+}
