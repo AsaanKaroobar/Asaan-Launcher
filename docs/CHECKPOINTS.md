@@ -4,7 +4,7 @@ User instruction: build in steps. Each checkpoint must be reached, tested, insta
 
 ## Current scope
 
-**Active: CP014, first interactive extension List UI. Implemented, tested, locally installed/run; public release pending.** User authorized advancing after CP013. Use the existing Bun/reference-v1 host, resident ownership and native panel lifecycle. Public CP013 publication is unverified and user controlled. Detail/Form, store and scheduling remain deferred. The user subsequently authorized incremental launch performance work after platform CI repair, then focused-monitor placement and a Floe default theme with the original design retained as Legacy. Follow-ups: [launch performance increment 1](checkpoints/014-launch-performance-1.md) and [Floe theme and placement](checkpoints/014-floe-theme-placement.md).
+**Active: CP014, first interactive extension List UI. Implemented, tested, locally installed/run; public release [0.1.0](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.1.0) published.** User authorized advancing after CP013. Use the existing Bun/reference-v1 host, resident ownership and native panel lifecycle. Public CP013 publication is unverified and user controlled. Detail/Form, store and scheduling remain deferred. The user subsequently authorized incremental launch performance work after platform CI repair, then focused-monitor placement and a Floe default theme with the original design retained as Legacy. Follow-ups: [launch performance increment 1](checkpoints/014-launch-performance-1.md) and [Floe theme and placement](checkpoints/014-floe-theme-placement.md).
 
 A packaged executable alone is not a local installation. A local installation alone is not a successful native launch. An unsigned local package is not a signed public release. Browser preview is not native-app testing. Record evidence for each independently.
 
@@ -18,6 +18,10 @@ A packaged executable alone is not a local installation. A local installation al
 6. Stop and report. Do not begin the next checkpoint within the same task.
 
 If publication, a target OS, signing credentials or a deployment environment is unavailable, keep that gate pending and remain on the current checkpoint. Local Linux success does not prove macOS/Windows parity.
+
+## Release record
+
+The user authorized the initial public release from merged main as **0.1.0**, replacing internal checkpoint version numbering. All three platform jobs passed; the exact Linux release package was installed and run locally. Installer hashes, source revision, and qualification limits are recorded in [release 0.1.0](releases/0.1.0.md). No later feature checkpoint was started.
 
 ## Upcoming sequence (not authorized implementation in this checkpoint)
 

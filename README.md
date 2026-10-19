@@ -18,7 +18,7 @@ Asaaan Launcher is under active development. The current version is **0.1.0**, d
 | macOS | macOS CI; disk image | Manual desktop qualification pending |
 | Windows | Windows CI; NSIS installer | Manual desktop qualification pending |
 
-CI builds are available through [GitHub Actions](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/workflows/verify.yml). Build artifacts are development checkpoints; public release publication is tracked separately. See the [checkpoint overview](docs/CHECKPOINTS.md) for current delivery gates.
+Download **[Asaaan Launcher 0.1.0](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.1.0)** for Linux x64, Windows x64, or macOS Apple Silicon. The release includes installer checksums. Development builds and validation logs remain available through [GitHub Actions](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/workflows/verify.yml). See the [checkpoint overview](docs/CHECKPOINTS.md) for current delivery gates.
 
 ## Features
 
