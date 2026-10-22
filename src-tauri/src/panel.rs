@@ -121,8 +121,9 @@ impl Panel {
         if state.visible
             && let Some(window) = app.get_webview_window("main")
         {
-            let webview: &tauri::Webview = window.as_ref();
-            let _ = webview.set_focus();
+            // receive() acquires native editing focus once per presentation.
+            // Reacquiring it here makes WebView2 report focus again, feeding
+            // a focus-event loop that interrupts typing and dismisses menus.
             let _ = window.emit("panel-shown", state.sequence);
         }
     }

@@ -77,3 +77,23 @@ it("focuses the search on native panel presentation and removes its subscription
  vi.mocked(searchReferenceCatalog).mockResolvedValue([]);const view=render(<SearchPanel referenceCatalog />);await waitFor(()=>expect(onPanelShown).toHaveBeenCalled());
  const input=screen.getByRole("combobox");input.blur();act(()=>focus(42));expect(input).toHaveFocus();expect(confirmPanelPresented).toHaveBeenCalledWith(42,true);view.unmount();expect(stop).toHaveBeenCalledOnce();
 });
+
+it("duplicate native focus notifications preserve typing and an open actions menu", async () => {
+ let shown!:(sequence:number)=>void;
+ vi.mocked(onPanelShown).mockImplementation(async callback=>{shown=callback;return ()=>{};});
+ vi.mocked(searchReferenceCatalog).mockResolvedValue([row("Notes")]);
+ render(<SearchPanel referenceCatalog />);await screen.findByText("Notes");
+ act(()=>shown(42));
+ const input=screen.getByRole("combobox") as HTMLInputElement;
+ fireEvent.change(input,{target:{value:"notes"}});await screen.findByText("Notes");
+ input.setSelectionRange(2,2);
+ const blur=vi.spyOn(input,"blur");
+ act(()=>shown(42));
+ expect(blur).not.toHaveBeenCalled();expect(input).toHaveValue("notes");expect(input.selectionStart).toBe(2);
+ fireEvent.contextMenu(screen.getByRole("option"));
+ expect(screen.getByRole("menu")).toBeInTheDocument();
+ act(()=>shown(42));expect(screen.getByRole("menu")).toBeInTheDocument();
+ expect(confirmPanelPresented).toHaveBeenCalledTimes(1);
+ act(()=>shown(43));expect(screen.queryByRole("menu")).not.toBeInTheDocument();expect(input).toHaveFocus();
+ expect(confirmPanelPresented).toHaveBeenLastCalledWith(43,true);
+});
