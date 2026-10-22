@@ -71,7 +71,7 @@ Both commands require a live Hyprland Wayland session and skip if another reside
 
 ## Delivery status
 
-- **Implemented:** branch `checkpoint-15-wayland-hyprland`; final source commit recorded in the repository history.
+- **Implemented:** runtime source `82e8b5569f2c56eb99f5649c7043f53e66882abc` on `checkpoint-15-wayland-hyprland`. A subsequent documentation-only commit records the delivery without changing the qualified runtime source.
 - **Tested locally:** frontend 125, Rust 290, parity/type checks, installed Wayland main and window tests, three installed smokes.
 - **Installed locally:** 0.2.0 Debian package extracted with `bsdtar` into `deployments/linux/current`.
 - **Run locally:** installed resident and panel on Hyprland 0.56.2; screenshots inspected.
