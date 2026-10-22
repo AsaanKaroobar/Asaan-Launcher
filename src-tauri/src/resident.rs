@@ -25,9 +25,9 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
     #[cfg(target_os = "macos")]
     app.set_activation_policy(tauri::ActivationPolicy::Accessory);
     let shortcut = Shortcut::new(Some(Modifiers::CONTROL | Modifiers::ALT), Code::Space);
-    let wayland = std::env::var("XDG_SESSION_TYPE").is_ok_and(|s| s == "wayland");
+    let wayland = crate::windowing::wayland_session();
     let shortcut_status = if wayland {
-        "Global shortcut unavailable on Wayland; use the tray".to_string()
+        "Wayland · bind asaaan-launcher --toggle".to_string()
     } else {
         match app.handle().plugin(
             tauri_plugin_global_shortcut::Builder::new()
@@ -53,7 +53,9 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
     if smoke {
         config.arguments.push("--smoke-test".into());
     }
-    if shortcut_status != "Ctrl+Alt+Space" {
+    if wayland {
+        config.arguments.push("--shortcut-wayland".into());
+    } else if shortcut_status != "Ctrl+Alt+Space" {
         config.arguments.push("--shortcut-unavailable".into());
     }
     let (events_tx, events) = mpsc::channel();

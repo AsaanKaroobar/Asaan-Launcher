@@ -220,6 +220,14 @@ impl Panel {
         crate::startup::mark("presentation-start");
         crate::placement::center_on_focused_monitor(&window).map_err(|e| e.to_string())?;
         window.show().map_err(|e| e.to_string())?;
+        crate::windowing::settle_on_show(
+            &window,
+            if crate::settings::is_child() {
+                (960, 640)
+            } else {
+                (750, 474)
+            },
+        );
         window.set_focus().map_err(|e| e.to_string())?;
         crate::activation::activate(&window).map_err(|e| e.to_string())?;
         let webview: &tauri::Webview = window.as_ref();

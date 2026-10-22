@@ -10,11 +10,11 @@ Built with **Tauri 2 · Rust · React · TypeScript**. The original idea was ins
 
 ## Project status
 
-Asaaan Launcher is under active development. The current version is **0.1.0**, developed through tested checkpoints with explicit implementation, validation, local installation, and release gates.
+Asaaan Launcher is under active development. The current source version is **0.2.0** (unreleased), developed through tested checkpoints with explicit implementation, validation, local installation, and release gates. The latest public download remains **0.1.0**.
 
 | Platform | Build and packaging | Interactive validation |
 | --- | --- | --- |
-| Linux | Ubuntu CI; Debian package | Native X11 regression tests and local desktop use |
+| Linux | Ubuntu CI; Debian package | Native X11 regression tests; Hyprland Wayland tests; local desktop use |
 | macOS | macOS CI; disk image | Manual desktop qualification pending |
 | Windows | Windows CI; NSIS installer | Manual desktop qualification pending |
 
@@ -28,7 +28,7 @@ Download **[Asaaan Launcher 0.1.0](https://github.com/AsaanKaroobar/Asaan-Launch
 - **Application actions** — open applications, copy names and available metadata, reveal supported application entries, and access guarded running-app controls.
 - **Extension Lists** — bundled commands with searchable lists, keyboard selection, actions, feedback, and resumable sessions.
 - **Terminal tools** — search applications without opening a window, or pipe lines into an interactive picker.
-- **Resident lifecycle** — tray access, a global shortcut where supported, and bounded panel reuse for quick reopening.
+- **Resident lifecycle** — tray access, a global shortcut on X11, a compositor toggle binding on Wayland, and bounded panel reuse for quick reopening.
 
 Available actions depend on platform capabilities and verified application identity. Extension support currently covers bundled commands and List views; arbitrary extension installation, Detail/Form views, a store, and scheduling are future work.
 
@@ -77,11 +77,11 @@ npm run install:local
 npm run start:local
 ```
 
-The installer extracts the built Debian package into `deployments/linux/` and updates `deployments/linux/current`. It does not modify the system package database.
+The installer extracts the built Debian package into `deployments/linux/` and updates `deployments/linux/current`. It does not modify the system package database. It uses `dpkg-deb` when available and otherwise extracts with `bsdtar` from libarchive, so local installation also works on non-Debian hosts such as Arch.
 
 ## Everyday use
 
-Open the launcher with **Ctrl+Alt+Space** on supported desktops, or use its tray menu. Type to search, move through results with the arrow keys, and press **Enter** to open a selection.
+Open the launcher with **Ctrl+Alt+Space** on X11, your compositor binding on Wayland, or the tray menu. Type to search, move through results with the arrow keys, and press **Enter** to open a selection.
 
 | Control | Action |
 | --- | --- |
@@ -95,6 +95,22 @@ Open the launcher with **Ctrl+Alt+Space** on supported desktops, or use its tray
 Choose the launcher theme in **Settings → General → Launcher theme**. The **Legacy** option retains the earlier green appearance. Extension views have their own navigation: Escape returns from the active extension.
 
 Closing the launcher hides the panel. **Quit** in the tray exits the resident application.
+
+### Wayland and Hyprland
+
+Wayland does not provide a portable global-shortcut API. On Wayland the resident does not install an X11 shortcut grab. Bind the toggle in your compositor instead; on Hyprland:
+
+```ini
+bindd = SUPER, SPACE, Asaaan Launcher, exec, asaaan-launcher --toggle
+```
+
+After a local install, use the installed path if it is not in `PATH`:
+
+```ini
+bindd = SUPER, SPACE, Asaaan Launcher, exec, /path/to/Asaan-Launcher/deployments/linux/current/usr/bin/asaaan-launcher --toggle
+```
+
+`--toggle` is forwarded to the running resident through single-instance; the first invocation starts it. The tray remains available (Waybar's `tray` module). On Hyprland the launcher, Settings and picker are floated, sized, centered on the focused monitor's usable area, and focused through Hyprland's local IPC socket. Other Wayland compositors keep their own placement and focus policy. Running-app controls remain unavailable on Wayland and are reported as such.
 
 ### Search from the terminal
 
@@ -152,9 +168,18 @@ npm run smoke:extension-ui
 
 The isolated harness requires Xvfb, KWin X11, D-Bus, X11 utilities, Python GI/AT-SPI bindings, and the relevant desktop libraries. The complete Ubuntu dependency list and additional feature suites are maintained in the [validation workflow](.github/workflows/verify.yml). Tests use private display sessions and temporary preferences. Launch timing can be measured with `npm run benchmark:launch -- --samples 5 --expect-reuse` after local installation.
 
+On a live Hyprland Wayland session, run the native Wayland checks against the installed package:
+
+```sh
+npm run test:wayland:hyprland
+npm run test:wayland:windows
+```
+
+They show and focus only their own launcher windows and skip if another resident is running. CI remains X11-based and does not exercise Hyprland.
+
 ## Platform notes
 
-- **Wayland:** global shortcut availability and absolute window placement depend on compositor support. Tray access provides a fallback; focused-monitor positioning cannot be guaranteed.
+- **Wayland:** global shortcut availability and absolute window placement depend on compositor support. Use the compositor binding with `--toggle`; the tray is also available. Hyprland placement/focus is implemented and tested. Other Wayland compositors keep their own placement policy; focused-monitor positioning is not guaranteed there. Running-app controls remain unavailable.
 - **Appearance:** platform fonts, icons, and native materials can differ. The default theme uses an appearance-aware opaque surface.
 - **Running-app controls:** Hide, Quit, Restart, and Force Quit are exposed only when the adapter can verify the target and required capabilities. Unsupported applications do not receive guessed process actions.
 - **Preferences:** history and personalization are stored locally. Linux uses `$XDG_DATA_HOME/com.asaaan.launcher`, falling back to `~/.local/share/com.asaaan.launcher`. Versioned preference formats mean older builds may not read data saved by newer versions.

@@ -20,6 +20,7 @@ mod resident;
 mod search_command;
 mod settings;
 mod startup;
+mod windowing;
 use serde::Serialize;
 use tauri::Manager;
 
@@ -45,7 +46,9 @@ fn get_app_info() -> AppInfo {
         architecture: std::env::consts::ARCH,
         smoke_test: smoke_test_requested(),
         application_smoke: application_smoke_requested(),
-        shortcut: if std::env::args().any(|a| a == "--shortcut-unavailable") {
+        shortcut: if std::env::args().any(|a| a == "--shortcut-wayland") {
+            "Wayland · bind asaaan-launcher --toggle"
+        } else if std::env::args().any(|a| a == "--shortcut-unavailable") {
             "Shortcut unavailable · use the tray"
         } else {
             "Ctrl+Alt+Space"
@@ -161,6 +164,10 @@ pub fn run() {
                 }
             } else if args.iter().any(|a| a == "--quit") {
                 app.exit(0);
+            } else if args.iter().any(|a| a == "--toggle") {
+                if let Some(resident) = app.try_state::<resident::Resident>() {
+                    resident.control.request(asaaan_lifecycle::Request::Toggle);
+                }
             } else if let Some(resident) = app.try_state::<resident::Resident>() {
                 resident
                     .control
@@ -219,6 +226,18 @@ pub fn run() {
                 {
                     window = window.data_directory(profile.path().to_path_buf());
                 }
+                let window_width = if settings_mode { 960.0 } else { 750.0 };
+                let window_height = if settings_mode { 640.0 } else { 474.0 };
+                if windowing::wayland_session() {
+                    // Keep WebKitGTK's Wayland surface opaque. Without an
+                    // explicit background the compositor blends the page with
+                    // the window behind it on some Intel/Mesa setups. The
+                    // maximum also stops GTK's natural pre-map size from
+                    // flashing before the requested content size applies.
+                    window = window
+                        .background_color(tauri::window::Color(36, 36, 40, 255))
+                        .max_inner_size(window_width, window_height);
+                }
                 startup::mark("window-build-start");
                 let native_window = window
                     .incognito(picker_mode)
@@ -236,10 +255,7 @@ pub fn run() {
                     } else {
                         "Asaaan Launcher"
                     })
-                    .inner_size(
-                        if settings_mode { 960.0 } else { 750.0 },
-                        if settings_mode { 640.0 } else { 474.0 },
-                    )
+                    .inner_size(window_width, window_height)
                     .min_inner_size(480.0, 420.0)
                     .decorations(settings_mode || picker_mode)
                     .center()
@@ -250,6 +266,10 @@ pub fn run() {
                 if !managed && !picker_mode {
                     placement::center_on_focused_monitor(&native_window)?;
                     native_window.show()?;
+                    windowing::settle_on_show(&native_window, (750, 474));
+                }
+                if picker_mode {
+                    windowing::settle_on_show(&native_window, (750, 474));
                 }
                 if managed {
                     panel::setup(app)?;

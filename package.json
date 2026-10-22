@@ -1,7 +1,7 @@
 {
   "name": "asaaan-launcher",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -47,7 +47,9 @@
     "smoke:extension-ui": "node scripts/test-isolated-x11.mjs --extensions-only",
     "extensions-ui:parity": "node scripts/check-extension-ui-parity.mjs",
     "benchmark:launch": "node scripts/test-isolated-x11.mjs --launch-benchmark",
-    "smoke:appearance": "node scripts/test-isolated-x11.mjs --appearance-only"
+    "smoke:appearance": "node scripts/test-isolated-x11.mjs --appearance-only",
+    "test:wayland:hyprland": "node scripts/test-wayland-hyprland.mjs",
+    "test:wayland:windows": "node scripts/test-wayland-windows.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",

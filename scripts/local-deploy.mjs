@@ -13,16 +13,48 @@ const current = path.join(deployRoot, 'current');
 const command = process.argv[2];
 const pkg = JSON.parse(await fs.readFile(path.join(root, "package.json"), "utf8"));
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
+const available = async (name) => { try { await run('which', [name]); return true; } catch { return false; } };
+const hasDpkg = await available('dpkg-deb') && await available('dpkg');
+const hasBsdtar = await available('bsdtar');
+
+async function hostArchitecture() {
+  if (hasDpkg) return (await run('dpkg', ['--print-architecture'])).stdout.trim();
+  const machine = (await run('uname', ['-m'])).stdout.trim();
+  return ({ x86_64: 'amd64', aarch64: 'arm64', armv7l: 'armhf', riscv64: 'riscv64' })[machine] ?? machine;
+}
+async function debFields(file) {
+  if (hasDpkg) return (await run('dpkg-deb', ['--field', file, 'Package', 'Version', 'Architecture'])).stdout;
+  if (!hasBsdtar) throw new Error('Local install needs dpkg-deb or bsdtar (libarchive).');
+  const scratch = await fs.mkdtemp(path.join(os.tmpdir(), 'asaaan-deb-fields-'));
+  try {
+    await run('bsdtar', ['-xf', file, '-C', scratch]);
+    const control = (await fs.readdir(scratch)).find((name) => name.startsWith('control.tar'));
+    if (!control) throw new Error('The package has no control archive.');
+    return (await run('bsdtar', ['-xOf', path.join(scratch, control), './control'])).stdout;
+  } finally { await fs.rm(scratch, { recursive: true, force: true }); }
+}
+async function extractDeb(file, destination) {
+  if (hasDpkg) { await run('dpkg-deb', ['--extract', file, destination]); return 'dpkg-deb'; }
+  if (!hasBsdtar) throw new Error('Local install needs dpkg-deb or bsdtar (libarchive).');
+  const scratch = await fs.mkdtemp(path.join(os.tmpdir(), 'asaaan-deb-data-'));
+  try {
+    await run('bsdtar', ['-xf', file, '-C', scratch]);
+    const data = (await fs.readdir(scratch)).find((name) => name.startsWith('data.tar'));
+    if (!data) throw new Error('The package has no data archive.');
+    await run('bsdtar', ['-xf', path.join(scratch, data), '-C', destination]);
+    return 'bsdtar';
+  } finally { await fs.rm(scratch, { recursive: true, force: true }); }
+}
 
 async function install() {
   const bundle = path.join(root, 'src-tauri/target/release/bundle/deb');
   const candidates = (await fs.readdir(bundle)).filter((file) => file.endsWith('.deb') && file.includes('_' + pkg.version + '_')).sort();
   if (candidates.length !== 1) throw new Error('Expected exactly one Debian package. Clean stale bundles and rebuild before installing.');
   const file = path.join(bundle, candidates[0]);
-  const fields = (await run('dpkg-deb', ['--field', file, 'Package', 'Version', 'Architecture'])).stdout;
+  const fields = await debFields(file);
   const field = (name) => fields.match(new RegExp('^' + name + ': (.+)$', 'm'))?.[1];
   if (field('Package') !== 'asaaan-launcher' || field('Version') !== pkg.version) throw new Error('The package identity/version does not match this project.');
-  const architecture = (await run('dpkg', ['--print-architecture'])).stdout.trim();
+  const architecture = await hostArchitecture();
   if (field('Architecture') !== architecture) throw new Error('The package does not match this machine architecture.');
   const sha256 = digest(await fs.readFile(file));
   const version = pkg.version + '-' + sha256.slice(0, 12);
@@ -33,10 +65,10 @@ async function install() {
   if (!present) {
     const staging = await fs.mkdtemp(path.join(deployRoot, '.staging-'));
     try {
-      await run('dpkg-deb', ['--extract', file, staging]);
+      const extractedWith = await extractDeb(file, staging);
       const binary = path.join(staging, 'usr/bin/asaaan-launcher');
       await fs.access(binary, fs.constants.X_OK);
-      await fs.writeFile(path.join(staging, 'installation.json'), JSON.stringify({ checkpoint: pkg.checkpoint, version: pkg.version, package: candidates[0], packageSha256: sha256, binarySha256: digest(await fs.readFile(binary)), architecture, installedAt: new Date().toISOString() }, null, 2) + '\n');
+      await fs.writeFile(path.join(staging, 'installation.json'), JSON.stringify({ checkpoint: pkg.checkpoint, version: pkg.version, package: candidates[0], packageSha256: sha256, binarySha256: digest(await fs.readFile(binary)), architecture, extractedWith, installedAt: new Date().toISOString() }, null, 2) + '\n');
       await fs.rename(staging, destination);
     } finally { await fs.rm(staging, { recursive: true, force: true }); }
   }

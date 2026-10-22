@@ -1,6 +1,11 @@
 //! X11 launchers represent direct user actions in EWMH activation requests.
 #[cfg(target_os = "linux")]
 pub fn activate(window: &tauri::WebviewWindow) -> Result<(), Box<dyn std::error::Error>> {
+    // Wayland activation is compositor-owned; Hyprland focus is requested by
+    // windowing::settle_on_show after the surface is mapped.
+    if crate::windowing::wayland_session() {
+        return Ok(());
+    }
     use gtk::prelude::*;
     use x11rb::{
         connection::Connection,

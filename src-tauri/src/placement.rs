@@ -33,6 +33,11 @@ fn monitor_at(
 }
 
 pub fn center_on_focused_monitor(window: &tauri::WebviewWindow) -> tauri::Result<()> {
+    // Wayland has no portable client placement. Hyprland is settled through
+    // its own adapter after the map request; other compositors decide.
+    if crate::windowing::wayland_session() {
+        return Ok(());
+    }
     let app = window.app_handle();
     let monitors = app.available_monitors()?;
     let focused =
