@@ -76,3 +76,7 @@ Downloaded CI installer hashes (validation artifacts retain version 0.1.0; a new
 | Linux amd64 DEB | `5a6a9f555b8723894be9059c60e02f4e49dc055e0f7250caa4627d54fb6e9cff` |
 | macOS ARM64 DMG | `f3d9ff926f8e33495881538693c04960fd3a83571344c9694277bb190204d7a4` |
 | Windows x64 NSIS | `efe7f62f04885028442b884721a858b7826194e30302d70202a6c1d803069c53` |
+
+### Release 0.1.1 authorization (2026-10-24)
+
+The user authorized publishing the Windows focus repair. Release metadata is updated to 0.1.1 on the same fix branch. Release-version CI, exact-artifact installation/run and publication are recorded separately in [release 0.1.1](../releases/0.1.1.md); the prior 0.1.0 validation artifacts remain historical evidence. No CP015 feature work is included.
