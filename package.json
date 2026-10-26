@@ -1,7 +1,7 @@
 {
   "name": "asaaan-launcher",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,7 +12,7 @@
     "test": "vitest run",
     "check": "npm run typecheck && npm run parity:check && npm run lifecycle:parity && npm run applications:parity && npm run personalization:parity && npm run customization:parity && npm run actions:parity && npm run picker:parity && npm run settings:parity && npm run search-cli:parity && npm run process:parity && npm test && npm run extensions:parity && npm run extensions-ui:parity",
     "native:check": "cargo fmt --all --check && cargo test --workspace --locked --release && cargo clippy --workspace --locked --release --all-targets -- -D warnings",
-    "package:linux": "tauri build --bundles deb",
+    "package:linux": "tauri build --bundles deb,appimage",
     "install:local": "node scripts/local-deploy.mjs install",
     "smoke:local": "node scripts/local-deploy.mjs smoke",
     "start:local": "node scripts/local-deploy.mjs run",
@@ -49,7 +49,8 @@
     "benchmark:launch": "node scripts/test-isolated-x11.mjs --launch-benchmark",
     "smoke:appearance": "node scripts/test-isolated-x11.mjs --appearance-only",
     "test:wayland:hyprland": "node scripts/test-wayland-hyprland.mjs",
-    "test:wayland:windows": "node scripts/test-wayland-windows.mjs"
+    "test:wayland:windows": "node scripts/test-wayland-windows.mjs",
+    "release:stage": "node scripts/stage-release.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "2.12.4",

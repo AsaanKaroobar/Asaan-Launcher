@@ -10,7 +10,7 @@ Built with **Tauri 2 · Rust · React · TypeScript**. The original idea was ins
 
 ## Project status
 
-Asaaan Launcher is under active development. The current version is **0.2.0**, developed through tested checkpoints with explicit implementation, validation, local installation, and release gates.
+Asaaan Launcher is under active development. The current source version is **0.3.0** (unreleased), developed through tested checkpoints with explicit implementation, validation, local installation, and release gates. The latest public download is **0.2.0**.
 
 | Platform | Build and packaging | Interactive validation |
 | --- | --- | --- |
@@ -29,6 +29,7 @@ Download **[Asaaan Launcher 0.2.0](https://github.com/AsaanKaroobar/Asaan-Launch
 - **Extension Lists** — bundled commands with searchable lists, keyboard selection, actions, feedback, and resumable sessions.
 - **Terminal tools** — search applications without opening a window, or pipe lines into an interactive picker.
 - **Resident lifecycle** — tray access, a global shortcut on X11, a compositor toggle binding on Wayland, and bounded panel reuse for quick reopening.
+- **Automatic updates** — signed update checks with a startup Install/Later prompt and a tray **Check for updates…** action; Linux AppImage updates automatically, while `.deb` installs update manually.
 
 Available actions depend on platform capabilities and verified application identity. Extension support currently covers bundled commands and List views; arbitrary extension installation, Detail/Form views, a store, and scheduling are future work.
 
@@ -64,11 +65,11 @@ Run the command for your target operating system on that operating system:
 
 | Platform | Command | Output |
 | --- | --- | --- |
-| Linux | `npm run package:linux` | Debian `.deb` package |
+| Linux | `npm run package:linux` | Debian `.deb` package and AppImage |
 | macOS | `npm run tauri build -- --bundles dmg` | `.dmg` disk image |
 | Windows | `npm run tauri build -- --bundles nsis` | NSIS `.exe` installer |
 
-Packages are written under `src-tauri/target/release/bundle/`. The build prepares the extension runtime automatically. Signing and public release qualification are separate delivery steps.
+Packages are written under `src-tauri/target/release/bundle/`. On Linux the Debian package is the manual install and the AppImage is the automatic-update channel. The build prepares the extension runtime automatically. Signing and public release qualification are separate delivery steps.
 
 For a local Linux installation without root:
 
@@ -95,6 +96,15 @@ Open the launcher with **Ctrl+Alt+Space** on X11, your compositor binding on Way
 Choose the launcher theme in **Settings → General → Launcher theme**. The **Legacy** option retains the earlier green appearance. Extension views have their own navigation: Escape returns from the active extension.
 
 Closing the launcher hides the panel. **Quit** in the tray exits the resident application.
+
+### Updates
+
+Starting with 0.3.0, the resident checks for a signed release 15 seconds after startup and also offers **Check for updates…** in the tray. A newer version opens an **Install / Later** dialog; nothing is installed silently. **Later** leaves the current version running.
+
+- **Linux AppImage:** automatic updates download, verify, replace the AppImage and restart it. The AppImage is available with each release.
+- **Linux `.deb`:** automatic replacement is not attempted. Download and install the new `.deb` manually.
+- **Windows and macOS:** the same signed manifest drives NSIS and app-bundle updates. The current builds are unsigned and not notarized, so macOS Gatekeeper and Windows SmartScreen may warn or block the update.
+- **0.2.0 and earlier:** these versions do not contain the updater. Install 0.3.0 manually; 0.3.0 and later can update automatically.
 
 ### Wayland and Hyprland
 

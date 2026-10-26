@@ -1,6 +1,6 @@
 [package]
 name = "asaaan-launcher"
-version = "0.2.0"
+version = "0.3.0"
 description = "Asaaan Launcher cross-platform desktop application"
 edition = "2024"
 rust-version = "1.95"
@@ -31,6 +31,8 @@ asaaan-lifecycle = { path = "../crates/launcher-lifecycle" }
 tauri-plugin-global-shortcut = "2"
 tauri-plugin-single-instance = "2"
 asaaan-apps = { path = "../crates/launcher-apps" }
+tauri-plugin-updater = "2"
+tauri-plugin-dialog = "2"
 [target.'cfg(target_os = "linux")'.dependencies]
 libc = "0.2"
 gtk = "0.18"

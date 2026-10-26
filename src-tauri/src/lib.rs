@@ -20,6 +20,7 @@ mod resident;
 mod search_command;
 mod settings;
 mod startup;
+mod updater;
 mod windowing;
 use serde::Serialize;
 use tauri::Manager;
@@ -153,7 +154,9 @@ pub fn run() {
     let resident_smoke = std::env::args().any(|a| a == "--resident-smoke-test");
     let resident_mode =
         !picker_mode && !managed && !smoke_test_requested() && !application_smoke_requested();
-    let mut builder = tauri::Builder::default();
+    let mut builder = tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_dialog::init());
     if resident_mode && !resident_smoke {
         builder = builder.plugin(tauri_plugin_single_instance::init(|app, args, _| {
             if args.iter().any(|a| a == "--settings") {

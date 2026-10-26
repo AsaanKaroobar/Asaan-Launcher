@@ -126,7 +126,17 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
     let status = MenuItem::with_id(app, "shortcut", &shortcut_status, false, None::<&str>)?;
     let quit = MenuItem::with_id(app, "quit", "Quit Asaaan Launcher", true, None::<&str>)?;
     let settings = MenuItem::with_id(app, "settings", "Settings…", true, None::<&str>)?;
-    let menu = Menu::with_items(app, &[&show, &hide, &settings, &status, &quit])?;
+    let check_updates = MenuItem::with_id(
+        app,
+        "check-updates",
+        "Check for updates…",
+        true,
+        None::<&str>,
+    )?;
+    let menu = Menu::with_items(
+        app,
+        &[&show, &hide, &settings, &check_updates, &status, &quit],
+    )?;
     TrayIconBuilder::new()
         .icon(
             app.default_window_icon()
@@ -139,6 +149,7 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
             "show" => app.state::<Resident>().control.request(Request::Show),
             "hide" => app.state::<Resident>().control.request(Request::Hide),
             "settings" => app.state::<crate::settings::SettingsProcess>().show(None),
+            "check-updates" => crate::updater::check(app, true),
             "quit" => app.exit(0),
             _ => {}
         })
@@ -208,6 +219,9 @@ pub fn setup(app: &mut tauri::App, smoke: bool) -> Result<(), Box<dyn std::error
         || (!options.requested && !std::env::args().any(|a| a == "--background" || a == "--hide"))
     {
         control.request(Request::Show);
+    }
+    if !smoke {
+        crate::updater::schedule_startup_check(app.handle().clone());
     }
     Ok(())
 }

@@ -7,3 +7,7 @@ deployments/
 *.local
 .DS_Store
 .runtime-bundle/
+
+# Local updater signing keys must never be committed
+.tauri/
+*.key
