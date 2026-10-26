@@ -35,6 +35,20 @@ Available actions depend on platform capabilities and verified application ident
 
 ## Getting started
 
+### Install a release
+
+Linux and macOS can use the user-level installer. Download and inspect it before running:
+
+```sh
+curl -fsSLO https://raw.githubusercontent.com/AsaanKaroobar/Asaan-Launcher/main/install.sh
+less install.sh
+sh install.sh
+```
+
+The script verifies the release SHA-256 and installs without `sudo`. On Linux it places the AppImage in `~/.local/share/asaaan-launcher`, links `asaaan-launcher` into `~/.local/bin`, and creates a desktop entry. On macOS it copies `Asaaan Launcher.app` to `~/Applications`. Use `sh install.sh --version 0.3.0` to pin a release or `sh install.sh --uninstall` to remove it.
+
+Windows uses the NSIS `.exe` above. The Linux `.deb` remains available for manual Debian/Ubuntu installation; AppImage is the automatic-update channel. macOS builds are unsigned and not notarized, so Gatekeeper may still require approval for the first launch and may block automatic updates.
+
 ### Prerequisites
 
 - **Node.js 22.12+ within Node 22, or Node.js 24+**, with npm. CI uses Node 22.

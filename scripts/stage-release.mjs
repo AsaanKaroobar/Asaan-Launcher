@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const pkg = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
 const repo = 'AsaanKaroobar/Asaan-Launcher';
+const installScript = path.join(root, 'install.sh');
 
 function option(name, fallback) {
   const equals = process.argv.find((value) => value.startsWith(name + '='));
@@ -105,6 +106,7 @@ const copies = [
   [linuxUpdater.signature, linuxUpdater.signatureName],
   [windowsUpdater.file, windowsUpdater.name],
   [windowsUpdater.signature, windowsUpdater.signatureName],
+  [installScript, 'install.sh'],
 ].filter(([from, name]) => from && !(name === names.rawAppImage && from !== rawAppImage));
 
 const signatures = {
