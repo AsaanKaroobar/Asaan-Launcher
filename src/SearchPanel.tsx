@@ -61,6 +61,9 @@ export default function SearchPanel({ smokeTest = false, referenceCatalog = fals
     const focus = () => inputRef.current?.focus(); let disposed = false; let unlisten: (() => void) | undefined;
     window.addEventListener("focus", focus);
     void onPanelShown((sequence) => {
+      // Native focus can be reported repeatedly (including WebView2 child focus).
+      // Only a new resident presentation may reset UI state and editing focus.
+      if(lastPresentation.current===sequence)return;
       const reopening=lastPresentation.current!==null&&lastPresentation.current!==sequence;
       lastPresentation.current=sequence;
       if(extensionOpen.current)void readLauncherTheme().then(t=>{if(!disposed)applyTheme(t);}).catch(()=>{});
