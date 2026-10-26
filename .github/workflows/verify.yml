@@ -20,7 +20,7 @@ jobs:
           - os: windows-2022
             bundle: nsis
           - os: macos-14
-            bundle: dmg
+            bundle: dmg,app
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     steps:
