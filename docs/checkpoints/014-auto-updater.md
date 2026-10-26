@@ -1,6 +1,6 @@
 # Automatic updates (CP014 follow-up)
 
-The user authorized adding the Tauri updater plugin as a CP014 follow-up: signed updater artifacts, AppImage as the Linux update channel, a startup prompt with Install/Later, and a tray **Check for updates…** action. Silent installation is not implemented. Public release remains user controlled.
+The user authorized adding the Tauri updater plugin as a CP014 follow-up: signed updater artifacts, AppImage as the Linux update channel, a startup prompt with Install/Later, and a tray **Check for updates…** action. Silent installation is not implemented. Published as 0.3.0 on 2026-10-26; public releases remain user controlled.
 
 ## Behavior
 
@@ -52,7 +52,7 @@ The updater needs updater artifacts and a `latest.json` manifest in the release:
 
 - Frontend: **126 tests**; typecheck and parity checks pass.
 - Rust: **290 tests**; rustfmt and strict all-target Clippy pass.
-- Installed 0.3.0 Linux `.deb`: package SHA-256 `7e9f323eecf2cb754a2c510a7203212ff5cc45b824a364f63ecd53b43b303df1`; binary SHA-256 `e8985354707536b25d806cffc8f3a5597fc307a5634b65a5b43d1ef1c800c798`.
+- Installed 0.3.0 Linux `.deb` (exact CI artifact): package SHA-256 `12fc6e1737ec2d1941f007725a7291aad88e9b5ac9df45553b5591aae8ebfb60`; binary SHA-256 `f2602842ffb1919bed88c2eac43161c1ca78c3817f33a8dede7b3f65e9d2c860`.
 - The installed `.deb` passed the 7-stage Wayland/Hyprland test and the 2-stage picker/Settings test. The startup updater check ran; with only 0.2.0 published (no latest.json) it correctly logged a non-fatal check error.
 - Local end-to-end updater test with a test HTTP endpoint:
   - Test 0.3.0 AppImage SHA-256 `922277e50ce0f33d75277e6f6214150e59e38aa45a40374887653cc657701da2`.
@@ -61,7 +61,7 @@ The updater needs updater artifacts and a `latest.json` manifest in the release:
   - Return/Install downloaded the signed AppImage, verified the signed version, replaced the AppImage (final SHA-256 exactly the 0.3.1 target), and restarted as 0.3.1.
   - Evidence: `.artifacts/updater/evidence.json`, `later-cancel.log`, `install-restart.log`, `local-server.log`.
 - Release staging script tested with both raw-signature and archive-signature fixture layouts; `latest.json` URLs, signatures, and `SHA256SUMS` matched the staged files.
-- Hosted CI for the updater branch: pending in this record until the branch is pushed. The Linux CI job must build and sign both `.deb` and AppImage; the macOS/Windows jobs must produce updater artifacts before the 0.3.0 release can be staged.
+- Hosted CI passed all three platform jobs for `137f733` ([run 40292409934](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/runs/40292409934)): signed Linux `.deb` + AppImage, macOS DMG + `.app.tar.gz`, and Windows NSIS + signature. The exact CI Linux `.deb` passed the installed Wayland/picker/Settings tests and smokes.
 
 ## Limits and outstanding gates
 
@@ -72,7 +72,7 @@ The updater needs updater artifacts and a `latest.json` manifest in the release:
 - The prompt is a native dialog; on Hyprland it can appear without taking focus, so the user may need to select it. A future panel banner or notification could improve visibility.
 - The startup check contacts GitHub every resident start; no daily cache or opt-out preference is implemented. The check is skipped in smoke tests.
 - No automatic update check is performed by the panel or picker child processes.
-- Hosted CI and the public 0.3.0 release remain outstanding.
+- The public 0.3.0 release is published; see [release 0.3.0](../releases/0.3.0.md).
 
 ## Delivery status
 
@@ -80,4 +80,4 @@ The updater needs updater artifacts and a `latest.json` manifest in the release:
 - **Tested locally:** frontend, Rust, installed `.deb`, local prompt/cancel/install/restart.
 - **Installed locally:** 0.3.0 `.deb`, installed with `bsdtar`.
 - **Run locally:** Hyprland Wayland tests, picker/Settings, updater end-to-end.
-- **Downloadable public release:** pending and user controlled.
+- **Downloadable public release:** [0.3.0](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.3.0) published on 2026-10-26; all ten assets and checksums downloaded anonymously and verified; `latest.json` serves version 0.3.0.
