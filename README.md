@@ -10,7 +10,7 @@ Built with **Tauri 2 · Rust · React · TypeScript**. The original idea was ins
 
 ## Project status
 
-Asaaan Launcher is under active development. The current source version is **0.2.0** (unreleased), developed through tested checkpoints with explicit implementation, validation, local installation, and release gates. The latest public download is **0.1.1**.
+Asaaan Launcher is under active development. The current version is **0.2.0**, developed through tested checkpoints with explicit implementation, validation, local installation, and release gates.
 
 | Platform | Build and packaging | Interactive validation |
 | --- | --- | --- |
@@ -18,7 +18,7 @@ Asaaan Launcher is under active development. The current source version is **0.2
 | macOS | macOS CI; disk image | Manual desktop qualification pending |
 | Windows | Windows CI; NSIS installer | Native focus/reopen smoke; broader desktop qualification pending |
 
-Download **[Asaaan Launcher 0.1.1](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.1.1)** for Linux x64, Windows x64, or macOS Apple Silicon. The release includes installer checksums. Development builds and validation logs remain available through [GitHub Actions](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/workflows/verify.yml). See the [checkpoint overview](docs/CHECKPOINTS.md) for current delivery gates.
+Download **[Asaaan Launcher 0.2.0](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.2.0)** for Linux x64, Windows x64, or macOS Apple Silicon. The release includes installer checksums. Development builds and validation logs remain available through [GitHub Actions](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/workflows/verify.yml). See the [checkpoint overview](docs/CHECKPOINTS.md) for current delivery gates.
 
 ## Features
 

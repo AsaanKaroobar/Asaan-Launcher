@@ -2,7 +2,7 @@
 
 The user asked for Wayland support and confirmed this Hyprland machine as the test device. The selected scope is core Wayland plus Hyprland window behavior, with `--toggle` and a compositor binding instead of a Wayland global-shortcut service. Running-app controls remain out of scope. Public releases remain user controlled.
 
-Status: implemented, tested on the installed Linux 0.2.0 package, and run locally on Hyprland 0.56.2. Downloadable public release pending.
+Status: implemented, tested on the installed Linux 0.2.0 package, run locally on Hyprland 0.56.2, and published as [Asaaan Launcher 0.2.0](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.2.0) on 2026-10-26. The Windows focus repair from 0.1.1 is included.
 
 ## Behavior
 
@@ -37,12 +37,12 @@ Wayland sessions continue to report running-app Hide/Quit/Restart as unavailable
 
 Environment: Hyprland 0.56.2, native Wayland (`xwayland: false`), two monitors at scale 1.25, Waybar tray and the Hyprland portal present. The tests operate on the live session, show/hide only their own launcher windows, and send keyboard events only to the launcher's Hyprland address.
 
-- Frontend: **125 vitest tests** passed; `npm run check` passed TypeScript and every parity/check script.
+- Frontend: **126 vitest tests** passed after the Windows focus repair was merged; `npm run check` passed TypeScript and every parity/check script.
 - Rust: **290 workspace tests** passed; rustfmt and strict all-target Clippy passed.
-- Installed package: `Asaaan Launcher_0.2.0_amd64.deb`, 44.34 MiB, SHA-256 **b288d4f6914191ee968513c825ff55e2859f1f996811bdd97e82a7875f9797ea**.
-- Installed binary SHA-256: **a03d9982f218e5e5bb66be778023d8f65a0ed9fb78e395bbd761c9da99001ef5**.
-- Local install: `npm run install:local` extracted the package with `bsdtar` because this Arch host has no `dpkg-deb`; the manifest records `extractedWith: bsdtar`. `current` points at this package.
-- Installed run: `npm run start:local`. Resident PID 154819; native panel PID 154841 ran with `--shortcut-wayland`. Hyprland reported `xwayland:false`, `floating:true`, `(393,208) 750x474` on the focused eDP-1 work area, and the panel held focus. An earlier run of the same test path also centered on the second monitor at `(1929,208)`. `--quit` stopped it cleanly.
+- Installed package: CI-produced `Asaaan-Launcher_0.2.0_linux_amd64.deb`, 44.34 MiB, SHA-256 **63c778fc0d7f7726b2da9c383a1d2f6e302335de72f501ff6d8e0709ce9a4978**.
+- Installed binary SHA-256: **0f0d99687635f2a00612e479a7a868f650a97c26760c28048d6bebb1ba22399e**.
+- Local install: the exact CI Linux installer was extracted with `npm run install:local` using `bsdtar` because this Arch host has no `dpkg-deb`; the manifest records `extractedWith: bsdtar`. `current` points at this package.
+- Installed run: the exact CI Linux installer passed the 7-stage Wayland/Hyprland test, the 2-stage picker/Settings test, and the native frontend, application-launch and resident smokes. The resident reported `ASAAAN_SHORTCUT Wayland · bind asaaan-launcher --toggle`; the panel was native Wayland (`xwayland:false`), floating, `750x474`, correctly centered on the focused monitor, and focused. An earlier local integrated-build run also centered on the second monitor at `(1929,208)`; it is historical and not the release artifact.
 - `npm run test:wayland:hyprland` (7 stages): Wayland resident startup; native/floating/size/centered/focused panel; search results painted on the first hidden-created presentation; `cal` typed through Hyprland key delivery and filtered; Escape cleared then hid; grace-period `--toggle` reused the same panel process and regained focus; focus returned to the previous window and quit removed the panel.
 - `npm run test:wayland:windows` (2 stages): the standalone picker was native Wayland, floating, 750 × 474, centered and focused, typed `dev`, and returned `Development`; Settings was native Wayland, floating, 960 × 640, centered and focused, then closed on resident quit.
 - `npm run smoke:local` passed the installed native frontend/Tauri/Rust `cal` search.
@@ -62,17 +62,17 @@ Both commands require a live Hyprland Wayland session and skip if another reside
 
 ## Limits and outstanding gates
 
-- X11 native suites were not rerun locally because this host lacks Xvfb, KWin X11 and `xwininfo`. The X11 code paths remain unchanged except for shared `--toggle` argument forwarding; the Wayland-only presentation options are gated by session detection. Existing X11 native qualification and hosted CI remain the X11 gate.
-- Hosted CI has not run for this change because the branch has not been pushed. CI remains X11-only; it does not exercise Hyprland.
+- X11 native suites were not rerun on this local Arch host because it lacks Xvfb, KWin X11 and `xwininfo`. The Ubuntu CI job ran the full installed-native X11 suite at the release source and passed; the X11 code paths remain unchanged except for shared `--toggle` argument forwarding, and the Wayland-only presentation options are gated by session detection.
+- Hosted CI passed all three platform jobs for `7b901fa` ([main run](https://github.com/AsaanKaroobar/Asaan-Launcher/actions/runs/40280852894)); the Wayland and Windows branch runs for the same commit also passed. CI is X11-based on Linux and does not exercise Hyprland; the local Wayland tests above are the Hyprland qualification.
 - GNOME, KDE Wayland and other compositors are not tested. The compositor binding path is generic; Hyprland placement/focus is specific.
 - Running-app controls, layer-shell panel behavior and Wayland global-shortcut portals remain unimplemented.
-- Native macOS and Windows behavior is unaffected and not claimed.
-- The downloadable public release of 0.2.0 is pending and user controlled. The latest public download remains 0.1.0.
+- macOS and Windows CI packaging passed for 0.2.0; manual 0.2.0 desktop qualification remains pending. The Windows focus fix was interactively qualified for 0.1.1 and is included here.
+- The 0.2.0 downloadable public release is published and user controlled. The latest public download is 0.2.0.
 
 ## Delivery status
 
-- **Implemented:** runtime source `82e8b5569f2c56eb99f5649c7043f53e66882abc` on `checkpoint-15-wayland-hyprland`. A subsequent documentation-only commit records the delivery without changing the qualified runtime source.
-- **Tested locally:** frontend 125, Rust 290, parity/type checks, installed Wayland main and window tests, three installed smokes.
-- **Installed locally:** 0.2.0 Debian package extracted with `bsdtar` into `deployments/linux/current`.
-- **Run locally:** installed resident and panel on Hyprland 0.56.2; screenshots inspected.
-- **Downloadable public release:** pending and user controlled.
+- **Implemented:** final release source `7b901fa927b91433b5d9534119f8f3dea829e249`, combining Wayland commit `82e8b55` with Windows focus repair `98f864f`. `main`, `checkpoint-15-wayland-hyprland` and `checkpoint-14-windows-focus` were synced at this commit. A subsequent documentation-only commit records the delivery without changing the qualified runtime source.
+- **Tested locally:** frontend 126, Rust 290, parity/type checks, installed Wayland main and window tests, three installed smokes against the exact CI Linux installer.
+- **Installed locally:** the exact CI 0.2.0 Debian package extracted with `bsdtar` into `deployments/linux/current`; package SHA-256 `63c778fc…a4978`, binary SHA-256 `0f0d9968…2399e`.
+- **Run locally:** installed resident/panel, picker and Settings on Hyprland 0.56.2; native Wayland rendering and geometry inspected.
+- **Downloadable public release:** [0.2.0](https://github.com/AsaanKaroobar/Asaan-Launcher/releases/tag/0.2.0) published on 2026-10-26; assets and SHA-256 checksums downloaded anonymously and verified.
