@@ -82,7 +82,7 @@ The installer extracts the built Debian package into `deployments/linux/` and up
 
 ## Everyday use
 
-Open the launcher with **Ctrl+Alt+Space** on X11, your compositor binding on Wayland, or the tray menu. Type to search, move through results with the arrow keys, and press **Enter** to open a selection.
+Open the launcher with **Ctrl+Alt+Space** on X11 or the same compositor binding on Wayland, or the tray menu. Type to search, move through results with the arrow keys, and press **Enter** to open a selection.
 
 | Control | Action |
 | --- | --- |
@@ -108,16 +108,16 @@ Starting with 0.3.0, the resident checks for a signed release 15 seconds after s
 
 ### Wayland and Hyprland
 
-Wayland does not provide a portable global-shortcut API. On Wayland the resident does not install an X11 shortcut grab. Bind the toggle in your compositor instead; on Hyprland:
+Wayland does not provide a portable global-shortcut API. On Wayland the resident does not install an X11 shortcut grab. Bind the toggle in your compositor instead; the default binding is **Ctrl+Alt+Space**, matching X11. On Hyprland:
 
 ```ini
-bindd = SUPER, SPACE, Asaaan Launcher, exec, asaaan-launcher --toggle
+bindd = CTRL ALT, SPACE, Asaaan Launcher, exec, asaaan-launcher --toggle
 ```
 
 After a local install, use the installed path if it is not in `PATH`:
 
 ```ini
-bindd = SUPER, SPACE, Asaaan Launcher, exec, /path/to/Asaan-Launcher/deployments/linux/current/usr/bin/asaaan-launcher --toggle
+bindd = CTRL ALT, SPACE, Asaaan Launcher, exec, /path/to/Asaan-Launcher/deployments/linux/current/usr/bin/asaaan-launcher --toggle
 ```
 
 `--toggle` is forwarded to the running resident through single-instance; the first invocation starts it. The tray remains available (Waybar's `tray` module). On Hyprland the launcher, Settings and picker are floated, sized, centered on the focused monitor's usable area, and focused through Hyprland's local IPC socket. Other Wayland compositors keep their own placement and focus policy. Running-app controls remain unavailable on Wayland and are reported as such.

@@ -6,10 +6,10 @@ Status: implemented, tested on the installed Linux 0.2.0 package, run locally on
 
 ## Behavior
 
-Wayland has no portable global-shortcut API. On Wayland the resident does not install the X11 global-shortcut backend; it reports a bind hint instead. `asaaan-launcher --toggle` is forwarded to the existing resident through single-instance and toggles the panel. The first invocation starts the resident and presents the panel. A compositor binding is the supported shortcut path, for example:
+Wayland has no portable global-shortcut API. On Wayland the resident does not install the X11 global-shortcut backend; it reports a bind hint instead. `asaaan-launcher --toggle` is forwarded to the existing resident through single-instance and toggles the panel. The first invocation starts the resident and presents the panel. A compositor binding is the supported shortcut path. The default binding is **Ctrl+Alt+Space**, matching the X11 shortcut; for example:
 
 ```ini
-bindd = SUPER, SPACE, Asaaan Launcher, exec, asaaan-launcher --toggle
+bindd = CTRL ALT, SPACE, Asaaan Launcher, exec, asaaan-launcher --toggle
 ```
 
 The tray remains available. The Legacy header and tray status show the same Wayland hint.
